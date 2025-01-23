@@ -71,3 +71,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+# /[Aa]ssets/Joystick Pack.meta
+# /[Aa]ssets/Joystick Pack/*
+

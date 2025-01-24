@@ -10,6 +10,7 @@ namespace TON
 
         TitleUI,
         IngameUI,
+        ControllerUI,
         LogUI,
 
 

@@ -8,6 +8,7 @@ namespace TON
     {
         public virtual void Show()
         {
+            Instantiate(Resources.Load("EventSystem/Prefabs/TON.EventSystem"));
             gameObject.SetActive(true);
         }
 

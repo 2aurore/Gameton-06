@@ -9,7 +9,7 @@ namespace TON
     public class BootStrapper
     {
 
-        private const string BootStrapperMenuPath = "Game One/BootStrapper/Activate Ingame System";
+        private const string BootStrapperMenuPath = "Gameton/BootStrapper/Activate Ingame System";
         private static bool IsActivateBootStrapper
         {
             get => UnityEditor.EditorPrefs.GetBool(BootStrapperMenuPath, false);
@@ -43,7 +43,7 @@ namespace TON
             Main.Singleton.Initialize();
 
             // TODO : Custom Order After System Load
-            // UIManager.Show<IngameUI>(UIList.IngameUI);
+            UIManager.Show<ControllerUI>(UIList.ControllerUI);
             // UIManager.Show<LogUI>(UIList.LogUI);
         }
     }

@@ -40,7 +40,7 @@ namespace TON
         private Canvas canvas;
         private Camera cam;
 
-        private Vector2 input = Vector2.zero;
+        public Vector2 input = Vector2.zero;
 
         protected virtual void Start()
         {

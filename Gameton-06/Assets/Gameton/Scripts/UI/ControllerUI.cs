@@ -9,6 +9,7 @@ namespace TON
     {
         public static ControllerUI Instance => UIManager.Singleton.GetUI<ControllerUI>(UIList.ControllerUI);
 
+        public VariableJoystick joystick;
         private void Start()
         {
 

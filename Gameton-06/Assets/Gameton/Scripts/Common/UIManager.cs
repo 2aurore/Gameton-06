@@ -6,6 +6,7 @@ namespace TON
 {
     public class UIManager : SingletonBase<UIManager>
     {
+        public VariableJoystick joystick; // Joystick 컴포넌트를 참조
         public static T Show<T>(UIList uiName) where T : UIBase
         {
             var targetUI = Singleton.GetUI<T>(uiName);

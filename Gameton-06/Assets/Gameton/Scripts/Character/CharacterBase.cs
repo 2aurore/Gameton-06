@@ -8,8 +8,10 @@ namespace TON
     {
 
         public float speed;
-        public float jumpForce = 10f;  // 점프 힘
+        public float jumpForce = 5f;  // 점프 힘
         private bool isGrounded = true; // 플레이어가 바닥에 있는지 여부를 판단
+
+        public Animator animator;
 
         private VariableJoystick joystick;
         public Rigidbody2D rb;
@@ -17,6 +19,7 @@ namespace TON
 
         public void Start()
         {
+            animator = GetComponent<Animator>();
             joystick = ControllerUI.Instance.joystick;
             ControllerUI.Instance.linkedCharactor = this;
         }
@@ -29,6 +32,9 @@ namespace TON
             {
                 horizontalInput = joystick.Horizontal; // 조이스틱 입력 우선
             }
+
+            // TODO: 걷는 애니메이션 적용
+            animator.SetBool("IsMoving", Mathf.Abs(horizontalInput) > 0f);
 
             // 좌우 이동 처리 (X축 속도 설정)
             float newVelocityX = horizontalInput * speed;
@@ -67,6 +73,7 @@ namespace TON
 
         public void Attack()
         {
+            // TODO: 공격 애니메이션 적용
             Debug.Log("character Attack");
         }
 

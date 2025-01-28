@@ -20,12 +20,14 @@ namespace TON
             }
 
             UIManager.Show<IngameUI>(UIList.IngameUI);
+            UIManager.Show<ControllerUI>(UIList.ControllerUI);
         }
         public override IEnumerator OnEnd()
         {
             yield return null;
 
             UIManager.Hide<IngameUI>(UIList.IngameUI);
+            UIManager.Hide<ControllerUI>(UIList.ControllerUI);
         }
 
         void OnEscapeExecute()

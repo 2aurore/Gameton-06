@@ -5,6 +5,10 @@ using UnityEngine.EventSystems;
 
 namespace TON
 {
+
+    /// <summary>
+    /// Joystick Assets에서 가져온 조이스틱 기본 동작 스크립트
+    /// </summary>
     public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
         public float Horizontal { get { return (snapX) ? SnapFloat(input.x, AxisOptions.Horizontal) : input.x; } }

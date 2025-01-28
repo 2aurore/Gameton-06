@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 namespace TON
 {
+    /// <summary>
+    /// Joystick Assets에서 가져온 조이스틱 초기화 스크립트
+    /// </summary>
     public class VariableJoystick : Joystick
     {
         public float MoveThreshold { get { return moveThreshold; } set { moveThreshold = Mathf.Abs(value); } }

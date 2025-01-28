@@ -9,6 +9,7 @@ namespace TON
         public void OnClickStartButton()
         {
             // Main.Singleton?.ChangeScene(SceneType.Ingame);
+            UIManager.Hide<TitleUI>(UIList.TitleUI);
 
             // TODO: 현재 가지고 있는 캐릭터가 없다면 CharaterCreateUI 를 보여주고
             UIManager.Show<CharaterCreateUI>(UIList.CharaterCreateUI);

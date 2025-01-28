@@ -21,6 +21,12 @@ namespace TON
 
             UIManager.Show<IngameUI>(UIList.IngameUI);
             UIManager.Show<ControllerUI>(UIList.ControllerUI);
+
+
+            string selectedCharacter = PlayerPrefs.GetString("SelectedCharacter", "DefaultCharacter");
+            Debug.Log("선택된 캐릭터: " + selectedCharacter);
+
+            // 선택된 캐릭터에 맞는 오브젝트를 생성하거나 적용하는 코드 작성
         }
         public override IEnumerator OnEnd()
         {

@@ -9,6 +9,7 @@ namespace TON
         PANEL_START,
 
         TitleUI,
+        CharaterCreateUI,
         IngameUI,
         ControllerUI,
         LogUI,

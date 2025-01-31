@@ -7,10 +7,13 @@ namespace TON
 {
     public class JSONLoader : MonoBehaviour
     {
+        private const string DATA_PATH = "GameData/";
+
         /// <summary> Resources 폴더에서 JSON 파일을 읽어 특정 데이터 타입으로 변환하는 함수 </summary>
         public static T LoadFromResources<T>(string fileName)
         {
-            TextAsset jsonFile = Resources.Load<TextAsset>(fileName);
+            string path = DATA_PATH + $"{fileName}";
+            TextAsset jsonFile = Resources.Load<TextAsset>(path);
             if (jsonFile != null)
             {
                 return JsonUtility.FromJson<T>(jsonFile.text);

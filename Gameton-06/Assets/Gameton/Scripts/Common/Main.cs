@@ -12,6 +12,7 @@ namespace TON
         Empty,
         Title,
         Ingame,
+        Lobby,
     }
 
     public class Main : SingletonBase<Main>
@@ -63,6 +64,9 @@ namespace TON
                     break;
                 case SceneType.Ingame:
                     StartCoroutine(ChangeScene<IngameScene>(onSceneChangeCompletedCallback));
+                    break;
+                case SceneType.Lobby:
+                    StartCoroutine(ChangeScene<LobbyScene>(onSceneChangeCompletedCallback));
                     break;
             }
         }

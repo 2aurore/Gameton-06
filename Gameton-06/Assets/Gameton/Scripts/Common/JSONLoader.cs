@@ -26,8 +26,10 @@ namespace TON
         }
 
         /// <summary> Application.persistentDataPath에서 JSON 파일을 읽어 특정 데이터 타입으로 변환하는 함수 </summary>
-        public static T LoadFromFile<T>(string filePath)
+        public static T LoadFromFile<T>(string fileName)
         {
+            string filePath = Application.persistentDataPath + "/" + fileName;
+
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);

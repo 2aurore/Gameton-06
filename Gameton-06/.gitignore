@@ -74,3 +74,5 @@ crashlytics-build.properties
 # /[Aa]ssets/Joystick Pack.meta
 # /[Aa]ssets/Joystick Pack/*
 
+/[Aa]ssets/Samples.meta
+/[Aa]ssets/Samples/*

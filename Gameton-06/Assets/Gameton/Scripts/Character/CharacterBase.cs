@@ -44,6 +44,16 @@ namespace TON
 
             // 디버그용 출력
             // Debug.Log($"Horizontal Input: {horizontalInput}, Velocity: {rb.velocity}");
+            Turn(rb.velocity.x);
+        }
+
+        private void Turn(float direction)
+        {
+            var scale = transform.localScale;
+
+            scale.x = Mathf.Sign(direction) * Mathf.Abs(scale.x);
+
+            transform.localScale = scale;
         }
 
         public void Jump()

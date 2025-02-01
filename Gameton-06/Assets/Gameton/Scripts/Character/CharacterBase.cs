@@ -33,7 +33,7 @@ namespace TON
                 horizontalInput = joystick.Horizontal; // 조이스틱 입력 우선
             }
 
-            // TODO: 걷는 애니메이션 적용
+            // 걷는 애니메이션 적용
             animator.SetBool("IsMoving", Mathf.Abs(horizontalInput) > 0f);
 
             // 좌우 이동 처리 (X축 속도 설정)
@@ -42,17 +42,15 @@ namespace TON
             // Rigidbody2D의 속도 업데이트 (X축은 입력값 기반, Y축은 중력/점프 유지)
             rb.velocity = new Vector2(newVelocityX, rb.velocity.y);
 
-            // 디버그용 출력
-            // Debug.Log($"Horizontal Input: {horizontalInput}, Velocity: {rb.velocity}");
             Turn(rb.velocity.x);
         }
 
+        // 캐릭터가 양방향으로 이동시에 알맞은 방향을 바라보도록 적용
         private void Turn(float direction)
         {
             var scale = transform.localScale;
 
             scale.x = Mathf.Sign(direction) * Mathf.Abs(scale.x);
-
             transform.localScale = scale;
         }
 
@@ -61,8 +59,6 @@ namespace TON
             // 바닥에 있을 때만 점프 가능
             if (isGrounded)
             {
-                Debug.Log("Character Jump");
-
                 // 점프: 기존 X축 속도 유지, Y축 속도를 점프 힘으로 설정
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 
@@ -83,8 +79,7 @@ namespace TON
 
         public void Attack()
         {
-            // TODO: 공격 애니메이션 적용
-            Debug.Log("character Attack");
+            // 공격 애니메이션 적용
             animator.Play("Default Attack");
         }
 

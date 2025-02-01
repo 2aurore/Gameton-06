@@ -10,6 +10,7 @@ namespace TON
 
         TitleUI,
         CharaterCreateUI,
+        CharaterSelectUI,
         IngameUI,
         ControllerUI,
         LogUI,

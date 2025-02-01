@@ -1,0 +1,62 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace TON
+{
+    public class CharaterSelectUI : UIBase
+    {
+
+        [SerializeField] private Button createButton; // Create 버튼 참조
+        [SerializeField] private Button playButton; // Play 버튼 참조
+
+        [SerializeField] private List<PlayerData> playerDatas;
+
+        public List<CharaterSelectUI_SlotItem> CharacterSlots = new List<CharaterSelectUI_SlotItem>();
+
+        public SerializableDictionary<string, Sprite> CharacterSpriteDict = new SerializableDictionary<string, Sprite>();
+
+
+        private void Start()
+        {
+            // 캐릭터를 선택한 이후에 버튼 활성화 할 수 있도록 초기 비활성화 적용
+            playButton.interactable = false;
+
+            if (playerDatas.Count >= 5)
+            {
+                // 캐릭터 슬롯을 모두 사용하고 있다면 버튼 비활성화 적용
+                createButton.interactable = false;
+            }
+
+            for (int i = 0; i < playerDatas.Count; i++)
+            {
+                CharacterSpriteDict.TryGetValue(playerDatas[i].type, out Sprite sprite);
+                string name = playerDatas[0].name != null ? playerDatas[0].name : "";
+
+                if (sprite)
+                {
+                    CharacterSlots[i].SetCharaterData(sprite, name);
+                }
+            }
+
+        }
+
+        public void SetPlayerDatas(List<PlayerData> datas)
+        {
+            playerDatas = datas;
+        }
+
+        public void OnClickPlayButton()
+        {
+
+        }
+
+        public void OnClickCreateButton()
+        {
+            UIManager.Show<CharaterCreateUI>(UIList.CharaterCreateUI);
+            UIManager.Hide<CharaterSelectUI>(UIList.CharaterSelectUI);
+        }
+    }
+}

@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0dce4fb90a31a43927108fa0c15b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
+  charaterSelectUI: {fileID: 4108690129144757636, guid: 60a165f7709a3934093a4d7df75bad04, type: 3}
 --- !u!1 &3755966474430767593
 GameObject:
   m_ObjectHideFlags: 0

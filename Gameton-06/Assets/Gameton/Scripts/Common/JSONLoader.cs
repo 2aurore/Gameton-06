@@ -14,8 +14,15 @@ namespace TON
         [Serializable]
         private class Wrapper<T>
         {
-            public List<T> items;
+            public T items;
         }
+
+        /// <summary> JSON 배열을 강제로 Wrapper<T> 형태로 감싸기 위한 함수 </summary>
+        private static string WrapArray(string jsonArray)
+        {
+            return "{\"items\":" + jsonArray + "}";
+        }
+
 
         /// <summary> Resources 폴더에서 JSON 파일을 읽어 특정 데이터 타입으로 변환하는 함수 </summary>
         public static T LoadFromResources<T>(string fileName)
@@ -33,17 +40,20 @@ namespace TON
             {
                 string jsonText = jsonFile.text;
 
-                // T가 List<> 형태인지 검사
+                // 🎯 [배열] JSON인지 확인 (배열이면 직접 변환)
                 if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(List<>))
                 {
-                    // JSON을 감싸는 래퍼 추가하여 변환
-                    string wrappedJson = "{\"items\":" + jsonText + "}";
-                    Type itemType = typeof(T).GetGenericArguments()[0]; // 리스트의 요소 타입 가져오기
-                    Type wrapperType = typeof(Wrapper<>).MakeGenericType(itemType); // Wrapper<T> 생성
-                    object wrapperInstance = JsonUtility.FromJson(wrappedJson, wrapperType); // 변환 실행
-                    return (T)wrapperType.GetField("items").GetValue(wrapperInstance); // 리스트 추출
+                    if (jsonText.StartsWith("["))
+                    {
+                        return JsonUtility.FromJson<Wrapper<T>>(WrapArray(jsonText)).items;
+                    }
+                    else
+                    {
+                        // JSON이 Wrapper<T>로 감싸져 있는지 확인 후 변환
+                        Wrapper<T> wrapperInstance = JsonUtility.FromJson<Wrapper<T>>(jsonText);
+                        return wrapperInstance.items;
+                    }
                 }
-
                 // 일반 객체 변환
                 return JsonUtility.FromJson<T>(jsonText);
             }
@@ -72,11 +82,29 @@ namespace TON
         }
 
         /// <summary> 특정 데이터를 JSON 형식으로 저장하는 함수 </summary>
-        public static void SaveToFile<T>(T data, string filePath)
+        public static void SaveToFile<T>(T data, string fileName)
         {
-            string json = JsonUtility.ToJson(data, true);
-            File.WriteAllText(filePath, json);
-            Debug.Log($"데이터 저장 완료: {filePath}");
+            string path = $"Assets/Gameton/Resources/{DATA_PATH}{fileName}.json";
+            string json;
+
+            // [리스트] 형식인지 확인
+            if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(List<>))
+            {
+                // 리스트 데이터를 감싸는 래퍼 클래스를 사용하여 JSON 변환
+                Wrapper<T> wrapper = new Wrapper<T> { items = data };
+                json = JsonUtility.ToJson(wrapper, true);
+            }
+            else
+            {
+                // 일반 객체는 그대로 JSON 변환
+                json = JsonUtility.ToJson(data, true);
+            }
+
+            File.WriteAllText(path, json);
+            Debug.Log($"파일 저장 성공 ::: {fileName}.json");
         }
+
+
+
     }
 }

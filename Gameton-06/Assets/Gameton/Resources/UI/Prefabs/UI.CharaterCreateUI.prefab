@@ -314,7 +314,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &6736657530173519912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createButton: {fileID: 1887714318721360375}
+  playerDatas: []
 --- !u!114 &77879358058366330
 MonoBehaviour:
   m_ObjectHideFlags: 0

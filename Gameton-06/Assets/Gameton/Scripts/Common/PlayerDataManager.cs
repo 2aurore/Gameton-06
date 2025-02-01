@@ -21,7 +21,6 @@ namespace TON
             if (players == null)
             {
                 players = new List<PlayerData>();
-                Debug.LogError("⚠️ Player data loading failed. Check if 'Player.json' exists in Resources folder.");
             }
         }
     }

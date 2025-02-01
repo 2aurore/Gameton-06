@@ -13,6 +13,7 @@ namespace TON
         CharaterSelectUI,
         IngameUI,
         ControllerUI,
+        LobbyUI,
         LogUI,
 
 
@@ -21,6 +22,7 @@ namespace TON
         POPUP_START,
         PausePopupUI,
         LoadingUI,
+
 
 
         POPUP_END,

@@ -23,6 +23,8 @@ namespace TON
 
         private void Start()
         {
+            playerDatas = PlayerDataManager.Singleton.players;
+
             // 캐릭터를 선택한 이후에 버튼 활성화 할 수 있도록 초기 비활성화 적용
             playButton.interactable = false;
 
@@ -45,10 +47,6 @@ namespace TON
 
         }
 
-        public void SetPlayerDatas(List<PlayerData> datas)
-        {
-            playerDatas = datas;
-        }
 
         public void SelectCharacter(int index)
         {

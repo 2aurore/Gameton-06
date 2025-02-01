@@ -13,7 +13,8 @@ namespace TON
             // Main.Singleton?.ChangeScene(SceneType.Ingame);
             UIManager.Hide<TitleUI>(UIList.TitleUI);
 
-            List<PlayerData> players = JSONLoader.LoadFromResources<List<PlayerData>>("Player");
+            // 플레이어가 가지고 있는 캐릭터들의 데이터 불러옴
+            List<PlayerData> players = PlayerDataManager.Singleton.players;
 
             if (players == null)
             {
@@ -23,7 +24,6 @@ namespace TON
             else
             {
                 // 캐릭터가 있다면 내 캐릭터 목록에서 선택할 수 있도록 함
-                charaterSelectUI.SetPlayerDatas(players);
                 UIManager.Show<CharaterSelectUI>(UIList.CharaterSelectUI);
             }
         }

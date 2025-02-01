@@ -31,7 +31,7 @@ namespace TON
         {
             if (string.IsNullOrEmpty(selectedCharacter))
             {
-                Debug.Log("캐릭터를 선택하세요!");
+                // 캐릭터 선택되지 않은 상태에서 버튼 동작 되지 않도록 적용
                 return;
             }
 

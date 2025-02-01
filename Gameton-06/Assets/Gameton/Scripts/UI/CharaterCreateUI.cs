@@ -8,11 +8,14 @@ namespace TON
     public class CharaterCreateUI : UIBase
     {
         [SerializeField] private Button createButton; // Create 버튼 참조
+        [SerializeField] private List<PlayerData> playerDatas;
+
 
         private string selectedCharacter; // 선택한 캐릭터의 타입 저장 (예: "MaleCat", "FemaleCat")
 
         private void Start()
         {
+            playerDatas = PlayerDataManager.Singleton.players;
             // 처음에는 버튼을 비활성화
             createButton.interactable = false;
         }
@@ -32,9 +35,14 @@ namespace TON
                 return;
             }
 
-            // 선택된 캐릭터 정보를 저장 (다음 씬에서도 사용할 수 있도록)
-            PlayerPrefs.SetString("SelectedCharacter", selectedCharacter);
-            // TODO: 생성한 캐릭터를 어떻게 저장할지???
+            // 선택된 캐릭터 인덱스 정보를 저장 (다음 씬에서도 사용할 수 있도록)
+            PlayerPrefs.SetInt("SelectedPlayerIndex", playerDatas.Count);
+
+            // TODO: 캐릭터 이름 받아서 생성하게끔 로직 변경 필요
+            // 생성한 캐릭터를 저장한다
+            PlayerData player = new PlayerData(playerDatas.Count, selectedCharacter, "name");
+            playerDatas.Add(player);
+            JSONLoader.SaveToFile(playerDatas, "player");
 
 
             // 씬 변경

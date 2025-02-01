@@ -57,6 +57,8 @@ namespace TON
 
         public void OnClickPlayButton()
         {
+            PlayerPrefs.SetInt("SelectedPlayerIndex", currentSelectCharacterIndex);
+
             Debug.Log(currentSelectCharacterIndex);
         }
 

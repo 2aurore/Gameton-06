@@ -14,6 +14,8 @@ namespace TON
 
         [SerializeField] private List<PlayerData> playerDatas;
 
+        private int currentSelectCharacterIndex;
+
         public List<CharaterSelectUI_SlotItem> CharacterSlots = new List<CharaterSelectUI_SlotItem>();
 
         public SerializableDictionary<string, Sprite> CharacterSpriteDict = new SerializableDictionary<string, Sprite>();
@@ -37,7 +39,7 @@ namespace TON
 
                 if (sprite)
                 {
-                    CharacterSlots[i].SetCharaterData(sprite, name);
+                    CharacterSlots[i].SetCharaterData(sprite, name, i);
                 }
             }
 
@@ -48,9 +50,16 @@ namespace TON
             playerDatas = datas;
         }
 
+        public void SelectCharacter(int index)
+        {
+            Debug.Log("선택한 캐릭터 인덱스" + index);
+            currentSelectCharacterIndex = index;
+            playButton.interactable = true;
+        }
+
         public void OnClickPlayButton()
         {
-
+            Debug.Log(currentSelectCharacterIndex);
         }
 
         public void OnClickCreateButton()

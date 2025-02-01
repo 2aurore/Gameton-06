@@ -10,12 +10,29 @@ namespace TON
     {
         [SerializeField] private Image character_image;
         [SerializeField] private TextMeshProUGUI charater_name;
+        [SerializeField] private int index;
 
-        public void SetCharaterData(Sprite image, string name)
+        private CharaterSelectUI charaterSelectUI;
+
+        public void SetCharaterData(Sprite image, string name, int i)
         {
             character_image.sprite = image;
             charater_name.text = name;
+            index = i;
         }
 
+        private void Start()
+        {
+            // 상위 오브젝트에서 CharacterSelectUI 찾기
+            charaterSelectUI = FindObjectOfType<CharaterSelectUI>();
+
+            // 버튼 클릭 이벤트 등록
+            GetComponent<Button>().onClick.AddListener(OnClickPlayer);
+        }
+
+        public void OnClickPlayer()
+        {
+            charaterSelectUI.SelectCharacter(index);
+        }
     }
 }

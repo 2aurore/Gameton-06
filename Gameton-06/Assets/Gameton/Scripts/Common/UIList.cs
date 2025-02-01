@@ -22,6 +22,7 @@ namespace TON
         POPUP_START,
         PausePopupUI,
         LoadingUI,
+        StageEntryUI,
 
 
 

@@ -8,7 +8,8 @@ namespace TON
     {
         public void OnClickStageEntryButton()
         {
-            Debug.Log("StageEntry");
+            UIManager.Hide<LobbyUI>(UIList.LobbyUI);
+            UIManager.Show<StageEntryUI>(UIList.StageEntryUI);
         }
     }
 }

@@ -327,7 +327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce1a1854c76bcd140a71eb36d9308221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
   createButton: {fileID: 1887714318721360375}
 --- !u!114 &77879358058366330
 MonoBehaviour:
@@ -464,7 +463,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 77879358058366330}
         m_TargetAssemblyTypeName: TON.CharaterSelection, Assembly-CSharp
-        m_MethodName: OnSelectFemaleCat
+        m_MethodName: OnSelectWhiteCat
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1040,7 +1039,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 77879358058366330}
         m_TargetAssemblyTypeName: TON.CharaterSelection, Assembly-CSharp
-        m_MethodName: OnSelectMaleCat
+        m_MethodName: OnSelectBlackCat
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

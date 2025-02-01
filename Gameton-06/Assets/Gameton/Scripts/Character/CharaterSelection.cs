@@ -8,14 +8,14 @@ namespace TON
     {
         public CharaterCreateUI characterCreateUI;
 
-        public void OnSelectMaleCat()
+        public void OnSelectBlackCat()
         {
-            characterCreateUI.SelectCharacter("MaleCat");
+            characterCreateUI.SelectCharacter("BlackCat");
         }
 
-        public void OnSelectFemaleCat()
+        public void OnSelectWhiteCat()
         {
-            characterCreateUI.SelectCharacter("FemaleCat");
+            characterCreateUI.SelectCharacter("WhiteCat");
         }
     }
 }

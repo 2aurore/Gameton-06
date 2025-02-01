@@ -68,8 +68,17 @@ namespace TON
 
         public override IEnumerator OnEnd()
         {
-            yield return null;
+            // TON.Player 내부의 캐릭터 삭제
+            GameObject playerObj = GameObject.Find("TON.Player");
+            if (playerObj != null)
+            {
+                foreach (Transform child in playerObj.transform)
+                {
+                    GameObject.Destroy(child.gameObject);
+                }
+            }
 
+            yield return null;
         }
 
     }

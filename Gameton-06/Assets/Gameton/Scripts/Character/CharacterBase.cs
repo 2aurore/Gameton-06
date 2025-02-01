@@ -85,6 +85,7 @@ namespace TON
         {
             // TODO: 공격 애니메이션 적용
             Debug.Log("character Attack");
+            animator.Play("Default Attack");
         }
 
 

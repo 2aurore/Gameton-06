@@ -21,7 +21,6 @@ namespace TON
                 yield return null;
             }
 
-
             UIManager.Show<LobbyUI>(UIList.LobbyUI);
             PlayerSpawner.SpawnPlayerCharacter();
         }

@@ -9,10 +9,13 @@ namespace TON
     {
         public void OnPressPause()
         {
-            UIManager.Show<PauseUI>(UIList.PauseUI);
+            // UIManager.Show<PauseUI>(UIList.PauseUI);
+           
             Debug.Log("버튼 클릭");
-
-            Time.timeScale = 0f;
+            
+            
+            // 게임 일시 정지
+            // Time.timeScale = 0f;
         }
     }
 }

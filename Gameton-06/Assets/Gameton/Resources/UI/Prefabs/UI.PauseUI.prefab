@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 5700419407644901308}
   - component: {fileID: 5548964514549469899}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LifeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 6282812778569934541}
   - component: {fileID: 8719601141685833893}
   m_Layer: 5
-  m_Name: Image
+  m_Name: HomeImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 5851657129592222726}
   - component: {fileID: 2771084353127925377}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ContinueImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -663,7 +663,7 @@ GameObject:
   - component: {fileID: 6405668340545745690}
   - component: {fileID: 248277197586773792}
   m_Layer: 5
-  m_Name: Image
+  m_Name: RetryImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -814,7 +814,7 @@ GameObject:
   - component: {fileID: 4134337246278512075}
   - component: {fileID: 1208558973457513949}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: RetryText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1082,7 +1082,7 @@ GameObject:
   - component: {fileID: 4047406410400155201}
   - component: {fileID: 4947493580865088661}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PauseText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1216,7 +1216,7 @@ GameObject:
   - component: {fileID: 1664888020952220712}
   - component: {fileID: 1728527144193990239}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ContinueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1357,7 +1357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5830140097779826096
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1456,3 +1456,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f5b0c2758d43b42a74f7fe4ae3a7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resumeButton: {fileID: 5341286469171996293}
+  quitButton: {fileID: 0}

@@ -37,7 +37,7 @@ namespace TON
             for (int i = 0; i < playerDatas.Count; i++)
             {
                 CharacterSpriteDict.TryGetValue(playerDatas[i].type, out Sprite sprite);
-                string name = playerDatas[0].name != null ? playerDatas[0].name : "";
+                string name = playerDatas[i].name != null ? playerDatas[i].name : "";
 
                 if (sprite)
                 {

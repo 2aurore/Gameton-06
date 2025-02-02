@@ -30,6 +30,18 @@ namespace TON
 
 
 
+        public void OnPressPauseButton()
+        {
+            UIManager.Show<PauseUI>(UIList.PauseUI);
+
+            Debug.Log("버튼 클릭");
+
+            // UIManager.Show<PauseUI>(UIList.PauseUI);
+
+
+            // 게임 일시 정지
+            // Time.timeScale = 0f;
+        }
 
     }
 }

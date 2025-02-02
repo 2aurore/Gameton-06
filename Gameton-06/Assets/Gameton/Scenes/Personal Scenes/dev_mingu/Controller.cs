@@ -20,15 +20,15 @@ namespace TON
         private void Update()
         {
             bool isMoving = false;
-            
+
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 var position = _cachedTransform.position;
                 position.x += 5.0f * Time.deltaTime;
                 _cachedTransform.position = position;
-                
+
                 isMoving = true;
-                
+
                 _spriteRenderer.flipX = false;
             }
             if (Input.GetKey(KeyCode.LeftArrow))
@@ -36,9 +36,9 @@ namespace TON
                 var position = _cachedTransform.position;
                 position.x -= 5.0f * Time.deltaTime;
                 _cachedTransform.position = position;
-                
+
                 isMoving = true;
-                
+
                 _spriteRenderer.flipX = true;
             }
             if (Input.GetKey(KeyCode.UpArrow))
@@ -46,13 +46,13 @@ namespace TON
                 var position = _cachedTransform.position;
                 position.y += 10.0f * Time.deltaTime;
                 _cachedTransform.position = position;
-                
+
                 isMoving = true;
-                
+
                 _spriteRenderer.flipX = true;
             }
-            
-            _anmator.SetBool("IsMoving", isMoving);
+
+            // _anmator.SetBool("IsMoving", isMoving);
         }
     }
 }

@@ -15,6 +15,11 @@ namespace TON
         ControllerUI,
         LobbyUI,
         LogUI,
+        
+        
+        GameOverUI,
+        GameWinUI,
+        PauseUI,
 
 
         PANEL_END,

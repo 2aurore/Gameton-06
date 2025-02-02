@@ -59,7 +59,6 @@ namespace TON
         {
             PlayerPrefs.SetInt("SelectedPlayerIndex", currentSelectCharacterIndex);
 
-            Debug.Log(currentSelectCharacterIndex);
             UIManager.Hide<CharaterSelectUI>(UIList.CharaterSelectUI);
 
             Main.Singleton?.ChangeScene(SceneType.Lobby);

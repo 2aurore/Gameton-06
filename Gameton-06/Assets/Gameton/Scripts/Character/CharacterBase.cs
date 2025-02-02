@@ -4,8 +4,14 @@ using UnityEngine;
 
 namespace TON
 {
-    public class CharacterBase : MonoBehaviour
+    public class CharacterBase : MonoBehaviour, IDamage
     {
+
+
+        public float currentHP;
+        public float maxHP;
+        public float currentSP;
+        public float maxSP;
 
         public float speed;
         public float jumpForce = 5f;  // 점프 힘
@@ -22,10 +28,22 @@ namespace TON
             animator = GetComponent<Animator>();
             joystick = ControllerUI.Instance.joystick;
             ControllerUI.Instance.linkedCharactor = this;
+
+            Initialize();
+        }
+
+        public void Initialize()
+        {
+            int playerIndex = PlayerPrefs.GetInt("SelectedPlayerIndex", 0);
+            PlayerData playerData = PlayerDataManager.Singleton.players[playerIndex];
+
+            currentHP = maxHP = playerData.hp;
+            currentSP = maxSP = playerData.mp;
         }
 
         public void FixedUpdate()
         {
+
             // 키보드 입력과 조이스틱 입력 통합
             float horizontalInput = Input.GetAxis("Horizontal"); // 키보드 좌우 입력
             if (joystick != null && Mathf.Abs(joystick.Horizontal) > 0.01f)
@@ -84,7 +102,32 @@ namespace TON
         }
 
 
+        public void ApplyDamage(float damage)
+        {
+            float prevHP = currentHP;
+            currentHP -= damage;
+            currentHP = Mathf.Clamp(currentHP, 0, maxHP);
 
+            // 체력이 0 아래로 떨어지고 현 상태가 IsAlive 일때만 동작하도록 함
+            if (currentHP <= 0f && prevHP > 0)
+            {
+                animator.SetTrigger("Dead Trigger");
+            }
 
+            // 체력이 0 보다 클때만 피격 모션 실행
+            if (currentHP > 0)
+            {
+                if (damage < 10)
+                {
+                    animator.SetTrigger("Hit Trigger");
+                }
+            }
+        }
+
+        public void Dead()
+        {
+            gameObject.SetActive(false);
+
+        }
     }
 }

@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9138cc62a0b4a347a46191cfb0fd7ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playButton: {fileID: 163394969067314430}
 --- !u!222 &3081003855718353481
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1163,7 +1164,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1117665430397923154}
         m_TargetAssemblyTypeName: TON.StageEntryUI, Assembly-CSharp
-        m_MethodName: OnClickBackButton
+        m_MethodName: OnClickPlayButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1384,6 +1385,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stage Slot
       objectReference: {fileID: 0}
+    - target: {fileID: 4961787770283683285, guid: 9c3db63c99bd0e9458638b79c344993e, type: 3}
+      propertyPath: index
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7857639710680952705, guid: 9c3db63c99bd0e9458638b79c344993e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1485,6 +1490,10 @@ PrefabInstance:
     - target: {fileID: 387253265420760142, guid: 9c3db63c99bd0e9458638b79c344993e, type: 3}
       propertyPath: m_Name
       value: Stage Slot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961787770283683285, guid: 9c3db63c99bd0e9458638b79c344993e, type: 3}
+      propertyPath: index
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5185707800194162268, guid: 9c3db63c99bd0e9458638b79c344993e, type: 3}
       propertyPath: m_text
@@ -1591,6 +1600,10 @@ PrefabInstance:
     - target: {fileID: 387253265420760142, guid: 9c3db63c99bd0e9458638b79c344993e, type: 3}
       propertyPath: m_Name
       value: Stage Slot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961787770283683285, guid: 9c3db63c99bd0e9458638b79c344993e, type: 3}
+      propertyPath: index
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5185707800194162268, guid: 9c3db63c99bd0e9458638b79c344993e, type: 3}
       propertyPath: m_text

@@ -60,7 +60,11 @@ namespace TON
             // Rigidbody2D의 속도 업데이트 (X축은 입력값 기반, Y축은 중력/점프 유지)
             rb.velocity = new Vector2(newVelocityX, rb.velocity.y);
 
-            Turn(rb.velocity.x);
+            // 방향을 변경하는 로직 (0이 아닐 때만 방향 업데이트)
+            if (horizontalInput != 0)
+            {
+                Turn(horizontalInput);
+            }
         }
 
         // 캐릭터가 양방향으로 이동시에 알맞은 방향을 바라보도록 적용

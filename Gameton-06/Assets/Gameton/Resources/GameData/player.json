@@ -1,10 +1,43 @@
-[
-  {
-    "id": 0,
-    "type": "w",
-    "name": "lulu",
-    "health": 100,
-    "score": 20000,
-    "chance": 3
-  }
-]
+{
+    "items": [
+        {
+            "id": 0,
+            "type": "w",
+            "name": "lulu",
+            "level": 1,
+            "experience": 0,
+            "hp": 100,
+            "mp": 100,
+            "attackPower": 50,
+            "defensivePower": 30,
+            "speed": 100,
+            "critical": 30
+        },
+        {
+            "id": 1,
+            "type": "w",
+            "name": "hicat",
+            "level": 1,
+            "experience": 0,
+            "hp": 100,
+            "mp": 100,
+            "attackPower": 50,
+            "defensivePower": 30,
+            "speed": 100,
+            "critical": 30
+        },
+        {
+            "id": 2,
+            "type": "b",
+            "name": "blac",
+            "level": 1,
+            "experience": 0,
+            "hp": 100,
+            "mp": 100,
+            "attackPower": 50,
+            "defensivePower": 30,
+            "speed": 100,
+            "critical": 30
+        }
+    ]
+}

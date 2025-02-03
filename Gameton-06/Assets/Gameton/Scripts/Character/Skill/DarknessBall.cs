@@ -28,6 +28,7 @@ namespace TON
         {
             if (collision.CompareTag("Monster")) // 적과 충돌 시 제거
             {
+                // collision.gameObject.Damage();
                 ReleaseObject();
             }
         }

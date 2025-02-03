@@ -43,8 +43,10 @@ namespace TON
             Main.Singleton.Initialize();
 
             // TODO : Custom Order After System Load
-            UIManager.Show<IngameUI>(UIList.IngameUI);
+            // UIManager.Show<IngameUI>(UIList.IngameUI);
             UIManager.Show<ControllerUI>(UIList.ControllerUI);
+            // UIManager.Show<CharaterSelectUI>(UIList.CharaterSelectUI);
+
             // UIManager.Show<TitleUI>(UIList.TitleUI);
         }
     }

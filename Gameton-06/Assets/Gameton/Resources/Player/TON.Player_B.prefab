@@ -247,5 +247,6 @@ MonoBehaviour:
   maxSP: 0
   speed: 3
   jumpForce: 8
+  firePoint: {fileID: 3571909985532505043}
   animator: {fileID: 0}
   rb: {fileID: 4986202531950816680}

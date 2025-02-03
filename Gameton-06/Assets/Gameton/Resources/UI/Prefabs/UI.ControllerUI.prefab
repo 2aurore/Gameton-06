@@ -764,6 +764,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill Button
       objectReference: {fileID: 0}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: -4577297331876422106}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickSkillButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: DarknessBall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1029,6 +1045,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill Button
       objectReference: {fileID: 0}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: -4577297331876422106}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickSkillButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: FireBall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1134,6 +1166,22 @@ PrefabInstance:
     - target: {fileID: 8426200199618059491, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
       propertyPath: m_Name
       value: Skill Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: -4577297331876422106}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickSkillButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: IceBall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

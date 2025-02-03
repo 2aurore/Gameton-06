@@ -23,5 +23,10 @@ namespace TON
         {
             linkedCharactor.Attack();
         }
+
+        public void OnClickSkillButton(string skill)
+        {
+            linkedCharactor.SkillAttack(skill);
+        }
     }
 }

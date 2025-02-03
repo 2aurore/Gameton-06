@@ -16,6 +16,10 @@ namespace TON
         public float speed;
         public float jumpForce = 5f;  // 점프 힘
         private bool isGrounded = true; // 플레이어가 바닥에 있는지 여부를 판단
+        private float lastDirection = 1f; // 기본적으로 오른쪽(1) 바라보는 상태
+
+
+        public Transform firePoint; // 스킬 발사 위치
 
         public Animator animator;
 
@@ -70,6 +74,12 @@ namespace TON
         // 캐릭터가 양방향으로 이동시에 알맞은 방향을 바라보도록 적용
         private void Turn(float direction)
         {
+
+            if (direction != 0)
+            {
+                lastDirection = Mathf.Sign(direction); // 마지막 이동 방향 저장
+            }
+
             var scale = transform.localScale;
 
             scale.x = Mathf.Sign(direction) * Mathf.Abs(scale.x);
@@ -103,6 +113,27 @@ namespace TON
         {
             // 공격 애니메이션 적용
             animator.Play("Default Attack");
+        }
+
+        public void SkillAttack(string skillName)
+        {
+            animator.Play("Skill Attack");
+
+            // 총알 생성
+            GameObject skill = ObjectPoolManager.Instance.GetEffect(skillName);
+
+            // skill.transform.SetParent(firePoint);
+            skill.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
+
+
+            // 🔥 총알 방향 반전
+            var bulletScale = skill.transform.localScale;
+            bulletScale.x = Mathf.Abs(bulletScale.x) * lastDirection;
+            skill.transform.localScale = bulletScale;
+
+            // 총알 이동 방향 설정
+            Rigidbody2D skillRb = skill.GetComponent<Rigidbody2D>();
+            skillRb.velocity = new Vector2(lastDirection * 5f, 0f);
         }
 
 

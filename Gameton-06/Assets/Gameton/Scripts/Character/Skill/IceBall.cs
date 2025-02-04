@@ -7,6 +7,7 @@ namespace TON
     public class IceBall : PoolAble
     {
         private float elapsedTime; // 경과 시간 저장 변수
+        public float destoryTime = 2f;
 
         void OnEnable()
         {
@@ -18,7 +19,7 @@ namespace TON
             elapsedTime += Time.deltaTime; // 경과 시간 누적
 
             // 2초가 지나면 오브젝트 풀에 반환
-            if (elapsedTime >= 2f)
+            if (elapsedTime >= destoryTime)
             {
                 ReleaseObject();
             }

@@ -1,0 +1,23 @@
+[
+  {
+    "characterId": 0,
+    "id": "K0001",
+    "mp": 10,
+    "damage": 1.2,
+    "cooltime": 5
+  },
+  {
+    "characterId": 0,
+    "id": "K0002",
+    "mp": 15,
+    "damage": 1.45,
+    "cooltime": 15
+  },
+  {
+    "characterId": 0,
+    "id": "K0003",
+    "mp": 15,
+    "damage": 1.7,
+    "cooltime": 10
+  }
+]

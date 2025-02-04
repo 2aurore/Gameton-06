@@ -29,6 +29,7 @@ namespace TON
                 // select 요소는 나중에 인게임 화면으로 바로 전환
                 PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
                 PlayerDataManager.Singleton.SetCurrentUserData();
+                HeartDataManager.Singleton.SetCurrentUserHeart();
                 Main.Singleton?.ChangeScene(SceneType.Lobby);
             }
         }

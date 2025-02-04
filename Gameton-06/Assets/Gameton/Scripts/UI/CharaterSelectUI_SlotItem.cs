@@ -17,6 +17,7 @@ namespace TON
         public void SetCharaterData(Sprite image, string name, int i)
         {
             character_image.sprite = image;
+            character_image.enabled = true;
             charater_name.text = name;
             index = i;
         }

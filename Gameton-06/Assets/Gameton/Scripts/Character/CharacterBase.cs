@@ -39,7 +39,7 @@ namespace TON
         public void Initialize()
         {
             int playerIndex = PlayerPrefs.GetInt("SelectedPlayerIndex", 0);
-            PlayerData playerData = PlayerDataManager.Singleton.players[playerIndex];
+            PlayerData playerData = PlayerDataManager.Singleton.playersData[playerIndex];
 
             currentHP = maxHP = playerData.hp;
             currentSP = maxSP = playerData.mp;

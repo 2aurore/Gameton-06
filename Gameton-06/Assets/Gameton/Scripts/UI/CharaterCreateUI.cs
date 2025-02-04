@@ -10,6 +10,8 @@ namespace TON
     {
         [SerializeField] private Button createButton; // Create 버튼 참조
         [SerializeField] private List<PlayerData> playerDatas;
+        [SerializeField] private List<HeartData> heartDatas;
+
 
         public GameObject characterCreateUI_Modal;
 
@@ -17,7 +19,9 @@ namespace TON
 
         private void Start()
         {
-            playerDatas = PlayerDataManager.Singleton.players;
+            playerDatas = PlayerDataManager.Singleton.playersData;
+            heartDatas = HeartDataManager.Singleton.heartDatas;
+
             // 처음에는 버튼을 비활성화
             createButton.interactable = false;
         }
@@ -52,6 +56,10 @@ namespace TON
             PlayerData player = new PlayerData(playerDatas.Count, selectedCharacter, characterName.text);
             playerDatas.Add(player);
             JSONLoader.SaveToFile(playerDatas, "player");
+
+            // 하트 시스템을 생성한다
+            HeartDataManager.Singleton.CreateNewHeartSystem(playerDatas.Count);
+            HeartDataManager.Singleton.SetCurrentUserHeart();
 
             // 씬 변경
             UIManager.Hide<CharaterCreateUI>(UIList.CharaterCreateUI);

@@ -13,6 +13,7 @@ namespace TON
         [SerializeField] private Button playButton; // Play 버튼 참조
 
         [SerializeField] private List<PlayerData> playerDatas;
+        [SerializeField] private List<HeartData> heartDatas;
 
         private int currentSelectCharacterIndex;
 
@@ -23,7 +24,8 @@ namespace TON
 
         private void Start()
         {
-            playerDatas = PlayerDataManager.Singleton.players;
+            playerDatas = PlayerDataManager.Singleton.playersData;
+            heartDatas = HeartDataManager.Singleton.heartDatas;
 
             // 캐릭터를 선택한 이후에 버튼 활성화 할 수 있도록 초기 비활성화 적용
             playButton.interactable = false;
@@ -58,6 +60,7 @@ namespace TON
         public void OnClickPlayButton()
         {
             PlayerPrefs.SetInt("SelectedPlayerIndex", currentSelectCharacterIndex);
+            HeartDataManager.Singleton.SetCurrentUserHeart();
 
             UIManager.Hide<CharaterSelectUI>(UIList.CharaterSelectUI);
 

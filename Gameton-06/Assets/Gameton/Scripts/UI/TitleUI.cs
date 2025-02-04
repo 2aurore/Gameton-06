@@ -14,7 +14,7 @@ namespace TON
             UIManager.Hide<TitleUI>(UIList.TitleUI);
 
             // 플레이어가 가지고 있는 캐릭터들의 데이터 불러옴
-            List<PlayerData> players = PlayerDataManager.Singleton.players;
+            List<PlayerData> players = PlayerDataManager.Singleton.playersData;
 
             if (players.Count == 0)
             {

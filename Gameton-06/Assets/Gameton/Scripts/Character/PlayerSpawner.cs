@@ -9,7 +9,7 @@ namespace TON
 
         public static void SpawnPlayerCharacter()
         {
-            List<PlayerData> playerDatas = PlayerDataManager.Singleton.players;
+            List<PlayerData> playerDatas = PlayerDataManager.Singleton.playersData;
             // 저장된 인덱스 가져오기
             int selectedIndex = PlayerPrefs.GetInt("SelectedPlayerIndex", 0);
 

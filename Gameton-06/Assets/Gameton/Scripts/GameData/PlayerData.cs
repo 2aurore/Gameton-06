@@ -25,8 +25,6 @@ namespace TON
         public int attackPower;
         // 기본 방어력
         public int defensivePower;
-        // 캐릭터 이동 속도
-        public int speed;
         // 캐릭터 크리티컬 수치 
         public int critical;
 
@@ -41,7 +39,6 @@ namespace TON
             mp = 100;
             attackPower = 50;
             defensivePower = 30;
-            speed = 100;
             critical = 30;
         }
     }

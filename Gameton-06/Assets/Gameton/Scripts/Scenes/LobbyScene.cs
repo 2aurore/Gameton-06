@@ -23,7 +23,7 @@ namespace TON
 
             UIManager.Show<LobbyUI>(UIList.LobbyUI);
             // UIManager.Show<ControllerUI>(UIList.ControllerUI);
-            PlayerSpawner.SpawnPlayerCharacter();
+            // PlayerSpawner.SpawnPlayerCharacter();
         }
 
 

@@ -55,6 +55,7 @@ namespace TON
             // 생성한 캐릭터를 저장한다
             PlayerData player = new PlayerData(playerDatas.Count, selectedCharacter, characterName.text);
             playerDatas.Add(player);
+            PlayerDataManager.Singleton.SetCurrentUserData();
             JSONLoader.SaveToFile(playerDatas, "player");
 
             // 하트 시스템을 생성한다

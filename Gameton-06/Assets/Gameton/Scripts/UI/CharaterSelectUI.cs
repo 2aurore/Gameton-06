@@ -60,6 +60,7 @@ namespace TON
         public void OnClickPlayButton()
         {
             PlayerPrefs.SetInt("SelectedPlayerIndex", currentSelectCharacterIndex);
+            PlayerDataManager.Singleton.SetCurrentUserData();
             HeartDataManager.Singleton.SetCurrentUserHeart();
 
             UIManager.Hide<CharaterSelectUI>(UIList.CharaterSelectUI);

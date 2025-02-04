@@ -8,7 +8,7 @@ namespace TON
     public class SkillData
     {
         public int characterId;
-        public int id;
+        public string id;
         public int mp;
         public float damage;
         public int cooltime;

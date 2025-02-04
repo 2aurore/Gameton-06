@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -41,6 +42,11 @@ namespace TON
         private static void InternalBoot()
         {
             Main.Singleton.Initialize();
+
+            List<PlayerData> playersData = PlayerDataManager.Singleton.playersData;
+            PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
+            HeartDataManager.Singleton.SetCurrentUserHeart();
+
 
             // TODO : Custom Order After System Load
             // UIManager.Show<IngameUI>(UIList.IngameUI);

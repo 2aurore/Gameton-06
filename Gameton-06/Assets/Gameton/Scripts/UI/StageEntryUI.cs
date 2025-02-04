@@ -39,5 +39,11 @@ namespace TON
 
             Debug.Log("OnClickPlayButton::::" + currentSelectStage);
         }
+
+        public void OnClickTest()
+        {
+            Debug.Log("OnClickTest::::");
+            HeartDataManager.Singleton.UseHeart();
+        }
     }
 }

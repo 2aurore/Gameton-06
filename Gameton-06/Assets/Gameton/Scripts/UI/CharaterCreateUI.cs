@@ -8,6 +8,7 @@ namespace TON
 {
     public class CharaterCreateUI : UIBase
     {
+        [SerializeField] private Button cancelButton; // Create 버튼 참조
         [SerializeField] private Button createButton; // Create 버튼 참조
         [SerializeField] private List<PlayerData> playerDatas;
         [SerializeField] private List<HeartData> heartDatas;
@@ -66,6 +67,14 @@ namespace TON
             UIManager.Hide<CharaterCreateUI>(UIList.CharaterCreateUI);
 
             Main.Singleton?.ChangeScene(SceneType.Lobby);
+        }
+
+        public void OnClickCancelButton()
+        {
+            // 캐릭터 이름 입력 모달 비활성화
+            characterCreateUI_Modal.SetActive(false);
+            TMP_InputField characterName = characterCreateUI_Modal.GetComponentInChildren<TMP_InputField>();
+            characterName.text = "";
         }
     }
 }

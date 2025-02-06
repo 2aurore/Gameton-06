@@ -8,10 +8,15 @@ namespace TON
     {
         private Collider2D col; // 자식 오브젝트의 Collider
 
+        private DamageCalculator damageCalculator = new DamageCalculator();
+        private PlayerData playerData;
+
         private void Awake()
         {
             col = GetComponent<Collider2D>();
             col.enabled = false; // 초기에는 감지 비활성화
+
+            playerData = PlayerDataManager.Singleton.player;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -20,6 +25,13 @@ namespace TON
 
             if (collision.CompareTag("Monster")) // 적과 충돌 시 제거
             {
+                // 기본 데미지 계산
+                // float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, playerData.equipmentAttack, playerData.defensivePower);
+                float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, 10, playerData.defensivePower);
+
+                // 치명타 적용 (캐릭터는 적용)
+                damage = damageCalculator.ApplyCriticalDamage(damage, true);
+
                 collision.GetComponent<IDamage>().ApplyDamage(10f);
             }
         }

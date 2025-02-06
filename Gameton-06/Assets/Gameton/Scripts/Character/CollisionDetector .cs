@@ -26,6 +26,7 @@ namespace TON
             if (collision.CompareTag("Monster")) // 적과 충돌 시 제거
             {
                 // 기본 데미지 계산
+                // TODO: 장비 공격력 반영 필요
                 // float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, playerData.equipmentAttack, playerData.defensivePower);
                 float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, 0, playerData.defensivePower);
 

@@ -2,15 +2,14 @@
     "items": [
         {
             "id": 0,
-            "type": "b",
-            "name": "blac",
+            "type": "w",
+            "name": "white",
             "level": 1,
             "experience": 0,
             "hp": 100,
             "mp": 100,
             "attackPower": 50,
             "defensivePower": 30,
-            "speed": 100,
             "critical": 30
         }
     ]

@@ -27,7 +27,7 @@ namespace TON
             {
                 // 기본 데미지 계산
                 // float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, playerData.equipmentAttack, playerData.defensivePower);
-                float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, 10, playerData.defensivePower);
+                float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, 0, playerData.defensivePower);
 
                 // 치명타 적용 (캐릭터는 적용)
                 damage = damageCalculator.ApplyCriticalDamage(damage, true);

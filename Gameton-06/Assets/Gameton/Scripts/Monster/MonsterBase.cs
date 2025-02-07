@@ -23,37 +23,41 @@ namespace TON
         private Vector3 _direction;
         private bool _isWalking;
         private float _currentTime;
-        
+
         [SerializeField]
         private int _idleTime = 2;
-        
+
         [SerializeField]
         private int walkingTime = 2;
-        
+
         [SerializeField]
         private GameObject _target;
+
+        public float defencePower;
 
         // Start is called before the first frame update
         void Start()
         {
             _currentTime = Time.realtimeSinceStartup;
-            
+
             _animator = GetComponent<Animator>();
-            
+
             _direction = new Vector3(1, 0, 0);
-            
+
             _spriteRenderer.flipX = !(_direction.x > 0);
 
+            // TODO: 몬스터 방어력 세팅 임시값
+            defencePower = 10f;
         }
-        
+
         // Update is called once per frame
         void Update()
         {
             // todo : 타겟 감지 >> 몬스터의 원형 시야 안에 플레이어가 충돌했는지 여부
             // todo : 충돌 했으면 attack 전환 (바로 그냥 공격하게 따라가지 말고)
             // todo : 시야를 벗어났으면 idle 전환
-            
-            
+
+
             if (_isWalking)
             {
                 // walking 상태에서 walkingTime을 초과할 경우 idle 애니메이션 재생

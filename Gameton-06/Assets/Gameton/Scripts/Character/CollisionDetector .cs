@@ -28,7 +28,10 @@ namespace TON
                 // 기본 데미지 계산
                 // TODO: 장비 공격력 반영 필요
                 // float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, playerData.equipmentAttack, playerData.defensivePower);
-                float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, 0, playerData.defensivePower);
+
+                // 몬스터 방어력
+                float monsterDefencePower = collision.GetComponent<MonsterBase>().defencePower;
+                float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, 0, monsterDefencePower);
 
                 // 치명타 적용 (캐릭터는 적용)
                 damage = damageCalculator.ApplyCriticalDamage(damage, true);

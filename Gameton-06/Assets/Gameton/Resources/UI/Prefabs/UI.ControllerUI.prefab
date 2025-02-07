@@ -117,6 +117,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 7288066023221573359}
+  buttons: []
+  skillButtons:
+    keys: 
+    values: []
 --- !u!1 &4244698586613034378
 GameObject:
   m_ObjectHideFlags: 0

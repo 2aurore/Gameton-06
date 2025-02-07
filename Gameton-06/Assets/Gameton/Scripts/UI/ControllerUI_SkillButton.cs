@@ -7,23 +7,25 @@ namespace TON
 {
     public class ControllerUI_SkillButton : MonoBehaviour
     {
-        public CharacterBase linkedCharactor { get; set; }
 
         public SkillData skillData;
+        public GameObject skillImage;
+        public GameObject lockImage;
 
-        public Image lockImage;
+        [SerializeField]
+        private SerializableDictionary<string, Sprite> skillSprite = new SerializableDictionary<string, Sprite>();
 
         public void Initalize(SkillData skillData)
         {
+            Debug.Log($"Initalize :: {skillData.id}");
             this.skillData = skillData;
-            // this.linkedCharactor = linkedCharactor; // 씬에서 캐릭터 찾기
-            Debug.Log(linkedCharactor.name);
+            skillImage.SetActive(true);
+            skillImage.GetComponent<Image>().sprite = skillSprite.GetValueOrDefault(skillData.id, null);
+            lockImage.SetActive(false);
+
         }
 
-        public void OnClickSkillButton()
-        {
-            linkedCharactor.SkillAttack(skillData.id);
-        }
+
     }
 
 

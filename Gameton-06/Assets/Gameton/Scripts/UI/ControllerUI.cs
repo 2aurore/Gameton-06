@@ -29,7 +29,6 @@ namespace TON
 
             if (skillDatas != null)
             {
-                Debug.Log("characterLevel ::: " + characterLevel);
                 // 사용 가능한 스킬 필터링 (캐릭터 레벨보다 필요 레벨이 낮거나 같은 것만)
                 List<SkillData> availableSkills = skillDatas
                     .Where(skill => skill.requiredLevel <= characterLevel)
@@ -37,26 +36,18 @@ namespace TON
                     .Take(3) // 최대 3개 선택
                     .ToList();
 
-                Debug.Log(availableSkills.Count);
-                // availableSkills
-
                 // 버튼 설정
                 for (int i = 0; i < buttons.Length; i++)
                 {
                     if (i < availableSkills.Count)
                     {
                         buttons[i].interactable = true; // 사용 가능
-
-                        SkillData skillData = skillDatas.Find(skill => skill.slotNumber == i);
-
-                        skillButtons[i].linkedCharactor = linkedCharactor;
+                        SkillData skillData = skillDatas.Find(skill => skill.slotNumber == i + 1);
                         skillButtons[i].Initalize(skillData);
-
                     }
                     else
                     {
                         buttons[i].interactable = false; // 사용 불가
-
                     }
                 }
             }
@@ -78,9 +69,10 @@ namespace TON
             linkedCharactor.Attack();
         }
 
-        public void OnClickSkillButton(string skill)
+        public void OnClickSkillButton(ControllerUI_SkillButton skill)
         {
-            linkedCharactor.SkillAttack(skill);
+
+            linkedCharactor.SkillAttack(skill.skillData.name);
         }
     }
 }

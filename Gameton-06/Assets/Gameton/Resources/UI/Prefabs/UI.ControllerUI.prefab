@@ -682,10 +682,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2009939342780089657}
     m_Modifications:
-    - target: {fileID: 513183606973775710, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 373fbf69075cebf46992176be6e81b0e, type: 3}
     - target: {fileID: 3622686016877026920, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -774,6 +770,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill Button
       objectReference: {fileID: 0}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: -4577297331876422106}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1061,6 +1061,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill Button
       objectReference: {fileID: 0}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: -4577297331876422106}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1101,10 +1105,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2009939342780089657}
     m_Modifications:
-    - target: {fileID: 513183606973775710, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: dbd065e74e8e2f840a037a91d8ac8b08, type: 3}
     - target: {fileID: 3622686016877026920, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -1189,6 +1189,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill Button
       objectReference: {fileID: 0}
+    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: -4577297331876422106}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

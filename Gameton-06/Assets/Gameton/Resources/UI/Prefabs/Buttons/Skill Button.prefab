@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6576729596631844278
 RectTransform:
   m_ObjectHideFlags: 0
@@ -319,13 +319,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5127688379423261843}
-        m_TargetAssemblyTypeName: TON.ControllerUI_SkillButton, Assembly-CSharp
+      - m_Target: {fileID: -4577297331876422106, guid: dfba43d4c3ff3d4439db025ccd05e6eb, type: 3}
+        m_TargetAssemblyTypeName: TON.ControllerUI, Assembly-CSharp
         m_MethodName: OnClickSkillButton
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 5127688379423261843}
+          m_ObjectArgumentAssemblyTypeName: TON.ControllerUI_SkillButton, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -351,7 +351,27 @@ MonoBehaviour:
     coolDown: 0
     slotNumber: 0
     requiredLevel: 0
-  lockImage: {fileID: 0}
+  skillImage: {fileID: 4450630482936255251}
+  lockImage: {fileID: 9104780789004064627}
+  skillSprite:
+    keys:
+    - K0001
+    - K0002
+    - K0003
+    - K0004
+    - K0005
+    - K0006
+    - K0007
+    - K0008
+    values:
+    - Value: {fileID: 21300000, guid: 0c6802c457ef3a049babd141698d0763, type: 3}
+    - Value: {fileID: 21300000, guid: dbd065e74e8e2f840a037a91d8ac8b08, type: 3}
+    - Value: {fileID: 0}
+    - Value: {fileID: 0}
+    - Value: {fileID: 0}
+    - Value: {fileID: 0}
+    - Value: {fileID: 21300000, guid: 373fbf69075cebf46992176be6e81b0e, type: 3}
+    - Value: {fileID: 0}
 --- !u!1 &9104780789004064627
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +407,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 80, y: 80}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3911793054694365059
 CanvasRenderer:

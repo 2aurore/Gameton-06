@@ -7,10 +7,12 @@ namespace TON
     [System.Serializable]
     public class SkillData
     {
-        public int characterId;
         public string id;
-        public int mp;
+        public string name;
+        public int mpConsumption;
         public float damage;
-        public int cooltime;
+        public int coolDown;
+        public int slotNumber;
+        public int requiredLevel;
     }
 }

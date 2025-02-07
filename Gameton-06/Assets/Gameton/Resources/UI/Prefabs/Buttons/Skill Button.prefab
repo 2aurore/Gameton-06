@@ -319,9 +319,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TON.ControllerUI, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 5127688379423261843}
+        m_TargetAssemblyTypeName: TON.ControllerUI_SkillButton, Assembly-CSharp
+        m_MethodName: OnClickSkillButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -387,7 +387,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3911793054694365059
 CanvasRenderer:
@@ -417,7 +417,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 025c9ba6b08ea3949857d5bb397099fd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 65e980f711cedc341853e618aacaad5d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

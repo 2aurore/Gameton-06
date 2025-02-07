@@ -117,10 +117,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 7288066023221573359}
-  buttons: []
+  buttons:
+  - {fileID: 2829166192458660942}
+  - {fileID: 3177755080651955962}
+  - {fileID: 3967442941689525696}
   skillButtons:
-    keys: 
-    values: []
+    keys: 000000000100000002000000
+    values:
+    - Value: {fileID: 1708453278417668396}
+    - Value: {fileID: 2084944479451016088}
+    - Value: {fileID: 574669408038666402}
 --- !u!1 &4244698586613034378
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,27 +774,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill Button
       objectReference: {fileID: 0}
-    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: -4577297331876422106}
-    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickSkillButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: DarknessBall
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+--- !u!114 &574669408038666402 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5127688379423261843, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+  m_PrefabInstance: {fileID: 4670399535607039025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c94c75c6e511048b4a77d3682e1f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3967442941689525696 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+  m_PrefabInstance: {fileID: 4670399535607039025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8257009192460294745 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3622686016877026920, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
@@ -1049,27 +1061,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill Button
       objectReference: {fileID: 0}
-    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: -4577297331876422106}
-    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickSkillButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: FireBall
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+--- !u!114 &1708453278417668396 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5127688379423261843, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+  m_PrefabInstance: {fileID: 5808676351208836543}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c94c75c6e511048b4a77d3682e1f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2829166192458660942 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+  m_PrefabInstance: {fileID: 5808676351208836543}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7123232125577925591 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3622686016877026920, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
@@ -1171,27 +1189,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill Button
       objectReference: {fileID: 0}
-    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: -4577297331876422106}
-    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickSkillButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: IceBall
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+--- !u!114 &2084944479451016088 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5127688379423261843, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+  m_PrefabInstance: {fileID: 6612973776956747531}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c94c75c6e511048b4a77d3682e1f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3177755080651955962 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8637807277690663409, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+  m_PrefabInstance: {fileID: 6612973776956747531}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7602178571154501987 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3622686016877026920, guid: f023329ca96ab444ca7c60781e310d59, type: 3}

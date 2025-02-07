@@ -33,6 +33,7 @@ namespace TON
             joystick = ControllerUI.Instance.joystick;
             ControllerUI.Instance.linkedCharactor = this;
 
+
             attackCollider.EnableCollider(false); // 기본 공격 Enable 비활성화
 
             Initialize();

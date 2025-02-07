@@ -16,15 +16,14 @@ namespace TON
         public CharacterBase linkedCharactor { get; set; }
 
         public Button[] buttons; // UI 버튼 (3개)
+
         [SerializeField]
         private SerializableDictionary<int, ControllerUI_SkillButton> skillButtons;
-
         private List<SkillData> skillDatas;
 
 
         public void Initalize()
         {
-
             int characterLevel = PlayerDataManager.Singleton.player.level;
             skillDatas = SkillDataManager.Singleton.skillDatas;
 
@@ -49,7 +48,9 @@ namespace TON
                         buttons[i].interactable = true; // 사용 가능
 
                         SkillData skillData = skillDatas.Find(skill => skill.slotNumber == i);
-                        skillButtons[i].skillData = skillData;
+
+                        skillButtons[i].linkedCharactor = linkedCharactor;
+                        skillButtons[i].Initalize(skillData);
 
                     }
                     else

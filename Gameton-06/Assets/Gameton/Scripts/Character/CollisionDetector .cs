@@ -34,9 +34,9 @@ namespace TON
                 float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, 0, monsterDefencePower);
 
                 // 치명타 적용 (캐릭터는 적용)
-                damage = damageCalculator.ApplyCriticalDamage(damage, true);
+                damage = damageCalculator.ApplyCriticalDamage(damage);
 
-                collision.GetComponent<IDamage>().ApplyDamage(10f);
+                collision.GetComponent<IDamage>().ApplyDamage(damage);
             }
         }
 

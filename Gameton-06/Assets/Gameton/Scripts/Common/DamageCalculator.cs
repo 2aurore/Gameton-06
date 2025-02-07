@@ -32,9 +32,9 @@ namespace TON
         /// <summary>
         /// 치명타 적용 (치명타 확률이 0보다 클 경우에만 적용)
         /// </summary>
-        public float ApplyCriticalDamage(float damage, bool canCritical)
+        public float ApplyCriticalDamage(float damage)
         {
-            if (canCritical && Random.value < criticalChance) // Random.value는 0.0 ~ 1.0 사이의 랜덤 값
+            if (Random.value < criticalChance) // Random.value는 0.0 ~ 1.0 사이의 랜덤 값
             {
                 damage *= criticalMultiplier;
                 Debug.Log("💥 치명타 발생! 💥");

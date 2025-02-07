@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TON
 {
-    public class DamageCalculator : MonoBehaviour
+    public class DamageCalculator
     {
         public float criticalChance = 0.3f;  // 캐릭터 치명타 확률 (30%)
         public float criticalMultiplier = 1.5f;  // 치명타 배율 (1.5배)

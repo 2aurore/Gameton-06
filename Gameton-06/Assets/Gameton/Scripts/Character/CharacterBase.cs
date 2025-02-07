@@ -7,7 +7,6 @@ namespace TON
     public class CharacterBase : MonoBehaviour, IDamage
     {
 
-
         public float currentHP;
         public float maxHP;
         public float currentSP;
@@ -20,6 +19,7 @@ namespace TON
 
 
         public Transform firePoint; // 스킬 발사 위치
+        public CollisionDetector attackCollider; // 기본 공격 감지를 위한 자식 오브젝트
 
         public Animator animator;
 
@@ -33,16 +33,49 @@ namespace TON
             joystick = ControllerUI.Instance.joystick;
             ControllerUI.Instance.linkedCharactor = this;
 
+            attackCollider.EnableCollider(false); // 기본 공격 Enable 비활성화
+
             Initialize();
         }
 
         public void Initialize()
         {
             int playerIndex = PlayerPrefs.GetInt("SelectedPlayerIndex", 0);
-            PlayerData playerData = PlayerDataManager.Singleton.players[playerIndex];
+            PlayerData playerData = PlayerDataManager.Singleton.playersData[playerIndex];
 
             currentHP = maxHP = playerData.hp;
             currentSP = maxSP = playerData.mp;
+        }
+
+
+        public int level = 1;       // 현재 레벨
+        public int exp = 0;         // 현재 경험치
+        public int expVariable = 10; // 경험치 변수 (조정 가능)
+
+        // 현재 레벨에서 다음 레벨까지 필요한 경험치 계산
+        private int GetRequiredExp(int currentLevel)
+        {
+            return (6 * currentLevel * currentLevel) + (currentLevel * expVariable);
+        }
+
+        // 경험치 추가 및 레벨업 처리
+        public void AddExp(int amount)
+        {
+            exp += amount; // 경험치 추가
+            bool leveledUp = false; // 레벨업 여부 체크
+
+            while (exp >= GetRequiredExp(level)) // 경험치가 충분하면 반복해서 레벨업
+            {
+                exp -= GetRequiredExp(level); // 초과 경험치 유지
+                level++; // 레벨 증가
+                leveledUp = true;
+            }
+
+            if (leveledUp)
+            {
+                // 경험치와 레벨 데이터를 파일에 업데이트 한다.
+                Debug.Log($"레벨업! 현재 레벨: {level}, 남은 경험치: {exp}");
+            }
         }
 
         public void FixedUpdate()
@@ -113,25 +146,35 @@ namespace TON
         {
             // 공격 애니메이션 적용
             animator.Play("Default Attack");
+
+            // 공격 범위 Collider 활성화
+            attackCollider.EnableCollider(true);
+
+            // 일정 시간 후 Collider 다시 비활성화 (예: 0.5초 후)
+            Invoke("DisableAttackCollider", 0.5f);
+        }
+
+        private void DisableAttackCollider()
+        {
+            attackCollider.EnableCollider(false);
         }
 
         public void SkillAttack(string skillName)
         {
             animator.Play("Skill Attack");
 
-            // 총알 생성
+            // 스킬 생성
             GameObject skill = ObjectPoolManager.Instance.GetEffect(skillName);
 
             // skill.transform.SetParent(firePoint);
             skill.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
 
-
-            // 🔥 총알 방향 반전
+            // 🔥 스킬 방향 반전
             var bulletScale = skill.transform.localScale;
             bulletScale.x = Mathf.Abs(bulletScale.x) * lastDirection;
             skill.transform.localScale = bulletScale;
 
-            // 총알 이동 방향 설정
+            // 스킬 이동 방향 설정
             Rigidbody2D skillRb = skill.GetComponent<Rigidbody2D>();
             skillRb.velocity = new Vector2(lastDirection * 5f, 0f);
         }

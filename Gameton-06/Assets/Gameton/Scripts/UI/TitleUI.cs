@@ -14,7 +14,7 @@ namespace TON
             UIManager.Hide<TitleUI>(UIList.TitleUI);
 
             // 플레이어가 가지고 있는 캐릭터들의 데이터 불러옴
-            List<PlayerData> players = PlayerDataManager.Singleton.players;
+            List<PlayerData> players = PlayerDataManager.Singleton.playersData;
 
             if (players.Count == 0)
             {
@@ -24,7 +24,13 @@ namespace TON
             else
             {
                 // 캐릭터가 있다면 내 캐릭터 목록에서 선택할 수 있도록 함
-                UIManager.Show<CharaterSelectUI>(UIList.CharaterSelectUI);
+                // UIManager.Show<CharaterSelectUI>(UIList.CharaterSelectUI);
+
+                // select 요소는 나중에 인게임 화면으로 바로 전환
+                PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
+                PlayerDataManager.Singleton.SetCurrentUserData();
+                HeartDataManager.Singleton.SetCurrentUserHeart();
+                Main.Singleton?.ChangeScene(SceneType.Lobby);
             }
         }
 

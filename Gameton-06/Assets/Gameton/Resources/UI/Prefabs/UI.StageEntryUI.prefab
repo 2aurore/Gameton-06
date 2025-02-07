@@ -749,7 +749,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4997156496795404795}
   m_Layer: 5
-  m_Name: Hearts
+  m_Name: HeartSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

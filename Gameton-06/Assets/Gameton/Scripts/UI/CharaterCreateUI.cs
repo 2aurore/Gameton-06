@@ -8,8 +8,11 @@ namespace TON
 {
     public class CharaterCreateUI : UIBase
     {
+        [SerializeField] private Button cancelButton; // Create 버튼 참조
         [SerializeField] private Button createButton; // Create 버튼 참조
         [SerializeField] private List<PlayerData> playerDatas;
+        [SerializeField] private List<HeartData> heartDatas;
+
 
         public GameObject characterCreateUI_Modal;
 
@@ -17,7 +20,9 @@ namespace TON
 
         private void Start()
         {
-            playerDatas = PlayerDataManager.Singleton.players;
+            playerDatas = PlayerDataManager.Singleton.playersData;
+            heartDatas = HeartDataManager.Singleton.heartDatas;
+
             // 처음에는 버튼을 비활성화
             createButton.interactable = false;
         }
@@ -51,12 +56,25 @@ namespace TON
             // 생성한 캐릭터를 저장한다
             PlayerData player = new PlayerData(playerDatas.Count, selectedCharacter, characterName.text);
             playerDatas.Add(player);
+            PlayerDataManager.Singleton.SetCurrentUserData();
             JSONLoader.SaveToFile(playerDatas, "player");
+
+            // 하트 시스템을 생성한다
+            HeartDataManager.Singleton.CreateNewHeartSystem(playerDatas.Count);
+            HeartDataManager.Singleton.SetCurrentUserHeart();
 
             // 씬 변경
             UIManager.Hide<CharaterCreateUI>(UIList.CharaterCreateUI);
 
             Main.Singleton?.ChangeScene(SceneType.Lobby);
+        }
+
+        public void OnClickCancelButton()
+        {
+            // 캐릭터 이름 입력 모달 비활성화
+            characterCreateUI_Modal.SetActive(false);
+            TMP_InputField characterName = characterCreateUI_Modal.GetComponentInChildren<TMP_InputField>();
+            characterName.text = "";
         }
     }
 }

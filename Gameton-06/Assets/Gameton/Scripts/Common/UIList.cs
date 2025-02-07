@@ -17,9 +17,10 @@ namespace TON
         LogUI,
         
         
-        GameOverUI,
-        GameWinUI,
-        PauseUI,
+        GameOverUI, // 게임 오버 시 노출되는 UI
+        GameWinUI,  // 게임 클리어 시 노출되는 UI
+        PauseUI,    // 일시중지 버튼 선택 시 노출되는 UI
+        IngameOptionUI, // 화면 우측 상단 골드, 인벤토리, 옵션 버튼 UI
 
 
         PANEL_END,

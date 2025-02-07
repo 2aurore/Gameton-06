@@ -1,23 +1,29 @@
 [
   {
-    "characterId": 0,
     "id": "K0001",
-    "mp": 10,
+    "name": "fireball",
+    "mpConsumption": 10,
     "damage": 1.2,
-    "cooltime": 5
+    "coolDown": 5,
+    "slotNumber": 1,
+    "requiredLevel": 1
   },
   {
-    "characterId": 0,
     "id": "K0002",
-    "mp": 15,
+    "name": "iceball",
+    "mpConsumption": 15,
     "damage": 1.45,
-    "cooltime": 15
+    "coolDown": 15,
+    "slotNumber": 2,
+    "requiredLevel": 6
   },
   {
-    "characterId": 0,
     "id": "K0003",
-    "mp": 15,
+    "name": "darknessball",
+    "mpConsumption": 15,
     "damage": 1.7,
-    "cooltime": 10
+    "coolDown": 10,
+    "slotNumber": 3,
+    "requiredLevel": 11
   }
 ]

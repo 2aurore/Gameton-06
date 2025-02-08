@@ -74,5 +74,17 @@ namespace TON
 
             linkedCharactor.SkillAttack(skill.skillData.name);
         }
+
+        private void Update()
+        {
+            foreach (var index in skillButtons.Keys)
+            {
+                ControllerUI_SkillButton skillButton = skillButtons.GetValueOrDefault(index);
+                if (skillButton != null && skillButton.skillData != null)
+                {
+                    // skillButton.SetCoolTime()
+                }
+            }
+        }
     }
 }

@@ -59,6 +59,15 @@ namespace TON
             
             // TODO: 몬스터 방어력 임시값
             defencePower = 10f;
+            
+            // // 몬스터 데이터 로드
+            // MonsterData monsterData = MonsterDataManager.Instance.monsterDataDict[monsterID];
+            //
+            // // 몬스터 데이터 적용
+            // Debug.Log("몬스터 이름: " + monsterData.name);
+            // Debug.Log("공격력: " + monsterData.attackPower);
+            // Debug.Log("체력: " + monsterData.health);
+            // Debug.Log("속도: " + monsterData.speed);
         }
 
         // Update is called once per frame

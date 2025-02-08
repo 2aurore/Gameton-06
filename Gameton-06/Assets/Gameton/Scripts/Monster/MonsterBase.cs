@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -67,8 +68,12 @@ namespace TON
             // todo : 충돌 했으면 attack 전환 (바로 그냥 공격하게 따라가지 말고)
             // todo : 시야를 벗어났으면 idle 전환
             
-            _isDetect = false;
-
+            if (_isDetect)
+            {
+                _animator.SetTrigger("Attack");
+                _isWalking = false;
+            }
+            
             if (_isWalking)
             {
                 // walking 상태에서 walkingTime을 초과할 경우 idle 애니메이션 재생
@@ -97,14 +102,7 @@ namespace TON
                     _isWalking = true;
                 }
             }
-
-            // if (_isHit)
-            // {
-            //     _animator.SetBool("Attack", _isDetect);
-            //     
-            //     _isWalking = false;
-            //     
-            // }
+            
             _animator.SetBool("Walk", _isWalking); // 걷기 애니메이션
         }
 
@@ -143,6 +141,7 @@ namespace TON
         
         void MonsterAttack(GameObject player)
         {
+            _animator.SetTrigger("Attack");
             // 임시 반영 수정 예정
             DamageCalculator damageCalculator = new DamageCalculator();
 
@@ -158,20 +157,17 @@ namespace TON
         
         private void OnCollisionEnter2D(Collision2D other)
         {
-            _isDetect = true;
-            
             if (other.collider.CompareTag("Player"))
             {
-                
-                _animator.SetBool("Attack", true); // 공격 애니메이션 재생
+                _isDetect = true;
                 MonsterAttack(other.gameObject);  // 플레이어에게 공격
                 Debug.Log("감지됨");
             }
+        }
 
-            if (!other.collider.CompareTag("Player"))
-            {
-                _isDetect = false;
-            }
+        private void OnCollisionExit2D(Collision2D other)
+        {
+            _isDetect = false;
         }
     }
 }

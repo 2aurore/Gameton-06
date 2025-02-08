@@ -56,7 +56,7 @@ namespace TON
             _spriteRenderer.flipX = !(_direction.x > 0);
             _collider = GetComponent<Collider2D>();
             
-            // TODO: 몬스터 방어력 세팅 임시값
+            // TODO: 몬스터 방어력 임시값
             defencePower = 10f;
         }
 
@@ -98,10 +98,13 @@ namespace TON
                 }
             }
 
-            if (_isHit)
-            {
-                
-            }
+            // if (_isHit)
+            // {
+            //     _animator.SetBool("Attack", _isDetect);
+            //     
+            //     _isWalking = false;
+            //     
+            // }
             _animator.SetBool("Walk", _isWalking); // 걷기 애니메이션
         }
 
@@ -155,12 +158,19 @@ namespace TON
         
         private void OnCollisionEnter2D(Collision2D other)
         {
+            _isDetect = true;
+            
             if (other.collider.CompareTag("Player"))
             {
-                _isDetect = true;
-                _animator.SetBool("Attack", _isDetect); // 공격 애니메이션 재생
+                
+                _animator.SetBool("Attack", true); // 공격 애니메이션 재생
                 MonsterAttack(other.gameObject);  // 플레이어에게 공격
                 Debug.Log("감지됨");
+            }
+
+            if (!other.collider.CompareTag("Player"))
+            {
+                _isDetect = false;
             }
         }
     }

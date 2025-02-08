@@ -749,6 +749,30 @@ PrefabInstance:
       propertyPath: poolContainer.Array.data[2].count
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7514646104575922049, guid: ab2e507b20e5dc844a1ea24b5619f656, type: 3}
+      propertyPath: poolContainer.Array.data[0].objectId
+      value: K0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514646104575922049, guid: ab2e507b20e5dc844a1ea24b5619f656, type: 3}
+      propertyPath: poolContainer.Array.data[1].objectId
+      value: K0002
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514646104575922049, guid: ab2e507b20e5dc844a1ea24b5619f656, type: 3}
+      propertyPath: poolContainer.Array.data[2].objectId
+      value: K0007
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514646104575922049, guid: ab2e507b20e5dc844a1ea24b5619f656, type: 3}
+      propertyPath: poolContainer.Array.data[0].objectPrefab
+      value: 
+      objectReference: {fileID: 6328494989662859589, guid: 25bb8f03ea9cfc941b64e04b75d3a1d9, type: 3}
+    - target: {fileID: 7514646104575922049, guid: ab2e507b20e5dc844a1ea24b5619f656, type: 3}
+      propertyPath: poolContainer.Array.data[1].objectPrefab
+      value: 
+      objectReference: {fileID: 2209934716239183953, guid: d120f035432a9f849acccd97c5d88eb1, type: 3}
+    - target: {fileID: 7514646104575922049, guid: ab2e507b20e5dc844a1ea24b5619f656, type: 3}
+      propertyPath: poolContainer.Array.data[2].objectPrefab
+      value: 
+      objectReference: {fileID: 589444956133359262, guid: 530f7e18dc59af345a84638c4e80642f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

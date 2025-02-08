@@ -160,12 +160,12 @@ namespace TON
             attackCollider.EnableCollider(false);
         }
 
-        public void SkillAttack(string skillName)
+        public void SkillAttack(string skillId)
         {
             animator.Play("Skill Attack");
 
             // 스킬 생성
-            GameObject skill = ObjectPoolManager.Instance.GetEffect(skillName);
+            GameObject skill = ObjectPoolManager.Instance.GetEffect(skillId);
 
             // skill.transform.SetParent(firePoint);
             skill.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);

@@ -69,22 +69,13 @@ namespace TON
             linkedCharactor.Attack();
         }
 
-        public void OnClickSkillButton(ControllerUI_SkillButton skill)
+        public void OnClickSkillButton(ControllerUI_SkillButton button)
         {
+            linkedCharactor.SkillAttack(button.skillId);
+            SkillData skillData = skillDatas.Find(skill => skill.id == button.skillId);
+            button.SetCoolTime(skillData.coolDown);
 
-            linkedCharactor.SkillAttack(skill.skillData.name);
         }
 
-        private void Update()
-        {
-            foreach (var index in skillButtons.Keys)
-            {
-                ControllerUI_SkillButton skillButton = skillButtons.GetValueOrDefault(index);
-                if (skillButton != null && skillButton.skillData != null)
-                {
-                    // skillButton.SetCoolTime()
-                }
-            }
-        }
     }
 }

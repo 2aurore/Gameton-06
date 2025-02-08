@@ -22,10 +22,7 @@ namespace TON
             {
                 skillDatas = new List<SkillData>();
             }
-
             // skillData를 skillBase로 치환
-            // 기존 스킬 클래스들을 skillBase를 상속받게 변경
-
         }
 
         public SkillData GetSkillData(string skillId)

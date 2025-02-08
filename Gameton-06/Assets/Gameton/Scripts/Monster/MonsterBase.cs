@@ -14,7 +14,7 @@ namespace TON
         public int id;  // 적 고유 ID
         public float currentHP = 100;  // HP
 
-        public string name; // 몬스터 명 or 프리팹 명
+        // public string name; // 몬스터 명 or 프리팹 명
         public string monsterType;  // 몬스터 타입 ex : melee, ranged
         
         
@@ -67,12 +67,6 @@ namespace TON
             // todo : 타겟 감지 >> 몬스터의 원형 시야 안에 플레이어가 충돌했는지 여부
             // todo : 충돌 했으면 attack 전환 (바로 그냥 공격하게 따라가지 말고)
             // todo : 시야를 벗어났으면 idle 전환
-            
-            if (_isDetect)
-            {
-                _animator.SetTrigger("Attack");
-                _isWalking = false;
-            }
             
             if (_isWalking)
             {
@@ -130,12 +124,12 @@ namespace TON
 
             if (prevHP > 0 && currentHP <= 0)
             {
-                _animator.SetBool("Die", true);  // 몬스터 죽는 애니메이션 트리거
+                // _animator.SetBool("Die", true);  // 몬스터 죽는 애니메이션 트리거
                 Destroy(gameObject);  // 몬스터 파괴
             }
             else if (prevHP > 0 && currentHP > 0)
             {
-                _animator.SetBool("Hit", true); // 피격 애니메이션
+                // _animator.SetBool("Hit", true); // 피격 애니메이션
             }
         }
         
@@ -160,6 +154,11 @@ namespace TON
             if (other.collider.CompareTag("Player"))
             {
                 _isDetect = true;
+                _animator.SetTrigger("Attack");
+                if (_isDetect)
+                {
+                    _isWalking = false;
+                }
                 MonsterAttack(other.gameObject);  // 플레이어에게 공격
                 Debug.Log("감지됨");
             }
@@ -168,6 +167,8 @@ namespace TON
         private void OnCollisionExit2D(Collision2D other)
         {
             _isDetect = false;
+
+            _isWalking = true;
         }
     }
 }

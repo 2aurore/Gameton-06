@@ -11,6 +11,16 @@ namespace TON
         public SerializableDictionary<string, Sprite> playerImages;
         [SerializeField]
         private TextMeshProUGUI characterName;
+        [SerializeField]
+        private TextMeshProUGUI characterHp;
+        [SerializeField]
+        private TextMeshProUGUI characterMp;
+        [SerializeField]
+        private TextMeshProUGUI characterAttck;
+        [SerializeField]
+        private TextMeshProUGUI characterDefence;
+        [SerializeField]
+        private TextMeshProUGUI characterCritical;
 
         private void Start()
         {
@@ -19,6 +29,11 @@ namespace TON
             playerObj.sprite = playerImages.GetValueOrDefault(player.type);
 
             characterName.text = player.name;
+            characterHp.text = $"{player.hp}";
+            characterMp.text = $"{player.mp}";
+            characterAttck.text = $"{player.attackPower}";
+            characterDefence.text = $"{player.defensivePower}";
+            characterCritical.text = $"{player.critical}";
         }
 
         public void OnClickStageEntryButton()

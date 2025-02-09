@@ -25190,7 +25190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 866829734583457878, guid: 1e126f96ebcf4245a3328353992d46f6, type: 3}
       propertyPath: m_CategoryHash
-      value: 0.009161512
+      value: 1.0429618e-14
       objectReference: {fileID: 0}
     - target: {fileID: 866829734583457880, guid: 1e126f96ebcf4245a3328353992d46f6, type: 3}
       propertyPath: m_FlipX
@@ -25199,7 +25199,7 @@ PrefabInstance:
     - target: {fileID: 866829734583457880, guid: 1e126f96ebcf4245a3328353992d46f6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 4723107735738678597, guid: 8c818873fb8d4ad3bb40ebb62d906a1d, type: 3}
+      objectReference: {fileID: 1856677538, guid: 8c818873fb8d4ad3bb40ebb62d906a1d, type: 3}
     - target: {fileID: 866829735663616562, guid: 1e126f96ebcf4245a3328353992d46f6, type: 3}
       propertyPath: m_Name
       value: BlueDragon
@@ -50707,7 +50707,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1

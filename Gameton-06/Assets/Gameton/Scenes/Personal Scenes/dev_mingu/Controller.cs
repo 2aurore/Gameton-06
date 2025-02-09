@@ -19,7 +19,7 @@ namespace TON
 
         private void Update()
         {
-            bool isMoving = false;
+            // bool isMoving = false;
 
             if (Input.GetKey(KeyCode.RightArrow))
             {
@@ -27,7 +27,7 @@ namespace TON
                 position.x += 5.0f * Time.deltaTime;
                 _cachedTransform.position = position;
 
-                isMoving = true;
+                // isMoving = true;
 
                 _spriteRenderer.flipX = false;
             }
@@ -37,7 +37,7 @@ namespace TON
                 position.x -= 5.0f * Time.deltaTime;
                 _cachedTransform.position = position;
 
-                isMoving = true;
+                // isMoving = true;
 
                 _spriteRenderer.flipX = true;
             }
@@ -47,7 +47,7 @@ namespace TON
                 position.y += 10.0f * Time.deltaTime;
                 _cachedTransform.position = position;
 
-                isMoving = true;
+                // isMoving = true;
 
                 _spriteRenderer.flipX = true;
             }

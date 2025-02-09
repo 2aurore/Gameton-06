@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -13,7 +14,7 @@ namespace TON
         public int id;  // 적 고유 ID
         public float currentHP = 100;  // HP
 
-        public string name; // 몬스터 명 or 프리팹 명
+        // public string name; // 몬스터 명 or 프리팹 명
         public string monsterType;  // 몬스터 타입 ex : melee, ranged
         
         
@@ -58,6 +59,15 @@ namespace TON
             
             // TODO: 몬스터 방어력 임시값
             defencePower = 10f;
+            
+            // // 몬스터 데이터 로드
+            // MonsterData monsterData = MonsterDataManager.Instance.monsterDataDict[monsterID];
+            //
+            // // 몬스터 데이터 적용
+            // Debug.Log("몬스터 이름: " + monsterData.name);
+            // Debug.Log("공격력: " + monsterData.attackPower);
+            // Debug.Log("체력: " + monsterData.health);
+            // Debug.Log("속도: " + monsterData.speed);
         }
 
         // Update is called once per frame
@@ -67,8 +77,6 @@ namespace TON
             // todo : 충돌 했으면 attack 전환 (바로 그냥 공격하게 따라가지 말고)
             // todo : 시야를 벗어났으면 idle 전환
             
-            _isDetect = false;
-
             if (_isWalking)
             {
                 // walking 상태에서 walkingTime을 초과할 경우 idle 애니메이션 재생
@@ -97,14 +105,7 @@ namespace TON
                     _isWalking = true;
                 }
             }
-
-            // if (_isHit)
-            // {
-            //     _animator.SetBool("Attack", _isDetect);
-            //     
-            //     _isWalking = false;
-            //     
-            // }
+            
             _animator.SetBool("Walk", _isWalking); // 걷기 애니메이션
         }
 
@@ -132,17 +133,18 @@ namespace TON
 
             if (prevHP > 0 && currentHP <= 0)
             {
-                _animator.SetBool("Die", true);  // 몬스터 죽는 애니메이션 트리거
+                // _animator.SetBool("Die", true);  // 몬스터 죽는 애니메이션 트리거
                 Destroy(gameObject);  // 몬스터 파괴
             }
             else if (prevHP > 0 && currentHP > 0)
             {
-                _animator.SetBool("Hit", true); // 피격 애니메이션
+                // _animator.SetBool("Hit", true); // 피격 애니메이션
             }
         }
         
         void MonsterAttack(GameObject player)
         {
+            _animator.SetTrigger("Attack");
             // 임시 반영 수정 예정
             DamageCalculator damageCalculator = new DamageCalculator();
 
@@ -158,20 +160,24 @@ namespace TON
         
         private void OnCollisionEnter2D(Collision2D other)
         {
-            _isDetect = true;
-            
             if (other.collider.CompareTag("Player"))
             {
-                
-                _animator.SetBool("Attack", true); // 공격 애니메이션 재생
+                _isDetect = true;
+                _animator.SetTrigger("Attack");
+                if (_isDetect)
+                {
+                    _isWalking = false;
+                }
                 MonsterAttack(other.gameObject);  // 플레이어에게 공격
                 Debug.Log("감지됨");
             }
+        }
 
-            if (!other.collider.CompareTag("Player"))
-            {
-                _isDetect = false;
-            }
+        private void OnCollisionExit2D(Collision2D other)
+        {
+            _isDetect = false;
+
+            _isWalking = true;
         }
     }
 }

@@ -22450,7 +22450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 7a00211aa387db34a84cda105b43951d, type: 3}
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: f7ee1c2339ece91458ffacd3f3af8853, type: 3}
 --- !u!212 &585265469
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -22492,7 +22492,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7008412969330441016, guid: 1e8befff9bca477294a1fe952411acfb, type: 3}
+  m_Sprite: {fileID: -371974518, guid: 0e0c49562085468e8b180291b8414bf8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0

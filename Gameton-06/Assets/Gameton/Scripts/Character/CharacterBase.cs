@@ -160,24 +160,20 @@ namespace TON
             attackCollider.EnableCollider(false);
         }
 
-        public void SkillAttack(string skillId)
+        public bool SkillAttack(string skillId)
         {
-            animator.Play("Skill Attack");
+            // 스킬 매니저에서 스킬을 쏠 수 있는지 여부를 판단 
+            bool canExecute = SkillDataManager.Singleton.CanExecuteSkill(skillId);
+            if (canExecute)
+            {
+                // 스킬 애니메이터 실행
+                animator.Play("Skill Attack");
 
-            // 스킬 생성
-            GameObject skill = ObjectPoolManager.Instance.GetEffect(skillId);
+                // 스킬 매니저에 스킬 발사 요청 
+                SkillDataManager.Singleton.ExecuteSkill(skillId, firePoint, lastDirection);
+            }
 
-            // skill.transform.SetParent(firePoint);
-            skill.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
-
-            // 🔥 스킬 방향 반전
-            var bulletScale = skill.transform.localScale;
-            bulletScale.x = Mathf.Abs(bulletScale.x) * lastDirection;
-            skill.transform.localScale = bulletScale;
-
-            // 스킬 이동 방향 설정
-            Rigidbody2D skillRb = skill.GetComponent<Rigidbody2D>();
-            skillRb.velocity = new Vector2(lastDirection * 5f, 0f);
+            return canExecute;
         }
 
 

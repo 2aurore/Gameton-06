@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6892128790266366542}
   - component: {fileID: 1317263097951514820}
   - component: {fileID: 3514874755737400832}
-  - component: {fileID: -3377048296267459566}
   - component: {fileID: 1179248653527079395}
   - component: {fileID: 4076849194862890134}
+  - component: {fileID: 8757402249180582990}
   m_Layer: 0
   m_Name: Iceball
   m_TagString: Untagged
@@ -109,18 +109,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-3377048296267459566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2209934716239183953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa5541b68c81e2347960b5eeaf373bf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &1179248653527079395
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -183,3 +171,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &8757402249180582990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2209934716239183953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9407c2d7c54dec74eac0fe37da48ef1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData:
+    id: 0
+    type: 
+    name: 
+    level: 0
+    experience: 0
+    hp: 0
+    mp: 0
+    attackPower: 0
+    defensivePower: 0
+    critical: 0
+  destoryTime: 2

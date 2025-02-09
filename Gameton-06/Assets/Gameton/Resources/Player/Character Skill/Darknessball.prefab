@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 759552675758406580}
   - component: {fileID: 7492690471538067993}
   - component: {fileID: 721481636574888361}
-  - component: {fileID: -3275633907703003897}
   - component: {fileID: 9113494596136640624}
   - component: {fileID: -7794782427701892011}
+  - component: {fileID: 6756012842473655295}
   m_Layer: 0
   m_Name: Darknessball
   m_TagString: Untagged
@@ -109,18 +109,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-3275633907703003897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 589444956133359262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46951a2e33fdd5a409f1579de9b7acfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &9113494596136640624
 Rigidbody2D:
   serializedVersion: 4
@@ -183,3 +171,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.33, y: 0.32}
   m_Direction: 1
+--- !u!114 &6756012842473655295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589444956133359262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9407c2d7c54dec74eac0fe37da48ef1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData:
+    id: 0
+    type: 
+    name: 
+    level: 0
+    experience: 0
+    hp: 0
+    mp: 0
+    attackPower: 0
+    defensivePower: 0
+    critical: 0
+  destoryTime: 2

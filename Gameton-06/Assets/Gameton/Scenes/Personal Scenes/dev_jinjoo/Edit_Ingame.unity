@@ -737,6 +737,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TON.ObjectPoolSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 6504236090121797777, guid: ab2e507b20e5dc844a1ea24b5619f656, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

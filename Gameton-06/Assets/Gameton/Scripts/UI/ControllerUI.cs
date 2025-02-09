@@ -19,30 +19,30 @@ namespace TON
 
         [SerializeField]
         private SerializableDictionary<int, ControllerUI_SkillButton> skillButtons;
+        private SerializableDictionary<string, SkillBase> skillInstances;
         private List<SkillData> skillDatas;
+        private List<SkillBase> skillBases;
 
 
         public void Initalize()
         {
             int characterLevel = PlayerDataManager.Singleton.player.level;
-            skillDatas = SkillDataManager.Singleton.skillDatas;
+            skillInstances = SkillDataManager.Singleton.skillInstances;
 
-            if (skillDatas != null)
+            // 내가 사용할 스킬은 스킬 매니저에서 가져오게 변경
+
+            if (skillInstances != null)
             {
-                // 사용 가능한 스킬 필터링 (캐릭터 레벨보다 필요 레벨이 낮거나 같은 것만)
-                List<SkillData> availableSkills = skillDatas
-                    .Where(skill => skill.requiredLevel <= characterLevel)
-                    .OrderBy(skill => skill.requiredLevel) // 필요 레벨이 낮은 순으로 정렬
-                    .Take(3) // 최대 3개 선택
-                    .ToList();
+                int skillSlotCount = SkillDataManager.Singleton.GetActiveSkillCount();
+                List<SkillBase> skillList = SkillDataManager.Singleton.GetActiveSkillInstance();
 
                 // 버튼 설정
                 for (int i = 0; i < buttons.Length; i++)
                 {
-                    if (i < availableSkills.Count)
+                    if (i < skillSlotCount)
                     {
                         buttons[i].interactable = true; // 사용 가능
-                        SkillData skillData = skillDatas.Find(skill => skill.slotNumber == i + 1);
+                        SkillBase skillData = skillList.Find(skill => skill.SkillData.slotNumber == i + 1);
                         skillButtons[i].Initalize(skillData);
                     }
                     else
@@ -55,8 +55,6 @@ namespace TON
             {
                 Debug.LogError("스킬 정보 로드 오류 발생");
             }
-
-
         }
 
         public void OnClickJumpButton()
@@ -71,10 +69,14 @@ namespace TON
 
         public void OnClickSkillButton(ControllerUI_SkillButton button)
         {
-            linkedCharactor.SkillAttack(button.skillId);
-            SkillData skillData = skillDatas.Find(skill => skill.id == button.skillId);
-            button.SetCoolTime(skillData.coolDown);
+            bool skillAttack = linkedCharactor.SkillAttack(button.skillBase.SkillData.id);
+            // skill Attack 이 true 일때 만 쿨타임 흘러가게끔
+            if (skillAttack)
+            {
+                // SkillData skillData = skillDatas.Find(skill => skill.id == button.skillId);
+                button.SetCoolTime();
 
+            }
         }
 
     }

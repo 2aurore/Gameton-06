@@ -48,6 +48,7 @@ namespace TON
             PlayerDataManager.Singleton.SetCurrentUserData();
             // HeartDataManager.Singleton.();
             List<SkillData> skillDatas = SkillDataManager.Singleton.skillDatas;
+            SkillDataManager.Singleton.SetSkillInstances();
 
             // TODO : Custom Order After System Load
             // UIManager.Show<IngameUI>(UIList.IngameUI);

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3594168943760168462}
   - component: {fileID: 3898881956917593441}
   - component: {fileID: 3923960153182909598}
-  - component: {fileID: 5319750382995448671}
+  - component: {fileID: 8315617979406152983}
   m_Layer: 0
   m_Name: Leaf Shuriken
   m_TagString: Untagged
@@ -171,7 +171,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5319750382995448671
+--- !u!114 &8315617979406152983
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1380883064370067919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88908efcef71610458a84067666b485b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9407c2d7c54dec74eac0fe37da48ef1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerData:

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3321478883644359179}
   - component: {fileID: 212275300155788510}
   - component: {fileID: 2922771234883919603}
-  - component: {fileID: 5559617156593048031}
+  - component: {fileID: 1538103544923951145}
   m_Layer: 0
   m_Name: Leaf Cutter
   m_TagString: Untagged
@@ -171,7 +171,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5559617156593048031
+--- !u!114 &1538103544923951145
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 774765665418399614}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecd1248961250a0459b097be2a5f840d, type: 3}
+  m_Script: {fileID: 11500000, guid: 9407c2d7c54dec74eac0fe37da48ef1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerData:

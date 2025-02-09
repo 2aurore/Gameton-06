@@ -5,7 +5,7 @@ using UnityEngine;
 namespace TON
 {
     [System.Serializable]
-    public abstract class SkillBase : PoolAble
+    public class SkillBase : PoolAble
     {
         public float SkillCoolDown => SkillData.coolDown;
         public float CurrentCoolDown { get; protected set; }
@@ -15,7 +15,7 @@ namespace TON
 
         private DamageCalculator damageCalculator = new DamageCalculator();
 
-        private float elapsedTime; // 경과 시간 저장 변수
+        private float elapsedTime = 0f; // 경과 시간 저장 변수
         public float destoryTime = 2f;
 
 
@@ -27,19 +27,43 @@ namespace TON
 
         void OnEnable()
         {
-            elapsedTime = 0f; // 오브젝트가 활성화될 때 초기화
+            elapsedTime = 0f;
         }
+
+        public void InvokeExcuteSkill()
+        {
+            InvokeRepeating(nameof(ExecuteSkill), 0f, 1f); // 즉시 실행 후 1초 간격 반복
+        }
+
+        void ExecuteSkill()
+        {
+            if (elapsedTime >= destoryTime)
+            {
+                CancelInvoke(nameof(ExecuteSkill)); // 반복 중지
+                ReleaseObject();
+                return;
+            }
+
+            Debug.Log("SkillBase:: " + SkillData.name);
+            UpdateSkill(Time.deltaTime);
+            elapsedTime += 1.0f;
+        }
+
+        void OnDisable()
+        {
+            CancelInvoke(nameof(ExecuteSkill)); // 오브젝트 비활성화 시 중지
+        }
+
 
         void Update()
         {
-            UpdateSkill(Time.deltaTime);
-            elapsedTime += Time.deltaTime; // 경과 시간 누적
 
-            // 2초가 지나면 오브젝트 풀에 반환
-            if (elapsedTime >= destoryTime)
-            {
-                ReleaseObject();
-            }
+
+        }
+
+        public void SetCurrentCoolDown()
+        {
+            CurrentCoolDown = SkillData.coolDown; // 쿨타임 시작
         }
 
         public void UpdateSkill(float deltaTime)

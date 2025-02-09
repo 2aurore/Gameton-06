@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1708996747545980439}
   - component: {fileID: 751188261029751302}
   - component: {fileID: 8761893032860631160}
+  - component: {fileID: 8639718758756888688}
   m_Layer: 0
   m_Name: ElementalBurst
   m_TagString: Untagged
@@ -170,3 +171,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.35, y: 0.11}
   m_Direction: 1
+--- !u!114 &8639718758756888688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5823506627603727293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9407c2d7c54dec74eac0fe37da48ef1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData:
+    id: 0
+    type: 
+    name: 
+    level: 0
+    experience: 0
+    hp: 0
+    mp: 0
+    attackPower: 0
+    defensivePower: 0
+    critical: 0
+  destoryTime: 2

@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Numerics;
+using Assets.PixelFantasy.PixelMonsters.Common.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
 using DamageCalculator = TON.DamageCalculator;
@@ -16,7 +18,6 @@ namespace TON
 
         // public string name; // 몬스터 명 or 프리팹 명
         public string monsterType;  // 몬스터 타입 ex : melee, ranged
-        
         
         // public int damage;  // 공격력
         public float speed = 2; // 이동속도
@@ -44,10 +45,31 @@ namespace TON
         private Collider2D _collider;
 
         public float defencePower;
+        
+        public Dictionary<string, Monster> dicMonster = new Dictionary<string, Monster>(); // 초기화
 
+        [System.Serializable]
+        public class Monster
+        {
+            public int id;
+            public string name;
+            public int level;
+            public int hp;
+            public int attackPower;
+            public int defencePoser;
+        }
+        
         // Start is called before the first frame update
         void Start()
         {
+            ReadCSV();
+
+            // dicMonster 사용 예시
+            if (dicMonster.ContainsKey("1")) // 키 존재 확인
+            {
+                Debug.Log(dicMonster["1"].name);
+            }
+            
             _currentTime = Time.realtimeSinceStartup;
 
             _animator = GetComponent<Animator>();
@@ -59,15 +81,54 @@ namespace TON
             
             // TODO: 몬스터 방어력 임시값
             defencePower = 10f;
-            
-            // // 몬스터 데이터 로드
-            // MonsterData monsterData = MonsterDataManager.Instance.monsterDataDict[monsterID];
-            //
-            // // 몬스터 데이터 적용
-            // Debug.Log("몬스터 이름: " + monsterData.name);
-            // Debug.Log("공격력: " + monsterData.attackPower);
-            // Debug.Log("체력: " + monsterData.health);
-            // Debug.Log("속도: " + monsterData.speed);
+        }
+
+        private void ReadCSV()
+        {
+            TextAsset csvFile = Resources.Load<TextAsset>("Monster");
+
+            if (csvFile == null)
+            {
+                Debug.LogError("CSV 파일 로드 실패: Monster");
+                return;
+            }
+
+            StringReader reader = new StringReader(csvFile.text);
+            string line;
+            bool isFirstLine = true; // 첫 번째 줄은 헤더로 건너뛰기
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                if (isFirstLine)
+                {
+                    isFirstLine = false;
+                    continue; // 헤더 건너뛰기
+                }
+
+                var splitData = line.Split(',');
+
+                Monster monster = new Monster();
+
+                // int.TryParse를 사용하여 안전하게 정수형으로 변환
+                if (int.TryParse(splitData[0], out monster.id)) { }
+                else { Debug.LogError("id 필드 정수 변환 실패: " + splitData[0]); }
+
+                monster.name = splitData[1];
+
+                if (int.TryParse(splitData[2], out monster.level)) { }
+                else { Debug.LogError("level 필드 정수 변환 실패: " + splitData[2]); }
+
+                if (int.TryParse(splitData[3], out monster.hp)) { }
+                else { Debug.LogError("hp 필드 정수 변환 실패: " + splitData[3]); }
+
+                if (int.TryParse(splitData[4], out monster.attackPower)) { }
+                else { Debug.LogError("attackPower 필드 정수 변환 실패: " + splitData[4]); }
+
+                if (int.TryParse(splitData[5], out monster.defencePoser)) { }
+                else { Debug.LogError("defencePoser 필드 정수 변환 실패: " + splitData[5]); }
+
+                dicMonster.Add(monster.id.ToString(), monster); // id를 키로 사용
+            }
         }
 
         // Update is called once per frame

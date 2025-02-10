@@ -46,6 +46,18 @@ namespace TON
 
         public float defencePower;
         
+        public bool IsWalking
+        {
+            get => _isWalking;
+            set => _isWalking = value;
+        }
+
+        public bool IsDetect
+        {
+            get => _isDetect;
+            set => _isDetect = value;
+        }
+
         public Dictionary<string, Monster> dicMonster = new Dictionary<string, Monster>(); // 초기화
 
         [System.Serializable]
@@ -62,12 +74,13 @@ namespace TON
         // Start is called before the first frame update
         void Start()
         {
+            
             ReadCSV();
 
             // dicMonster 사용 예시
             if (dicMonster.ContainsKey("1")) // 키 존재 확인
             {
-                Debug.Log(dicMonster["1"].name);
+                // Debug.Log(dicMonster["1"].name);
             }
             
             _currentTime = Time.realtimeSinceStartup;
@@ -134,8 +147,6 @@ namespace TON
         // Update is called once per frame
         void Update()
         {
-            // todo : 타겟 감지 >> 몬스터의 원형 시야 안에 플레이어가 충돌했는지 여부
-            // todo : 충돌 했으면 attack 전환 (바로 그냥 공격하게 따라가지 말고)
             // todo : 시야를 벗어났으면 idle 전환
             
             if (_isWalking)
@@ -167,19 +178,8 @@ namespace TON
                 }
             }
             
+            // 걷기 애니메이션으로 변경
             _animator.SetBool("Walk", _isWalking); // 걷기 애니메이션
-        }
-
-        // 단순 플레이어 태그 기준 따라가는 코드
-        private void FixedUpdate()
-        {   
-            // 타겟의 위치에서 내 현제 위치를 뺌
-            // UnityEngine.Vector2 direction = target.transform.position - transform.position;
-            
-            // 방향 * 속도 * 시간간격 
-            // transform.Translate(direction.normalized * speed * Time.deltaTime);
-            // animator.SetBool("Iidle", true);
-            
         }
 
         public void ApplyDamage(float damage)
@@ -203,7 +203,7 @@ namespace TON
             }
         }
         
-        void MonsterAttack(GameObject player)
+        public void Attack(GameObject player)
         {
             _animator.SetTrigger("Attack");
             // 임시 반영 수정 예정
@@ -218,27 +218,32 @@ namespace TON
 
             Debug.Log($" 몬스터 공격! 최종 데미지: {damage}");
         }
-        
-        private void OnCollisionEnter2D(Collision2D other)
+
+        public void Detect(GameObject target)
         {
-            if (other.collider.CompareTag("Player"))
+            if (target == null) return; // 타겟이 null이면 함수 종료
+
+            // 타겟의 위치에서 내 현재 위치를 빼서 방향 벡터를 구함
+            UnityEngine.Vector2 direction = target.transform.position - transform.position;
+
+            // 방향 벡터의 크기가 0이 아니면 (즉, 타겟이 존재하면) 이동
+            if (direction.magnitude > 0)
             {
-                _isDetect = true;
-                _animator.SetTrigger("Attack");
-                if (_isDetect)
-                {
-                    _isWalking = false;
-                }
-                MonsterAttack(other.gameObject);  // 플레이어에게 공격
-                Debug.Log("감지됨");
+                // 방향 벡터를 정규화하여 길이를 1로 만들고, 속도를 곱하여 이동
+                transform.Translate(direction.normalized * speed * Time.deltaTime);
+
+                // 걷기 애니메이션 재생
+                _animator.SetBool("Walk", true);
+
+                // 타겟 방향으로 몬스터 이미지 뒤집기
+                _spriteRenderer.flipX = direction.x < 0; 
+            }
+            else
+            {
+                // 타겟과 몬스터가 같은 위치에 있으면 걷기 애니메이션 중지
+                _animator.SetBool("Walk", false);
             }
         }
-
-        private void OnCollisionExit2D(Collision2D other)
-        {
-            _isDetect = false;
-
-            _isWalking = true;
-        }
     }
+    
 }

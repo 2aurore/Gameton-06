@@ -18,13 +18,21 @@ namespace TON
         public TextMeshProUGUI skillReqMp;
         public TextMeshProUGUI skillReqLv;
 
-        public void Initalize(SkillData skillData)
+        public GameObject locker;
+
+
+        public void Initalize(SkillData skillData, int playerLevel)
         {
             skillName.text = skillData.name;
             skillDamage.text = $"{skillData.damage}";
             skillCooltime.text = $"{skillData.coolDown}";
             skillReqMp.text = $"{skillData.mpConsumption}";
             skillReqLv.text = $"{skillData.requiredLevel}";
+
+            if (playerLevel >= skillData.requiredLevel)
+            {
+                locker.SetActive(false);
+            }
         }
 
     }

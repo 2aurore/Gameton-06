@@ -396,12 +396,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9616c40d2f25049a1cd91f744b3eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imageSprites:
+    keys: []
+    values: []
   skillImage: {fileID: 1387251271655878441}
   skillName: {fileID: 8742526129269004090}
   skillDamage: {fileID: 6604346907373336785}
   skillCooltime: {fileID: 5644015466645616352}
   skillReqMp: {fileID: 2735593499604854753}
   skillReqLv: {fileID: 8218594638945546518}
+  locker: {fileID: 8836474559121583485}
 --- !u!1 &1100155134931810629
 GameObject:
   m_ObjectHideFlags: 0

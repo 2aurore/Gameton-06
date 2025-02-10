@@ -13,9 +13,12 @@ namespace TON
         public GameObject uiPrefab;
         public List<RectTransform> uiPrefabList = new List<RectTransform>();
 
+        public int playerLevel;
+
         private void Start()
         {
             scrollRect = GetComponent<ScrollRect>();
+            playerLevel = PlayerDataManager.Singleton.player.level;
 
             Initialize();
         }
@@ -29,7 +32,7 @@ namespace TON
             {
                 SkillData skillData = skillDatas[i];
                 GameObject skillInfoItem = Instantiate(uiPrefab, scrollRect.content);
-                skillInfoItem.GetComponent<SkillInformationItem>().Initalize(skillData);
+                skillInfoItem.GetComponent<SkillInformationItem>().Initalize(skillData, playerLevel);
 
                 RectTransform rectTransform = skillInfoItem.GetComponent<RectTransform>();
 

@@ -52,8 +52,8 @@ namespace TON
 
             // TODO : Custom Order After System Load
             // UIManager.Show<IngameUI>(UIList.IngameUI);
-            UIManager.Show<LobbyUI>(UIList.LobbyUI);
-            // UIManager.Show<ControllerUI>(UIList.ControllerUI);
+            // UIManager.Show<LobbyUI>(UIList.LobbyUI);
+            UIManager.Show<ControllerUI>(UIList.ControllerUI);
             // ControllerUI.Instance.Initalize();
             // UIManager.Show<IngameOptionUI>(UIList.IngameOptionUI);
             // UIManager.Show<CharaterCreateUI>(UIList.CharaterCreateUI);

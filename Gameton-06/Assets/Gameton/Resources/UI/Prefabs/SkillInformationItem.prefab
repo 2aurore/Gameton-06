@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 3123293382822292774}
   - component: {fileID: 7711391530007573910}
   - component: {fileID: 894771521184045827}
+  - component: {fileID: 3064740509906673288}
   m_Layer: 5
   m_Name: SkillInformationItem
   m_TagString: Untagged
@@ -343,7 +344,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -1.5, y: 0}
-  m_SizeDelta: {x: 54, y: 150}
+  m_SizeDelta: {x: 540, y: 150}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &7711391530007573910
 CanvasRenderer:
@@ -383,6 +384,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3064740509906673288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979625317529729593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed9616c40d2f25049a1cd91f744b3eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillImage: {fileID: 1387251271655878441}
+  skillName: {fileID: 8742526129269004090}
+  skillDamage: {fileID: 6604346907373336785}
+  skillCooltime: {fileID: 5644015466645616352}
+  skillReqMp: {fileID: 2735593499604854753}
+  skillReqLv: {fileID: 8218594638945546518}
 --- !u!1 &1100155134931810629
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +734,7 @@ GameObject:
   - component: {fileID: 4283579082580050686}
   - component: {fileID: 8742526129269004090}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Skill Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1692,8 +1711,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 290, y: 100}
+  m_AnchoredPosition: {x: 10, y: 0}
+  m_SizeDelta: {x: 280, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5928182656046075048
 MonoBehaviour:

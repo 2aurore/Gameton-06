@@ -28,7 +28,10 @@ namespace TON
             for (int i = 0; i < skillDatas.Count; i++)
             {
                 SkillData skillData = skillDatas[i];
-                RectTransform rectTransform = Instantiate(uiPrefab, scrollRect.content).GetComponent<RectTransform>();
+                GameObject skillInfoItem = Instantiate(uiPrefab, scrollRect.content);
+                skillInfoItem.GetComponent<SkillInformationItem>().Initalize(skillData);
+
+                RectTransform rectTransform = skillInfoItem.GetComponent<RectTransform>();
 
                 uiPrefabList.Add(rectTransform);
                 uiPrefabList[i].anchoredPosition = new Vector2(0f, -y);

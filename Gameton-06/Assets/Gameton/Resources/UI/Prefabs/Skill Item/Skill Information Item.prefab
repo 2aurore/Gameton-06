@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 894771521184045827}
   - component: {fileID: 3064740509906673288}
   m_Layer: 5
-  m_Name: SkillInformationItem
+  m_Name: Skill Information Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

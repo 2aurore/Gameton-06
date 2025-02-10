@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
@@ -45,6 +46,13 @@ namespace TON
         private Collider2D _collider;
 
         public float defencePower;
+
+        // 애니메이션 관련 선언들
+        private string currentState;
+        
+        const string AniIdle = "Idle";
+        const string AniWalk = "Walk";
+        const string AniAttack = "Attack";
         
         public bool IsWalking
         {
@@ -94,6 +102,13 @@ namespace TON
             
             // TODO: 몬스터 방어력 임시값
             defencePower = 10f;
+        }
+
+        void ChangeAnimationState(string newState)
+        {
+            if(currentState == newState) return;
+            
+            _animator.Play(newState);
         }
 
         private void ReadCSV()
@@ -153,10 +168,11 @@ namespace TON
             {
                 // walking 상태에서 walkingTime을 초과할 경우 idle 애니메이션 재생
                 transform.Translate(_direction * speed * Time.deltaTime);
-
+                
                 if (Time.realtimeSinceStartup - _currentTime >= walkingTime)
                 {
                     _isWalking = false;
+                    ChangeAnimationState(AniIdle);
                     _currentTime = Time.realtimeSinceStartup;
                 }
             }
@@ -175,11 +191,13 @@ namespace TON
                     }
 
                     _isWalking = true;
+                    ChangeAnimationState(AniWalk);
                 }
             }
             
             // 걷기 애니메이션으로 변경
-            _animator.SetBool("Walk", _isWalking); // 걷기 애니메이션
+            // ChangeAnimationState(AniWalk);
+            // _animator.SetBool("Walk", _isWalking); // 걷기 애니메이션
         }
 
         public void ApplyDamage(float damage)
@@ -205,6 +223,8 @@ namespace TON
         
         public void Attack(GameObject player)
         {
+            ChangeAnimationState(AniAttack);
+            // _animator.Play("Attack");
             _animator.SetTrigger("Attack");
             // 임시 반영 수정 예정
             DamageCalculator damageCalculator = new DamageCalculator();

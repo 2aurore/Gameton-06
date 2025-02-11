@@ -35,12 +35,31 @@ namespace TON
                 skillDatas.Clear();
             }
 
-            skillDatas = JSONLoader.LoadFromResources<List<SkillData>>("skill");
+            JSONLoader.SaveJsonToPersistentData("skill");
+            skillDatas = JSONLoader.LoadJsonFromPersistentData<List<SkillData>>("skill");
 
             if (skillDatas == null)
             {
                 skillDatas = new List<SkillData>();
             }
+        }
+
+        public void UpdateSkillData(string skillId, int slotNumber)
+        {
+            foreach (var skill in skillDatas)
+            {
+                if (skill.id == skillId)
+                {
+                    skill.slotNumber = slotNumber;
+                }
+                if (skill.slotNumber == slotNumber && skill.id != skillId)
+                {
+                    skill.slotNumber = 0;
+                }
+            }
+
+            Assert.IsTrue(JSONLoader.SaveUpdatedJsonToPersistentData(skillDatas, "skill"));
+            Initalize();
         }
 
         public void SetSkillInstances()
@@ -159,21 +178,6 @@ namespace TON
             return result;
         }
 
-        public void UpdateSkillData(string skillId, int slotNumber)
-        {
-            foreach (var skill in skillDatas)
-            {
-                if (skill.id == skillId)
-                {
-                    skill.slotNumber = slotNumber;
-                }
-                if (skill.slotNumber == slotNumber && skill.id != skillId)
-                {
-                    skill.slotNumber = 0;
-                }
-            }
 
-            JSONLoader.SaveToFile(skillDatas, "skill");
-        }
     }
 }

@@ -82,7 +82,6 @@ namespace TON
                 // 일반 객체는 그대로 JSON 변환
                 json = JsonUtility.ToJson(data, true);
             }
-            Debug.Log("SaveToFile ::: " + json);
 
             File.WriteAllText(path, json);
             Debug.Log($"파일 저장 성공 ::: {fileName}.json");
@@ -95,7 +94,7 @@ namespace TON
         }
 
         /// <summary> Resources.Load 로 읽어온 파일을 persistentDataPath 경로에 저장 </summary>
-        public static bool SaveJsonToPersistentData(string fileName)
+        public static void SaveJsonToPersistentData(string fileName)
         {
             if (fileName.EndsWith(".json"))
             {
@@ -104,35 +103,36 @@ namespace TON
 
             string persistentPath = GetPersistentPath(fileName);
 
+#if UNITY_ANDROID
             // 📌 Step 1: persistentDataPath에 파일이 있는지 체크
+            // Android에서는 파일이 이미 존재하면 덮어쓰지 않도록 함
             if (File.Exists(persistentPath))
             {
                 Debug.Log($"⚠ {fileName}.json 파일이 이미 존재합니다. 덮어쓰지 않습니다. ({persistentPath})");
-                return false;
             }
-
+#endif
             // 📌 Step 2: Resources에서 JSON 불러오기
-            string path = "GameData/" + fileName; // Resources 폴더 내 경로
+            string path = DATA_PATH + fileName; // Resources 폴더 내 경로
             TextAsset jsonFile = Resources.Load<TextAsset>(path);
 
             if (jsonFile != null)
             {
                 File.WriteAllText(persistentPath, jsonFile.text);
                 Debug.Log($"✅ JSON 저장 완료 (처음 저장됨): {persistentPath}");
-                return true;
             }
             else
             {
-                Debug.LogError($"❌ Resources에서 JSON 파일을 찾을 수 없음: {path}");
-                return false;
+                Debug.LogError($"❌ Resources에서 JSON 파일을 찾을 s수 없음: {path}");
             }
         }
+
 
 
         /// <summary> persistentDataPath 경로의 파일 읽어오기 </summary>
         public static T LoadJsonFromPersistentData<T>(string fileName)
         {
             string path = GetPersistentPath(fileName);
+            Debug.Log($"LoadJsonFromPersistentData : {path}");
 
             if (!File.Exists(path))
             {
@@ -162,24 +162,37 @@ namespace TON
         }
 
         /// <summary> persistentDataPath 경로의 파일 데이터 업데이트 </summary>
-        public static void SaveUpdatedJsonToPersistentData<T>(T updatedData, string fileName)
+        public static bool SaveUpdatedJsonToPersistentData<T>(T updatedData, string fileName)
         {
-            string path = GetPersistentPath(fileName);
-            string json;
-
-            // 리스트인지 확인 후 JSON 변환
-            if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(List<>))
+            try
             {
-                Wrapper<T> wrapper = new Wrapper<T> { items = updatedData };
-                json = JsonUtility.ToJson(wrapper, true);
-            }
-            else
-            {
-                json = JsonUtility.ToJson(updatedData, true);
-            }
+                string path = GetPersistentPath(fileName);
+                string json;
 
-            File.WriteAllText(path, json);
-            Debug.Log($"✅ JSON 데이터 업데이트 완료: {path}");
+                // 리스트인지 확인 후 JSON 변환
+                if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(List<>))
+                {
+                    Wrapper<T> wrapper = new Wrapper<T> { items = updatedData };
+                    json = JsonUtility.ToJson(wrapper, true);
+                }
+                else
+                {
+                    json = JsonUtility.ToJson(updatedData, true);
+                }
+
+                Debug.Log($"SaveUpdatedJsonToPersistentData : {json}");
+
+                // 파일 저장
+                File.WriteAllText(path, json);
+                Debug.Log($"✅ JSON 데이터 업데이트 완료: {path}");
+
+                return true; // 저장 성공
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"❌ JSON 저장 실패: {ex.Message}");
+                return false; // 저장 실패
+            }
         }
 
 

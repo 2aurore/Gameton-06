@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -61,6 +62,7 @@ namespace TON
 
             // 스킬 버튼을 생성
             List<SkillBase> activatedSkills = SkillDataManager.Singleton.GetEquippedSkills();
+            int maxEquipSkillCount = SkillDataManager.Singleton.GetActiveSkillCount();
             for (int i = 0; i < 3; i++)
             {
                 SkillSettingUI_SkillSlot newSkillSlot = Instantiate(skillSlotPrefab, skillSlotGroup);
@@ -72,8 +74,15 @@ namespace TON
                 }
                 else
                 {
-                    // 복제 됐을때 기본 상태가 잠금 상태 
-                    newSkillSlot.GetComponent<Button>().interactable = false;
+                    if (i == maxEquipSkillCount - 1)
+                    {
+                        // 만약 스킬을 배치할 수 있는 슬롯이지만 지정된 스킬이 없다면
+                        newSkillSlot.Initalize(null, i);
+                    }
+                    else
+                    {
+                        newSkillSlot.GetComponent<Button>().interactable = false;
+                    }
                 }
                 createSkillSlots.Add(newSkillSlot);
             }
@@ -81,6 +90,20 @@ namespace TON
 
         private void SetSkillInfoItem()
         {
+            // 이미 기존에 UI가 생성되어 있다면 삭제
+            if (createSkillInfo.Count > 0)
+            {
+                foreach (var button in createSkillInfo)
+                {
+                    Destroy(button.gameObject);
+                }
+                createSkillInfo.Clear();
+            }
+            if (uiPrefabList.Count > 0)
+            {
+                uiPrefabList.Clear();
+            }
+
             List<SkillData> skillDatas = SkillDataManager.Singleton.skillDatas;
 
             float y = 0;
@@ -140,7 +163,6 @@ namespace TON
 
         public void OnClickSettingButton()
         {
-            Debug.Log($"OnClickSettingButton() : {selectedSkillId} , {selectedSlotIndex}");
             // 스킬 데이터 업데이트 할때 selectedSlotIndex +1 해서 넘겨줘야함
             SkillDataManager.Singleton.UpdateSkillData(selectedSkillId, selectedSlotIndex + 1);
 

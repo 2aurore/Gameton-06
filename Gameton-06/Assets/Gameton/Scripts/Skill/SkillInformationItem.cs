@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace TON
@@ -11,7 +12,7 @@ namespace TON
         [SerializeField]
         SerializableDictionary<string, Sprite> imageSprites = new SerializableDictionary<string, Sprite>();
 
-        public Image skillImage;
+        public GameObject skillImage;
         public TextMeshProUGUI skillName;
         public TextMeshProUGUI skillDamage;
         public TextMeshProUGUI skillCooltime;
@@ -28,6 +29,10 @@ namespace TON
             skillCooltime.text = $"{skillData.coolDown}";
             skillReqMp.text = $"{skillData.mpConsumption}";
             skillReqLv.text = $"{skillData.requiredLevel}";
+
+            Assert.IsTrue(AssetManager.Singleton.LoadSkillIcon(skillData.id, out Sprite loadedSkillImage));
+            skillImage.SetActive(true);
+            skillImage.GetComponent<Image>().sprite = loadedSkillImage;
 
             if (playerLevel >= skillData.requiredLevel)
             {

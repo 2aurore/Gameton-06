@@ -19,6 +19,7 @@ namespace TON
             SetSkillInstances();
             // TODO: player skill data 초기화[셋팅]
             // 예시) 1,4,5번 스킬을 EquippedSkills에 추가
+            GetActiveSkillInstance();
         }
 
         private void Update()
@@ -32,6 +33,11 @@ namespace TON
 
         private void LoadSkillData()
         {
+            if (skillDatas != null)
+            {
+                skillDatas.Clear();
+            }
+
             skillDatas = JSONLoader.LoadFromResources<List<SkillData>>("Skill");
             if (skillDatas == null)
             {
@@ -66,12 +72,24 @@ namespace TON
         }
 
         // 스킬 슬롯에 적용해야하는 스킬 리스트 리턴
+        public List<SkillBase> GetEquippedSkills()
+        {
+            return equippedSkills;
+        }
+
+        // 스킬 슬롯에 적용될 스킬 리스트 초기화 및 업데이트에 사용
         public List<SkillBase> GetActiveSkillInstance()
         {
+            if (equippedSkills != null)
+            {
+                equippedSkills.Clear();
+            }
+
             foreach (SkillData skill in skillDatas)
             {
                 if (skill.slotNumber == 1 || skill.slotNumber == 2 || skill.slotNumber == 3)
                 {
+                    Debug.Log("GetActiveSkillInstance() : " + skill.id);
                     equippedSkills.Add(skillInstances.GetValueOrDefault(skill.id));
                 }
             }

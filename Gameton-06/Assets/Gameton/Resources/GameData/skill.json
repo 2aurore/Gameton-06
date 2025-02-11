@@ -23,7 +23,7 @@
     "mpConsumption": 7,
     "damage": 1.15,
     "coolDown": 3,
-    "slotNumber": 3,
+    "slotNumber": 0,
     "requiredLevel": 5
   },
   {

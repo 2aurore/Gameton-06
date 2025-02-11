@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace TON
@@ -9,21 +10,25 @@ namespace TON
     {
         public GameObject skillImage;
         public GameObject lockerImage;
+        public GameObject selectedState;
 
-        public void Initalize()
+        public void Initalize(string skillId)
         {
             // 스킬 이미지 세팅하기
-            // skillImage = GetComponent<GameObject>();
+            Assert.IsTrue(AssetManager.Singleton.LoadSkillIcon(skillId, out Sprite loadedSkillImage));
+            skillImage.SetActive(true);
+            skillImage.GetComponent<Image>().sprite = loadedSkillImage;
+            lockerImage.SetActive(false);
         }
 
         public void SelectedSlot()
         {
-            lockerImage.SetActive(true);
+            selectedState.SetActive(true);
         }
 
         public void UnselectedSlot()
         {
-            lockerImage.SetActive(false);
+            selectedState.SetActive(false);
         }
     }
 }

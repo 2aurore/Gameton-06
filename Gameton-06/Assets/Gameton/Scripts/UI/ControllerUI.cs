@@ -38,7 +38,7 @@ namespace TON
             }
 
             // 스킬 버튼을 생성
-            List<SkillBase> activatedSkills = SkillDataManager.Singleton.GetActiveSkillInstance();
+            List<SkillBase> activatedSkills = SkillDataManager.Singleton.GetEquippedSkills();
             for (int i = 0; i < 3; i++)
             {
                 ControllerUI_SkillButton newSkillButton = Instantiate(skillButtonPrefab, skillButtonGroup);

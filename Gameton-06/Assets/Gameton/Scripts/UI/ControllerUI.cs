@@ -51,6 +51,7 @@ namespace TON
                 else
                 {
                     // 복제 됐을때 기본 상태가 잠금 상태 
+                    newSkillButton.GetComponent<Button>().interactable = false;
                 }
 
                 createdSkillButtons.Add(newSkillButton);
@@ -69,8 +70,7 @@ namespace TON
 
         public void OnClickSkillButton(ControllerUI_SkillButton button)
         {
-            bool skillAttack = linkedCharactor.SkillAttack(button.skillBase.SkillData.id);
-
+            linkedCharactor.SkillAttack(button.skillBase.SkillData.id);
         }
 
     }

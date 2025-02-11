@@ -160,7 +160,7 @@ namespace TON
             attackCollider.EnableCollider(false);
         }
 
-        public bool SkillAttack(string skillId)
+        public void SkillAttack(string skillId)
         {
             // 스킬 매니저에서 스킬을 쏠 수 있는지 여부를 판단 
             bool canExecute = SkillDataManager.Singleton.CanExecuteSkill(skillId);
@@ -172,8 +172,6 @@ namespace TON
                 // 스킬 매니저에 스킬 발사 요청 
                 SkillDataManager.Singleton.ExecuteSkill(skillId, firePoint, lastDirection);
             }
-
-            return canExecute;
         }
 
 

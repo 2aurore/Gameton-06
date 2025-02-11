@@ -12,18 +12,26 @@ namespace TON
         public GameObject lockerImage;
         public GameObject selectedState;
 
-        public void Initalize(string skillId)
+        private int slotIndex;
+
+        public void Initalize(string skillId, int index)
         {
+            slotIndex = index;
             // 스킬 이미지 세팅하기
-            Assert.IsTrue(AssetManager.Singleton.LoadSkillIcon(skillId, out Sprite loadedSkillImage));
-            skillImage.SetActive(true);
-            skillImage.GetComponent<Image>().sprite = loadedSkillImage;
+            if (skillId != null)    // 스킬 슬롯에 스킬이 지정된 경우
+            {
+                Assert.IsTrue(AssetManager.Singleton.LoadSkillIcon(skillId, out Sprite loadedSkillImage));
+                skillImage.SetActive(true);
+                skillImage.GetComponent<Image>().sprite = loadedSkillImage;
+            }
+
             lockerImage.SetActive(false);
         }
 
-        public void SelectedSlot()
+        public int SelectedSlot()
         {
             selectedState.SetActive(true);
+            return slotIndex;
         }
 
         public void UnselectedSlot()

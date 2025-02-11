@@ -12,13 +12,10 @@ namespace TON
 
         private List<SkillBase> equippedSkills = new List<SkillBase>();
 
-
         public void Initalize()
         {
             LoadSkillData();
             SetSkillInstances();
-            // TODO: player skill data 초기화[셋팅]
-            // 예시) 1,4,5번 스킬을 EquippedSkills에 추가
             GetActiveSkillInstance();
         }
 
@@ -38,7 +35,8 @@ namespace TON
                 skillDatas.Clear();
             }
 
-            skillDatas = JSONLoader.LoadFromResources<List<SkillData>>("Skill");
+            skillDatas = JSONLoader.LoadFromResources<List<SkillData>>("skill");
+
             if (skillDatas == null)
             {
                 skillDatas = new List<SkillData>();
@@ -89,10 +87,11 @@ namespace TON
             {
                 if (skill.slotNumber == 1 || skill.slotNumber == 2 || skill.slotNumber == 3)
                 {
-                    Debug.Log("GetActiveSkillInstance() : " + skill.id);
+                    // Debug.Log("GetActiveSkillInstance() : " + skill.id);
                     equippedSkills.Add(skillInstances.GetValueOrDefault(skill.id));
                 }
             }
+            equippedSkills.Sort((a, b) => a.SkillData.slotNumber.CompareTo(b.SkillData.slotNumber));
             return equippedSkills;
         }
 
@@ -133,14 +132,14 @@ namespace TON
             // 스킬 생성
             GameObject effectGameObject = ObjectPoolManager.Instance.GetEffect(skillId);
             Projectile projectile = effectGameObject.GetComponent<Projectile>();
-            SkillBase targetSkillBase = GetSkillData(skillId);
+            SkillBase targetSkillBase = GetSkillInstance(skillId);
             targetSkillBase.SetCurrentCoolDown();
 
             projectile.Init(targetSkillBase.SkillData.damage);
 
             effectGameObject.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
 
-            // 🔥 스킬 방향 반전
+            // 스킬 방향 반전
             var bulletScale = effectGameObject.transform.localScale;
             bulletScale.x = Mathf.Abs(bulletScale.x) * lastDirection;
             effectGameObject.transform.localScale = bulletScale;
@@ -152,14 +151,29 @@ namespace TON
             targetSkillBase.OnSkillExecuted?.Invoke();
         }
 
-
-
-        public SkillBase GetSkillData(string skillId)
+        public SkillBase GetSkillInstance(string skillId)
         {
             // 스킬 베이스가 null일때 방어로직 추가
             SkillBase result = skillInstances.GetValueOrDefault(skillId);
             Assert.IsNotNull(result, "SkillDataManager.ExecuteSkill() : targetSkillBase is null");
             return result;
+        }
+
+        public void UpdateSkillData(string skillId, int slotNumber)
+        {
+            foreach (var skill in skillDatas)
+            {
+                if (skill.id == skillId)
+                {
+                    skill.slotNumber = slotNumber;
+                }
+                if (skill.slotNumber == slotNumber && skill.id != skillId)
+                {
+                    skill.slotNumber = 0;
+                }
+            }
+
+            JSONLoader.SaveToFile(skillDatas, "skill");
         }
     }
 }

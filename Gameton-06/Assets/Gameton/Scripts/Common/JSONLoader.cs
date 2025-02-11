@@ -99,12 +99,11 @@ namespace TON
                 // 일반 객체는 그대로 JSON 변환
                 json = JsonUtility.ToJson(data, true);
             }
+            Debug.Log("SaveToFile ::: " + json);
 
             File.WriteAllText(path, json);
             Debug.Log($"파일 저장 성공 ::: {fileName}.json");
         }
-
-
 
     }
 }

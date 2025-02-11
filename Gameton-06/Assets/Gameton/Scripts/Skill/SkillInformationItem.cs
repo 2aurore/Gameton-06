@@ -17,6 +17,7 @@ namespace TON
         public TextMeshProUGUI skillDamage;
         public TextMeshProUGUI skillCooltime;
         public TextMeshProUGUI skillReqMp;
+        public TextMeshProUGUI skillReqLvTitle;
         public TextMeshProUGUI skillReqLv;
 
         public GameObject locker;
@@ -37,6 +38,11 @@ namespace TON
             if (playerLevel >= skillData.requiredLevel)
             {
                 locker.SetActive(false);
+            }
+            else
+            {
+                skillReqLvTitle.color = Color.red;
+                skillReqLv.color = Color.red;
             }
         }
 

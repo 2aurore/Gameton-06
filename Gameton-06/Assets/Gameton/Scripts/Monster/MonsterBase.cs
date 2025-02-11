@@ -83,7 +83,7 @@ namespace TON
         void Start()
         {
             
-            ReadCSV();
+            ReadCsv();
 
             // dicMonster 사용 예시
             if (dicMonster.ContainsKey("1")) // 키 존재 확인
@@ -111,7 +111,7 @@ namespace TON
             _animator.Play(newState);
         }
 
-        private void ReadCSV()
+        private void ReadCsv()
         {
             TextAsset csvFile = Resources.Load<TextAsset>("Monster");
 
@@ -166,9 +166,8 @@ namespace TON
             
             if (_isWalking)
             {
-                // walking 상태에서 walkingTime을 초과할 경우 idle 애니메이션 재생
                 transform.Translate(_direction * speed * Time.deltaTime);
-                
+
                 if (Time.realtimeSinceStartup - _currentTime >= walkingTime)
                 {
                     _isWalking = false;
@@ -178,10 +177,8 @@ namespace TON
             }
             else
             {
-                // 지금 기다렸던 시간이 idleTime을 초과할 경우에 walk 애니메이션 재생
                 if (Time.realtimeSinceStartup - _currentTime >= _idleTime)
                 {
-                    // 초기화
                     _currentTime = Time.realtimeSinceStartup;
 
                     if (_isWalking == false)
@@ -194,7 +191,22 @@ namespace TON
                     ChangeAnimationState(AniWalk);
                 }
             }
-            
+
+            // Detect 및 공격 처리
+            if (_isDetect && _target != null)
+            {
+                // 플레이어와 몬스터 간의 거리 계산
+                float distance = Vector3.Distance(transform.position, _target.transform.position);
+
+                if (distance < 1.5f) // 일정 거리 이내에서 공격
+                {
+                    Attack(_target);
+                }
+                else
+                {
+                    Detect(_target); // 플레이어가 가까이 오면 추적
+                }
+            }
             // 걷기 애니메이션으로 변경
             // ChangeAnimationState(AniWalk);
             // _animator.SetBool("Walk", _isWalking); // 걷기 애니메이션
@@ -224,8 +236,7 @@ namespace TON
         public void Attack(GameObject player)
         {
             ChangeAnimationState(AniAttack);
-            // _animator.Play("Attack");
-            _animator.SetTrigger("Attack");
+            
             // 임시 반영 수정 예정
             DamageCalculator damageCalculator = new DamageCalculator();
 
@@ -241,27 +252,15 @@ namespace TON
 
         public void Detect(GameObject target)
         {
-            if (target == null) return; // 타겟이 null이면 함수 종료
+            if (target == null) return;
 
-            // 타겟의 위치에서 내 현재 위치를 빼서 방향 벡터를 구함
             UnityEngine.Vector2 direction = target.transform.position - transform.position;
 
-            // 방향 벡터의 크기가 0이 아니면 (즉, 타겟이 존재하면) 이동
             if (direction.magnitude > 0)
             {
-                // 방향 벡터를 정규화하여 길이를 1로 만들고, 속도를 곱하여 이동
                 transform.Translate(direction.normalized * speed * Time.deltaTime);
-
-                // 걷기 애니메이션 재생
-                _animator.SetBool("Walk", true);
-
-                // 타겟 방향으로 몬스터 이미지 뒤집기
+                ChangeAnimationState(AniWalk);
                 _spriteRenderer.flipX = direction.x < 0; 
-            }
-            else
-            {
-                // 타겟과 몬스터가 같은 위치에 있으면 걷기 애니메이션 중지
-                _animator.SetBool("Walk", false);
             }
         }
     }

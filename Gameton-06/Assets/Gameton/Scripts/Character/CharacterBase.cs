@@ -7,6 +7,8 @@ namespace TON
     public class CharacterBase : MonoBehaviour, IDamage
     {
 
+        [SerializeField]  //
+        private PlayerData playerData;
         public float currentHP;
         public float maxHP;
         public float currentSP;
@@ -41,42 +43,28 @@ namespace TON
 
         public void Initialize()
         {
-            int playerIndex = PlayerPrefs.GetInt("SelectedPlayerIndex", 0);
-            PlayerData playerData = PlayerDataManager.Singleton.playersData[playerIndex];
+            // int playerIndex = PlayerPrefs.GetInt("SelectedPlayerIndex", 0);
+            PlayerDataManager.Singleton.SetCurrentUserData();
+            playerData = PlayerDataManager.Singleton.player;
 
             currentHP = maxHP = playerData.hp;
             currentSP = maxSP = playerData.mp;
         }
 
 
-        public int level = 1;       // 현재 레벨
-        public int exp = 0;         // 현재 경험치
-        public int expVariable = 10; // 경험치 변수 (조정 가능)
-
-        // 현재 레벨에서 다음 레벨까지 필요한 경험치 계산
-        private int GetRequiredExp(int currentLevel)
-        {
-            return (6 * currentLevel * currentLevel) + (currentLevel * expVariable);
-        }
-
         // 경험치 추가 및 레벨업 처리
         public void AddExp(int amount)
         {
-            exp += amount; // 경험치 추가
-            bool leveledUp = false; // 레벨업 여부 체크
-
-            while (exp >= GetRequiredExp(level)) // 경험치가 충분하면 반복해서 레벨업
-            {
-                exp -= GetRequiredExp(level); // 초과 경험치 유지
-                level++; // 레벨 증가
-                leveledUp = true;
-            }
+            bool leveledUp = PlayerDataManager.Singleton.UpdateExpericence(amount);
 
             if (leveledUp)
             {
-                // 경험치와 레벨 데이터를 파일에 업데이트 한다.
-                Debug.Log($"레벨업! 현재 레벨: {level}, 남은 경험치: {exp}");
+                // TODO: 레벨업 시 처리할 내용 추가
+                Debug.Log($"레벨업! ");
             }
+
+            // 경험치와 변경된 데이터를 파일에 업데이트 한다.
+            PlayerDataManager.Singleton.UpdatePlayerData();
         }
 
         public void FixedUpdate()

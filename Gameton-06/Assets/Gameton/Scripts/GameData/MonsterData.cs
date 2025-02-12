@@ -32,20 +32,20 @@ namespace TON
         // 공격 범위
         public float attackRange;
         
-        public MonsterData(int id, string name, int level, string monsterType, int hp, int attackPower, int defensivePower, int monsterSkillID, float patrolRange, float detectionRange, float chaseRange, float attackRange)
+        public MonsterData(int a, string b, int c, string d, int e, int f, int g, string h, float i, float j, float k, float l)
         {
-            id = id;
-            name = name;
-            level = level;
-            monsterType = monsterType;
-            hp = hp;
-            attackPower = attackPower;
-            defensivePower = defensivePower;
-            monsterSkillID = monsterSkillID;
-            patrolRange = patrolRange;
-            detectionRange = detectionRange;
-            chaseRange = chaseRange;
-            attackRange = attackRange;
+            id = a;
+            name = b;
+            level = c;
+            monsterType = d;
+            hp = e;
+            attackPower = f;
+            defensivePower = g;
+            monsterSkillID = h;
+            patrolRange = i;
+            detectionRange = j;
+            chaseRange = k;
+            attackRange = l;
         }
     }
 }

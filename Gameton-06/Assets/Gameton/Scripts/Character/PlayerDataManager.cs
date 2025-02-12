@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace TON
 {
@@ -18,9 +19,9 @@ namespace TON
         [SerializeField]
         private int defensiveGrowthFactor = 200; // 방어력 성장 변수 (조정 가능)
 
-        protected override void Awake()
+
+        public void Initalize()
         {
-            base.Awake();
             LoadPlayerData();
         }
 
@@ -78,7 +79,8 @@ namespace TON
             if (index > -1)
             {
                 playersData[index] = player;
-                JSONLoader.SaveUpdatedJsonToPersistentData(playersData, "player");
+                Assert.IsTrue(JSONLoader.SaveUpdatedJsonToPersistentData(playersData, "player"));
+                Initalize();
             }
         }
 

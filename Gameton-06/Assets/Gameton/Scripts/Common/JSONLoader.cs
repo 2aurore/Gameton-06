@@ -103,14 +103,13 @@ namespace TON
 
             string persistentPath = GetPersistentPath(fileName);
 
-#if UNITY_ANDROID
             // 📌 Step 1: persistentDataPath에 파일이 있는지 체크
             // Android에서는 파일이 이미 존재하면 덮어쓰지 않도록 함
             if (File.Exists(persistentPath))
             {
                 Debug.Log($"⚠ {fileName}.json 파일이 이미 존재합니다. 덮어쓰지 않습니다. ({persistentPath})");
+                return;
             }
-#endif
             // 📌 Step 2: Resources에서 JSON 불러오기
             string path = DATA_PATH + fileName; // Resources 폴더 내 경로
             TextAsset jsonFile = Resources.Load<TextAsset>(path);
@@ -118,7 +117,7 @@ namespace TON
             if (jsonFile != null)
             {
                 File.WriteAllText(persistentPath, jsonFile.text);
-                Debug.Log($"✅ JSON 저장 완료 (처음 저장됨): {persistentPath}");
+                Debug.Log($"✅ JSON 저장 완료: {persistentPath}");
             }
             else
             {

@@ -22,7 +22,7 @@ namespace TON
             }
 
             UIManager.Show<LobbyUI>(UIList.LobbyUI);
-            UIManager.Show<IngameOptionUI>(UIList.IngameOptionUI);
+            UIManager.Show<OptionUI>(UIList.OptionUI);
         }
 
 

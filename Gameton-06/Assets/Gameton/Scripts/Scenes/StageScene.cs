@@ -21,7 +21,7 @@ namespace TON
             }
 
             UIManager.Show<IngameUI>(UIList.IngameUI);
-            UIManager.Show<IngameOptionUI>(UIList.IngameOptionUI);
+            UIManager.Show<OptionUI>(UIList.OptionUI);
             UIManager.Show<ControllerUI>(UIList.ControllerUI);
 
             // 선택된 캐릭터에 맞는 오브젝트를 생성하거나 적용하는 코드 작성
@@ -37,7 +37,7 @@ namespace TON
             yield return null;
 
             UIManager.Hide<IngameUI>(UIList.IngameUI);
-            UIManager.Hide<IngameOptionUI>(UIList.IngameOptionUI);
+            UIManager.Hide<OptionUI>(UIList.OptionUI);
             UIManager.Hide<ControllerUI>(UIList.ControllerUI);
         }
 

@@ -30,11 +30,10 @@ namespace TON
         private bool _isWalking; // 몬스터가 걷고 있는지 여부
         private bool _isHit; // 몬스터가 맞았는지 여부
         private bool _isDetect; // 몬스터가 대상을 인식했는지 여부
-        private float _currentTime; // 현재 시간
 
-        [SerializeField] private int _idleTime = 2; // 대기 시간
-
-        [SerializeField] private int walkingTime = 2; // 걷기 시간 
+        // [SerializeField] private int _idleTime = 2; // 대기 시간
+        //
+        // [SerializeField] private int walkingTime = 2; // 걷기 시간 
 
         [SerializeField] private GameObject _target; // 몬스터의 타겟
 
@@ -43,26 +42,18 @@ namespace TON
         public float defencePower; // 몬스터의 방어력
 
         // 애니메이션 관련 선언
-        private string currentState; // 현재 애니메이션 상태
-
-        const string AniAttack = "Attack"; // 공격 애니메이션
+        private string currentAnimationState; // 현재 애니메이션 상태
         
         StateMachine _stateMachine;
-
-
-
-
+        
         // 추적 관련 선언
         private float _detectStartTime; // 추적 시작 시간
         private bool _isTracking; // 추적 중인지 여부
+
         private const float DETECT_DURATION = 5f; // 추적 지속 시간
 
-        public bool IsWalking
-        {
-            get => _isWalking;
-            set => _isWalking = value;
-        }
-
+        
+        
         public bool IsDetect
         {
             get => _isDetect;
@@ -75,11 +66,10 @@ namespace TON
             _animator = GetComponent<Animator>(); // 애니메이터 컴포넌트 초기화
 
             _stateMachine = new StateMachine(new IdleState(), this);
+            
             // 몬스터 데이터 로드 (테스트용, 첫 번째 몬스터 데이터만 로드)
             MonsterData monsterData = MonsterDataManager.Singleton.monstersData[0];
             Debug.Log(monsterData.name); // 몬스터 ID 출력
-
-            _currentTime = Time.realtimeSinceStartup; // 시작 시간 기록
 
             _direction = new Vector3(1, 0, 0); // 초기 이동 방향 (x 축 양의 방향)
 
@@ -95,51 +85,15 @@ namespace TON
         public void ChangeAnimationState(string newState)
         {
             // 현재 상태와 동일한 상태일 경우, 애니메이션을 변경하지 않음
-            if (currentState == newState) return;
+            if (currentAnimationState == newState) return;
 
             _animator.Play(newState); // 새로운 애니메이션 상태 실행
         }
-
-        // 매 프레임 호출됩니다.
+        
         private void Update()
         {
             _stateMachine.Update();
-
-            // // TODO: 시야를 벗어났으면 idle 상태로 전환하는 기능 추가 예정
-            //
-            // // 몬스터가 걷고 있는 경우
-            // if (_isWalking)
-            // {
-            //     transform.Translate(_direction * speed * Time.deltaTime); // 몬스터를 이동시킴
-            //
-            //     // 걷기 시간을 초과하면 대기 상태로 전환
-            //     if (Time.realtimeSinceStartup - _currentTime >= walkingTime)
-            //     {
-            //         _isWalking = false;
-            //         ChangeAnimationState(AniIdle); // 애니메이션을 Idle로 변경
-            //         _currentTime = Time.realtimeSinceStartup; // 시간 갱신
-            //     }
-            // }
-            // else
-            // {
-            //
-            // }
-            //
-            // // 대상을 인식하고 있으면 공격 또는 추적 처리
-            // if (_isDetect && _target != null)
-            // {
-            //     // 몬스터와 타겟 간의 거리 계산
-            //     float distance = Vector3.Distance(transform.position, _target.transform.position);
-            //
-            //     if (distance < 1.5f) // 일정 거리 이내에서 공격
-            //     {
-            //         Attack(_target);
-            //     }
-            //     else
-            //     {
-            //         Detect(_target); // 타겟이 멀어지면 추적
-            //     }
-            // }
+            
         }
 
         // 피해를 적용하는 메서드
@@ -178,39 +132,10 @@ namespace TON
             Debug.Log($" 몬스터 공격! 최종 데미지: {damage}"); // 데미지 출력
         }
 
-        // 타겟을 추적하는 메서드
-        public void Detect(GameObject target)
+        public void PlayerAttack()
         {
-            if (target == null)
-                return; // 타겟이 없으면 리턴
-
-            // 추적 시작 시 시간 기록
-            if (!_isTracking)
-            {
-                _detectStartTime = Time.time;
-                _isTracking = true;
-            }
-
-            // 5초가 지났는지 확인
-            if (Time.time - _detectStartTime >= DETECT_DURATION)
-            {
-                _isTracking = false;
-                _isDetect = false; // 추적 상태 해제
-                // ChangeAnimationState(AniIdle); // 대기 상태로 전환
-                _spriteRenderer.flipX = !(_direction.x > 0);
-                return;
-            }
-
-            UnityEngine.Vector2 direction = target.transform.position - transform.position; // 타겟과의 방향 계산
-
-            if (direction.magnitude > 0) // 타겟이 존재하면 이동
-            {
-                transform.Translate(direction.normalized * speed * Time.deltaTime); // 타겟 방향으로 이동
-                // ChangeAnimationState(AniWalk); // 걷기 애니메이션으로 변경
-
-                // 타겟 방향에 따라 스프라이트 방향 즉시 변경
-                _spriteRenderer.flipX = direction.x < 0; // 타겟이 왼쪽에 있으면 반전, 오른쪽에 있으면 정방향
-            }
+            var target = GameObject.FindGameObjectWithTag("Player");
+            Attack(target);   
         }
 
         public void SetOppositionDirection()
@@ -224,10 +149,19 @@ namespace TON
             transform.Translate(_direction * speed * Time.deltaTime);  // 몬스터를 이동시킴
         }
 
+        public void Chasing()
+        {
+            var target = GameObject.FindGameObjectWithTag("Player");
+            UnityEngine.Vector2 direction = target.transform.position - transform.position; // 타겟과의 방향 계산
+            // 타겟이 왼쪽에 있으면 스프라이트를 왼쪽으로, 오른쪽에 있으면 오른쪽으로 바라보도록 설정
+            _spriteRenderer.flipX = target.transform.position.x < transform.position.x;
+
+            transform.Translate(direction.normalized * speed * Time.deltaTime); // 타겟 방향으로 이동
+        }
+
         public void SetTransition(State state)
         {
             _stateMachine.SetTransition(state);
-
         }
     }
 }

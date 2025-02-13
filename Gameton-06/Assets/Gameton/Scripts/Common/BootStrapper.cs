@@ -43,17 +43,14 @@ namespace TON
         {
             Main.Singleton.Initialize();
 
-            PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
-            // PlayerDataManager.Singleton.SetCurrentUserData();
-
             // TODO : Custom Order After System Load
-            UIManager.Show<TitleUI>(UIList.TitleUI);
+            // UIManager.Show<TitleUI>(UIList.TitleUI);
             // UIManager.Show<CharaterCreateUI>(UIList.CharaterCreateUI);
             // UIManager.Show<LobbyUI>(UIList.LobbyUI);
             // UIManager.Show<IngameOptionUI>(UIList.IngameOptionUI);
             // UIManager.Show<SkillSettingUI>(UIList.SkillSettingUI);
+            UIManager.Show<ControllerUI>(UIList.ControllerUI);
             // UIManager.Show<IngameUI>(UIList.IngameUI);
-            // UIManager.Show<ControllerUI>(UIList.ControllerUI);
             // ControllerUI.Instance.Initalize();
         }
     }

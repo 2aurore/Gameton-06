@@ -27,6 +27,9 @@ namespace TON
             UIManager.Singleton.Initalize();
             // TODO : GameDataModel.Singleton.Initalize();
             PlayerDataManager.Singleton.Initalize();
+            PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
+            PlayerDataManager.Singleton.SetCurrentUserData();
+
             SkillDataManager.Singleton.Initalize();
 
             isIniaialized = true;

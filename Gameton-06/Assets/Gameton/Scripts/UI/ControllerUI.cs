@@ -23,6 +23,7 @@ namespace TON
         private void Awake()
         {
             skillButtonPrefab.gameObject.SetActive(false);
+            Initalize();
         }
 
         public void Initalize()

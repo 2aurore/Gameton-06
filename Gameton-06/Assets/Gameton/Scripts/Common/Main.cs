@@ -25,9 +25,9 @@ namespace TON
                 return;
             // 게임에 필요한 필수 시스템 초기화
             UIManager.Singleton.Initalize();
+
             // TODO : GameDataModel.Singleton.Initalize();
             PlayerDataManager.Singleton.Initalize();
-            PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
             PlayerDataManager.Singleton.SetCurrentUserData();
 
             SkillDataManager.Singleton.Initalize();

@@ -23,6 +23,8 @@ namespace TON
         public void Initalize()
         {
             LoadPlayerData();
+            // 현재 플레이어 1개만 사용하므로 0번째 인덱스의 플레이어 데이터를 사용
+            PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
         }
 
         private void LoadPlayerData()
@@ -90,6 +92,7 @@ namespace TON
             if (characterId > -1)
             {
                 player = playersData[characterId];
+                player.level = 15;
             }
             else
             {

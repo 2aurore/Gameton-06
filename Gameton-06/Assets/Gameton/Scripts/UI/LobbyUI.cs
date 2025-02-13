@@ -47,5 +47,11 @@ namespace TON
         {
             UIManager.Show<SkillSettingUI>(UIList.SkillSettingUI);
         }
+
+        public void OnClickShopButton()
+        {
+            // TODO: 상점 UI 추가
+            // UIManager.Show<ShopUI>(UIList.ShopUI);
+        }
     }
 }

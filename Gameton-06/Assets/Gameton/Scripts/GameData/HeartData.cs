@@ -8,7 +8,9 @@ namespace TON
     [System.Serializable]
     public class HeartData
     {
+        // 캐릭터 아이디
         public int characterId;
+        // 현재 하트 개수
         public int currentHearts;
         public int maxHearts = 3;
         public int heartRechargeTime = 600; // 10분

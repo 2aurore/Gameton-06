@@ -26,6 +26,8 @@ namespace TON
             // 게임에 필요한 필수 시스템 초기화
             UIManager.Singleton.Initalize();
             // TODO : GameDataModel.Singleton.Initalize();
+            PlayerDataManager.Singleton.Initalize();
+            SkillDataManager.Singleton.Initalize();
 
             isIniaialized = true;
         }

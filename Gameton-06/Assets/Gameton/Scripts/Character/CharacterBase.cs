@@ -7,6 +7,8 @@ namespace TON
     public class CharacterBase : MonoBehaviour, IDamage
     {
 
+        [SerializeField]  //
+        private PlayerData playerData;
         public float currentHP;
         public float maxHP;
         public float currentSP;
@@ -33,6 +35,7 @@ namespace TON
             joystick = ControllerUI.Instance.joystick;
             ControllerUI.Instance.linkedCharactor = this;
 
+
             attackCollider.EnableCollider(false); // 기본 공격 Enable 비활성화
 
             Initialize();
@@ -40,42 +43,28 @@ namespace TON
 
         public void Initialize()
         {
-            int playerIndex = PlayerPrefs.GetInt("SelectedPlayerIndex", 0);
-            PlayerData playerData = PlayerDataManager.Singleton.playersData[playerIndex];
+            // int playerIndex = PlayerPrefs.GetInt("SelectedPlayerIndex", 0);
+            PlayerDataManager.Singleton.SetCurrentUserData();
+            playerData = PlayerDataManager.Singleton.player;
 
             currentHP = maxHP = playerData.hp;
             currentSP = maxSP = playerData.mp;
         }
 
 
-        public int level = 1;       // 현재 레벨
-        public int exp = 0;         // 현재 경험치
-        public int expVariable = 10; // 경험치 변수 (조정 가능)
-
-        // 현재 레벨에서 다음 레벨까지 필요한 경험치 계산
-        private int GetRequiredExp(int currentLevel)
-        {
-            return (6 * currentLevel * currentLevel) + (currentLevel * expVariable);
-        }
-
         // 경험치 추가 및 레벨업 처리
         public void AddExp(int amount)
         {
-            exp += amount; // 경험치 추가
-            bool leveledUp = false; // 레벨업 여부 체크
-
-            while (exp >= GetRequiredExp(level)) // 경험치가 충분하면 반복해서 레벨업
-            {
-                exp -= GetRequiredExp(level); // 초과 경험치 유지
-                level++; // 레벨 증가
-                leveledUp = true;
-            }
+            bool leveledUp = PlayerDataManager.Singleton.UpdateExpericence(amount);
 
             if (leveledUp)
             {
-                // 경험치와 레벨 데이터를 파일에 업데이트 한다.
-                Debug.Log($"레벨업! 현재 레벨: {level}, 남은 경험치: {exp}");
+                // TODO: 레벨업 시 처리할 내용 추가
+                Debug.Log($"레벨업! ");
             }
+
+            // 경험치와 변경된 데이터를 파일에 업데이트 한다.
+            PlayerDataManager.Singleton.UpdatePlayerData();
         }
 
         public void FixedUpdate()
@@ -159,24 +148,18 @@ namespace TON
             attackCollider.EnableCollider(false);
         }
 
-        public void SkillAttack(string skillName)
+        public void SkillAttack(string skillId)
         {
-            animator.Play("Skill Attack");
+            // 스킬 매니저에서 스킬을 쏠 수 있는지 여부를 판단 
+            bool canExecute = SkillDataManager.Singleton.CanExecuteSkill(skillId);
+            if (canExecute)
+            {
+                // 스킬 애니메이터 실행
+                animator.Play("Skill Attack");
 
-            // 스킬 생성
-            GameObject skill = ObjectPoolManager.Instance.GetEffect(skillName);
-
-            // skill.transform.SetParent(firePoint);
-            skill.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
-
-            // 🔥 스킬 방향 반전
-            var bulletScale = skill.transform.localScale;
-            bulletScale.x = Mathf.Abs(bulletScale.x) * lastDirection;
-            skill.transform.localScale = bulletScale;
-
-            // 스킬 이동 방향 설정
-            Rigidbody2D skillRb = skill.GetComponent<Rigidbody2D>();
-            skillRb.velocity = new Vector2(lastDirection * 5f, 0f);
+                // 스킬 매니저에 스킬 발사 요청 
+                SkillDataManager.Singleton.ExecuteSkill(skillId, firePoint, lastDirection);
+            }
         }
 
 

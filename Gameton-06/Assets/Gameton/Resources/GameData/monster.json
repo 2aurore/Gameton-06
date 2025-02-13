@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "blueDragon",
+    "level": 1,
+    "hp": 10,
+    "attackPower": 35,
+    "defencePower": 36,
+    "monsterSkillID": "S001",
+    "patrolRange": 1,
+    "detectionRange": 1,
+    "chaseRange": 1,
+    "moveSpeed": 1,
+    "attackRange": 1
+  },
+  {
+    "id": 2,
+    "name": "greenDragon",
+    "level": 1,
+    "hp": 10,
+    "attackPower": 35,
+    "defencePower": 36,
+    "monsterSkillID": "S001",
+    "patrolRange": 1,
+    "detectionRange": 1,
+    "chaseRange": 1,
+    "moveSpeed": 1,
+    "attackRange": 1
+  },
+  {
+    "id": 3,
+    "name": "redDragon",
+    "level": 1,
+    "hp": 10,
+    "attackPower": 35,
+    "defencePower": 36,
+    "monsterSkillID": "S001",
+    "patrolRange": 1,
+    "detectionRange": 1,
+    "chaseRange": 1,
+    "moveSpeed": 1,
+    "attackRange": 1
+  }
+]

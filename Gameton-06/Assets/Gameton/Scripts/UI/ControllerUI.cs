@@ -15,56 +15,47 @@ namespace TON
         public VariableJoystick joystick;
         public CharacterBase linkedCharactor { get; set; }
 
-        public Button[] buttons; // UI 버튼 (3개)
-        [SerializeField]
-        private SerializableDictionary<int, ControllerUI_SkillButton> skillButtons;
 
-        private List<SkillData> skillDatas;
+        public Transform skillButtonGroup;
+        public ControllerUI_SkillButton skillButtonPrefab;
+        private List<ControllerUI_SkillButton> createdSkillButtons = new List<ControllerUI_SkillButton>();
 
+        private void Awake()
+        {
+            skillButtonPrefab.gameObject.SetActive(false);
+        }
 
         public void Initalize()
         {
-
-            int characterLevel = PlayerDataManager.Singleton.player.level;
-            skillDatas = SkillDataManager.Singleton.skillDatas;
-
-            if (skillDatas != null)
+            // 이미 기존에 UI가 생성되어 있다면 삭제
+            if (createdSkillButtons.Count > 0)
             {
-                Debug.Log("characterLevel ::: " + characterLevel);
-                // 사용 가능한 스킬 필터링 (캐릭터 레벨보다 필요 레벨이 낮거나 같은 것만)
-                List<SkillData> availableSkills = skillDatas
-                    .Where(skill => skill.requiredLevel <= characterLevel)
-                    .OrderBy(skill => skill.requiredLevel) // 필요 레벨이 낮은 순으로 정렬
-                    .Take(3) // 최대 3개 선택
-                    .ToList();
-
-                Debug.Log(availableSkills.Count);
-                // availableSkills
-
-                // 버튼 설정
-                for (int i = 0; i < buttons.Length; i++)
+                foreach (var button in createdSkillButtons)
                 {
-                    if (i < availableSkills.Count)
-                    {
-                        buttons[i].interactable = true; // 사용 가능
-
-                        SkillData skillData = skillDatas.Find(skill => skill.slotNumber == i);
-                        skillButtons[i].skillData = skillData;
-
-                    }
-                    else
-                    {
-                        buttons[i].interactable = false; // 사용 불가
-
-                    }
+                    Destroy(button.gameObject);
                 }
+                createdSkillButtons.Clear();
             }
-            else
+
+            // 스킬 버튼을 생성
+            List<SkillBase> activatedSkills = SkillDataManager.Singleton.GetEquippedSkills();
+            for (int i = 0; i < 3; i++)
             {
-                Debug.LogError("스킬 정보 로드 오류 발생");
+                ControllerUI_SkillButton newSkillButton = Instantiate(skillButtonPrefab, skillButtonGroup);
+                newSkillButton.gameObject.SetActive(true);
+
+                if (i < activatedSkills.Count) // 해당 인덱스에 활성화된 스킬이 있을 경우
+                {
+                    newSkillButton.Initalize(activatedSkills[i]);
+                }
+                else
+                {
+                    // 복제 됐을때 기본 상태가 잠금 상태 
+                    newSkillButton.GetComponent<Button>().interactable = false;
+                }
+
+                createdSkillButtons.Add(newSkillButton);
             }
-
-
         }
 
         public void OnClickJumpButton()
@@ -77,9 +68,10 @@ namespace TON
             linkedCharactor.Attack();
         }
 
-        public void OnClickSkillButton(string skill)
+        public void OnClickSkillButton(ControllerUI_SkillButton button)
         {
-            linkedCharactor.SkillAttack(skill);
+            linkedCharactor.SkillAttack(button.skillBase.SkillData.id);
         }
+
     }
 }

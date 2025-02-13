@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 7275089485906890891}
   - component: {fileID: 4707210132887916293}
   - component: {fileID: 8358053220907271229}
-  - component: {fileID: -409206718854825505}
   - component: {fileID: 7592981806478228525}
   - component: {fileID: 7577941235322895627}
+  - component: {fileID: 7009580840987262329}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -109,18 +109,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-409206718854825505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6328494989662859589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26dd04ed34a3c4042bfbe12766af2d60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &7592981806478228525
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -183,3 +171,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &7009580840987262329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6328494989662859589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9407c2d7c54dec74eac0fe37da48ef1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData:
+    id: 0
+    type: 
+    name: 
+    level: 0
+    experience: 0
+    hp: 0
+    mp: 0
+    attackPower: 0
+    defensivePower: 0
+    critical: 0
+  destoryTime: 2

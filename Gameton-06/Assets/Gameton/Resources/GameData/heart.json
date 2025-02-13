@@ -1,11 +1,8 @@
-{
-    "items": [
-        {
-            "characterId": 1,
-            "currentHearts": 3,
-            "maxHearts": 3,
-            "heartRechargeTime": 600,
-            "lastHeartTime": ""
-        }
-    ]
-}
+[
+  {
+    "characterId": 0,
+    "currentHearts": 3,
+    "heartRechargeTime": 0,
+    "lastHeartTime": ""
+  }
+]

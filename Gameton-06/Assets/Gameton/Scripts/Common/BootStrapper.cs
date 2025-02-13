@@ -43,18 +43,21 @@ namespace TON
         {
             Main.Singleton.Initialize();
 
-            List<PlayerData> playersData = PlayerDataManager.Singleton.playersData;
+            // List<PlayerData> playersData = PlayerDataManager.Singleton.playersData;
+            PlayerDataManager.Singleton.Initalize();
             PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
             PlayerDataManager.Singleton.SetCurrentUserData();
             // HeartDataManager.Singleton.();
-            List<SkillData> skillDatas = SkillDataManager.Singleton.skillDatas;
+            // List<SkillData> skillDatas = SkillDataManager.Singleton.skillDatas;
+            SkillDataManager.Singleton.Initalize();
 
             // TODO : Custom Order After System Load
             // UIManager.Show<IngameUI>(UIList.IngameUI);
             // UIManager.Show<LobbyUI>(UIList.LobbyUI);
-            UIManager.Show<ControllerUI>(UIList.ControllerUI);
-            ControllerUI.Instance.Initalize();
+            // UIManager.Show<ControllerUI>(UIList.ControllerUI);
+            // ControllerUI.Instance.Initalize();
             // UIManager.Show<IngameOptionUI>(UIList.IngameOptionUI);
+            UIManager.Show<SkillSettingUI>(UIList.SkillSettingUI);
             // UIManager.Show<CharaterCreateUI>(UIList.CharaterCreateUI);
             // UIManager.Show<TitleUI>(UIList.TitleUI);
         }

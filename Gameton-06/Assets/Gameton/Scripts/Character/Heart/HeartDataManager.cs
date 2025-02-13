@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace TON
 {
@@ -25,7 +26,13 @@ namespace TON
 
         private void LoadHeartData()
         {
-            heartDatas = JSONLoader.LoadFromResources<List<HeartData>>("Heart");
+            if (heartDatas != null)
+            {
+                heartDatas.Clear();
+            }
+
+            JSONLoader.SaveJsonToPersistentData("heart");
+            heartDatas = JSONLoader.LoadJsonFromPersistentData<List<HeartData>>("Heart");
             if (heartDatas == null)
             {
                 heartDatas = new List<HeartData>();
@@ -37,8 +44,9 @@ namespace TON
         {
             HeartData heartData = new HeartData(characterId);
             heartDatas.Add(heartData);
-            JSONLoader.SaveToFile(heartDatas, "heart");
+            Assert.IsTrue(JSONLoader.SaveUpdatedJsonToPersistentData(heartDatas, "heart"));
             Debug.Log($"heartData test:: {heartData.currentHearts}");
+            LoadHeartData();
         }
 
         public void SetCurrentUserHeart()
@@ -68,7 +76,8 @@ namespace TON
         public void SaveHeartData()
         {
             heartDatas[characterId] = currentHeartData;
-            JSONLoader.SaveToFile(heartDatas, "heart");
+            Assert.IsTrue(JSONLoader.SaveUpdatedJsonToPersistentData(heartDatas, "heart"));
+            LoadHeartData();
         }
 
         // 게임이 다시 실행될때 마지막 하트 소모 시간과 현재 시간을 계산해서 하트 충전량을 반영

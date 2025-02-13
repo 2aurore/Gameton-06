@@ -163,7 +163,7 @@ namespace TON
         // 타겟을 공격하는 메서드
         public void Attack(GameObject player)
         {
-            ChangeAnimationState(AniAttack); // 공격 애니메이션으로 변경
+            // ChangeAnimationState(AniAttack); // 공격 애니메이션으로 변경
 
             // 데미지 계산 (현재 임시 값)
             DamageCalculator damageCalculator = new DamageCalculator();

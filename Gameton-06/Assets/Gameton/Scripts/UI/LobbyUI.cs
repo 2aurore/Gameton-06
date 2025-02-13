@@ -42,5 +42,10 @@ namespace TON
             UIManager.Show<StageEntryUI>(UIList.StageEntryUI);
 
         }
+
+        public void OnClickSkillSettingButton()
+        {
+            UIManager.Show<SkillSettingUI>(UIList.SkillSettingUI);
+        }
     }
 }

@@ -23,10 +23,7 @@ namespace TON
 
             UIManager.Show<LobbyUI>(UIList.LobbyUI);
             UIManager.Show<IngameOptionUI>(UIList.IngameOptionUI);
-            // UIManager.Show<ControllerUI>(UIList.ControllerUI);
-            // PlayerSpawner.SpawnPlayerCharacter();
         }
-
 
 
         public override IEnumerator OnEnd()

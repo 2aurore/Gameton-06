@@ -15,8 +15,8 @@ namespace TON
         {
             if (other.CompareTag("Player"))
             {
-                // TODO : 플레이어 감지하면 따라가기
-                
+                // 플레이어 감지하면 따라가기
+                _monsterBase.SetTransition(new ChasingState());
                 _monsterBase.IsDetect = true;
                 Debug.Log("감지됨");
                 
@@ -28,23 +28,16 @@ namespace TON
                 }
             }
         }
-        
-        // 단순 플레이어 태그 기준 따라가는 코드
-        private void FixedUpdate()
-        {   
-            // 타겟의 위치에서 내 현제 위치를 뺌
-            // UnityEngine.Vector2 direction = target.transform.position - transform.position;
-            
-            // 방향 * 속도 * 시간간격 
-            // transform.Translate(direction.normalized * speed * Time.deltaTime);
-            // animator.SetBool("Iidle", true);
-            
-        }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            _monsterBase.IsDetect = false;
-            _monsterBase.IsWalking = true;
+            _monsterBase.SetTransition(new IdleState());
+            
+            // _monsterBase.IsDetect = false;
+            // _monsterBase.IsWalking = true;
+            // _monsterBase.ResetTime();
+            // _monsterBase.ChangeAnimationState(MonsterBase.AniIdle);
+            Debug.Log("감지 벗어남");
         }
     }
 }

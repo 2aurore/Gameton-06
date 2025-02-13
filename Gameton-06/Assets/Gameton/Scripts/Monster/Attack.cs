@@ -13,7 +13,8 @@ namespace TON
         {
             if (other.CompareTag("Player"))
             {
-                _monsterBase.Attack(other.gameObject);
+                _monsterBase.SetTransition(new AttackState());
+                // _monsterBase.Attack(other.gameObject);
             }
         }
     }

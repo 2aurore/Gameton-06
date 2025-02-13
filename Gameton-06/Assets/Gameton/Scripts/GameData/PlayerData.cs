@@ -8,7 +8,7 @@ namespace TON
     public class PlayerData
     {
         // 캐릭터 아이디
-        public int id;
+        public string id;
         // 캐릭터 이미지 타입 (w/b)
         public string type;
         // 캐릭터 이름
@@ -30,7 +30,7 @@ namespace TON
 
         public PlayerData(int i, string t, string n)
         {
-            id = i;
+            id = $"P{i:000}";
             type = t == "BlackCat" ? "b" : "w";
             name = n;
             level = 1;

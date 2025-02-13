@@ -15,18 +15,18 @@ namespace TON
         // 클리어한 스테이지 아이디
         public string stageId;
         // 클리어에 소요된 시간
-        public int clearTime;
+        public float clearTime;
         // 클리어 시간에 따른 별점
         public int starRating;
         // 클리어한 날짜와 시간 정보
         public string dateTime;
 
-        public StageClearData(string characterId, string stageId, int clearTime, int starRating)
+        public StageClearData(string characterId, string stageId, float clearTime, int starRating)
         {
             id = $"SC{DateTime.UtcNow:yyyyMMddHHmmss}-{characterId}-{stageId}";
             this.characterId = characterId;
             this.stageId = stageId;
-            this.clearTime = clearTime;
+            this.clearTime = Mathf.Round(clearTime * 100f) / 100f; ;
             this.starRating = starRating;
             dateTime = DateTime.UtcNow.ToString();
         }

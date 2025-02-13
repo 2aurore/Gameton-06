@@ -10,6 +10,7 @@ namespace TON
         public List<StageClearData> stageClearDatas { get; private set; }
 
         private float stageStartTime; // 스테이지 시작 시간
+        private string stageId; // 스테이지 아이디
 
         public void Initialize()
         {
@@ -34,9 +35,10 @@ namespace TON
             Initialize();
         }
 
-        public void StartStage()
+        public void StartStage(string stageId)
         {
             stageStartTime = Time.time;
+            this.stageId = stageId;
         }
 
         public int GetStarCount(float elapsedTime)
@@ -49,7 +51,7 @@ namespace TON
                 return 1;
         }
 
-        public void StageClear(string characterId, string stageId)
+        public void StageClear(string characterId)
         {
             float clearTime = Time.time - stageStartTime;
             int starCount = GetStarCount(clearTime);

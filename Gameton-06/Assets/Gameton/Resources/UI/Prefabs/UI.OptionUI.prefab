@@ -915,6 +915,34 @@ PrefabInstance:
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
       objectReference: {fileID: 2587096180750765086, guid: 236587ec711348a4792e0060efb1bf73, type: 3}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4409551897287941631}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickPauseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TON.OptionUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6464168096704815375, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1062,6 +1090,34 @@ PrefabInstance:
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
       objectReference: {fileID: -2859934928298323863, guid: 236587ec711348a4792e0060efb1bf73, type: 3}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4409551897287941631}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickSettingButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TON.OptionUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6464168096704815375, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1205,6 +1261,34 @@ PrefabInstance:
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
       objectReference: {fileID: 7477975601068189545, guid: 236587ec711348a4792e0060efb1bf73, type: 3}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4409551897287941631}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickInventoryButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TON.OptionUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3903456431948242776, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6464168096704815375, guid: 7841b45ffe1a21446a4f041cdae97841, type: 3}
       propertyPath: m_Sprite
       value: 

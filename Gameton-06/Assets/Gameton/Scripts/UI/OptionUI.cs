@@ -48,20 +48,22 @@ namespace TON
 
         }
 
-        public void OnClickOptionButton()
+        public void OnClickSettingButton()
         {
-            Scene activeScene = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();
+            Debug.Log("Setting Button Clicked");
+            // UIManager.Show<SettingUI>(UIList.SettingUI);
+        }
 
-            if (activeScene.name.Equals("Lobby"))
-            {
-                //  TODO: 설정 더보기 UI 추가
-            }
-            else if (activeScene.name.StartsWith("Stage"))
-            {
-                UIManager.Show<PauseUI>(UIList.PauseUI);
-            }
+        public void OnClickInventoryButton()
+        {
+            Debug.Log("Inventory Button Clicked");
+            // UIManager.Show<InventoryUI>(UIList.InventoryUI);
+        }
 
-
+        public void OnClickPauseButton()
+        {
+            Debug.Log("Pause Button Clicked");
+            UIManager.Show<PauseUI>(UIList.PauseUI);
         }
     }
 }

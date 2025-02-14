@@ -1,0 +1,18 @@
+[
+  {
+    "skillId": "001",
+    "skillName": "얼음 공격",
+    "damage": 50,
+    "cooldown": 5,
+    "range": 5,
+    "animationName": "IceBlast"
+  },
+  {
+    "skillId": "002",
+    "skillName": "화염구",
+    "damage": 50,
+    "cooldown": 5,
+    "range": 5,
+    "animationName": "SmallFire"
+  }
+]

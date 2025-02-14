@@ -241,6 +241,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1707601040220393083}
+        m_TargetAssemblyTypeName: TON.LobbyUI, Assembly-CSharp
+        m_MethodName: OnClickChangeStageButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &446340643863793218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1888,7 +1900,8 @@ MonoBehaviour:
   - STG002
   - STG003
   - STG004
-  stagePagePrefab: {fileID: 6968453166287933383}
+  stagePages: []
+  stagePagePrefab: {fileID: 226679562418074486}
   stagePageGroup: {fileID: 4696811377547952634}
 --- !u!1 &3936373691637145443
 GameObject:
@@ -2437,7 +2450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2a180c175deed42b216234359be860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPage: 3
+  maxPage: 4
   currentPage: 0
   targetPos: {x: 0, y: 0}
   pageStep: {x: -660, y: 0}
@@ -2947,6 +2960,18 @@ MonoBehaviour:
       - m_Target: {fileID: 6196143494135452869}
         m_TargetAssemblyTypeName: TON.SwipeController, Assembly-CSharp
         m_MethodName: Previous
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1707601040220393083}
+        m_TargetAssemblyTypeName: TON.LobbyUI, Assembly-CSharp
+        m_MethodName: OnClickChangeStageButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5293,7 +5318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1148402191174711415, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1148402191174711415, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
       propertyPath: m_AnchorMin.x
@@ -5301,7 +5326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1148402191174711415, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1148402191174711415, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
       propertyPath: m_SizeDelta.x
@@ -5341,11 +5366,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1148402191174711415, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 330
       objectReference: {fileID: 0}
     - target: {fileID: 1148402191174711415, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -400
       objectReference: {fileID: 0}
     - target: {fileID: 1148402191174711415, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5359,9 +5384,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2273889548321886700, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273889548321886700, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273889548321886700, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3703304680486478202, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
       propertyPath: m_Name
       value: StagePage
+      objectReference: {fileID: 0}
+    - target: {fileID: 3703304680486478202, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5659516017823469766, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5379,27 +5420,25 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9027789193876814119, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1707601040220393083}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
+--- !u!1 &226679562418074486 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3703304680486478202, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
+  m_PrefabInstance: {fileID: 3477223252679791116}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4588716762380020347 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1148402191174711415, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
   m_PrefabInstance: {fileID: 3477223252679791116}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6968453166287933383 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5833708650400374219, guid: 37b882a126f0daf42a4b4a0f0f261a17, type: 3}
-  m_PrefabInstance: {fileID: 3477223252679791116}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a9f61ddd2bf77478b2a76ca955e678, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4365451869886974356
 PrefabInstance:
   m_ObjectHideFlags: 0

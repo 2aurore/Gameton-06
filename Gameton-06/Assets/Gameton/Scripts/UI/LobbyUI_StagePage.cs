@@ -11,40 +11,90 @@ namespace TON
     {
         public Button stageEntryButton;
         public GameObject stageImage;
-        public GameObject starPoint;
+        public Transform starGroup;
+        public StageStar starPrefab;
 
         public GameObject stageEntryUI;
         public GameObject lockState;
-
-        private string stageId;
-
         public StageClearData stageClearData;
 
-        public void Initalize(string stageId)
+
+        public string stageId;
+        private SerializableDictionary<string, StageClearData> bestStageClearDict = new SerializableDictionary<string, StageClearData>();
+
+        public void Initalize(string stageId, int index)
         {
             this.stageId = stageId;
 
             if (stageId == "STG001")
             {
                 lockState.SetActive(false);
+
             }
 
-            SerializableDictionary<string, StageClearData> bestStageClearDict = StageManager.Singleton.bestStageClearDict;
-            stageClearData = bestStageClearDict.GetValueOrDefault(stageId, null);
-            SetStageImage();
+            Debug.Log($"LobbyUI_StagePage stageId: {stageId}");
 
-            // 스테이지 슬롯에 스테이지 클리어 정보가 있는 경우
-            if (stageClearData != null)    // 스테이지 슬롯에 별점이 지정된 경우
+            bestStageClearDict = StageManager.Singleton.bestStageClearDict;
+            stageClearData = bestStageClearDict.GetValueOrDefault(stageId, null);
+
+            SetStageImage();
+            SetStageEntryInfo(index);
+        }
+
+        private void SetStageEntryInfo(int index)
+        {
+            if (stageClearData != null)
             {
-                // for (int i = 0; i < starCount; i++)
-                // {
-                //     starPoint.transform.GetChild(i).gameObject.SetActive(true);
-                // }
+                // 스테이지 슬롯에 스테이지 클리어 정보가 있는 경우
+                for (int i = 0; i < 3; i++)
+                {
+                    StageStar stageStar = Instantiate(starPrefab, starGroup);
+                    stageStar.gameObject.SetActive(true);
+                    if (i < stageClearData.starRating)
+                    {
+                        stageStar.SetStar(true);
+                    }
+                    else
+                    {
+                        stageStar.SetStar(false);
+                    }
+                }
             }
             else
             {
-                // 이전 스테이지가 클리어되지 않아 진입할 수 없는 경우
-                stageEntryButton.interactable = false;
+                Debug.Log($"StageClearData is null");
+                // 스테이지 슬롯에 스테이지 클리어 정보가 없고 첫번째 스테이지가 아닌 경우
+                if (index != 0)
+                {
+                    StageClearData prevStageClearData = bestStageClearDict.GetValueOrDefault($"STG00{index - 1}", null);
+                    // 직전 스테이지의 클리어 결과가 있고 별점이 1개 이상인 경우
+                    if (prevStageClearData != null && prevStageClearData.starRating > 0)
+                    {
+                        lockState.SetActive(false);
+                        stageEntryButton.interactable = true;
+                    }
+                    else
+                    {
+                        SetDefaultStarPoint();
+                        // 이전 스테이지를 클리어하지 않은 경우
+                        stageEntryButton.interactable = false;
+                    }
+                }
+                else
+                {
+                    SetDefaultStarPoint();
+                }
+
+            }
+        }
+
+        private void SetDefaultStarPoint()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                StageStar stageStar = Instantiate(starPrefab, starGroup);
+                stageStar.gameObject.SetActive(true);
+                Instantiate(starPrefab, starGroup.transform).SetStar(false);
             }
         }
 
@@ -58,6 +108,11 @@ namespace TON
         public void OnClickStageButton()
         {
             stageEntryUI.SetActive(true);
+        }
+
+        public void OnClickStageChangeButton()
+        {
+            stageEntryUI.SetActive(false);
         }
     }
 }

@@ -30,6 +30,7 @@ namespace TON
             PlayerDataManager.Singleton.Initalize();
             PlayerDataManager.Singleton.SetCurrentUserData();
 
+            StageManager.Singleton.Initialize();
             SkillDataManager.Singleton.Initalize();
 
             isIniaialized = true;

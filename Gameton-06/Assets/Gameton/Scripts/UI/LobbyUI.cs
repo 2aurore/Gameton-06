@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace TON
@@ -24,7 +25,8 @@ namespace TON
 
         public List<string> stageList = new List<string> { "STG001", "STG002", "STG003", "STG004" };
 
-        public LobbyUI_StagePage stagePagePrefab;
+        public List<LobbyUI_StagePage> stagePages = new List<LobbyUI_StagePage>();
+        public GameObject stagePagePrefab;
         public Transform stagePageGroup;
 
         private void Start()
@@ -50,22 +52,38 @@ namespace TON
 
         private void SetStageData()
         {
-            stageList.ForEach(stageId =>
+            if (stagePages.Count > 0)
             {
-                LobbyUI_StagePage stagePage = Instantiate(stagePagePrefab, stagePageGroup);
-                stagePage.Initalize(stageId);
-            });
+                foreach (var stagePage in stagePages)
+                {
+                    Destroy(stagePage.gameObject);
+                }
+                stagePages.Clear();
+            }
+
+
+            for (int i = 0; i < stageList.Count; i++)
+            {
+                string stageId = stageList[i];
+                GameObject stagePageObject = Instantiate(stagePagePrefab, stagePageGroup);
+                LobbyUI_StagePage stagePage = stagePageObject.GetComponent<LobbyUI_StagePage>();
+                stagePageObject.SetActive(true);
+                stagePage.Initalize(stageId, i);
+                stagePages.Add(stagePage);
+            }
         }
 
         public void OnClickChangeStageButton()
         {
             // TODO: 스테이지 입장 popupUI 비활성화
+            stagePages.ForEach(page => page.GetComponent<LobbyUI_StagePage>().OnClickStageChangeButton());
         }
 
         public void OnClickStageButton()
         {
             // TODO: 스테이지 선택 UI 활성화
-
+            GameObject currentSelectedGameObject = EventSystem.current.currentSelectedGameObject;
+            Debug.Log("OnClickStageButton:: " + currentSelectedGameObject.GetComponent<LobbyUI_StagePage>().stageId);
         }
 
         public void OnClickStagePlayButton()

@@ -17,5 +17,11 @@ namespace TON
         {
             return LoadAsset<Sprite>($"UI/Skill Icon/skill_icon_{skillId}", out result);
         }
+
+        public bool LoadPlayerIcon(string playerType, out Sprite result)
+        {
+            var playerColor = playerType == "b" ? "Black" : "White";
+            return LoadAsset<Sprite>($"UI/Player/{playerColor}_Cat", out result);
+        }
     }
 }

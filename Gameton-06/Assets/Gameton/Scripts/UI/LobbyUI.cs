@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace TON
 {
     public class LobbyUI : UIBase
     {
-        public SerializableDictionary<string, Sprite> playerImages;
         [SerializeField]
         private TextMeshProUGUI characterName;
         [SerializeField]
@@ -24,9 +24,10 @@ namespace TON
 
         private void Start()
         {
-            Image playerObj = GameObject.Find("TON.Player").GetComponent<Image>();
             PlayerData player = PlayerDataManager.Singleton.player;
-            playerObj.sprite = playerImages.GetValueOrDefault(player.type);
+
+            Image playerObj = GameObject.Find("TON.Player").GetComponent<Image>();
+            playerObj.sprite = AssetManager.Singleton.LoadPlayerIcon(player.type, out Sprite playerImage) ? playerImage : null;
 
             characterName.text = player.name;
             characterHp.text = $"{player.hp}";

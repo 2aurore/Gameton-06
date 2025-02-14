@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,11 @@ namespace TON
         {
             var playerColor = playerType == "b" ? "Black" : "White";
             return LoadAsset<Sprite>($"UI/Player/{playerColor}_Cat", out result);
+        }
+
+        public bool LoadStageIcon(string stageId, out Sprite result)
+        {
+            return LoadAsset<Sprite>($"UI/Stage/stage_{stageId}", out result);
         }
     }
 }

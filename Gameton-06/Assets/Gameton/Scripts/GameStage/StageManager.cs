@@ -8,6 +8,9 @@ namespace TON
     public class StageManager : SingletonBase<StageManager>
     {
         public List<StageClearData> stageClearDatas { get; private set; }
+        [SerializeField]
+        public SerializableDictionary<string, StageClearData> bestStageClearDict = new SerializableDictionary<string, StageClearData>();
+
 
         private float stageStartTime; // 스테이지 시작 시간
         private string stageId; // 스테이지 아이디
@@ -15,6 +18,7 @@ namespace TON
         public void Initialize()
         {
             LoadStageClearData();
+            SetStageClearDataList();
         }
 
         private void LoadStageClearData()
@@ -28,6 +32,39 @@ namespace TON
                 stageClearDatas = new List<StageClearData>();
             }
         }
+
+        private void SetStageClearDataList()
+        {
+            string characterId = PlayerDataManager.Singleton.player.id;
+
+            foreach (var data in stageClearDatas)
+            {
+                if (data.characterId != characterId)
+                {
+                    continue;
+                }
+
+                // 만약 현재 stageId가 딕셔너리에 없거나, 기존 값보다 starRating이 높다면 업데이트
+                if (!bestStageClearDict.ContainsKey(data.stageId) || bestStageClearDict[data.stageId].starRating < data.starRating)
+                {
+                    bestStageClearDict[data.stageId] = data;
+                }
+            }
+
+            // 필터링된 결과를 새로운 리스트에 저장
+            List<StageClearData> filteredList = new List<StageClearData>();
+            foreach (var entry in bestStageClearDict)
+            {
+                filteredList.Add(entry.Value);
+            }
+
+            // 결과 출력
+            foreach (var data in filteredList)
+            {
+                Debug.Log($"StageID: {data.stageId}, StarRating: {data.starRating}, ID: {data.id}");
+            }
+        }
+
 
         private void SaveStageClearData()
         {

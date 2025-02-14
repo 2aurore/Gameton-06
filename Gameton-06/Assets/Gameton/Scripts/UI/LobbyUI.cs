@@ -22,7 +22,18 @@ namespace TON
         [SerializeField]
         private TextMeshProUGUI characterCritical;
 
+        public List<string> stageList = new List<string> { "STG001", "STG002", "STG003", "STG004" };
+
+        public LobbyUI_StagePage stagePagePrefab;
+        public Transform stagePageGroup;
+
         private void Start()
+        {
+            SetCharacterData();
+            SetStageData();
+        }
+
+        private void SetCharacterData()
         {
             PlayerData player = PlayerDataManager.Singleton.player;
 
@@ -37,11 +48,32 @@ namespace TON
             characterCritical.text = $"{player.critical}";
         }
 
-        public void OnClickStageEntryButton()
+        private void SetStageData()
+        {
+            stageList.ForEach(stageId =>
+            {
+                LobbyUI_StagePage stagePage = Instantiate(stagePagePrefab, stagePageGroup);
+                stagePage.Initalize(stageId);
+            });
+        }
+
+        public void OnClickChangeStageButton()
+        {
+            // TODO: 스테이지 입장 popupUI 비활성화
+        }
+
+        public void OnClickStageButton()
+        {
+            // TODO: 스테이지 선택 UI 활성화
+
+        }
+
+        public void OnClickStagePlayButton()
         {
             UIManager.Hide<LobbyUI>(UIList.LobbyUI);
-            UIManager.Show<StageEntryUI>(UIList.StageEntryUI);
-
+            // TODO: 선택된 스테이지 아이디 불러오기
+            // 선택한 스테이지 아이디 활용 필요
+            Main.Singleton.ChangeScene(SceneType.Stage);
         }
 
         public void OnClickSkillSettingButton()

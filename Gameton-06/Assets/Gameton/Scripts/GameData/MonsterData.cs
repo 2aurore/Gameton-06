@@ -20,15 +20,16 @@ namespace TON
         // 기본 공격력
         public int attackPower;
         // 기본 방어력
-        public int defensivePower;
+        public int defencePower;
         // 몬스터 스킬 ID
-        public string monsterSkillID;
+        public int monsterSkillID;
         // 패트롤 범위
         public float patrolRange;
         // 인식 범위
         public float detectionRange;
         // 추적 범위
         public float chaseRange;
+        public float moveSpeed;
         // 공격 범위
         public float attackRange;
 

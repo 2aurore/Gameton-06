@@ -7,21 +7,28 @@ using System.Numerics;
 using Assets.PixelFantasy.PixelMonsters.Common.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using DamageCalculator = TON.DamageCalculator;
+using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
 namespace TON
 {
     public class MonsterBase : MonoBehaviour, IDamage
     {
+        [SerializeField]
         public int id; // 몬스터의 ID
+        public string monsterName; // 몬스터 이름
+        public int level;
         public float currentHP = 100; // 몬스터의 현재 체력
-
-        // public string name; // 몬스터 이름
-        public string monsterType; // 몬스터의 타입 (예: melee, ranged)
-
-        // public int damage;  // 공격력
+        public int attackPower;  // 공격력
+        public int defensePower;
+        public int monsterSkillID;
+        public float patrolRange;
+        public float detectionRange;
+        public float chaseRange;
         public float speed = 2; // 몬스터의 이동 속도
+        public float attackRange;
 
         [SerializeField] private SpriteRenderer _spriteRenderer; // 몬스터의 스프라이트 렌더러
         private Animator _animator; // 몬스터 애니메이터
@@ -49,16 +56,18 @@ namespace TON
         // 추적 관련 선언
         private float _detectStartTime; // 추적 시작 시간
         private bool _isTracking; // 추적 중인지 여부
-
-        private const float DETECT_DURATION = 5f; // 추적 지속 시간
-
         
+        // hp바
+        [SerializeField] private Image _hpBarImage; // HP 바 이미지
+        private float _maxHP;
         
-        public bool IsDetect
-        {
-            get => _isDetect;
-            set => _isDetect = value;
-        }
+        // 스킬        
+        public int skillId;        // 스킬 ID
+        public string skillName;      // 스킬 이름
+        public float damage;          // 스킬 데미지
+        public float cooldown;        // 스킬 쿨다운
+        public float range;           // 스킬 범위
+        public string animationName;  // 스킬 애니메이션 이름
 
         // 첫 번째 프레임 전에 호출됩니다.
         private void Start()
@@ -67,9 +76,13 @@ namespace TON
 
             _stateMachine = new StateMachine(new IdleState(), this);
             
-            // 몬스터 데이터 로드 (테스트용, 첫 번째 몬스터 데이터만 로드)
-            MonsterData monsterData = MonsterDataManager.Singleton.monstersData[0];
-            Debug.Log(monsterData.name); // 몬스터 ID 출력
+            // // 몬스터 데이터 로드 (테스트용, 첫 번째 몬스터 데이터만 로드)
+            // MonsterData monsterData = MonsterDataManager.Singleton.monstersData[0];
+            // Debug.Log(monsterData.name); // 몬스터 ID 출력
+            
+            // 몬스터 데이터 로드 및 적용
+            InitializeMonsterData();
+            InitializeMonsterSkillData();
 
             _direction = new Vector3(1, 0, 0); // 초기 이동 방향 (x 축 양의 방향)
 
@@ -80,6 +93,57 @@ namespace TON
             // 몬스터 방어력 임시값 설정
             defencePower = 10f;
         }
+        
+        private void InitializeMonsterData()
+        {
+            MonsterData monsterData = MonsterDataManager.Singleton.GetMonsterData(id);
+            if (monsterData != null)
+            {
+                id = monsterData.id;
+                monsterName = monsterData.name;
+                level = monsterData.level;
+                currentHP = monsterData.hp;
+                attackPower = monsterData.attackPower;
+                defencePower = monsterData.defencePower;
+                monsterSkillID = monsterData.monsterSkillID;;
+                patrolRange = monsterData.patrolRange;
+                detectionRange = monsterData.detectionRange;
+                chaseRange = monsterData.chaseRange;
+                speed = monsterData.moveSpeed;
+                attackPower = monsterData.attackPower;
+                
+                _maxHP = monsterData.hp;
+                currentHP = _maxHP;
+            
+                Debug.Log($"몬스터 {monsterData.name} 데이터 로드 완료");
+            }
+            else
+            {
+                Debug.LogError($"몬스터 ID {id}에 대한 데이터를 찾을 수 없습니다.");
+            }
+        }
+
+        private void InitializeMonsterSkillData()
+        {
+            MonsterSkillData monsterSkillData = MonsterSkillDataManager.Singleton.GetMonsterSkillData(monsterSkillID);
+            
+            if (monsterSkillData != null)
+            {
+                skillId = monsterSkillData.skillId;
+                skillName = monsterSkillData.skillName;
+                damage = monsterSkillData.damage;
+                cooldown = monsterSkillData.cooldown;
+                range = monsterSkillData.range;
+                animationName = monsterSkillData.animationName;
+            
+                Debug.Log($"몬스터 {monsterSkillData.skillName} 데이터 로드 완료");
+            }
+            else
+            {
+                Debug.LogError($"몬스터 스킬 ID {id}에 대한 데이터를 찾을 수 없습니다.");
+            }
+        }
+        
 
         // 애니메이션 상태를 변경하는 메서드
         public void ChangeAnimationState(string newState)
@@ -102,7 +166,10 @@ namespace TON
             // 몬스터의 체력을 감소시키고, 죽었을 경우 파괴 처리
             float prevHP = currentHP;
             currentHP -= damage;
-
+            
+            // HP 바 업데이트
+            UpdateHPBar();
+            
             if (prevHP > 0 && currentHP <= 0)
             {
                 // 몬스터가 죽었을 때 처리 (죽는 애니메이션은 주석 처리됨)
@@ -111,6 +178,17 @@ namespace TON
             else if (prevHP > 0 && currentHP > 0)
             {
                 // 피격 애니메이션은 주석 처리됨 (필요시 활성화)
+            }
+        }
+        
+        // HP 바 업데이트
+        private void UpdateHPBar()
+        {
+            if (_hpBarImage != null)
+            {
+                // 현재 체력 비율 계산 (0.0 ~ 1.0)
+                float hpRatio = currentHP / _maxHP;
+                _hpBarImage.fillAmount = hpRatio; // 이미지 크기를 체력 비율에 맞게 조절
             }
         }
 

@@ -147,26 +147,48 @@ namespace TON
     public class AttackState : State
     {
         private const string AniAttack = "Attack"; // 공격 애니메이션
-        private MonsterBase _monsterBase;
-        // private float _attackDelayTime = 2f;
+        private const string AniIdle = "Idle";  // 대기 애니메이션
         
-        // private StateMachine _stateMachine;
+        private MonsterBase _monsterBase;
+        private float _attackDelayTime = 2f;  // 공격 딜레이 시간
+        private float _lastAttackTime;  // 마지막 공격 시간
+        private float _attackAnimationDuration = 0.5f; // 공격 애니메이션 지속 시간
+        private bool _isAttacking = false;
         
         public void Enter(MonsterBase monsterBase)
         {
             _monsterBase = monsterBase;
+            _lastAttackTime = -_attackDelayTime; // 처음 진입시 바로 공격하도록 설정
+            Attack();
         }
 
         public void Update()
         {
+            // 현재 공격 중이 아니고, 쿨다운이 지났다면 공격
+            if (!_isAttacking && Time.time >= _lastAttackTime + _attackDelayTime)
+            {
+                Attack();
+            }
+        
+            // 공격 애니메이션 종료 체크
+            if (_isAttacking && Time.time >= _lastAttackTime + _attackAnimationDuration)
+            {
+                _isAttacking = false;
+                _monsterBase.ChangeAnimationState(AniIdle);
+            }
+        }
+        
+        private void Attack()
+        {
             _monsterBase.ChangeAnimationState(AniAttack);
-            
             _monsterBase.PlayerAttack();
+            _lastAttackTime = Time.time;
+            _isAttacking = true;
         }
 
         public void Exit()
         {
-            
+            _isAttacking = false;
         }
 
         public void CheckTransition()
@@ -175,6 +197,116 @@ namespace TON
             // {
             //     _stateMachine.Update();
             // }
+        }
+    }
+
+    public class HitState : State
+    {
+        private const string AniHit = "Hit"; // 피격 애니메이션
+        private MonsterBase _monsterBase;
+        private float _hitStunDuration = 0.5f; // 피격 경직 시간
+        private float _hitStartTime;
+
+        public void Enter(MonsterBase monsterBase)
+        {
+            _monsterBase = monsterBase;
+            _hitStartTime = Time.time;
+            _monsterBase.ChangeAnimationState(AniHit);
+
+            Debug.Log($"피격 상태 진입! 현재 HP: {_monsterBase.currentHP}");
+        }
+
+        public void Update()
+        {
+            // 피격 경직 시간이 지나면 이전 상태로 복귀
+            if (Time.time >= _hitStartTime + _hitStunDuration)
+            {
+                // HP가 0 이하면 죽음 상태로 전환
+                if (_monsterBase.currentHP <= 0)
+                {
+                    _monsterBase.SetTransition(new DeadState());
+                }
+                else
+                {
+                    // 플레이어가 공격 범위 내에 있으면 공격 상태로, 아니면 추적 상태로
+                    var target = GameObject.FindGameObjectWithTag("Player");
+                    if (target != null)
+                    {
+                        float distanceToTarget =
+                            Vector2.Distance(_monsterBase.transform.position, target.transform.position);
+                        if (distanceToTarget <= _monsterBase.attackRange)
+                        {
+                            _monsterBase.SetTransition(new AttackState());
+                        }
+                        else
+                        {
+                            _monsterBase.SetTransition(new ChasingState());
+                        }
+                    }
+                }
+            }
+        }
+
+        public void Exit()
+        {
+        }
+
+        public void CheckTransition()
+        {
+        }
+    }
+
+    public class DeadState : State
+    {
+        private const string AniDead = "Death"; // 죽음 애니메이션
+        private MonsterBase _monsterBase;
+        private float _deathAnimationDuration = 1f; // 죽음 애니메이션 재생 시간
+        private float _deathStartTime;
+        private bool _hasTriggeredDeath = false;
+
+        public void Enter(MonsterBase monsterBase)
+        {
+            _monsterBase = monsterBase;
+            _deathStartTime = Time.time;
+            _monsterBase.ChangeAnimationState(AniDead);
+
+            // 죽음 처리 시작
+            StartDeathProcess();
+        }
+
+        private void StartDeathProcess()
+        {
+            if (_hasTriggeredDeath) return;
+
+            _hasTriggeredDeath = true;
+
+            // 콜라이더 비활성화
+            if (_monsterBase.GetComponent<Collider2D>() != null)
+            {
+                _monsterBase.GetComponent<Collider2D>().enabled = false;
+            }
+
+            Debug.Log($"몬스터 사망: {_monsterBase.name}");
+
+            // 여기에 경험치 드롭, 아이템 드롭 등의 로직 추가 가능
+        }
+
+        public void Update()
+        {
+            // 죽음 애니메이션이 끝나면 오브젝트 제거
+            if (Time.time >= _deathStartTime + _deathAnimationDuration)
+            {
+                GameObject.Destroy(_monsterBase.gameObject);
+            }
+        }
+
+        public void Exit()
+        {
+        }
+
+        public void CheckTransition()
+        {
+            // 죽음 상태에서는 다른 상태로 전환되지 않음
         }
     }
 }

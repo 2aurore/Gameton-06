@@ -83,7 +83,7 @@ namespace TON
                     _isWalking = true;
                 }
             }
-            // Walking
+            // 패트롤
             else
             {
                 _monsterBase.Move();  // 몬스터를 이동시킴
@@ -108,19 +108,29 @@ namespace TON
         {
             // TODO : 데미지 받을 때
             // TODO : 추적 범위에 들어왔을 때  
+            // chasingState로 가면 됨
         }
     }
 
     public class ChasingState : State
     {
-        public void Enter(MonsterBase _monsterBase)
+        private const string AniWalk = "Walk";  // 걷기 애니메이션
+        
+        private MonsterBase _monsterBase;
+        
+        public void Enter(MonsterBase monsterBase)
         {
             // 추적 상태 초기화
+            
+            _monsterBase = monsterBase;
+            _monsterBase.ChangeAnimationState(AniWalk);
+            
         }
 
         public void Update()
         {
             // 추적
+            _monsterBase.Chasing();
         }
 
         public void Exit()
@@ -136,14 +146,22 @@ namespace TON
 
     public class AttackState : State
     {
-        public void Enter(MonsterBase _monsterBase)
+        private const string AniAttack = "Attack"; // 공격 애니메이션
+        private MonsterBase _monsterBase;
+        // private float _attackDelayTime = 2f;
+        
+        // private StateMachine _stateMachine;
+        
+        public void Enter(MonsterBase monsterBase)
         {
-            
+            _monsterBase = monsterBase;
         }
 
         public void Update()
         {
+            _monsterBase.ChangeAnimationState(AniAttack);
             
+            _monsterBase.PlayerAttack();
         }
 
         public void Exit()
@@ -153,7 +171,10 @@ namespace TON
 
         public void CheckTransition()
         {
-            // 공격이 끝나면 다음 상태 전환
+            // if (_monsterBase.attackState)
+            // {
+            //     _stateMachine.Update();
+            // }
         }
     }
 }

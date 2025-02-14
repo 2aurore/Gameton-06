@@ -17,15 +17,8 @@ namespace TON
             {
                 // 플레이어 감지하면 따라가기
                 _monsterBase.SetTransition(new ChasingState());
-                _monsterBase.IsDetect = true;
                 Debug.Log("감지됨");
                 
-                if (_monsterBase.IsDetect)
-                {
-                    _monsterBase.Detect(other.gameObject);
-                    
-                    // _monsterBase.IsWalking = false;
-                }
             }
         }
 
@@ -33,10 +26,6 @@ namespace TON
         {
             _monsterBase.SetTransition(new IdleState());
             
-            // _monsterBase.IsDetect = false;
-            // _monsterBase.IsWalking = true;
-            // _monsterBase.ResetTime();
-            // _monsterBase.ChangeAnimationState(MonsterBase.AniIdle);
             Debug.Log("감지 벗어남");
         }
     }

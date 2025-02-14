@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,14 @@ namespace TON
             if (other.CompareTag("Player"))
             {
                 _monsterBase.SetTransition(new AttackState());
-                // _monsterBase.Attack(other.gameObject);
             }
+        }
+        
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            _monsterBase.SetTransition(new ChasingState());
+            
+            Debug.Log("감지 벗어남");
         }
     }
 }

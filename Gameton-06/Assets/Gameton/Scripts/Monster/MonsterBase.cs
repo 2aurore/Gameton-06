@@ -68,6 +68,8 @@ namespace TON
         public float cooldown;        // 스킬 쿨다운
         public float range;           // 스킬 범위
         public string animationName;  // 스킬 애니메이션 이름
+        
+        public GameObject smallFirePrefab;
 
         // 첫 번째 프레임 전에 호출됩니다.
         private void Start()
@@ -213,7 +215,7 @@ namespace TON
         public void PlayerAttack()
         {
             var target = GameObject.FindGameObjectWithTag("Player");
-            Attack(target);   
+            Attack(target);
         }
 
         public void SetOppositionDirection()

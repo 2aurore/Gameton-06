@@ -257,7 +257,20 @@ namespace TON
             var target = GameObject.FindGameObjectWithTag("Player");
             _spriteRenderer.flipX = target.transform.position.x < transform.position.x;
             
-            GameObject newSkill = Instantiate(smallFirePrefab);
+            // GameObject newSkill = Instantiate(smallFirePrefab);
+            // GameObject newSkill = Instantiate(DragonBreathPrefab);
+            GameObject newSkill = Instantiate(IceBlastPrefab);
+            // GameObject newSkill = Instantiate(PumpkinCrashPrefab);
+            // GameObject newSkill = Instantiate(TrollChargePrefab);
+            // GameObject newSkill = Instantiate(TrollCrashPrefab);
+            // GameObject newSkill = Instantiate(TrollThundePrefab);
+            // GameObject newSkill = Instantiate(WolfEnergyWavePrefab);
+            // GameObject newSkill = Instantiate(WolfPunchPrefab);
+            // GameObject newSkill = Instantiate(DragonShockWavePrefab);
+            // GameObject newSkill = Instantiate(FireImpactPrefab);
+            // GameObject newSkill = Instantiate(DropObjectPrefab);
+            
+
             newSkill.transform.position = transform.position + new Vector3(0, 1f, 0);
             newSkill.GetComponent<MonsterSkill>().Direction = new Vector2(0, 1);
         }

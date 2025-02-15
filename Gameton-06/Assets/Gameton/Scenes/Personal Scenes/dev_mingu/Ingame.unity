@@ -6203,6 +6203,7 @@ MonoBehaviour:
   cooldown: 0
   range: 0
   animationName: 
+  smallFirePrefab: {fileID: 0}
 --- !u!4 &141676838 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 866829735663616565, guid: 1e126f96ebcf4245a3328353992d46f6, type: 3}
@@ -13422,6 +13423,37 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 3
   m_ColliderType: 1
+--- !u!1 &324269277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 324269278}
+  m_Layer: 0
+  m_Name: ---------------- (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &324269278
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324269277}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 18.600946, y: 0.15916732, z: -0.007895203}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!213 &327795446
 Sprite:
   m_ObjectHideFlags: 0
@@ -17742,6 +17774,7 @@ MonoBehaviour:
   cooldown: 0
   range: 0
   animationName: 
+  smallFirePrefab: {fileID: 4487626989189845864, guid: 0cc74a53f6c5c944b86daaa75d4bc576, type: 3}
 --- !u!95 &431020300
 Animator:
   serializedVersion: 5
@@ -48770,6 +48803,7 @@ MonoBehaviour:
   cooldown: 0
   range: 0
   animationName: 
+  smallFirePrefab: {fileID: 0}
 --- !u!95 &1254298203
 Animator:
   serializedVersion: 5
@@ -58975,11 +59009,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 06e11f99937f3f940bcf4f4bbb0a9fad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.15
+      value: -2.03
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 06e11f99937f3f940bcf4f4bbb0a9fad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.19
+      value: -7.95
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 06e11f99937f3f940bcf4f4bbb0a9fad, type: 3}
       propertyPath: m_LocalPosition.z
@@ -64294,38 +64328,6 @@ Sprite:
   m_PhysicsShape: []
   m_Bones: []
   m_SpriteID: 
---- !u!1 &1704178534 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8753046487433099813, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-  m_PrefabInstance: {fileID: 3463084450120326597}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &1704178535
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704178534}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &1709543420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73758,6 +73760,7 @@ MonoBehaviour:
   cooldown: 0
   range: 0
   animationName: 
+  smallFirePrefab: {fileID: 0}
 --- !u!95 &2041544005
 Animator:
   serializedVersion: 5
@@ -77226,74 +77229,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38634a6f4f9850d47baa381790643b17, type: 3}
---- !u!1001 &3463084450120326597
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6011198421323057472, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 7.507
-      objectReference: {fileID: 0}
-    - target: {fileID: 6011198421323057472, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -6.405
-      objectReference: {fileID: 0}
-    - target: {fileID: 6011198421323057472, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6011198421323057472, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6011198421323057472, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6011198421323057472, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6011198421323057472, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6011198421323057472, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6011198421323057472, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6011198421323057472, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6070165933855076790, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8753046487433099813, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      propertyPath: m_Name
-      value: SmallFire
-      objectReference: {fileID: 0}
-    - target: {fileID: 8753046487433099813, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8753046487433099813, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1704178535}
-  m_SourcePrefab: {fileID: 100100000, guid: 4ef2548480d47e244b87f430bbfbf910, type: 3}
 --- !u!1001 &5291620879968733237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77714,7 +77649,6 @@ SceneRoots:
   - {fileID: 2131259786}
   - {fileID: 431020306}
   - {fileID: 1932526043}
-  - {fileID: 3463084450120326597}
   - {fileID: 3241122426496265767}
   - {fileID: 5448443593561372940}
   - {fileID: 8606440973891989337}
@@ -77726,3 +77660,4 @@ SceneRoots:
   - {fileID: 5291620879968733237}
   - {fileID: 2698727206670674272}
   - {fileID: 8327509820364830266}
+  - {fileID: 324269278}

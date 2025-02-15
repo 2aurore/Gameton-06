@@ -22,7 +22,7 @@ namespace TON
         public int level;
         public float currentHP = 100; // 몬스터의 현재 체력
         public int attackPower;  // 공격력
-        public int defensePower;
+        public float defencePower; // 몬스터의 방어력
         public int monsterSkillID;
         public float patrolRange;
         public float detectionRange;
@@ -46,8 +46,6 @@ namespace TON
 
         [SerializeField] private Collider2D _collider; // 몬스터의 콜라이더
 
-        public float defencePower; // 몬스터의 방어력
-
         // 애니메이션 관련 선언
         private string currentAnimationState; // 현재 애니메이션 상태
         
@@ -70,7 +68,18 @@ namespace TON
         public string animationName;  // 스킬 애니메이션 이름
         
         public GameObject smallFirePrefab;
-
+        public GameObject DragonBreathPrefab;
+        public GameObject IceBlastPrefab;
+        public GameObject PumpkinCrashPrefab;
+        public GameObject TrollChargePrefab;
+        public GameObject TrollCrashPrefab;
+        public GameObject TrollThundePrefab;
+        public GameObject WolfEnergyWavePrefab;
+        public GameObject WolfPunchPrefab;
+        public GameObject DragonShockWavePrefab;
+        public GameObject FireImpactPrefab;
+        public GameObject DropObjectPrefab;
+        
         // 첫 번째 프레임 전에 호출됩니다.
         private void Start()
         {
@@ -105,7 +114,6 @@ namespace TON
                 monsterName = monsterData.name;
                 level = monsterData.level;
                 currentHP = monsterData.hp;
-                attackPower = monsterData.attackPower;
                 defencePower = monsterData.defencePower;
                 monsterSkillID = monsterData.monsterSkillID;;
                 patrolRange = monsterData.patrolRange;
@@ -242,6 +250,16 @@ namespace TON
         public void SetTransition(State state)
         {
             _stateMachine.SetTransition(state);
+        }
+
+        public void MonsterSkillLaunch()
+        {
+            var target = GameObject.FindGameObjectWithTag("Player");
+            _spriteRenderer.flipX = target.transform.position.x < transform.position.x;
+            
+            GameObject newSkill = Instantiate(smallFirePrefab);
+            newSkill.transform.position = transform.position + new Vector3(0, 1f, 0);
+            newSkill.GetComponent<MonsterSkill>().Direction = new Vector2(0, 1);
         }
     }
 }

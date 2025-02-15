@@ -203,24 +203,48 @@ namespace TON
     public class MonsterSkillState : State
     {
         private const string AniAttack = "Attack"; // 공격 애니메이션
-        public GameObject smallFirePrefab;
+        private const string AniIdle = "Idle";  // 대기 애니메이션
         private MonsterBase _monsterBase;
+        private float _skillAttackAnimationDuration = 0.5f; // 공격 애니메이션 지속 시간
+        private float _skillAttackDelayTime = 2f;  // 공격 딜레이 시간
+        private float _lastSkillAttackTime;  // 마지막 공격 시간
+        
+        private bool _isSkillAttacking;
         
         public void Enter(MonsterBase monsterBase)
         {
-            smallFirePrefab = _monsterBase.smallFirePrefab;
-            
+            _monsterBase = monsterBase;
+            _lastSkillAttackTime = -_skillAttackDelayTime; // 처음 진입시 바로 공격하도록 설정
+            SkillAttack();
         }
 
         public void Update()
         {
+            // 현재 공격 중이 아니고, 쿨다운이 지났다면 공격
+            if (!_isSkillAttacking && Time.time >= _lastSkillAttackTime + _skillAttackDelayTime)
+            {
+                SkillAttack();
+            }
+    
+            // 공격 애니메이션 종료 체크
+            if (_isSkillAttacking && Time.time >= _lastSkillAttackTime + _skillAttackAnimationDuration)
+            {
+                _isSkillAttacking = false;
+                _monsterBase.ChangeAnimationState(AniIdle);
+            }
+        }
+        
+        private void SkillAttack()
+        {
             _monsterBase.ChangeAnimationState(AniAttack);
-            
+            _monsterBase.MonsterSkillLaunch();
+            _lastSkillAttackTime = Time.time;
+            _isSkillAttacking = true;
         }
 
         public void Exit()
         {
-            
+            _isSkillAttacking = false;
         }
 
         public void CheckTransition()

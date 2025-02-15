@@ -7,7 +7,7 @@ namespace TON
 {
     public class MonsterSkill : MonoBehaviour
     {
-        public float speed = 3;
+        public float speed = 5f;
         public float damage = 1;
 
         Vector2 direction;

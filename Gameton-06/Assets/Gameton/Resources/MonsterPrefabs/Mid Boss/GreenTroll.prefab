@@ -569,22 +569,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  name: 
+  monsterName: 
   level: 0
   currentHP: 0
   attackPower: 0
-  defensePower: 0
-  monsterSkillID: 
+  defencePower: 10
+  monsterSkillID: 0
   patrolRange: 0
   detectionRange: 0
   chaseRange: 0
   speed: 3
   attackRange: 0
-  _spriteRenderer: {fileID: 6858484445723671200}
+  _spriteRenderer: {fileID: 0}
   _target: {fileID: 0}
-  _collider: {fileID: 5655962962408652046}
-  defencePower: 10
+  _collider: {fileID: 0}
   _hpBarImage: {fileID: 0}
+  skillId: 0
+  skillName: 
+  damage: 0
+  cooldown: 0
+  range: 0
+  animationName: 
+  smallFirePrefab: {fileID: 4487626989189845864, guid: 0cc74a53f6c5c944b86daaa75d4bc576, type: 3}
+  DragonBreathPrefab: {fileID: 1270587839958746621, guid: a7b411323f70c6c4db9d2cab98824bd2, type: 3}
+  IceBlastPrefab: {fileID: 5091201270221039787, guid: e0e47ef64af779949aef813fbc15f1b5, type: 3}
+  PumpkinCrashPrefab: {fileID: 6551207428356273061, guid: 4f642f085df0b924f895a1d23e67ad3f, type: 3}
+  TrollChargePrefab: {fileID: 5657264052368507626, guid: cc6826c2c28719f429e890d46db2808d, type: 3}
+  TrollCrashPrefab: {fileID: 7081223340028307245, guid: 6c84a8d8ff561714585abaed48ffb6b9, type: 3}
+  TrollThundePrefab: {fileID: 7017780489100943411, guid: c8c646b21c23a3340a14ddd62ce673b5, type: 3}
+  WolfEnergyWavePrefab: {fileID: 6602113715180894997, guid: 99c6c681f7d601445b6f970ee9b77109, type: 3}
+  WolfPunchPrefab: {fileID: 123878659603861660, guid: bdee23ac65f6d2b4bafefc94600190c8, type: 3}
+  DragonShockWavePrefab: {fileID: 3715909542404085769, guid: 358f073558c5daa4185d8950938ae415, type: 3}
+  FireImpactPrefab: {fileID: 6470166121172466421, guid: b12ab214fbad9a449bc80119f185111e, type: 3}
+  DropObjectPrefab: {fileID: 5413697641276301969, guid: 82350566434da384cb94c1c2624dbeae, type: 3}
 --- !u!1 &8136905868517816863
 GameObject:
   m_ObjectHideFlags: 0

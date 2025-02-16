@@ -50,7 +50,7 @@ namespace TON
 
         private void SetSkillSlots()
         {
-            // 이미 기존에 UI가 생성되어 있다면 삭제
+            // 기존 UI 삭제
             if (createSkillSlots.Count > 0)
             {
                 foreach (var button in createSkillSlots)
@@ -60,23 +60,32 @@ namespace TON
                 createSkillSlots.Clear();
             }
 
-            // 스킬 버튼을 생성
+            // 스킬 버튼 생성
             List<SkillBase> activatedSkills = SkillDataManager.Singleton.GetEquippedSkills();
             int maxEquipSkillCount = SkillDataManager.Singleton.GetActiveSkillCount();
+
+            // 슬롯 번호에 맞게 스킬을 매핑
+            Dictionary<int, SkillBase> skillMap = new Dictionary<int, SkillBase>();
+            foreach (var skill in activatedSkills)
+            {
+                skillMap[skill.SkillData.slotNumber - 1] = skill;
+            }
+
             for (int i = 0; i < 3; i++)
             {
                 SkillSettingUI_SkillSlot newSkillSlot = Instantiate(skillSlotPrefab, skillSlotGroup);
                 newSkillSlot.gameObject.SetActive(true);
 
-                if (i < activatedSkills.Count) // 해당 인덱스에 활성화된 스킬이 있을 경우
+                if (skillMap.TryGetValue(i, out SkillBase skill))
                 {
-                    newSkillSlot.Initalize(activatedSkills[i].SkillData.id, i);
+                    // 해당 슬롯에 스킬이 있으면 초기화
+                    newSkillSlot.Initalize(skill.SkillData.id, i);
                 }
                 else
                 {
-                    if (i == maxEquipSkillCount - 1)
+                    if (i < maxEquipSkillCount)
                     {
-                        // 만약 스킬을 배치할 수 있는 슬롯이지만 지정된 스킬이 없다면
+                        // 스킬을 배치할 수 있는 슬롯이지만 스킬이 없으면 비활성 슬롯으로 표시
                         newSkillSlot.Initalize(null, i);
                     }
                     else
@@ -84,6 +93,7 @@ namespace TON
                         newSkillSlot.GetComponent<Button>().interactable = false;
                     }
                 }
+
                 createSkillSlots.Add(newSkillSlot);
             }
         }

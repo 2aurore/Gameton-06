@@ -12,15 +12,21 @@ namespace TON
         public HeartData currentHeartData { get; private set; }
         private int characterId;
 
+        public int maxHearts = 3;
+        public int heartRechargeTime = 600;
+
         public int GetCurrentHearts() => currentHeartData.currentHearts;
-        public int GetMaxHearts() => currentHeartData.maxHearts;
-        public int GetHeartRechargeTime() => currentHeartData.heartRechargeTime;
         public DateTime GetLastHeartTime() => DateTime.Parse(currentHeartData.lastHeartTime);
 
 
         protected override void Awake()
         {
             base.Awake();
+            LoadHeartData();
+        }
+
+        public void Initalize()
+        {
             LoadHeartData();
         }
 
@@ -55,6 +61,7 @@ namespace TON
             if (characterId > -1)
             {
                 currentHeartData = heartDatas[characterId];
+                Debug.Log(currentHeartData.ToString());
                 if (currentHeartData != null)
                 {
                     RechargeHearts();
@@ -83,41 +90,55 @@ namespace TON
         // 게임이 다시 실행될때 마지막 하트 소모 시간과 현재 시간을 계산해서 하트 충전량을 반영
         public void RechargeHearts()
         {
-            if (currentHeartData.currentHearts >= currentHeartData.maxHearts) return;
+            if (currentHeartData.currentHearts >= maxHearts) return;
 
             DateTime lastTime = DateTime.Parse(currentHeartData.lastHeartTime);
             TimeSpan timePassed = DateTime.Now - lastTime;
-            int heartsToRecover = (int)(timePassed.TotalSeconds / currentHeartData.heartRechargeTime);
+
+            int heartsToRecover = (int)(timePassed.TotalSeconds / heartRechargeTime);
 
             if (heartsToRecover > 0)
             {
-                currentHeartData.currentHearts = Mathf.Min(currentHeartData.currentHearts + heartsToRecover, currentHeartData.maxHearts);
-                currentHeartData.lastHeartTime = DateTime.Now.ToString();
+                int newHearts = Mathf.Min(currentHeartData.currentHearts + heartsToRecover, maxHearts);
+
+                // 충전된 하트 수만큼 lastHeartTime을 재조정
+                currentHeartData.currentHearts = newHearts;
+
+                // 남은 충전 시간 유지: 충전된 만큼 lastHeartTime을 앞으로 이동
+                currentHeartData.lastHeartTime = lastTime.AddSeconds(heartsToRecover * heartRechargeTime).ToString();
                 SaveHeartData();
             }
         }
 
-        // 하트 소모 시 데이터 및 화면 UI를 업데이트트
+        // 하트 소모 시 데이터 및 화면 UI를 업데이트
         public void UseHeart()
         {
             if (currentHeartData.currentHearts > 0)
             {
                 currentHeartData.currentHearts--;
-                currentHeartData.lastHeartTime = DateTime.Now.ToString();
-                SaveHeartData();
 
+                // 재충전 중일 경우 lastHeartTime을 유지
+                DateTime lastTime = DateTime.Parse(currentHeartData.lastHeartTime);
+                TimeSpan timePassed = DateTime.Now - lastTime;
+
+                if (timePassed.TotalSeconds >= heartRechargeTime || currentHeartData.currentHearts == maxHearts - 1)
+                {
+                    currentHeartData.lastHeartTime = DateTime.Now.ToString();
+                }
+
+                SaveHeartData();
                 FindObjectOfType<HeartSystem>().UpdateHeartUI(); // UI 업데이트
             }
         }
 
-        // 데이터 파일에 저장된 마지막 하트 사용시간과 동기화화 
+        // 데이터 파일에 저장된 마지막 하트 사용시간과 동기화
         public int GetRemainingRechargeTime()
         {
-            if (currentHeartData.currentHearts >= currentHeartData.maxHearts) return 0;
+            if (currentHeartData.currentHearts >= maxHearts) return 0;
 
             DateTime lastTime = DateTime.Parse(currentHeartData.lastHeartTime);
             TimeSpan timePassed = DateTime.Now - lastTime;
-            int timeLeft = currentHeartData.heartRechargeTime - (int)timePassed.TotalSeconds;
+            int timeLeft = heartRechargeTime - (int)timePassed.TotalSeconds;
 
             return Mathf.Max(0, timeLeft);
         }

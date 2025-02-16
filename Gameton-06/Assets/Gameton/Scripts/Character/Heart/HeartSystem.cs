@@ -12,15 +12,17 @@ namespace TON
         public List<Image> heartImages;  // 하트 UI 리스트
         public Sprite fullHeartSprite;   // 채워진 하트
         public Sprite emptyHeartSprite;  // 빈 하트
-        private HeartData heartData;
-
         public TextMeshProUGUI timerText;           // 하트 충전 타이머 UI
 
 
-        private void Start()
+        private void OnEnable()
         {
             UpdateHeartUI();  // 시작 시 UI 갱신
-            InvokeRepeating(nameof(UpdateTimer), 0, 1f);  // 1초마다 업데이트
+        }
+
+        private void FixedUpdate()
+        {
+            UpdateTimer();
         }
 
         public void UpdateHeartUI()
@@ -35,7 +37,7 @@ namespace TON
 
         private void UpdateTimer()
         {
-            if (HeartDataManager.Singleton.GetCurrentHearts() >= HeartDataManager.Singleton.GetMaxHearts())
+            if (HeartDataManager.Singleton.GetCurrentHearts() >= HeartDataManager.Singleton.maxHearts)
             {
                 timerText.text = "0:00";
                 return;

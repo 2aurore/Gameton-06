@@ -25,6 +25,8 @@ namespace TON
 
         public void OnClickHomeButton()
         {
+            UIManager.Hide<PauseUI>(UIList.PauseUI);
+
             Time.timeScale = 1f;
             Main.Singleton.ChangeScene(SceneType.Lobby);
         }

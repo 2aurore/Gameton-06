@@ -105,6 +105,7 @@ namespace TON
             defencePower = 10f;
         }
         
+        // TODO : 불러온 값 변수에 대응하게 수정
         private void InitializeMonsterData()
         {
             MonsterData monsterData = MonsterDataManager.Singleton.GetMonsterData(id);
@@ -133,6 +134,7 @@ namespace TON
             }
         }
 
+        // TODO : 불러온 값 변수에 대응하게 수정
         private void InitializeMonsterSkillData()
         {
             MonsterSkillData monsterSkillData = MonsterSkillDataManager.Singleton.GetMonsterSkillData(monsterSkillID);
@@ -257,6 +259,7 @@ namespace TON
             var target = GameObject.FindGameObjectWithTag("Player");
             _spriteRenderer.flipX = target.transform.position.x < transform.position.x;
             
+            // TODO : 몬스터가 가지고 있는 스킬에 따라 분기되는 조건 추가
             // GameObject newSkill = Instantiate(smallFirePrefab);
             // GameObject newSkill = Instantiate(DragonBreathPrefab);
             GameObject newSkill = Instantiate(IceBlastPrefab);

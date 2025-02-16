@@ -17948,7 +17948,7 @@ Transform:
   m_GameObject: {fileID: 431020298}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.15, y: -8.27, z: 0.060982164}
+  m_LocalPosition: {x: 12.94, y: -7.91, z: 0.060982164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -43715,6 +43715,10 @@ PrefabInstance:
     - target: {fileID: 3667660097767351871, guid: ef14281ca23119941b755a7bff7ff6c8, type: 3}
       propertyPath: m_Name
       value: RedDragon
+      objectReference: {fileID: 0}
+    - target: {fileID: 3667660097767351871, guid: ef14281ca23119941b755a7bff7ff6c8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -73501,11 +73505,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8528093570479225059, guid: f92c93d0d7d455d40b84e993e40acfca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.21
+      value: -2.06
       objectReference: {fileID: 0}
     - target: {fileID: 8528093570479225059, guid: f92c93d0d7d455d40b84e993e40acfca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.61
+      value: -7.82
       objectReference: {fileID: 0}
     - target: {fileID: 8528093570479225059, guid: f92c93d0d7d455d40b84e993e40acfca, type: 3}
       propertyPath: m_LocalPosition.z
@@ -77070,6 +77074,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrollThunde
       objectReference: {fileID: 0}
+    - target: {fileID: 7017780489100943411, guid: c8c646b21c23a3340a14ddd62ce673b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7181440835666467509, guid: c8c646b21c23a3340a14ddd62ce673b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.6
@@ -77126,6 +77134,10 @@ PrefabInstance:
     - target: {fileID: 7081223340028307245, guid: 6c84a8d8ff561714585abaed48ffb6b9, type: 3}
       propertyPath: m_Name
       value: TrollCrash
+      objectReference: {fileID: 0}
+    - target: {fileID: 7081223340028307245, guid: 6c84a8d8ff561714585abaed48ffb6b9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9039985568881264830, guid: 6c84a8d8ff561714585abaed48ffb6b9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -77184,6 +77196,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WolfPunch
       objectReference: {fileID: 0}
+    - target: {fileID: 123878659603861660, guid: bdee23ac65f6d2b4bafefc94600190c8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1972504249886802456, guid: bdee23ac65f6d2b4bafefc94600190c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.6
@@ -77240,6 +77256,10 @@ PrefabInstance:
     - target: {fileID: 1270587839958746621, guid: a7b411323f70c6c4db9d2cab98824bd2, type: 3}
       propertyPath: m_Name
       value: DragonBreath
+      objectReference: {fileID: 0}
+    - target: {fileID: 1270587839958746621, guid: a7b411323f70c6c4db9d2cab98824bd2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1307078972646367573, guid: a7b411323f70c6c4db9d2cab98824bd2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -77338,6 +77358,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceBlast
       objectReference: {fileID: 0}
+    - target: {fileID: 5091201270221039787, guid: e0e47ef64af779949aef813fbc15f1b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -77395,6 +77419,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrollCharge
       objectReference: {fileID: 0}
+    - target: {fileID: 5657264052368507626, guid: cc6826c2c28719f429e890d46db2808d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -77411,6 +77439,10 @@ PrefabInstance:
     - target: {fileID: 6470166121172466421, guid: b12ab214fbad9a449bc80119f185111e, type: 3}
       propertyPath: m_Name
       value: FireImpact
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470166121172466421, guid: b12ab214fbad9a449bc80119f185111e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7811880198066444325, guid: b12ab214fbad9a449bc80119f185111e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -77469,6 +77501,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WolfEnergyWave
       objectReference: {fileID: 0}
+    - target: {fileID: 6602113715180894997, guid: 99c6c681f7d601445b6f970ee9b77109, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8035266354307835703, guid: 99c6c681f7d601445b6f970ee9b77109, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.6
@@ -77525,6 +77561,10 @@ PrefabInstance:
     - target: {fileID: 3715909542404085769, guid: 358f073558c5daa4185d8950938ae415, type: 3}
       propertyPath: m_Name
       value: DragonShockWave
+      objectReference: {fileID: 0}
+    - target: {fileID: 3715909542404085769, guid: 358f073558c5daa4185d8950938ae415, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5897562606958307656, guid: 358f073558c5daa4185d8950938ae415, type: 3}
       propertyPath: m_LocalPosition.x
@@ -77623,6 +77663,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PumpkinCrash
       objectReference: {fileID: 0}
+    - target: {fileID: 6551207428356273061, guid: 4f642f085df0b924f895a1d23e67ad3f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -77679,6 +77723,10 @@ PrefabInstance:
     - target: {fileID: 5413697641276301969, guid: 82350566434da384cb94c1c2624dbeae, type: 3}
       propertyPath: m_Name
       value: DropObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 5413697641276301969, guid: 82350566434da384cb94c1c2624dbeae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

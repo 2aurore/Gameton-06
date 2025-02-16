@@ -25,11 +25,6 @@ namespace TON
             LoadHeartData();
         }
 
-        public void Initalize()
-        {
-            LoadHeartData();
-        }
-
         private void LoadHeartData()
         {
             if (heartDatas != null)
@@ -51,7 +46,6 @@ namespace TON
             HeartData heartData = new HeartData(characterId);
             heartDatas.Add(heartData);
             Assert.IsTrue(JSONLoader.SaveUpdatedJsonToPersistentData(heartDatas, "heart"));
-            Debug.Log($"heartData test:: {heartData.currentHearts}");
             LoadHeartData();
         }
 
@@ -61,7 +55,6 @@ namespace TON
             if (characterId > -1)
             {
                 currentHeartData = heartDatas[characterId];
-                Debug.Log(currentHeartData.ToString());
                 if (currentHeartData != null)
                 {
                     RechargeHearts();

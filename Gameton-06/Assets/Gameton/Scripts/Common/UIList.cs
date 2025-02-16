@@ -25,7 +25,6 @@ namespace TON
 
         POPUP_START,
         LoadingUI,
-        StageEntryUI,
 
 
         GameOverUI, // 게임 오버 시 노출되는 UI

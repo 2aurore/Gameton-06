@@ -59,11 +59,5 @@ namespace TON
             UIManager.Hide<ControllerUI>(UIList.ControllerUI);
         }
 
-        void OnEscapeExecute()
-        {
-            // TODO : 게임 일시정지 UI 노출 시 수행
-            // Time.timeScale = 0f;
-            // UIManager.Show<PausePopupUI>(UIList.PausePopupUI);
-        }
     }
 }

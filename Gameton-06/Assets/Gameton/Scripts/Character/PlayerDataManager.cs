@@ -92,6 +92,7 @@ namespace TON
             if (characterId > -1)
             {
                 player = playersData[characterId];
+                // FIXME: 테스트를 위해 캐릭터 레벨 강제 적용함
                 player.level = 15;
             }
             else

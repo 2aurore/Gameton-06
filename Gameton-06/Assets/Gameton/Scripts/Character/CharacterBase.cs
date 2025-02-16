@@ -71,7 +71,7 @@ namespace TON
         {
 
             // 키보드 입력과 조이스틱 입력 통합
-            float horizontalInput = Input.GetAxis("Horizontal"); // 키보드 좌우 입력
+            float horizontalInput = Input.GetAxis("Horizontal");
             if (joystick != null && Mathf.Abs(joystick.Horizontal) > 0.01f)
             {
                 horizontalInput = joystick.Horizontal; // 조이스틱 입력 우선
@@ -80,13 +80,33 @@ namespace TON
             // 걷는 애니메이션 적용
             animator.SetBool("IsMoving", Mathf.Abs(horizontalInput) > 0f);
 
-            // 좌우 이동 처리 (X축 속도 설정)
+            // 기본 이동 속도 계산
             float newVelocityX = horizontalInput * speed;
 
-            // Rigidbody2D의 속도 업데이트 (X축은 입력값 기반, Y축은 중력/점프 유지)
-            rb.velocity = new Vector2(newVelocityX, rb.velocity.y);
+            // 경사로 감지
+            bool isOnSlope = false;
+            Vector2 rayOrigin = rb.position;
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, 1.1f);
 
-            // 방향을 변경하는 로직 (0이 아닐 때만 방향 업데이트)
+            if (hit.collider != null && hit.collider.CompareTag("Ground"))  // Ground 태그 확인
+            {
+                float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
+                if (slopeAngle > 0 && slopeAngle <= 45f)
+                {
+                    isOnSlope = true;
+                    // 경사면 방향 벡터 계산
+                    Vector2 slopeDirection = new Vector2(hit.normal.y, -hit.normal.x);
+                    rb.velocity = slopeDirection * (newVelocityX / Mathf.Cos(slopeAngle * Mathf.Deg2Rad));
+                }
+            }
+
+            // 경사가 아닐 경우 일반 이동 적용
+            if (!isOnSlope)
+            {
+                rb.velocity = new Vector2(newVelocityX, rb.velocity.y);
+            }
+
+            // 방향 전환
             if (horizontalInput != 0)
             {
                 Turn(horizontalInput);

@@ -22,5 +22,18 @@ namespace TON
             // 게임 재생
             Time.timeScale = 1f;
         }
+
+        public void OnClickHomeButton()
+        {
+            Time.timeScale = 1f;
+            Main.Singleton.ChangeScene(SceneType.Lobby);
+        }
+
+        public void OnClickStageRetryButton()
+        {
+            // TODO: 스테이지 재시작 로직 추가
+            Time.timeScale = 1f;
+            Debug.Log("OnClickStageRetryButton");
+        }
     }
 }

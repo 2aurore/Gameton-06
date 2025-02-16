@@ -645,6 +645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageEntryButton: {fileID: 7881644893557345821}
+  stageTitle: {fileID: 5563710392318594705}
   stageImage: {fileID: 8654573821297256642}
   starGroup: {fileID: 3135648780667157969}
   starPrefab: {fileID: 1094882719706695268}

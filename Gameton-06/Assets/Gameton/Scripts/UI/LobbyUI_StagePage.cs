@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -10,6 +11,7 @@ namespace TON
     public class LobbyUI_StagePage : MonoBehaviour
     {
         public Button stageEntryButton;
+        public TextMeshProUGUI stageTitle;
         public GameObject stageImage;
         public Transform starGroup;
         public StageStar starPrefab;
@@ -37,6 +39,7 @@ namespace TON
 
             SetStageImage();
             SetStageEntryInfo(index);
+            stageTitle.text = $"stage {index + 1}";
         }
 
         private void SetStageEntryInfo(int index)

@@ -14,8 +14,30 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace TON
 {
+    // public class AttackPattern
+    // {
+    //     public void Attack()
+    //     {
+    //         
+    //     }
+    // }
+    //
+    // public class Monster1AttackManager : AttackPattern
+    // {
+    //     public override void Attack()
+    //     {
+    //         
+    //     }
+    // }
+    //
+    // public class Monster2AttackManager : AttackPattern
+    // {
+    //     public override void Attack();
+    // }
+    
     public class MonsterBase : MonoBehaviour, IDamage
     {
+        
         [SerializeField]
         public int id; // 몬스터의 ID
         public string monsterName; // 몬스터 이름
@@ -34,13 +56,9 @@ namespace TON
         private Animator _animator; // 몬스터 애니메이터
 
         private Vector3 _direction; // 몬스터의 이동 방향
-        private bool _isWalking; // 몬스터가 걷고 있는지 여부
-        private bool _isHit; // 몬스터가 맞았는지 여부
-        private bool _isDetect; // 몬스터가 대상을 인식했는지 여부
-
-        // [SerializeField] private int _idleTime = 2; // 대기 시간
-        //
-        // [SerializeField] private int walkingTime = 2; // 걷기 시간 
+        public bool IsDetect { get; set; } // 몬스터가 대상을 인식했는지 여부
+        public bool IsAttacking { get; set; } // 몬스터가 대상을 인식했는지 여부
+        public bool IsFisnishAttack { get; set; } // 몬스터가 대상을 인식했는지 여부
 
         [SerializeField] private GameObject _target; // 몬스터의 타겟
 
@@ -58,6 +76,8 @@ namespace TON
         // hp바
         [SerializeField] private Image _hpBarImage; // HP 바 이미지
         private float _maxHP;
+
+        // private AttackPattern _attackPatten;
         
         // 스킬        
         public int skillId;        // 스킬 ID
@@ -83,6 +103,10 @@ namespace TON
         // 첫 번째 프레임 전에 호출됩니다.
         private void Start()
         {
+  
+            // _attackPatten = new Monster1AttackManager();
+            // _attackPatten = new Monster2AttackManager();
+            
             _animator = GetComponent<Animator>(); // 애니메이터 컴포넌트 초기화
 
             _stateMachine = new StateMachine(new IdleState(), this);
@@ -172,6 +196,11 @@ namespace TON
             
         }
 
+        public void FinishAttack()
+        {
+            IsFisnishAttack = true;
+        }
+        
         // 피해를 적용하는 메서드
         public void ApplyDamage(float damage)
         {
@@ -247,11 +276,6 @@ namespace TON
             _spriteRenderer.flipX = target.transform.position.x < transform.position.x;
 
             transform.Translate(direction.normalized * speed * Time.deltaTime); // 타겟 방향으로 이동
-        }
-
-        public void SetTransition(State state)
-        {
-            _stateMachine.SetTransition(state);
         }
 
         public void MonsterSkillLaunch()

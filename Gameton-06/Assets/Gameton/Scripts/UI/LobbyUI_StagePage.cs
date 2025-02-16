@@ -32,8 +32,6 @@ namespace TON
                 stageEntryButton.interactable = true;
             }
 
-            Debug.Log($"LobbyUI_StagePage stageId: {stageId}");
-
             bestStageClearDict = StageManager.Singleton.bestStageClearDict;
             stageClearData = bestStageClearDict.GetValueOrDefault(stageId, null);
 
@@ -62,7 +60,6 @@ namespace TON
             }
             else
             {
-                Debug.Log($"StageClearData is null");
                 // 스테이지 슬롯에 스테이지 클리어 정보가 없고 첫번째 스테이지가 아닌 경우
                 if (index != 0)
                 {

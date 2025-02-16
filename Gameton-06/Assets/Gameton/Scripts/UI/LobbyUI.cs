@@ -81,16 +81,16 @@ namespace TON
 
         public void OnClickStageButton()
         {
-            // TODO: 스테이지 선택 UI 활성화
+            // 스테이지 입장 UI 활성화
             GameObject currentSelectedGameObject = EventSystem.current.currentSelectedGameObject;
-            Debug.Log("OnClickStageButton:: " + currentSelectedGameObject.GetComponent<LobbyUI_StagePage>().stageId);
+            LobbyUI_StagePage lobbyUI_StagePage = currentSelectedGameObject.GetComponentInParent<LobbyUI_StagePage>();
+
+            PlayerPrefs.SetString("StageId", lobbyUI_StagePage.stageId);
+            lobbyUI_StagePage.OnClickStageButton();
         }
 
         public void OnClickStagePlayButton()
         {
-            UIManager.Hide<LobbyUI>(UIList.LobbyUI);
-            // TODO: 선택된 스테이지 아이디 불러오기
-            // 선택한 스테이지 아이디 활용 필요
             Main.Singleton.ChangeScene(SceneType.Stage);
         }
 

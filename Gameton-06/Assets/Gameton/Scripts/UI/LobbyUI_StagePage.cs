@@ -29,7 +29,7 @@ namespace TON
             if (stageId == "STG001")
             {
                 lockState.SetActive(false);
-
+                stageEntryButton.interactable = true;
             }
 
             Debug.Log($"LobbyUI_StagePage stageId: {stageId}");
@@ -107,7 +107,8 @@ namespace TON
 
         public void OnClickStageButton()
         {
-            stageEntryUI.SetActive(true);
+            // 현재 입장 UI가 열려 있는 상태에 따라 영역을 클릭했을때 on off 하도록 함
+            stageEntryUI.SetActive(!stageEntryUI.activeSelf);
         }
 
         public void OnClickStageChangeButton()

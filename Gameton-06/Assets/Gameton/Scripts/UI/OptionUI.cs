@@ -17,7 +17,7 @@ namespace TON
         // 로비 : 골드/생선/인벤토리/더보기 버튼
         // 스테이지 : 인벤토리/일시정지 버튼
         // 상점 : 골드/생선
-        private void Start()
+        private void OnEnable()
         {
             Scene activeScene = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();
 

@@ -41,14 +41,15 @@ namespace TON
                 yield return null;
             }
 
+            // 선택된 캐릭터에 맞는 오브젝트를 생성하거나 적용하는 코드 작성
+            PlayerSpawner.SpawnPlayerCharacter();
+            SkillDataManager.Singleton.Initalize();
+            StageManager.Singleton.StartStage(stageId);
+
             UIManager.Show<IngameUI>(UIList.IngameUI);
             UIManager.Show<OptionUI>(UIList.OptionUI);
             UIManager.Show<ControllerUI>(UIList.ControllerUI);
 
-            // 선택된 캐릭터에 맞는 오브젝트를 생성하거나 적용하는 코드 작성
-            PlayerSpawner.SpawnPlayerCharacter();
-
-            StageManager.Singleton.StartStage(stageId);
         }
         public override IEnumerator OnEnd()
         {

@@ -20,7 +20,7 @@ namespace TON
         public ControllerUI_SkillButton skillButtonPrefab;
         private List<ControllerUI_SkillButton> createdSkillButtons = new List<ControllerUI_SkillButton>();
 
-        private void Awake()
+        private void OnEnable()
         {
             skillButtonPrefab.gameObject.SetActive(false);
             Initalize();

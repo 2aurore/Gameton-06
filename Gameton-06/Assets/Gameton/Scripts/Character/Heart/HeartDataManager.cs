@@ -52,7 +52,7 @@ namespace TON
         public void SetCurrentUserHeart()
         {
             characterId = PlayerPrefs.GetInt("SelectedPlayerIndex", -1);
-            if (characterId > -1)
+            if (characterId > -1 && heartDatas.Count > 0)
             {
                 currentHeartData = heartDatas[characterId];
                 if (currentHeartData != null)
@@ -85,9 +85,16 @@ namespace TON
         {
             if (currentHeartData.currentHearts >= maxHearts) return;
 
-            DateTime lastTime = DateTime.Parse(currentHeartData.lastHeartTime);
-            TimeSpan timePassed = DateTime.Now - lastTime;
+            DateTime lastTime;
+            bool hasValidTime = DateTime.TryParse(currentHeartData.lastHeartTime, out lastTime);
 
+            if (!hasValidTime)
+            {
+                lastTime = DateTime.Now; // 기본값 설정
+                currentHeartData.lastHeartTime = lastTime.ToString();
+            }
+
+            TimeSpan timePassed = DateTime.Now - lastTime;
             int heartsToRecover = (int)(timePassed.TotalSeconds / heartRechargeTime);
 
             if (heartsToRecover > 0)
@@ -109,16 +116,23 @@ namespace TON
             if (currentHeartData.currentHearts > 0)
             {
                 currentHeartData.currentHearts--;
+                // lastHeartTime이 비어있거나 잘못된 경우를 대비하여 기본값 설정
+                DateTime lastTime;
+                bool hasValidTime = DateTime.TryParse(currentHeartData.lastHeartTime, out lastTime);
 
-                // 재충전 중일 경우 lastHeartTime을 유지
-                DateTime lastTime = DateTime.Parse(currentHeartData.lastHeartTime);
+                if (!hasValidTime)
+                {
+                    lastTime = DateTime.Now; // 기본값을 현재 시간으로 설정
+                    currentHeartData.lastHeartTime = lastTime.ToString();
+                }
+
                 TimeSpan timePassed = DateTime.Now - lastTime;
 
+                // 재충전 시간이 지났거나, 처음 소모하여 재충전이 시작될 때만 lastHeartTime 갱신
                 if (timePassed.TotalSeconds >= heartRechargeTime || currentHeartData.currentHearts == maxHearts - 1)
                 {
                     currentHeartData.lastHeartTime = DateTime.Now.ToString();
                 }
-
                 SaveHeartData();
                 FindObjectOfType<HeartSystem>().UpdateHeartUI(); // UI 업데이트
             }
@@ -129,7 +143,15 @@ namespace TON
         {
             if (currentHeartData.currentHearts >= maxHearts) return 0;
 
-            DateTime lastTime = DateTime.Parse(currentHeartData.lastHeartTime);
+            DateTime lastTime;
+            bool hasValidTime = DateTime.TryParse(currentHeartData.lastHeartTime, out lastTime);
+
+            if (!hasValidTime)
+            {
+                lastTime = DateTime.Now; // 기본값 설정
+                currentHeartData.lastHeartTime = lastTime.ToString();
+            }
+
             TimeSpan timePassed = DateTime.Now - lastTime;
             int timeLeft = heartRechargeTime - (int)timePassed.TotalSeconds;
 

@@ -28,10 +28,6 @@ namespace TON
 
             // TODO : GameDataModel.Singleton.Initalize();
             PlayerDataManager.Singleton.Initalize();
-            PlayerDataManager.Singleton.SetCurrentUserData();
-
-            StageManager.Singleton.Initialize();
-            SkillDataManager.Singleton.Initalize();
 
             isIniaialized = true;
         }

@@ -121,7 +121,8 @@ namespace TON
             }
             else
             {
-                Debug.LogError($"❌ Resources에서 JSON 파일을 찾을 s수 없음: {path}");
+                Debug.LogError($"❌ Resources에서 JSON 파일을 찾을 수 없음: {path}");
+                File.WriteAllText(persistentPath, "[]");
             }
         }
 

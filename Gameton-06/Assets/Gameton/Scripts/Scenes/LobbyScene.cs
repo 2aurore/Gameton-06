@@ -21,6 +21,12 @@ namespace TON
                 yield return null;
             }
 
+            PlayerDataManager.Singleton.SetCurrentUserData();
+
+            StageManager.Singleton.Initialize();
+            SkillDataManager.Singleton.Initalize();
+
+
             UIManager.Show<LobbyUI>(UIList.LobbyUI);
             UIManager.Show<OptionUI>(UIList.OptionUI);
         }

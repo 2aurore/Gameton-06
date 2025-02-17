@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UI;
 using UnityEngine;
 
 namespace TON
@@ -8,10 +5,10 @@ namespace TON
     public class StateMachine
     {
         private Animator animator; 
-        private State _state;
+        private IState _state;
         private MonsterBase _monsterBase;
 
-        public StateMachine(State state, MonsterBase monsterBase)
+        public StateMachine(IState state, MonsterBase monsterBase)
         {
             // 초기 상태 객체 생성
             _monsterBase = monsterBase;;
@@ -23,31 +20,42 @@ namespace TON
         public void Update()
         {
             _state.Update();
+
+            var newState = _state.CheckTransition();
+
+            if (_state != newState)
+            {
+                _state.Exit();
+                SetTransition(newState);
+            }
         }
 
-        public void SetTransition(State state)
+        private void SetTransition(IState state)
         {
             // 다음음 상태로 전환
-            _state.Exit();
+           
             
             _state = state;
             _state.Enter(_monsterBase);
+
+            Debug.Log($"State : {_state}");
         }
     }
 
-    public interface State
+    public interface IState
     {
-        void Enter(MonsterBase _monsterBase);
+        void Enter(MonsterBase monsterBase);
         
         void Update();
 
         void Exit();
-        void CheckTransition();
-        // TODO : 트리거 조건일 경우 다음 상태로 전환
+        
+        // 트리거 조건일 경우 다음 상태로 전환
+        IState CheckTransition();
         
     }
 
-    public class IdleState : State
+    public class IdleState : IState
     {
         private const string AniIdle = "Idle";  // 대기 애니메이션
         private const string AniWalk = "Walk";  // 걷기 애니메이션
@@ -58,12 +66,18 @@ namespace TON
         
         private bool _isWalking;
         private int _walkingTime = 2;  // 걷기 시간 
+
+        private float _duration = 2;
+        private float _currentDuration = 2;
+        
         
         public void Enter(MonsterBase monsterBase)
         {
             _monsterBase = monsterBase;
             _currentTime = Time.realtimeSinceStartup;
             _monsterBase.ChangeAnimationState(AniIdle);
+
+            _currentDuration = 0;
         }
 
         public void Update()
@@ -97,6 +111,8 @@ namespace TON
                     _monsterBase.ChangeAnimationState(AniIdle);
                 }
             }
+            
+            _currentDuration += Time.realtimeSinceStartup;
         }
 
         public void Exit()
@@ -104,15 +120,25 @@ namespace TON
             
         }
 
-        public void CheckTransition()
+        public IState CheckTransition()
         {
+            // TODO : duration을 동안에는 항상 idle = 공격 쿨타운
+            if (_currentDuration < _duration)
+                return this;
             // TODO : 데미지 받을 때
-            // TODO : 추적 범위에 들어왔을 때  
-            // chasingState로 가면 됨
+            
+            
+            // TODO : 추적 범위에 들어왔을 때
+            if (_monsterBase.IsDetect)
+            {
+                return new ChasingState();
+            }
+
+            return this;
         }
     }
 
-    public class ChasingState : State
+    public class ChasingState : IState
     {
         private const string AniWalk = "Walk";  // 걷기 애니메이션
         
@@ -138,13 +164,25 @@ namespace TON
             // 추적 끝났을때
         }
 
-        public void CheckTransition()
+        public IState CheckTransition()
         {
             // Idle로 변경
+            if(_monsterBase.IsDetect== false)
+                return new IdleState();
+            //
+            // // Attack으로 변경
+            if (_monsterBase.IsAttacking)
+                return new AttackState();
+            
+            // 추적 상태
+            return this;
+
         }
     }
 
-    public class AttackState : State
+    // 몬스터 1의 어택
+    // 몬스터 2의 어택
+    public class AttackState : IState
     {
         private const string AniAttack = "Attack"; // 공격 애니메이션
         private const string AniIdle = "Idle";  // 대기 애니메이션
@@ -154,27 +192,34 @@ namespace TON
         private float _lastAttackTime;  // 마지막 공격 시간
         private float _attackAnimationDuration = 0.5f; // 공격 애니메이션 지속 시간
         private bool _isAttacking = false;
+        private bool _completAttck;
         
         public void Enter(MonsterBase monsterBase)
         {
             _monsterBase = monsterBase;
+            _monsterBase.IsFisnishAttack = false;
+            
             _lastAttackTime = -_attackDelayTime; // 처음 진입시 바로 공격하도록 설정
-            Attack();
         }
 
         public void Update()
         {
+            // TODO : 우선 순위에 따라서 공격
+            // TODO : 스킬1 > 스킬2 > 일반 공격
             // 현재 공격 중이 아니고, 쿨다운이 지났다면 공격
             if (!_isAttacking && Time.time >= _lastAttackTime + _attackDelayTime)
             {
                 Attack();
+                
+                _lastAttackTime = Time.time;
+                _isAttacking = true;
             }
         
             // 공격 애니메이션 종료 체크
             if (_isAttacking && Time.time >= _lastAttackTime + _attackAnimationDuration)
             {
                 _isAttacking = false;
-                _monsterBase.ChangeAnimationState(AniIdle);
+                _completAttck = true;
             }
         }
         
@@ -182,8 +227,7 @@ namespace TON
         {
             _monsterBase.ChangeAnimationState(AniAttack);
             _monsterBase.PlayerAttack();
-            _lastAttackTime = Time.time;
-            _isAttacking = true;
+            
         }
 
         public void Exit()
@@ -191,16 +235,16 @@ namespace TON
             _isAttacking = false;
         }
 
-        public void CheckTransition()
+        public IState CheckTransition()
         {
-            // if (_monsterBase.attackState)
-            // {
-            //     _stateMachine.Update();
-            // }
+            if(_monsterBase.IsFisnishAttack == true)
+                return new IdleState();
+            
+            return this;
         }
     }
 
-    public class MonsterSkillState : State
+    public class MonsterSkillState : IState
     {
         private const string AniAttack = "Attack"; // 공격 애니메이션
         private const string AniIdle = "Idle";  // 대기 애니메이션
@@ -247,9 +291,9 @@ namespace TON
             _isSkillAttacking = false;
         }
 
-        public void CheckTransition()
+        public IState CheckTransition()
         {
-            
+            return this;
         }
     }
 }

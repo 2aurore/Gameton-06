@@ -14,7 +14,8 @@ namespace TON
         {
             if (other.CompareTag("Player"))
             {
-                _monsterBase.SetTransition(new AttackState());
+                _monsterBase.IsAttacking = true;
+                // _monsterBase.SetTransition(new AttackState());
                 // _monsterBase.SetTransition(new MonsterSkillState());
             }
 
@@ -37,7 +38,8 @@ namespace TON
         
         private void OnTriggerExit2D(Collider2D other)
         {
-            _monsterBase.SetTransition(new ChasingState());
+            _monsterBase.IsAttacking = false;
+            // _monsterBase.SetTransition(new ChasingState());
             
             Debug.Log("감지 벗어남");
         }

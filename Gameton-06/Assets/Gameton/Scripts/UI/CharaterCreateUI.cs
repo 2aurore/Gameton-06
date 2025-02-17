@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace TON
@@ -56,8 +57,9 @@ namespace TON
             // 생성한 캐릭터를 저장한다
             PlayerData player = new PlayerData(playerDatas.Count, selectedCharacter, characterName.text);
             playerDatas.Add(player);
+            Assert.IsTrue(JSONLoader.SaveUpdatedJsonToPersistentData(playerDatas, "player"));
+
             PlayerDataManager.Singleton.SetCurrentUserData();
-            JSONLoader.SaveToFile(playerDatas, "player");
 
             // 하트 시스템을 생성한다
             HeartDataManager.Singleton.CreateNewHeartSystem(playerDatas.Count);

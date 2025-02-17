@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8055676915344699427}
   - component: {fileID: 2102790910861955124}
   - component: {fileID: 953440259044723505}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 292558851331411849}
   - component: {fileID: 2369066958554178277}
   - component: {fileID: 3335226426232661380}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 8390153746125434526}
   - component: {fileID: 7745573016426894216}
   - component: {fileID: 7719164324857705517}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: HpBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 988547533290132143}
   - component: {fileID: 3031469019251174195}
   - component: {fileID: 3877897766620331718}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PurplePumpkin
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -644,12 +644,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  name: 
+  monsterName: 
   level: 0
   currentHP: 0
   attackPower: 0
-  defensePower: 0
-  monsterSkillID: 
+  defencePower: 10
+  monsterSkillID: 0
   patrolRange: 0
   detectionRange: 0
   chaseRange: 0
@@ -658,5 +658,22 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 6907519990020749312}
   _target: {fileID: 0}
   _collider: {fileID: 8798441981702176517}
-  defencePower: 10
   _hpBarImage: {fileID: 0}
+  skillId: 0
+  skillName: 
+  damage: 0
+  cooldown: 0
+  range: 0
+  animationName: 
+  smallFirePrefab: {fileID: 0}
+  DragonBreathPrefab: {fileID: 0}
+  IceBlastPrefab: {fileID: 0}
+  PumpkinCrashPrefab: {fileID: 0}
+  TrollChargePrefab: {fileID: 0}
+  TrollCrashPrefab: {fileID: 0}
+  TrollThundePrefab: {fileID: 0}
+  WolfEnergyWavePrefab: {fileID: 0}
+  WolfPunchPrefab: {fileID: 0}
+  DragonShockWavePrefab: {fileID: 0}
+  FireImpactPrefab: {fileID: 0}
+  DropObjectPrefab: {fileID: 0}

@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 5224079812717155775}
   - component: {fileID: 7645539626140565081}
   - component: {fileID: 705413505888271155}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RedRex
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -320,7 +320,7 @@ MonoBehaviour:
   chaseRange: 0
   speed: 3
   attackRange: 0
-  _spriteRenderer: {fileID: 0}
+  _spriteRenderer: {fileID: 7017725869417428001}
   _target: {fileID: 0}
   _collider: {fileID: 0}
   _hpBarImage: {fileID: 0}

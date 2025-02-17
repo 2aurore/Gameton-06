@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2074022989821271346}
   - component: {fileID: 9136438650239437877}
   - component: {fileID: 9005905797466949371}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BlackWerewolf
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ MonoBehaviour:
   chaseRange: 0
   speed: 3
   attackRange: 0
-  _spriteRenderer: {fileID: 0}
+  _spriteRenderer: {fileID: 592092508951316932}
   _target: {fileID: 0}
   _collider: {fileID: 0}
   _hpBarImage: {fileID: 0}

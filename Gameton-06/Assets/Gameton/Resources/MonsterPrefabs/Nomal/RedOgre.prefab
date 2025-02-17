@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 8081380749606338833}
   - component: {fileID: 1302216385465840767}
   - component: {fileID: 8225243175500564362}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RedOgre
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -310,12 +310,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  name: 
+  monsterName: 
   level: 0
   currentHP: 0
   attackPower: 0
-  defensePower: 0
-  monsterSkillID: 
+  defencePower: 10
+  monsterSkillID: 0
   patrolRange: 0
   detectionRange: 0
   chaseRange: 0
@@ -324,8 +324,25 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 4483099703633942840}
   _target: {fileID: 0}
   _collider: {fileID: 8010211321467272694}
-  defencePower: 10
   _hpBarImage: {fileID: 0}
+  skillId: 0
+  skillName: 
+  damage: 0
+  cooldown: 0
+  range: 0
+  animationName: 
+  smallFirePrefab: {fileID: 0}
+  DragonBreathPrefab: {fileID: 0}
+  IceBlastPrefab: {fileID: 0}
+  PumpkinCrashPrefab: {fileID: 0}
+  TrollChargePrefab: {fileID: 0}
+  TrollCrashPrefab: {fileID: 0}
+  TrollThundePrefab: {fileID: 0}
+  WolfEnergyWavePrefab: {fileID: 0}
+  WolfPunchPrefab: {fileID: 0}
+  DragonShockWavePrefab: {fileID: 0}
+  FireImpactPrefab: {fileID: 0}
+  DropObjectPrefab: {fileID: 0}
 --- !u!1 &4890974773502705404
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +354,7 @@ GameObject:
   - component: {fileID: 5269932065289471453}
   - component: {fileID: 322635891004949583}
   - component: {fileID: 8512303292618116682}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +430,7 @@ GameObject:
   - component: {fileID: 6674688860115672376}
   - component: {fileID: 1785402982075397255}
   - component: {fileID: 3017465808014795635}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +612,7 @@ GameObject:
   - component: {fileID: 640523308205634202}
   - component: {fileID: 3759356183817483344}
   - component: {fileID: 1452475910613953432}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: HpBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

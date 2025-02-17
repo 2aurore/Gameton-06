@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 945956006363383888}
   - component: {fileID: 5486437844000215696}
   - component: {fileID: 2153691115770090508}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 3192540896488694481}
   - component: {fileID: 8125000676009494833}
   - component: {fileID: 5202196925012886135}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: HpBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 7250668324955394926}
   - component: {fileID: 3867776280677888610}
   - component: {fileID: 7536972871122744698}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,8 +350,8 @@ GameObject:
   - component: {fileID: 220072405918019578}
   - component: {fileID: 3599791498772529637}
   - component: {fileID: 4682527902446353803}
-  m_Layer: 0
-  m_Name: GrrnOgre
+  m_Layer: 3
+  m_Name: GreenOgre
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -563,12 +563,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  name: 
+  monsterName: 
   level: 0
   currentHP: 0
   attackPower: 0
-  defensePower: 0
-  monsterSkillID: 
+  defencePower: 10
+  monsterSkillID: 0
   patrolRange: 0
   detectionRange: 0
   chaseRange: 0
@@ -577,8 +577,25 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 4428022325186423475}
   _target: {fileID: 0}
   _collider: {fileID: 898726376241471782}
-  defencePower: 10
   _hpBarImage: {fileID: 0}
+  skillId: 0
+  skillName: 
+  damage: 0
+  cooldown: 0
+  range: 0
+  animationName: 
+  smallFirePrefab: {fileID: 0}
+  DragonBreathPrefab: {fileID: 0}
+  IceBlastPrefab: {fileID: 0}
+  PumpkinCrashPrefab: {fileID: 0}
+  TrollChargePrefab: {fileID: 0}
+  TrollCrashPrefab: {fileID: 0}
+  TrollThundePrefab: {fileID: 0}
+  WolfEnergyWavePrefab: {fileID: 0}
+  WolfPunchPrefab: {fileID: 0}
+  DragonShockWavePrefab: {fileID: 0}
+  FireImpactPrefab: {fileID: 0}
+  DropObjectPrefab: {fileID: 0}
 --- !u!1 &7570151098365513060
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8588915526847560493}
   - component: {fileID: 7341249599799714319}
   - component: {fileID: 8316546459892616994}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 3806437718625476131}
   - component: {fileID: 3280851039149585887}
   - component: {fileID: 32222485337476293}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: HpBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 3755389356996766134}
   - component: {fileID: 4593226769141903835}
   - component: {fileID: 4707985683249688333}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BlackTroll
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -461,12 +461,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  name: 
+  monsterName: 
   level: 0
   currentHP: 0
   attackPower: 0
-  defensePower: 0
-  monsterSkillID: 
+  defencePower: 10
+  monsterSkillID: 0
   patrolRange: 0
   detectionRange: 0
   chaseRange: 0
@@ -475,8 +475,25 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 5636364246843047355}
   _target: {fileID: 0}
   _collider: {fileID: 6768085599137241520}
-  defencePower: 10
   _hpBarImage: {fileID: 0}
+  skillId: 0
+  skillName: 
+  damage: 0
+  cooldown: 0
+  range: 0
+  animationName: 
+  smallFirePrefab: {fileID: 0}
+  DragonBreathPrefab: {fileID: 0}
+  IceBlastPrefab: {fileID: 0}
+  PumpkinCrashPrefab: {fileID: 0}
+  TrollChargePrefab: {fileID: 0}
+  TrollCrashPrefab: {fileID: 0}
+  TrollThundePrefab: {fileID: 0}
+  WolfEnergyWavePrefab: {fileID: 0}
+  WolfPunchPrefab: {fileID: 0}
+  DragonShockWavePrefab: {fileID: 0}
+  FireImpactPrefab: {fileID: 0}
+  DropObjectPrefab: {fileID: 0}
 --- !u!1 &5517639527144806737
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,7 +587,7 @@ GameObject:
   - component: {fileID: 4511828911534615108}
   - component: {fileID: 6868299405778376069}
   - component: {fileID: 2547895694325741063}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

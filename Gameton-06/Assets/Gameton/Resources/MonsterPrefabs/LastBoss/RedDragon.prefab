@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6411907760444170154}
   - component: {fileID: 4409121389344890060}
   - component: {fileID: 172749484477612116}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RedDragon
   m_TagString: Monster
   m_Icon: {fileID: 0}

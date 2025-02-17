@@ -13125,7 +13125,7 @@ GameObject:
   - component: {fileID: 309509380}
   - component: {fileID: 309509382}
   - component: {fileID: 309509381}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17711,7 +17711,7 @@ GameObject:
   - component: {fileID: 431020301}
   - component: {fileID: 431020300}
   - component: {fileID: 431020299}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MonsterBase
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -18247,7 +18247,7 @@ GameObject:
   - component: {fileID: 457398687}
   - component: {fileID: 457398686}
   - component: {fileID: 457398685}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26807,7 +26807,7 @@ GameObject:
   - component: {fileID: 745690810}
   - component: {fileID: 745690812}
   - component: {fileID: 745690811}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: HpBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47902,6 +47902,67 @@ Sprite:
   m_PhysicsShape: []
   m_Bones: []
   m_SpriteID: 
+--- !u!1001 &1205629222
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 705413505888271155, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: _spriteRenderer
+      value: 
+      objectReference: {fileID: 1862079974}
+    - target: {fileID: 4336427122757065448, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_Name
+      value: RedRex
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.868645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.968115
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.060982164
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
 --- !u!114 &1207338009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68350,6 +68411,11 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 3
   m_ColliderType: 1
+--- !u!212 &1862079974 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7017725869417428001, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+  m_PrefabInstance: {fileID: 1205629222}
+  m_PrefabAsset: {fileID: 0}
 --- !u!213 &1869212074
 Sprite:
   m_ObjectHideFlags: 0
@@ -77765,3 +77831,4 @@ SceneRoots:
   - {fileID: 6994367162197659328}
   - {fileID: 9115962474533691980}
   - {fileID: 1043803241}
+  - {fileID: 1205629222}

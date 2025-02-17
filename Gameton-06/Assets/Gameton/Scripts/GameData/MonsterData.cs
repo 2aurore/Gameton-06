@@ -21,8 +21,10 @@ namespace TON
         public int attackPower;
         // 기본 방어력
         public int defencePower;
-        // 몬스터 스킬 ID
+        // 몬스터 스킬 ID 1 
         public int monsterSkillID;
+        // 몬스터 스킬 ID 2
+        public int monsterSkillIDTwo;
         // 패트롤 범위
         public float patrolRange;
         // 인식 범위

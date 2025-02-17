@@ -14,51 +14,28 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace TON
 {
-    // public class AttackPattern
-    // {
-    //     public void Attack()
-    //     {
-    //         
-    //     }
-    // }
-    //
-    // public class Monster1AttackManager : AttackPattern
-    // {
-    //     public override void Attack()
-    //     {
-    //         
-    //     }
-    // }
-    //
-    // public class Monster2AttackManager : AttackPattern
-    // {
-    //     public override void Attack();
-    // }
-    
     public class MonsterBase : MonoBehaviour, IDamage
     {
         
         [SerializeField]
         public int id; // 몬스터의 ID
-        public string monsterName; // 몬스터 이름
-        public int level;
-        public float currentHP = 100; // 몬스터의 현재 체력
-        public int attackPower;  // 공격력
-        public float defencePower; // 몬스터의 방어력
-        public int monsterSkillID;
-        public float patrolRange;
-        public float detectionRange;
-        public float chaseRange;
-        public float speed = 2; // 몬스터의 이동 속도
-        public float attackRange;
-
+        public float defencePower;
+        
         [SerializeField] private SpriteRenderer _spriteRenderer; // 몬스터의 스프라이트 렌더러
+        
+        private MonsterData _monsterData;
+        private MonsterSkillData _monsterSkillData;
+        private MonsterSkillData _monsterSkillDataTwo;
         private Animator _animator; // 몬스터 애니메이터
+        
+        StateMachine _stateMachine;
 
+        private AttackPattern _attackPattern;
+        
         private Vector3 _direction; // 몬스터의 이동 방향
         public bool IsDetect { get; set; } // 몬스터가 대상을 인식했는지 여부
-        public bool IsAttacking { get; set; } // 몬스터가 대상을 인식했는지 여부
-        public bool IsFisnishAttack { get; set; } // 몬스터가 대상을 인식했는지 여부
+        public bool IsAttacking { get; set; } // 몬스터가 공격했는지 여부
+        public bool IsFisnishAttack { get; set; } // 몬스터 공격 모션이 끝났는지 여부
 
         [SerializeField] private GameObject _target; // 몬스터의 타겟
 
@@ -67,26 +44,12 @@ namespace TON
         // 애니메이션 관련 선언
         private string currentAnimationState; // 현재 애니메이션 상태
         
-        StateMachine _stateMachine;
-        
-        // 추적 관련 선언
-        private float _detectStartTime; // 추적 시작 시간
-        private bool _isTracking; // 추적 중인지 여부
-        
         // hp바
         [SerializeField] private Image _hpBarImage; // HP 바 이미지
         private float _maxHP;
-
-        // private AttackPattern _attackPatten;
+        private float currentHP;
         
-        // 스킬        
-        public int skillId;        // 스킬 ID
-        public string skillName;      // 스킬 이름
-        public float damage;          // 스킬 데미지
-        public float cooldown;        // 스킬 쿨다운
-        public float range;           // 스킬 범위
-        public string animationName;  // 스킬 애니메이션 이름
-        
+        // 몬스터 스킬 프리팹
         public GameObject smallFirePrefab;
         public GameObject DragonBreathPrefab;
         public GameObject IceBlastPrefab;
@@ -98,59 +61,44 @@ namespace TON
         public GameObject WolfPunchPrefab;
         public GameObject DragonShockWavePrefab;
         public GameObject FireImpactPrefab;
-        public GameObject DropObjectPrefab;
         
         // 첫 번째 프레임 전에 호출됩니다.
         private void Start()
         {
-  
-            // _attackPatten = new Monster1AttackManager();
-            // _attackPatten = new Monster2AttackManager();
+            // 전략 패턴
+            _attackPattern = new Monster1AttackPattern();
+            _attackPattern = new Monster2AttackPattern();
             
             _animator = GetComponent<Animator>(); // 애니메이터 컴포넌트 초기화
 
             _stateMachine = new StateMachine(new IdleState(), this);
             
-            // // 몬스터 데이터 로드 (테스트용, 첫 번째 몬스터 데이터만 로드)
-            // MonsterData monsterData = MonsterDataManager.Singleton.monstersData[0];
-            // Debug.Log(monsterData.name); // 몬스터 ID 출력
-            
             // 몬스터 데이터 로드 및 적용
             InitializeMonsterData();
             InitializeMonsterSkillData();
+
+            id = _monsterData.id;
 
             _direction = new Vector3(1, 0, 0); // 초기 이동 방향 (x 축 양의 방향)
 
             _spriteRenderer.flipX = !(_direction.x > 0); // 이동 방향에 따라 스프라이트 플립
 
             _collider = GetComponent<Collider2D>(); // 콜라이더 컴포넌트 초기화
-
-            // 몬스터 방어력 임시값 설정
-            defencePower = 10f;
         }
         
         // TODO : 불러온 값 변수에 대응하게 수정
         private void InitializeMonsterData()
         {
-            MonsterData monsterData = MonsterDataManager.Singleton.GetMonsterData(id);
-            if (monsterData != null)
-            {
-                id = monsterData.id;
-                monsterName = monsterData.name;
-                level = monsterData.level;
-                currentHP = monsterData.hp;
-                defencePower = monsterData.defencePower;
-                monsterSkillID = monsterData.monsterSkillID;;
-                patrolRange = monsterData.patrolRange;
-                detectionRange = monsterData.detectionRange;
-                chaseRange = monsterData.chaseRange;
-                speed = monsterData.moveSpeed;
-                attackPower = monsterData.attackPower;
-                
-                _maxHP = monsterData.hp;
-                currentHP = _maxHP;
+            _monsterData = MonsterDataManager.Singleton.GetMonsterData(id);
             
-                Debug.Log($"몬스터 {monsterData.name} 데이터 로드 완료");
+            if (_monsterData != null)
+            {
+                _maxHP = _monsterData.hp;
+                currentHP = _maxHP;
+                
+                defencePower = _monsterData.defencePower;
+            
+                Debug.Log($"몬스터 {_monsterData.name} 데이터 로드 완료");
             }
             else
             {
@@ -161,22 +109,22 @@ namespace TON
         // TODO : 불러온 값 변수에 대응하게 수정
         private void InitializeMonsterSkillData()
         {
-            MonsterSkillData monsterSkillData = MonsterSkillDataManager.Singleton.GetMonsterSkillData(monsterSkillID);
-            
-            if (monsterSkillData != null)
+            _monsterSkillData = MonsterSkillDataManager.Singleton.GetMonsterSkillData(_monsterData.monsterSkillID);
+            if (_monsterData.monsterSkillIDTwo > -1)
             {
-                skillId = monsterSkillData.skillId;
-                skillName = monsterSkillData.skillName;
-                damage = monsterSkillData.damage;
-                cooldown = monsterSkillData.cooldown;
-                range = monsterSkillData.range;
-                animationName = monsterSkillData.animationName;
+                _monsterSkillDataTwo = MonsterSkillDataManager.Singleton.GetMonsterSkillData(_monsterData.monsterSkillIDTwo);
+            }
+
+            if (_monsterSkillData != null && _monsterSkillDataTwo != null)
+            {
             
-                Debug.Log($"몬스터 {monsterSkillData.skillName} 데이터 로드 완료");
+                Debug.Log($"몬스터 {_monsterSkillData.skillName} 데이터 로드 완료");
+                Debug.Log($"몬스터 {_monsterSkillDataTwo.skillName} 데이터 로드 완료");
             }
             else
             {
-                Debug.LogError($"몬스터 스킬 ID {id}에 대한 데이터를 찾을 수 없습니다.");
+                Debug.LogError($"몬스터 스킬 ID {_monsterSkillData.skillId}에 대한 데이터를 찾을 수 없습니다.");
+                Debug.LogError($"몬스터 스킬 ID {_monsterSkillDataTwo.skillId}에 대한 데이터를 찾을 수 없습니다.");
             }
         }
         
@@ -241,9 +189,9 @@ namespace TON
             // 데미지 계산 (현재 임시 값)
             DamageCalculator damageCalculator = new DamageCalculator();
 
-            float baseAttack = 30f; // 기본 공격력
-            float equipmentAttack = 10f; // 장비 공격력
-            float defense = 0.1f; // 방어력 비율
+            float baseAttack = _monsterData.attackPower; // 기본 공격력
+            float equipmentAttack = 0; // 장비 공격력
+            float defense = _monsterData.defencePower; // 방어력 비율
 
             // 기본 데미지 계산 (치명타 없음)
             float damage = damageCalculator.CalculateBaseDamage(baseAttack, equipmentAttack, defense);
@@ -265,7 +213,7 @@ namespace TON
 
         public void Move()
         {
-            transform.Translate(_direction * speed * Time.deltaTime);  // 몬스터를 이동시킴
+            transform.Translate(_direction * _monsterData.moveSpeed * Time.deltaTime);  // 몬스터를 이동시킴
         }
 
         public void Chasing()
@@ -275,7 +223,7 @@ namespace TON
             // 타겟이 왼쪽에 있으면 스프라이트를 왼쪽으로, 오른쪽에 있으면 오른쪽으로 바라보도록 설정
             _spriteRenderer.flipX = target.transform.position.x < transform.position.x;
 
-            transform.Translate(direction.normalized * speed * Time.deltaTime); // 타겟 방향으로 이동
+            transform.Translate(direction.normalized * _monsterData.moveSpeed * Time.deltaTime); // 타겟 방향으로 이동
         }
 
         public void MonsterSkillLaunch()
@@ -295,7 +243,6 @@ namespace TON
             // GameObject newSkill = Instantiate(WolfPunchPrefab);
             // GameObject newSkill = Instantiate(DragonShockWavePrefab);
             // GameObject newSkill = Instantiate(FireImpactPrefab);
-            // GameObject newSkill = Instantiate(DropObjectPrefab);
             
 
             newSkill.transform.position = transform.position + new Vector3(0, 1f, 0);

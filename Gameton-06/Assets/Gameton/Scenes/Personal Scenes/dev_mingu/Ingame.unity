@@ -6181,27 +6181,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  monsterName: 
-  level: 0
-  currentHP: 0
-  attackPower: 0
   defencePower: 10
-  monsterSkillID: 0
-  patrolRange: 0
-  detectionRange: 0
-  chaseRange: 0
-  speed: 3
-  attackRange: 0
   _spriteRenderer: {fileID: 135546803}
   _target: {fileID: 0}
   _collider: {fileID: 0}
   _hpBarImage: {fileID: 0}
-  skillId: 0
-  skillName: 
-  damage: 0
-  cooldown: 0
-  range: 0
-  animationName: 
   smallFirePrefab: {fileID: 0}
   DragonBreathPrefab: {fileID: 0}
   IceBlastPrefab: {fileID: 0}
@@ -6213,7 +6197,6 @@ MonoBehaviour:
   WolfPunchPrefab: {fileID: 0}
   DragonShockWavePrefab: {fileID: 0}
   FireImpactPrefab: {fileID: 0}
-  DropObjectPrefab: {fileID: 0}
 --- !u!4 &141676838 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 866829735663616565, guid: 1e126f96ebcf4245a3328353992d46f6, type: 3}
@@ -17731,27 +17714,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  monsterName: 
-  level: 0
-  currentHP: 0
-  attackPower: 0
   defencePower: 10
-  monsterSkillID: 0
-  patrolRange: 0
-  detectionRange: 0
-  chaseRange: 0
-  speed: 3
-  attackRange: 0
   _spriteRenderer: {fileID: 431020305}
   _target: {fileID: 1333310376}
   _collider: {fileID: 2147245667}
   _hpBarImage: {fileID: 309509381}
-  skillId: 0
-  skillName: 
-  damage: 0
-  cooldown: 0
-  range: 0
-  animationName: 
   smallFirePrefab: {fileID: 4487626989189845864, guid: 0cc74a53f6c5c944b86daaa75d4bc576, type: 3}
   DragonBreathPrefab: {fileID: 1270587839958746621, guid: a7b411323f70c6c4db9d2cab98824bd2, type: 3}
   IceBlastPrefab: {fileID: 5091201270221039787, guid: e0e47ef64af779949aef813fbc15f1b5, type: 3}
@@ -17763,7 +17730,6 @@ MonoBehaviour:
   WolfPunchPrefab: {fileID: 123878659603861660, guid: bdee23ac65f6d2b4bafefc94600190c8, type: 3}
   DragonShockWavePrefab: {fileID: 3715909542404085769, guid: 358f073558c5daa4185d8950938ae415, type: 3}
   FireImpactPrefab: {fileID: 6470166121172466421, guid: b12ab214fbad9a449bc80119f185111e, type: 3}
-  DropObjectPrefab: {fileID: 5413697641276301969, guid: 82350566434da384cb94c1c2624dbeae, type: 3}
 --- !u!95 &431020300
 Animator:
   serializedVersion: 5
@@ -47902,67 +47868,6 @@ Sprite:
   m_PhysicsShape: []
   m_Bones: []
   m_SpriteID: 
---- !u!1001 &1205629222
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 705413505888271155, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-      propertyPath: _spriteRenderer
-      value: 
-      objectReference: {fileID: 1862079974}
-    - target: {fileID: 4336427122757065448, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-      propertyPath: m_Name
-      value: RedRex
-      objectReference: {fileID: 0}
-    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 12.868645
-      objectReference: {fileID: 0}
-    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -7.968115
-      objectReference: {fileID: 0}
-    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.060982164
-      objectReference: {fileID: 0}
-    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
 --- !u!114 &1207338009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48956,27 +48861,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  monsterName: 
-  level: 0
-  currentHP: 0
-  attackPower: 0
   defencePower: 10
-  monsterSkillID: 0
-  patrolRange: 0
-  detectionRange: 0
-  chaseRange: 0
-  speed: 3
-  attackRange: 0
   _spriteRenderer: {fileID: 1254298208}
   _target: {fileID: 1333310376}
   _collider: {fileID: 199081697}
   _hpBarImage: {fileID: 0}
-  skillId: 0
-  skillName: 
-  damage: 0
-  cooldown: 0
-  range: 0
-  animationName: 
   smallFirePrefab: {fileID: 0}
   DragonBreathPrefab: {fileID: 0}
   IceBlastPrefab: {fileID: 0}
@@ -48988,7 +48877,6 @@ MonoBehaviour:
   WolfPunchPrefab: {fileID: 0}
   DragonShockWavePrefab: {fileID: 0}
   FireImpactPrefab: {fileID: 0}
-  DropObjectPrefab: {fileID: 0}
 --- !u!95 &1254298203
 Animator:
   serializedVersion: 5
@@ -68411,11 +68299,6 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 3
   m_ColliderType: 1
---- !u!212 &1862079974 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 7017725869417428001, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-  m_PrefabInstance: {fileID: 1205629222}
-  m_PrefabAsset: {fileID: 0}
 --- !u!213 &1869212074
 Sprite:
   m_ObjectHideFlags: 0
@@ -73928,27 +73811,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  monsterName: 
-  level: 0
-  currentHP: 0
-  attackPower: 0
   defencePower: 10
-  monsterSkillID: 0
-  patrolRange: 0
-  detectionRange: 0
-  chaseRange: 0
-  speed: 3
-  attackRange: 0
   _spriteRenderer: {fileID: 2041544010}
   _target: {fileID: 1333310376}
   _collider: {fileID: 483107484}
   _hpBarImage: {fileID: 0}
-  skillId: 0
-  skillName: 
-  damage: 0
-  cooldown: 0
-  range: 0
-  animationName: 
   smallFirePrefab: {fileID: 0}
   DragonBreathPrefab: {fileID: 0}
   IceBlastPrefab: {fileID: 0}
@@ -73960,7 +73827,6 @@ MonoBehaviour:
   WolfPunchPrefab: {fileID: 0}
   DragonShockWavePrefab: {fileID: 0}
   FireImpactPrefab: {fileID: 0}
-  DropObjectPrefab: {fileID: 0}
 --- !u!95 &2041544005
 Animator:
   serializedVersion: 5
@@ -77831,4 +77697,3 @@ SceneRoots:
   - {fileID: 6994367162197659328}
   - {fileID: 9115962474533691980}
   - {fileID: 1043803241}
-  - {fileID: 1205629222}

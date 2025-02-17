@@ -1,18 +1,18 @@
 [
   {
-    "skillId": "001",
-    "skillName": "얼음 공격",
+    "skillId": 0,
+    "skillName": "IceBlast",
     "damage": 50,
     "cooldown": 5,
     "range": 5,
-    "animationName": "IceBlast"
+    "prefabName": "IceBlastPrefab"
   },
   {
-    "skillId": "002",
-    "skillName": "화염구",
+    "skillId": 1,
+    "skillName": "SmallFire",
     "damage": 50,
     "cooldown": 5,
     "range": 5,
-    "animationName": "SmallFire"
+    "prefabName": "smallFirePrefab"
   }
 ]

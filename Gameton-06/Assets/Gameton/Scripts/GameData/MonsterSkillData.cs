@@ -12,6 +12,6 @@ namespace TON
         public float damage;          // 스킬 데미지
         public float cooldown;        // 스킬 쿨다운
         public float range;           // 스킬 범위
-        public string animationName;  // 스킬 애니메이션 이름
+        public string prefabName;  // 스킬 프리팹 이름
     }
 }

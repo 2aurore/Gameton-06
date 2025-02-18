@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace TON
 {
-    public static class PlayerSpawner
+    public class PlayerSpawner
     {
-
         public static void SpawnPlayerCharacter()
         {
             List<PlayerData> playerDatas = PlayerDataManager.Singleton.playersData;
@@ -46,6 +45,17 @@ namespace TON
             // 캐릭터 프리팹을 TON.Player 위치에 배치
             GameObject playerInstance = GameObject.Instantiate(characterPrefab, playerObj.transform.position, Quaternion.identity);
             playerInstance.transform.SetParent(playerObj.transform);
+
+            // 카메라가 새 플레이어를 따라가도록 설정
+            CameraFollow cameraFollow = GameObject.FindObjectOfType<CameraFollow>();
+            if (cameraFollow != null)
+            {
+                cameraFollow.SetFollowTarget(playerInstance.transform);
+            }
+            else
+            {
+                Debug.LogError("No CameraFollow script found in the scene!");
+            }
         }
     }
 }

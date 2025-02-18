@@ -49,9 +49,11 @@ namespace TON
             // UIManager.Show<LobbyUI>(UIList.LobbyUI);
             // UIManager.Show<IngameOptionUI>(UIList.IngameOptionUI);
             // UIManager.Show<SkillSettingUI>(UIList.SkillSettingUI);
+            // PlayerDataManager.Singleton.SetCurrentUserData();
             // UIManager.Show<ControllerUI>(UIList.ControllerUI);
-            // UIManager.Show<IngameUI>(UIList.IngameUI);
             // ControllerUI.Instance.Initalize();
+            // UIManager.Show<IngameUI>(UIList.IngameUI);
+            // PlayerSpawner.SpawnPlayerCharacter();
         }
     }
 }

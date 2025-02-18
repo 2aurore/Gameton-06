@@ -291,4 +291,79 @@ namespace TON
             return this;
         }
     }
+    
+    public class HitState : IState
+    {
+        private const string AniHit = "Hit";
+        private MonsterBase _monsterBase;
+        private float _hitDuration = 0.5f;
+        private float _hitStartTime;
+
+        public void Enter(MonsterBase monsterBase)
+        {
+            _monsterBase = monsterBase;
+            _monsterBase.ChangeAnimationState(AniHit);
+            _hitStartTime = Time.time;
+        }
+
+        public void Update()
+        {
+            if (Time.time >= _hitStartTime + _hitDuration)
+            {
+                _monsterBase.IsHit = false;
+            }
+        }
+
+        public void Exit()
+        {
+        }
+
+        public IState CheckTransition()
+        {
+            if (_monsterBase.IsHit)
+                return new HitState();
+            
+            if (_monsterBase.IsDead)
+                return new DeathState();
+            
+            if (Time.time >= _hitStartTime + _hitDuration)
+                return new IdleState();
+
+            return this;
+        }
+    }
+
+    public class DeathState : IState
+    {
+        private const string AniDeath = "Death";
+        private MonsterBase _monsterBase;
+        private float _deathDuration = 1f;
+        private float _deathStartTime;
+        private bool _deathAnimationStarted = false;
+
+        public void Enter(MonsterBase monsterBase)
+        {
+            _monsterBase = monsterBase;
+            _monsterBase.ChangeAnimationState(AniDeath);
+            _deathStartTime = Time.time;
+            _deathAnimationStarted = true;
+        }
+
+        public void Update()
+        {
+            if (_deathAnimationStarted && Time.time >= _deathStartTime + _deathDuration)
+            {
+                _monsterBase.DestroyMonster();
+            }
+        }
+
+        public void Exit()
+        {
+        }
+
+        public IState CheckTransition()
+        {
+            return this; // Death는 다른 상태로 전환되지 않음
+        }
+    }
 }

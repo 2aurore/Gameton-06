@@ -36,6 +36,8 @@ namespace TON
         public bool IsDetect { get; set; } // 몬스터가 대상을 인식했는지 여부
         public bool IsAttacking { get; set; } // 몬스터가 공격했는지 여부
         public bool IsFisnishAttack { get; set; } // 몬스터 공격 모션이 끝났는지 여부
+        public bool IsHit { get; set; } // 몬스터 공격 모션이 끝났는지 여부
+        public bool IsDead { get; set; } // 몬스터 공격 모션이 끝났는지 여부
 
         [SerializeField] private GameObject _target; // 몬스터의 타겟
 
@@ -162,7 +164,8 @@ namespace TON
             if (prevHP > 0 && currentHP <= 0)
             {
                 // 몬스터가 죽었을 때 처리 (죽는 애니메이션은 주석 처리됨)
-                Destroy(gameObject); // 몬스터 파괴
+                // Destroy(gameObject); // 몬스터 파괴
+                DestroyMonster();
             }
             else if (prevHP > 0 && currentHP > 0)
             {
@@ -247,6 +250,11 @@ namespace TON
 
             newSkill.transform.position = transform.position + new Vector3(0, 1f, 0);
             newSkill.GetComponent<MonsterSkill>().Direction = new Vector2(0, 1);
+        }
+
+        public void DestroyMonster()
+        {
+            Destroy(gameObject); // 몬스터 파괴
         }
     }
 }

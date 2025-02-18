@@ -78,6 +78,10 @@ namespace TON
                         SetDefaultStarPoint();
                         // 이전 스테이지를 클리어하지 않은 경우
                         stageEntryButton.interactable = false;
+
+                        // FIXME: 개발 편의를 위해 스테이지 입장 가능하게 오픈
+                        stageEntryButton.interactable = true;
+
                     }
                 }
                 else

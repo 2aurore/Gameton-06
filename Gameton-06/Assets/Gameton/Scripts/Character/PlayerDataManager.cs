@@ -93,7 +93,7 @@ namespace TON
                 PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
                 player = playersData[0];
                 // FIXME: 테스트를 위해 캐릭터 레벨 강제 적용함
-                // player.level = 15;
+                player.level = 15;
             }
             else
             {

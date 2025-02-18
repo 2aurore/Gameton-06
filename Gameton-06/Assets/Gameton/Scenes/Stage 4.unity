@@ -18368,7 +18368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ConfineMode: 0
   m_BoundingVolume: {fileID: 0}
-  m_BoundingShape2D: {fileID: 0}
+  m_BoundingShape2D: {fileID: 2055061001}
   m_ConfineScreenEdges: 1
   m_Damping: 0.5
 --- !u!114 &1271586654

@@ -91,16 +91,17 @@ namespace TON
 
         public void OnClickStagePlayButton()
         {
-            // 가지고 있는 하트가 없다면 입장 불가
-            if (HeartDataManager.Singleton.GetCurrentHearts() < 1)
-            {
-                // TODO: 입장 불가 modal 출력
-                Debug.Log("보유한 하트 없음");
-                return;
-            }
+            // FIXME: 개발 편의를 위해 스테이지 입장시 하트 소모 로직 주석처리 
+            // // 가지고 있는 하트가 없다면 입장 불가
+            // if (HeartDataManager.Singleton.GetCurrentHearts() < 1)
+            // {
+            //     // TODO: 입장 불가 modal 출력
+            //     Debug.Log("보유한 하트 없음");
+            //     return;
+            // }
 
-            // 입장 시 하트 소모
-            HeartDataManager.Singleton.UseHeart();
+            // // 입장 시 하트 소모
+            // HeartDataManager.Singleton.UseHeart();
 
             Main.Singleton.ChangeScene(SceneType.Stage);
         }

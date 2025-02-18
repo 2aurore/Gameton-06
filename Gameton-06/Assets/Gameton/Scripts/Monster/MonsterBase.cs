@@ -64,10 +64,10 @@ namespace TON
         
         // 첫 번째 프레임 전에 호출됩니다.
         private void Start()
-        {
-            // 전략 패턴
-            _attackPattern = new Monster1AttackPattern();
-            _attackPattern = new Monster2AttackPattern();
+        {   // 전략 패턴
+            // TODO : 수정중 
+            // _attackPattern = new Monster1AttackPattern();
+            // _attackPattern = new Monster2AttackPattern();
             
             _animator = GetComponent<Animator>(); // 애니메이터 컴포넌트 초기화
 

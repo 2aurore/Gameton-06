@@ -26,9 +26,20 @@ namespace TON
             Main.Singleton.ChangeScene(SceneType.Lobby);
         }
 
-        public void OnClickRechargeButton()
+        public void OnClickRetryButton()
         {
-            rechargeModal.SetActive(true);
+            // 가지고 있는 하트가 없다면 입장 불가
+            if (HeartDataManager.Singleton.GetCurrentHearts() < 1)
+            {
+                // 하트 충전 modal 출력
+                rechargeModal.SetActive(true);
+                return;
+            }
+
+            // 입장 시 하트 소모
+            HeartDataManager.Singleton.UseHeart();
+
+            Main.Singleton.ChangeScene(SceneType.Stage);
         }
 
         public void OnClickCloseButton()

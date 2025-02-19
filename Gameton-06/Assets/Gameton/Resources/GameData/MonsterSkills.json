@@ -5,7 +5,7 @@
     "damage": 50,
     "cooldown": 5,
     "range": 5,
-    "prefabName": "IceBlastPrefab"
+    "prefabName": "IceBlast"
   },
   {
     "skillId": 1,
@@ -13,6 +13,6 @@
     "damage": 50,
     "cooldown": 5,
     "range": 5,
-    "prefabName": "smallFirePrefab"
+    "prefabName": "smallFire"
   }
 ]

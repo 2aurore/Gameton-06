@@ -40,7 +40,7 @@ namespace TON
             PlayerData player = PlayerDataManager.Singleton.player;
 
             Image playerObj = GameObject.Find("TON.Player").GetComponent<Image>();
-            playerObj.sprite = AssetManager.Singleton.LoadPlayerIcon(player.type, out Sprite playerImage) ? playerImage : null;
+            playerObj.sprite = AssetManager.Singleton.LoadPlayerIcon(player.type, FaceStatue.Idle, out Sprite playerImage) ? playerImage : null;
 
             characterName.text = player.name;
             characterHp.text = $"{player.hp}";

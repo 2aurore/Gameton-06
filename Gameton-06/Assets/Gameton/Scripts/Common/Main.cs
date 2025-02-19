@@ -76,7 +76,6 @@ namespace TON
         private IEnumerator ChangeScene<T>(System.Action onSceneChangeCompletedCallback = null) where T : SceneBase
         {
             UIManager.Show<LoadingUI>(UIList.LoadingUI);
-            yield return new WaitForSeconds(3f);
 
             isSceneChangeProgress = true;
 

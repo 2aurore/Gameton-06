@@ -43,9 +43,18 @@ namespace TON
 
         private void UpdateCooldownUI()
         {
+            if (coolTimeText == null || coolTimeDimd == null)
+            {
+                return; // UI가 삭제되었으면 업데이트 중단
+            }
+
             coolTimeText.gameObject.SetActive(skillBase.CurrentCoolDown > 0); // 남은 쿨타임이 있을 때만 표시
-            coolTimeText.text = $"{skillBase.CurrentCoolDown: 0}s"; // 정수 초단위 표시
-            coolTimeDimd.fillAmount = skillBase.CurrentCoolDown / skillBase.SkillCoolDown; // 1 → 0 으로 감소
+
+            if (coolTimeText.IsActive())
+            {
+                coolTimeText.text = $"{skillBase.CurrentCoolDown: 0}s"; // 정수 초단위 표시
+                coolTimeDimd.fillAmount = skillBase.CurrentCoolDown / skillBase.SkillCoolDown; // 1 → 0 으로 감소
+            }
         }
 
         void Update()

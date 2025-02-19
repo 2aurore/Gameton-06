@@ -181,13 +181,14 @@ namespace TON
             // 스킬 포인트가 부족하다면 스킬을 수행하지 못함
             if (currentSP < skillBase.SkillData.mpConsumption) return;
 
-            currentSP -= skillBase.SkillData.mpConsumption;
-            OnSPChanged?.Invoke(currentSP, maxSP);
-
             // 스킬 매니저에서 스킬을 쏠 수 있는지 여부를 판단 
             bool canExecute = SkillDataManager.Singleton.CanExecuteSkill(skillId);
             if (canExecute)
             {
+                // 스킬을 쓸 수 있는 상태 - 쿨타임이 돌지 않을때만 마나 소모
+                currentSP -= skillBase.SkillData.mpConsumption;
+                OnSPChanged?.Invoke(currentSP, maxSP);
+
                 // 스킬 애니메이터 실행
                 animator.Play("Skill Attack");
 

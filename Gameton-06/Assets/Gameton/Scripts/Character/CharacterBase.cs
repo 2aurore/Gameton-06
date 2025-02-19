@@ -28,13 +28,15 @@ namespace TON
         private VariableJoystick joystick;
         public Rigidbody2D rb;
 
+        public event System.Action<float, float> OnHPChanged;
+        public event System.Action<float, float> OnSPChanged;
+
 
         public void Start()
         {
             animator = GetComponent<Animator>();
             joystick = ControllerUI.Instance.joystick;
             ControllerUI.Instance.linkedCharactor = this;
-
 
             attackCollider.EnableCollider(false); // 기본 공격 Enable 비활성화
 
@@ -49,6 +51,9 @@ namespace TON
 
             currentHP = maxHP = playerData.hp;
             currentSP = maxSP = playerData.mp;
+
+            OnHPChanged?.Invoke(currentHP, maxHP);
+            OnSPChanged?.Invoke(currentSP, maxSP);
         }
 
 
@@ -170,6 +175,14 @@ namespace TON
 
         public void SkillAttack(string skillId)
         {
+            SkillBase skillBase = SkillDataManager.Singleton.GetSkillInstance(skillId);
+            // 스킬을 사용할 수 있는 스킬포인트가 있는지 판단
+            // 스킬 포인트가 부족하다면 스킬을 수행하지 못함
+            if (currentSP < skillBase.SkillData.mpConsumption) return;
+
+            currentSP -= skillBase.SkillData.mpConsumption;
+            OnSPChanged?.Invoke(currentSP, maxSP);
+
             // 스킬 매니저에서 스킬을 쏠 수 있는지 여부를 판단 
             bool canExecute = SkillDataManager.Singleton.CanExecuteSkill(skillId);
             if (canExecute)
@@ -188,6 +201,8 @@ namespace TON
             float prevHP = currentHP;
             currentHP -= damage;
             currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+
+            OnHPChanged?.Invoke(currentHP, maxHP);
 
             // 체력이 0 아래로 떨어지고 현 상태가 IsAlive 일때만 동작하도록 함
             if (currentHP <= 0f && prevHP > 0)

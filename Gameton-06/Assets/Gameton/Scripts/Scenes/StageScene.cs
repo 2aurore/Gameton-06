@@ -42,10 +42,17 @@ namespace TON
             }
 
             // 선택된 캐릭터에 맞는 오브젝트를 생성하거나 적용하는 코드 작성
-            PlayerSpawner.SpawnPlayerCharacter();
+            if (!PlayerSpawner.SpawnPlayerCharacter())
+            {
+                Debug.LogError("Failed to spawn player character!");
+                // 에러 UI를 표시하거나 씬을 다시 로드하는 등의 처리
+                // UIManager.Show<ErrorUI>(UIList.ErrorUI);
+                // 또는 SceneManager.LoadScene("ErrorScene"); 등                
+                yield break;
+            }
+
             SkillDataManager.Singleton.Initalize();
             StageManager.Singleton.StartStage(stageId);
-
             UIManager.Show<IngameUI>(UIList.IngameUI);
             UIManager.Show<OptionUI>(UIList.OptionUI);
             UIManager.Show<ControllerUI>(UIList.ControllerUI);

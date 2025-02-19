@@ -21,36 +21,43 @@ namespace TON
         public Image monsterImage;
 
 
-        private float currentHP;
-        private float maxHP;
-        private float currentSP;
-        private float maxSP;
         private string playerType;
+
+        [SerializeField] private CharacterBase character;
+
 
         private void OnEnable()
         {
+            character = GameObject.FindWithTag("Player").GetComponent<CharacterBase>();
+            playerType = PlayerDataManager.Singleton.player.type;
+
+            if (character != null)
+            {
+                character.OnHPChanged += UpdateHPBar;
+                character.OnSPChanged += UpdateSPBar;
+            }
+
             // UI가 활성화될 때 저장된 값들로 업데이트
             RefreshUI();
         }
 
-        public void SetHP(float current, float max)
+        private void OnDisable()
         {
-            currentHP = current;
-            maxHP = max;
-            if (gameObject.activeInHierarchy)
+            if (character != null)
             {
-                hpBar.fillAmount = current / max;
+                character.OnHPChanged -= UpdateHPBar;
+                character.OnSPChanged -= UpdateSPBar;
             }
         }
 
-        public void SetSP(float current, float max)
+        private void UpdateHPBar(float current, float max)
         {
-            currentSP = current;
-            maxSP = max;
-            if (gameObject.activeInHierarchy)
-            {
-                spBar.fillAmount = current / max;
-            }
+            hpBar.fillAmount = current / max;
+        }
+
+        private void UpdateSPBar(float current, float max)
+        {
+            spBar.fillAmount = current / max;
         }
 
         public void SetPlayerImage(string type)
@@ -64,8 +71,6 @@ namespace TON
 
         private void RefreshUI()
         {
-            if (maxHP > 0) SetHP(currentHP, maxHP);
-            if (maxSP > 0) SetSP(currentSP, maxSP);
             if (!string.IsNullOrEmpty(playerType)) UpdatePlayerImage();
         }
 

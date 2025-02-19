@@ -1,20 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace TON
 {
-    public class GameoverUI : UIBase
+    public class GameWinUI : UIBase
     {
-
-        public static GameoverUI Instance => UIManager.Singleton.GetUI<GameoverUI>(UIList.GameOverUI);
+        public static GameWinUI Instance => UIManager.Singleton.GetUI<GameWinUI>(UIList.GameWinUI);
 
         public GameObject rechargeModal;
 
         private void OnEnable()
         {
             rechargeModal.SetActive(false);
+
+            // TODO: 획득한 아이템 리스트 출력 로직 구현
+
+            // TODO: 획득한 아이템 정보 저장 로직 구현
+
+
         }
 
         public void OnClickHomeButton()
@@ -53,7 +57,13 @@ namespace TON
 
         public void OnClickAdButton()
         {
-            // TODO: 광고 시청 로직 추가, 광고 종료 후 하트 충전
+            // TODO: 광고 시청 로직 추가, 골드 보상 2배 적용 후 Lobby로 이동
+            Debug.Log("OnClickAdButton::: ");
+        }
+
+        public void OnClickAdForGoldButton()
+        {
+            // TODO: 광고 시청 로직 추가, 골드 보상 2배 적용 후 Lobby로 이동
             Debug.Log("OnClickAdButton::: ");
         }
 

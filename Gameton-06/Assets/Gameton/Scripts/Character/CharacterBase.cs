@@ -28,6 +28,7 @@ namespace TON
         private VariableJoystick joystick;
         public Rigidbody2D rb;
 
+        // ingame UI의 캐릭터 stat 적용을 위한 이벤트
         public event System.Action<float, float> OnHPChanged;
         public event System.Action<float, float> OnSPChanged;
 

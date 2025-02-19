@@ -7,8 +7,7 @@ namespace TON
     public class AttackPattern
     {
         protected MonsterBase _monsterBase;
-
-
+        
         public AttackPattern(MonsterBase monsterBase)
         {
             _monsterBase = monsterBase;

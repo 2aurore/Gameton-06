@@ -15,17 +15,16 @@ namespace TON
             if (other.CompareTag("Player"))
             {
                 _monsterBase.IsAttacking = true;
-                // _monsterBase.SetTransition(new AttackState());
-                // _monsterBase.SetTransition(new MonsterSkillState());
             }
         }
         
         private void OnTriggerExit2D(Collider2D other)
         {
-            _monsterBase.IsAttacking = false;
-            // _monsterBase.SetTransition(new ChasingState());
-            
-            // Debug.Log("감지 벗어남");
+            if (other.CompareTag("Player"))
+            {
+                _monsterBase.IsAttacking = false;
+                _monsterBase.IsFisnishAttack = true; // 공격 종료 상태로 설정
+            }
         }
     }
 }

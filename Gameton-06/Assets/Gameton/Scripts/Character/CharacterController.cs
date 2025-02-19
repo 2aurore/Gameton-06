@@ -15,5 +15,12 @@ namespace TON
             linkedCharactor = GetComponent<CharacterBase>();
         }
 
+        private void Start()
+        {
+            IngameUI.Instance.SetHP(linkedCharactor.currentHP, linkedCharactor.maxHP);
+            IngameUI.Instance.SetSP(linkedCharactor.currentSP, linkedCharactor.maxSP);
+            IngameUI.Instance.SetPlayerImage(PlayerDataManager.Singleton.player.type);
+        }
+
     }
 }

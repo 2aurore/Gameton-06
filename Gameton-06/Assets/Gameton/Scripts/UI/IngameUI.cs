@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace TON
@@ -10,32 +11,70 @@ namespace TON
     {
         public static IngameUI Instance => UIManager.Singleton.GetUI<IngameUI>(UIList.IngameUI);
 
+        public Image characterImage;
         public Image hpBar;
         public Image spBar;
 
-        public TextMeshProUGUI hpText;
-        public TextMeshProUGUI spText;
+        public TextMeshProUGUI stageText;
+        public TextMeshProUGUI monsterHp;
+        public Image monsterHpBar;
+        public Image monsterImage;
+
+
+        private float currentHP;
+        private float maxHP;
+        private float currentSP;
+        private float maxSP;
+        private string playerType;
+
+        private void OnEnable()
+        {
+            // UI가 활성화될 때 저장된 값들로 업데이트
+            RefreshUI();
+        }
 
         public void SetHP(float current, float max)
         {
-            hpBar.fillAmount = current / max;
-            hpText.text = $"{current:0} / {max: 0}";
+            currentHP = current;
+            maxHP = max;
+            if (gameObject.activeInHierarchy)
+            {
+                hpBar.fillAmount = current / max;
+            }
         }
 
         public void SetSP(float current, float max)
         {
-            spBar.fillAmount = current / max;
-            spText.text = $"{current:0} / {max: 0}";
+            currentSP = current;
+            maxSP = max;
+            if (gameObject.activeInHierarchy)
+            {
+                spBar.fillAmount = current / max;
+            }
         }
 
-
-
-        public void OnPressPauseButton()
+        public void SetPlayerImage(string type)
         {
-            UIManager.Show<PauseUI>(UIList.PauseUI);
+            playerType = type;
+            if (gameObject.activeInHierarchy)
+            {
+                UpdatePlayerImage();
+            }
+        }
 
-            // 게임 일시 정지
-            Time.timeScale = 0f;
+        private void RefreshUI()
+        {
+            if (maxHP > 0) SetHP(currentHP, maxHP);
+            if (maxSP > 0) SetSP(currentSP, maxSP);
+            if (!string.IsNullOrEmpty(playerType)) UpdatePlayerImage();
+        }
+
+        private void UpdatePlayerImage()
+        {
+            if (AssetManager.Singleton.LoadPlayerIcon(playerType, FaceStatue.Idle, out Sprite result))
+            {
+                characterImage.sprite = result;
+            }
         }
 
     }

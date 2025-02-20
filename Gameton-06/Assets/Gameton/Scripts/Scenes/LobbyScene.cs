@@ -7,8 +7,6 @@ namespace TON
 {
     public class LobbyScene : SceneBase
     {
-        public SerializableDictionary<string, Sprite> CharacterSpriteDict = new SerializableDictionary<string, Sprite>();
-
 
         public override IEnumerator OnStart()
         {

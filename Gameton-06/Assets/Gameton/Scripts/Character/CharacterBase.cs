@@ -116,23 +116,21 @@ namespace TON
             else
             {
                 // 기본 이동 속도 계산
-                float newVelocityX = horizontalInput * (isGrounded ? speed : speed * airControl);
+                float newVelocityX = horizontalInput * speed;
 
                 // 경사로 감지
                 bool isOnSlope = false;
                 Vector2 rayOrigin = rb.position;
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, 1.1f);
 
-                if (!isGrounded)  // Ground 충돌 확인
+
+                float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
+                if (slopeAngle > 0 && slopeAngle <= 45f)
                 {
-                    float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
-                    if (slopeAngle > 0 && slopeAngle <= 45f)
-                    {
-                        isOnSlope = true;
-                        // 경사면 방향 벡터 계산
-                        Vector2 slopeDirection = new Vector2(hit.normal.y, -hit.normal.x);
-                        rb.velocity = slopeDirection * (newVelocityX / Mathf.Cos(slopeAngle * Mathf.Deg2Rad));
-                    }
+                    isOnSlope = true;
+                    // 경사면 방향 벡터 계산
+                    Vector2 slopeDirection = new Vector2(hit.normal.y, -hit.normal.x);
+                    rb.velocity = slopeDirection * (newVelocityX / Mathf.Cos(slopeAngle * Mathf.Deg2Rad));
                 }
 
                 // 경사가 아닐 경우 일반 이동 적용

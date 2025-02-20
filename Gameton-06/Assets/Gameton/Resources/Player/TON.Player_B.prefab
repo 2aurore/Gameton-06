@@ -107,7 +107,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.15}
+  m_Size: {x: 0.2, y: 0.1}
   m_EdgeRadius: 0
 --- !u!114 &6824007025137790925
 MonoBehaviour:
@@ -121,9 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a6dd00ee9c3d7428cae5700b2cc666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!1 &2757306338607502731
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +371,6 @@ MonoBehaviour:
   speed: 3
   jumpForce: 8
   airControl: 0.8
-  sideCheckDistance: 0.5
   groundCheck: {fileID: 427864611187260801}
   groundCheckRadius: 0.1
   groundLayer:

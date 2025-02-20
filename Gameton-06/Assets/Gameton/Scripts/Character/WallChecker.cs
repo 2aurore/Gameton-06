@@ -8,14 +8,14 @@ namespace TON
     {
         public bool IsWallTouching { get; private set; }
 
-        private void OnTriggerStay2D(Collider2D other)
+        private void OnTriggerStay2D(Collider2D collision)
         {
-            IsWallTouching = other.gameObject.layer == LayerMask.NameToLayer("Ground");
+            IsWallTouching = collision.gameObject.layer == LayerMask.NameToLayer("Ground");
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        private void OnTriggerExit2D(Collider2D collision)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
                 IsWallTouching = false;
             }

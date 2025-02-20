@@ -65,6 +65,11 @@ namespace TON
             UIManager.Hide<IngameUI>(UIList.IngameUI);
             UIManager.Hide<OptionUI>(UIList.OptionUI);
             UIManager.Hide<ControllerUI>(UIList.ControllerUI);
+
+            UIManager.Hide<GameoverUI>(UIList.GameOverUI);
+            UIManager.Hide<GameWinUI>(UIList.GameWinUI);
+            UIManager.Hide<PauseUI>(UIList.PauseUI);
+
         }
 
     }

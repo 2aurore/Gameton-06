@@ -19,8 +19,6 @@ namespace TON
 
         public void OnClickHomeButton()
         {
-            UIManager.Hide<GameoverUI>(UIList.GameOverUI);
-
             Main.Singleton.ChangeScene(SceneType.Lobby);
         }
 
@@ -37,7 +35,6 @@ namespace TON
             // 입장 시 하트 소모
             HeartDataManager.Singleton.UseHeart();
 
-            UIManager.Hide<GameoverUI>(UIList.GameOverUI);
             Main.Singleton.ChangeScene(SceneType.Stage);
         }
 

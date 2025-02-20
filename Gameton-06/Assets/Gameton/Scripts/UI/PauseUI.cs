@@ -28,15 +28,12 @@ namespace TON
 
         public void OnClickHomeButton()
         {
-            UIManager.Hide<PauseUI>(UIList.PauseUI);
-
             Time.timeScale = 1f;
             Main.Singleton.ChangeScene(SceneType.Lobby);
         }
 
         public void OnClickStageRetryButton()
         {
-
             // 가지고 있는 하트가 없다면 입장 불가
             if (HeartDataManager.Singleton.GetCurrentHearts() < 1)
             {

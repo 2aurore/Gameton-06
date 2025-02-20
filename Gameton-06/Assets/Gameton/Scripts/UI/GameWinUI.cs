@@ -23,8 +23,6 @@ namespace TON
 
         public void OnClickHomeButton()
         {
-            UIManager.Hide<GameoverUI>(UIList.GameOverUI);
-
             Main.Singleton.ChangeScene(SceneType.Lobby);
         }
 

@@ -16,21 +16,15 @@ namespace TON
             if (other.CompareTag("Player"))
             {
                 _monsterBase.IsDetect = true;
-                
-                // _monsterBase.SetTransition(new MonsterSkillState());
-                //
-                // Debug.Log("감지됨");
-                
             }
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            _monsterBase.IsDetect = false;
-            //
-            // _monsterBase.SetTransition(new IdleState());
-            //
-            // Debug.Log("감지 벗어남");
+            if (other.CompareTag("Player"))
+            {
+                _monsterBase.IsDetect = false;
+            }
         }
     }
 }

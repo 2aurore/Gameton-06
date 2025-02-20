@@ -134,7 +134,13 @@ namespace TON
                     currentHeartData.lastHeartTime = DateTime.Now.ToString();
                 }
                 SaveHeartData();
-                FindObjectOfType<HeartSystem>().UpdateHeartUI(); // UI 업데이트
+
+                HeartSystem heartSystem = FindObjectOfType<HeartSystem>();
+                if (heartSystem != null)
+                {
+                    heartSystem.UpdateHeartUI(); // UI 업데이트
+
+                }
             }
         }
 

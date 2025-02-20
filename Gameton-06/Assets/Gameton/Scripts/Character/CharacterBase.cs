@@ -37,6 +37,10 @@ namespace TON
         public event System.Action<float, float> OnSPChanged;
         public event System.Action OnDeathCompleted; // 사망 애니메이션 종료 이벤트
 
+        [SerializeField] private float mpRecoveryRate = 1f;  // MP 회복량
+        [SerializeField] private float mpRecoveryInterval = 3f;  // 회복 간격(초)
+        [SerializeField] private bool isRecovering = false;
+
 
         public void Start()
         {
@@ -192,6 +196,26 @@ namespace TON
             attackCollider.EnableCollider(false);
         }
 
+
+        // MP 회복 코루틴
+        private IEnumerator RecoverSP()
+        {
+            isRecovering = true;
+
+            while (currentSP < maxSP)
+            {
+                yield return new WaitForSeconds(mpRecoveryInterval);
+
+                if (currentSP < maxSP)
+                {
+                    currentSP = Mathf.Min(maxSP, currentSP + mpRecoveryRate);
+                    OnSPChanged?.Invoke(currentSP, maxSP);
+                }
+            }
+
+            isRecovering = false;
+        }
+
         public void SkillAttack(string skillId)
         {
             SkillBase skillBase = SkillDataManager.Singleton.GetSkillInstance(skillId);
@@ -212,6 +236,12 @@ namespace TON
 
                 // 스킬 매니저에 스킬 발사 요청 
                 SkillDataManager.Singleton.ExecuteSkill(skillId, firePoint, lastDirection);
+
+                // RecoverSP 가 이미 진행중인 경우 이중으로 코루틴을 실행하지 않도록 함함
+                if (!isRecovering)
+                {
+                    StartCoroutine(RecoverSP());
+                }
             }
         }
 

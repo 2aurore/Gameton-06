@@ -21,6 +21,7 @@ namespace TON
         private void ShowGameOverUI()
         {
             UIManager.Show<GameoverUI>(UIList.GameOverUI);
+            StageManager.Singleton.StageGameOver();
         }
 
     }

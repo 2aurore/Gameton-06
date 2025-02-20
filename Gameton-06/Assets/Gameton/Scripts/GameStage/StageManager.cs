@@ -88,11 +88,24 @@ namespace TON
                 return 1;
         }
 
-        public void StageClear(string characterId)
+        public void StageClear()
         {
+            string characterId = PlayerDataManager.Singleton.player.id;
             float clearTime = Time.time - stageStartTime;
             int starCount = GetStarCount(clearTime);
             Debug.Log($"스테이지 클리어! 별 개수: {starCount}");
+
+            // UI 업데이트, 데이터 저장 로직 추가
+            StageClearData stageClearData = new StageClearData(characterId, stageId, clearTime, starCount);
+            stageClearDatas.Add(stageClearData);
+            SaveStageClearData();
+        }
+
+        public void StageGameOver()
+        {
+            string characterId = PlayerDataManager.Singleton.player.id;
+            float clearTime = Time.time - stageStartTime;
+            int starCount = -1;
 
             // UI 업데이트, 데이터 저장 로직 추가
             StageClearData stageClearData = new StageClearData(characterId, stageId, clearTime, starCount);

@@ -7,25 +7,29 @@ namespace TON
     public class CharacterBase : MonoBehaviour, IDamage
     {
 
-        [SerializeField]  //
-        private PlayerData playerData;
-        public float currentHP;
-        public float maxHP;
-        public float currentSP;
-        public float maxSP;
+        [SerializeField] private PlayerData playerData;
+        [SerializeField] private float currentHP;
+        [SerializeField] private float currentSP;
+        private float maxHP;
+        private float maxSP;
 
-        public float speed;
-        public float jumpForce = 5f;  // 점프 힘
+        [SerializeField] private float speed;
+        [SerializeField] private float jumpForce = 5f;  // 점프 힘
+        [SerializeField] private float airControl;  // 점프 힘
+
+        [SerializeField] private Transform groundCheck;  // GroundCheck 위치 설정
+        [SerializeField] private float groundCheckRadius = 0.2f;
+        [SerializeField] private LayerMask groundLayer;
+        [SerializeField] private WallChecker wallChecker;
+
+
         private bool isGrounded = true; // 플레이어가 바닥에 있는지 여부를 판단
         private float lastDirection = 1f; // 기본적으로 오른쪽(1) 바라보는 상태
-
+        private VariableJoystick joystick;
+        private Animator animator;
 
         public Transform firePoint; // 스킬 발사 위치
         public CollisionDetector attackCollider; // 기본 공격 감지를 위한 자식 오브젝트
-
-        public Animator animator;
-
-        private VariableJoystick joystick;
         public Rigidbody2D rb;
 
         // ingame UI의 캐릭터 stat 적용을 위한 이벤트
@@ -73,8 +77,25 @@ namespace TON
             PlayerDataManager.Singleton.UpdatePlayerData();
         }
 
+        // 게임이 실행 중이지 않을 때도 항상 기즈모를 보여줍니다
+        private void OnDrawGizmos()
+        {
+            if (groundCheck == null) return;
+
+            // 기본 색상을 흰색으로 설정
+            Gizmos.color = Color.red;
+            // OverlapCircle의 범위를 와이어프레임 원으로 표시
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        }
+
+        private bool CheckIsGrounded()
+        {
+            return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        }
+
         public void FixedUpdate()
         {
+            isGrounded = CheckIsGrounded();
 
             // 키보드 입력과 조이스틱 입력 통합
             float horizontalInput = Input.GetAxis("Horizontal");
@@ -86,31 +107,45 @@ namespace TON
             // 걷는 애니메이션 적용
             animator.SetBool("IsMoving", Mathf.Abs(horizontalInput) > 0f);
 
-            // 기본 이동 속도 계산
-            float newVelocityX = horizontalInput * speed;
+            // 공중/지상에 따른 이동 속도 계산
 
-            // 경사로 감지
-            bool isOnSlope = false;
-            Vector2 rayOrigin = rb.position;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, 1.1f);
-
-            if (hit.collider != null && hit.collider.CompareTag("Ground"))  // Ground 태그 확인
+            Debug.Log("wallChecker.IsWallTouching::: " + wallChecker.IsWallTouching);
+            // 측면 충돌 체크
+            if (!isGrounded && wallChecker.IsWallTouching)
             {
-                float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
-                if (slopeAngle > 0 && slopeAngle <= 45f)
+                // 벽을 밀고 있을 때는 수평 이동 제한
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+            else
+            {
+                // 기본 이동 속도 계산
+                float newVelocityX = horizontalInput * (isGrounded ? speed : speed * airControl);
+
+                // 경사로 감지
+                bool isOnSlope = false;
+                Vector2 rayOrigin = rb.position;
+                RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, 1.1f);
+
+                if (!isGrounded)  // Ground 충돌 확인
                 {
-                    isOnSlope = true;
-                    // 경사면 방향 벡터 계산
-                    Vector2 slopeDirection = new Vector2(hit.normal.y, -hit.normal.x);
-                    rb.velocity = slopeDirection * (newVelocityX / Mathf.Cos(slopeAngle * Mathf.Deg2Rad));
+                    float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
+                    if (slopeAngle > 0 && slopeAngle <= 45f)
+                    {
+                        isOnSlope = true;
+                        // 경사면 방향 벡터 계산
+                        Vector2 slopeDirection = new Vector2(hit.normal.y, -hit.normal.x);
+                        rb.velocity = slopeDirection * (newVelocityX / Mathf.Cos(slopeAngle * Mathf.Deg2Rad));
+                    }
                 }
+
+                // 경사가 아닐 경우 일반 이동 적용
+                if (!isOnSlope)
+                {
+                    rb.velocity = new Vector2(newVelocityX, rb.velocity.y);
+                }
+
             }
 
-            // 경사가 아닐 경우 일반 이동 적용
-            if (!isOnSlope)
-            {
-                rb.velocity = new Vector2(newVelocityX, rb.velocity.y);
-            }
 
             // 방향 전환
             if (horizontalInput != 0)
@@ -141,19 +176,6 @@ namespace TON
             {
                 // 점프: 기존 X축 속도 유지, Y축 속도를 점프 힘으로 설정
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-
-                // 점프 상태로 설정
-                isGrounded = false;
-            }
-        }
-
-        // 바닥 충돌 감지 (2D Physics)
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            // Ground 태그가 붙은 오브젝트와 충돌 시 바닥 상태로 전환
-            if (collision.gameObject.CompareTag("Ground"))
-            {
-                isGrounded = true;
             }
         }
 

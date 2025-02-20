@@ -107,9 +107,6 @@ namespace TON
             // 걷는 애니메이션 적용
             animator.SetBool("IsMoving", Mathf.Abs(horizontalInput) > 0f);
 
-            // 공중/지상에 따른 이동 속도 계산
-
-            Debug.Log("wallChecker.IsWallTouching::: " + wallChecker.IsWallTouching);
             // 측면 충돌 체크
             if (!isGrounded && wallChecker.IsWallTouching)
             {

@@ -55,7 +55,7 @@ namespace TON
             if (isSceneChangeProgress)
                 return;
 
-            if (currentSceneType == sceneType)
+            if (currentSceneType == sceneType && currentSceneType != SceneType.Stage)
                 return;
 
             currentSceneType = sceneType;

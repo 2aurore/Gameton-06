@@ -35,6 +35,7 @@ namespace TON
         // ingame UI의 캐릭터 stat 적용을 위한 이벤트
         public event System.Action<float, float> OnHPChanged;
         public event System.Action<float, float> OnSPChanged;
+        public event System.Action OnDeathCompleted; // 사망 애니메이션 종료 이벤트
 
 
         public void Start()
@@ -226,7 +227,7 @@ namespace TON
             // 체력이 0 아래로 떨어지고 현 상태가 IsAlive 일때만 동작하도록 함
             if (currentHP <= 0f && prevHP > 0)
             {
-                animator.SetTrigger("Dead Trigger");
+                Dead();
             }
 
             // 체력이 0 보다 클때만 피격 모션 실행
@@ -241,8 +242,13 @@ namespace TON
 
         public void Dead()
         {
-            gameObject.SetActive(false);
+            animator.SetTrigger("Dead Trigger");
+        }
 
+        public void DestroyDead()
+        {
+            gameObject.SetActive(false);
+            OnDeathCompleted?.Invoke(); // 사망 애니메이션 종료 시점에 이벤트 호출
         }
     }
 }

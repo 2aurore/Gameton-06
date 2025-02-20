@@ -15,7 +15,7 @@ namespace TON
         {
             if (animator.TryGetComponent(out CharacterBase character))
             {
-                character.Dead();
+                character.DestroyDead();
             }
         }
     }

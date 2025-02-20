@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2421631177632172315}
   - component: {fileID: 7732192339016745561}
   - component: {fileID: 6706683064429148190}
-  - component: {fileID: 3829686544596082344}
+  - component: {fileID: 3886534966705013785}
   - component: {fileID: 6990484051444959619}
   - component: {fileID: 4461708158762166693}
   - component: {fileID: 2162079424076978325}
@@ -122,8 +122,8 @@ MonoBehaviour:
   m_labelHash: 1.3971405e-28
   m_SpriteKey: 0
   m_SpriteHash: 163368403
---- !u!61 &3829686544596082344
-BoxCollider2D:
+--- !u!70 &3886534966705013785
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 3538456168238866987}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 4b1c6f7475961704286628d9fc21c1f2, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -154,19 +154,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.3125}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 8, y: 8}
-    newSize: {x: 8, y: 8}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2.5}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 1.5}
+  m_Size: {x: 3, y: 3.2}
+  m_Direction: 0
 --- !u!50 &6990484051444959619
 Rigidbody2D:
   serializedVersion: 4
@@ -181,7 +171,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 10
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -228,39 +218,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  monsterName: 
-  level: 0
-  currentHP: 0
-  attackPower: 0
   defencePower: 10
-  monsterSkillID: 0
-  patrolRange: 0
-  detectionRange: 0
-  chaseRange: 0
-  speed: 3
-  attackRange: 0
   _spriteRenderer: {fileID: 2421631177632172315}
+  _textState: {fileID: 0}
   _target: {fileID: 0}
   _collider: {fileID: 2538243315479772474}
   _hpBarImage: {fileID: 0}
-  skillId: 0
-  skillName: 
-  damage: 0
-  cooldown: 0
-  range: 0
-  animationName: 
-  smallFirePrefab: {fileID: 0}
-  DragonBreathPrefab: {fileID: 0}
-  IceBlastPrefab: {fileID: 0}
-  PumpkinCrashPrefab: {fileID: 0}
-  TrollChargePrefab: {fileID: 0}
-  TrollCrashPrefab: {fileID: 0}
-  TrollThundePrefab: {fileID: 0}
-  WolfEnergyWavePrefab: {fileID: 0}
-  WolfPunchPrefab: {fileID: 0}
-  DragonShockWavePrefab: {fileID: 0}
-  FireImpactPrefab: {fileID: 0}
-  DropObjectPrefab: {fileID: 0}
 --- !u!1 &3744309987831766794
 GameObject:
   m_ObjectHideFlags: 0

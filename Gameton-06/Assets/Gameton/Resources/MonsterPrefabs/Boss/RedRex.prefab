@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 7017725869417428001}
   - component: {fileID: 5511381648790622243}
   - component: {fileID: 5411962139750290266}
-  - component: {fileID: 4871871818723592515}
+  - component: {fileID: 7183579659019982964}
   - component: {fileID: 5224079812717155775}
   - component: {fileID: 7645539626140565081}
   - component: {fileID: 705413505888271155}
@@ -203,8 +203,8 @@ MonoBehaviour:
   m_labelHash: 1.3971405e-28
   m_SpriteKey: 0
   m_SpriteHash: 163368403
---- !u!61 &4871871818723592515
-BoxCollider2D:
+--- !u!70 &7183579659019982964
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -212,7 +212,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 4336427122757065448}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 4b1c6f7475961704286628d9fc21c1f2, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -235,19 +235,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.3125}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 8, y: 8}
-    newSize: {x: 8, y: 8}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2.5}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 1.5}
+  m_Size: {x: 3, y: 3.2}
+  m_Direction: 0
 --- !u!50 &5224079812717155775
 Rigidbody2D:
   serializedVersion: 4
@@ -262,7 +252,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 10
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -309,39 +299,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  monsterName: 
-  level: 0
-  currentHP: 0
-  attackPower: 0
   defencePower: 10
-  monsterSkillID: 0
-  patrolRange: 0
-  detectionRange: 0
-  chaseRange: 0
-  speed: 3
-  attackRange: 0
   _spriteRenderer: {fileID: 7017725869417428001}
+  _textState: {fileID: 0}
   _target: {fileID: 0}
   _collider: {fileID: 0}
   _hpBarImage: {fileID: 0}
-  skillId: 0
-  skillName: 
-  damage: 0
-  cooldown: 0
-  range: 0
-  animationName: 
-  smallFirePrefab: {fileID: 4487626989189845864, guid: 0cc74a53f6c5c944b86daaa75d4bc576, type: 3}
-  DragonBreathPrefab: {fileID: 1270587839958746621, guid: a7b411323f70c6c4db9d2cab98824bd2, type: 3}
-  IceBlastPrefab: {fileID: 5091201270221039787, guid: e0e47ef64af779949aef813fbc15f1b5, type: 3}
-  PumpkinCrashPrefab: {fileID: 6551207428356273061, guid: 4f642f085df0b924f895a1d23e67ad3f, type: 3}
-  TrollChargePrefab: {fileID: 5657264052368507626, guid: cc6826c2c28719f429e890d46db2808d, type: 3}
-  TrollCrashPrefab: {fileID: 7081223340028307245, guid: 6c84a8d8ff561714585abaed48ffb6b9, type: 3}
-  TrollThundePrefab: {fileID: 7017780489100943411, guid: c8c646b21c23a3340a14ddd62ce673b5, type: 3}
-  WolfEnergyWavePrefab: {fileID: 6602113715180894997, guid: 99c6c681f7d601445b6f970ee9b77109, type: 3}
-  WolfPunchPrefab: {fileID: 123878659603861660, guid: bdee23ac65f6d2b4bafefc94600190c8, type: 3}
-  DragonShockWavePrefab: {fileID: 3715909542404085769, guid: 358f073558c5daa4185d8950938ae415, type: 3}
-  FireImpactPrefab: {fileID: 6470166121172466421, guid: b12ab214fbad9a449bc80119f185111e, type: 3}
-  DropObjectPrefab: {fileID: 5413697641276301969, guid: 82350566434da384cb94c1c2624dbeae, type: 3}
 --- !u!1 &6526698832639469074
 GameObject:
   m_ObjectHideFlags: 0

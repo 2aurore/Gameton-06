@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TON
@@ -23,7 +20,7 @@ namespace TON
             if (other.CompareTag("Player"))
             {
                 _monsterBase.IsAttacking = false;
-                _monsterBase.IsFisnishAttack = true; // 공격 종료 상태로 설정
+                _monsterBase.IsFinishAttack = true; // 공격 종료 상태로 설정
             }
         }
     }

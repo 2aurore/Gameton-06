@@ -8,11 +8,10 @@ namespace TON
         private Animator animator; 
         private IState _state;
         private MonsterBase _monsterBase;
-
         private TextMeshProUGUI _textState;
 
-        // public StateMachine(IState state, MonsterBase monsterBase, TextMeshProUGUI textState)
-        public StateMachine(IState state, MonsterBase monsterBase)
+        public StateMachine(IState state, MonsterBase monsterBase, TextMeshProUGUI textState)
+        // public StateMachine(IState state, MonsterBase monsterBase)
         {
             // 초기 상태 객체 생성
             _monsterBase = monsterBase;;
@@ -20,8 +19,8 @@ namespace TON
             _state = state;
             _state.Enter(_monsterBase);
             
-            // _textState = textState;
-            // _textState.text = _state.ToString();
+            _textState = textState;
+            _textState.text = _state.ToString();
         }
 
         public void Update()
@@ -43,7 +42,7 @@ namespace TON
             _state = state;
             _state.Enter(_monsterBase);
 
-            // _textState.text = _state.ToString();
+            _textState.text = _state.ToString();
         }
     }
 
@@ -57,7 +56,6 @@ namespace TON
         
         // 트리거 조건일 경우 다음 상태로 전환
         IState CheckTransition();
-        
     }
 
     public class IdleState : IState
@@ -74,7 +72,6 @@ namespace TON
 
         private float _duration = 2;
         private float _currentDuration;
-        
         
         public void Enter(MonsterBase monsterBase)
         {
@@ -132,7 +129,6 @@ namespace TON
                 return this;
             // TODO : 데미지 받을 때
             
-            
             //  추적 범위에 들어왔을 때
             if (_monsterBase.IsDetect)
             {
@@ -176,9 +172,7 @@ namespace TON
                 return new IdleState();
 
             if (_monsterBase.IsSkillAttackable)
-            {
                 return new MonsterSkillState();
-            }
             
             // Attack으로 변경
             if (_monsterBase.IsAttacking)
@@ -202,7 +196,7 @@ namespace TON
         public void Enter(MonsterBase monsterBase)
         {
             _monsterBase = monsterBase;
-            _monsterBase.IsFisnishAttack = false;
+            _monsterBase.IsFinishAttack = false;
             
             _lastAttackTime = -_attackDelayTime; // 처음 진입시 바로 공격하도록 설정
         }
@@ -240,7 +234,7 @@ namespace TON
 
         public IState CheckTransition()
         {
-            if(_monsterBase.IsFisnishAttack == true)
+            if(_monsterBase.IsFinishAttack == true)
                 return new IdleState();
             
             return this;

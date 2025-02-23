@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TON
@@ -8,8 +6,6 @@ namespace TON
     {
         [SerializeField]
         private MonsterBase _monsterBase;
-        // private bool _isDetect;
-        private GameObject skillPrefab;
 
         private void OnTriggerEnter2D(Collider2D other)
         {

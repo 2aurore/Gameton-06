@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -8,52 +7,39 @@ namespace TON
 {
     public partial class MonsterBase : MonoBehaviour, IDamage
     {
-        [SerializeField]
-        public int id; // 몬스터의 ID
+        [SerializeField] private GameObject _target; // 몬스터의 타겟
+        [SerializeField] private Collider2D _collider; // 몬스터의 콜라이더
+        [SerializeField] private SpriteRenderer _spriteRenderer; // 몬스터의 스프라이트 렌더러
+        [SerializeField] private TextMeshProUGUI _textState;
+        [SerializeField] public int id; // 몬스터의 ID
         public float defencePower;
         
-        [SerializeField] private SpriteRenderer _spriteRenderer; // 몬스터의 스프라이트 렌더러
-        
-        private MonsterData _monsterData;
-        private MonsterSkillData _monsterSkillData;
-        private MonsterSkillData _monsterSkillDataTwo;
-        private Animator _animator; // 몬스터 애니메이터
-        
-        StateMachine _stateMachine;
-
-        private SkillPattern _skillPattern;
-
-        // [SerializeField] private TextMeshProUGUI _textState;
-        
-        private Vector3 _direction; // 몬스터의 이동 방향
-        public bool IsDetect { get; set; } // 몬스터가 대상을 인식했는지 여부
-        public bool IsAttacking { get; set; } // 몬스터가 공격했는지 여부
-        public bool IsFisnishAttack { get; set; } // 몬스터 공격 모션이 끝났는지 여부
-        public bool IsSkillAttackable => _skillPattern.IsAttackable;
-        
-        [SerializeField] private GameObject _target; // 몬스터의 타겟
-
-        [SerializeField] private Collider2D _collider; // 몬스터의 콜라이더
-
-        // 애니메이션 관련 선언
-        private string currentAnimationState; // 현재 애니메이션 상태
-        
-        // hp바
         public GameObject _hpBarImage; // HP 바 이미지
         private float _maxHP;
         private float currentHP;
         private float hpMaxWidth;
         
-        // 첫 번째 프레임 전에 호출됩니다.
+        private MonsterData _monsterData;
+        private Animator _animator; // 몬스터 애니메이터
+        private string currentAnimationState; // 현재 애니메이션 상태
+        
+        StateMachine _stateMachine;
+        private SkillPattern _skillPattern;
+        
+        private Vector3 _direction; // 몬스터의 이동 방향
+        public bool IsDetect { get; set; } // 몬스터가 대상을 인식했는지 여부
+        public bool IsAttacking { get; set; } // 몬스터가 공격했는지 여부
+        public bool IsFinishAttack { get; set; } // 몬스터 공격 모션이 끝났는지 여부
+        public bool IsSkillAttackable => _skillPattern.IsAttackable;
+        
         private void Start()
         {   
             _animator = GetComponent<Animator>(); // 애니메이터 컴포넌트 초기화
 
-            // _stateMachine = new StateMachine(new IdleState(), this, _textState);
-            _stateMachine = new StateMachine(new IdleState(), this);
+            _stateMachine = new StateMachine(new IdleState(), this, _textState);
+            // _stateMachine = new StateMachine(new IdleState(), this);
             
-            // 몬스터 데이터 로드 및 적용
-            InitializeMonsterData();
+            InitializeMonsterData();    // 몬스터 데이터 로드 및 적용
 
             _skillPattern = new Monster1SkillPattern(_monsterData, this);
 
@@ -64,11 +50,8 @@ namespace TON
             _spriteRenderer.flipX = !(_direction.x > 0); // 이동 방향에 따라 스프라이트 플립
 
             _collider = GetComponent<Collider2D>(); // 콜라이더 컴포넌트 초기화
-            
-            // hpMaxWidth = _hpBarImage.GetComponent<RectTransform>().sizeDelta.x;
         }
         
-        // TODO : 불러온 값 변수에 대응하게 수정
         private void InitializeMonsterData()
         {
             _monsterData = MonsterDataManager.Singleton.GetMonsterData(id);
@@ -85,12 +68,10 @@ namespace TON
                 Debug.LogError($"몬스터 ID {id}에 대한 데이터를 찾을 수 없습니다.");
             }
         }
-
-        // 애니메이션 상태를 변경하는 메서드
+        
         public void ChangeAnimationState(string newState)
         {
-            // 현재 상태와 동일한 상태일 경우, 애니메이션을 변경하지 않음
-            if (currentAnimationState == newState) return;
+            if (currentAnimationState == newState) return;  // 현재 상태와 동일한 상태일 경우, 애니메이션을 변경하지 않음
 
             _animator.Play(newState); // 새로운 애니메이션 상태 실행
         }
@@ -103,17 +84,14 @@ namespace TON
 
         public void FinishAttack()
         {
-            IsFisnishAttack = true;
+            IsFinishAttack = true;
         }
         
-        // 피해를 적용하는 메서드
         public void ApplyDamage(float damage)
         {
-            // 몬스터의 체력을 감소시키고, 죽었을 경우 파괴 처리
-            float prevHP = currentHP;
+            float prevHP = currentHP;   // 몬스터의 체력을 감소시키고, 죽었을 경우 파괴 처리
             currentHP -= damage;
             
-            // HP 바 업데이트
             UpdateHPBar();
             
             if (prevHP > 0 && currentHP <= 0)
@@ -126,7 +104,6 @@ namespace TON
             }
         }
         
-        // HP 바 업데이트
         private void UpdateHPBar()
         {
             if (_hpBarImage != null)
@@ -138,11 +115,8 @@ namespace TON
             }
         }
 
-        // 타겟을 공격하는 메서드
         public void Attack(GameObject player)
         {
-            // ChangeAnimationState(AniAttack); // 공격 애니메이션으로 변경
-
             // 데미지 계산 (현재 임시 값)
             DamageCalculator damageCalculator = new DamageCalculator();
 
@@ -177,18 +151,13 @@ namespace TON
         {
             var target = GameObject.FindGameObjectWithTag("Player");
             UnityEngine.Vector2 direction = target.transform.position - transform.position; // 타겟과의 방향 계산
-            // 타겟이 왼쪽에 있으면 스프라이트를 왼쪽으로, 오른쪽에 있으면 오른쪽으로 바라보도록 설정
-            _spriteRenderer.flipX = target.transform.position.x < transform.position.x;
+            _spriteRenderer.flipX = target.transform.position.x < transform.position.x; // 타겟이 왼쪽에 있으면 스프라이트를 왼쪽으로, 오른쪽에 있으면 오른쪽으로 바라보도록 설정
 
             transform.Translate(direction.normalized * _monsterData.moveSpeed * Time.deltaTime); // 타겟 방향으로 이동
         }
 
         public void MonsterSkillLaunch()
         {
-            
-            // _spriteRenderer.flipX = target.transform.position.x < transform.position.x;
-            // newSkill.transform.position = transform.position + new Vector3(0, 1f, 0);
-            // newSkill.GetComponent<MonsterSkill>().Direction = new Vector2(0, 1);
             var target = GameObject.FindGameObjectWithTag("Player");
             _skillPattern.Attack(target);
         }

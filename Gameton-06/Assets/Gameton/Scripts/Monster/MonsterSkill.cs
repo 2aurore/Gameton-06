@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TON
@@ -17,16 +14,12 @@ namespace TON
         public Vector2 Direction
         {
             set { direction = value.normalized; }
-            
-            
         }
         
-        // Start is called before the first frame update
         void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             
-            // 플레이어 태그로 플레이어 오브젝트를 찾아서 Transform 컴포넌트를 가져옴
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             
             if (player != null)
@@ -42,7 +35,6 @@ namespace TON
             SetDirection(); // 발사 방향 설정
         }
 
-        // Update is called once per frame
         void Update()
         {
             transform.Translate(direction * speed * Time.deltaTime);
@@ -59,20 +51,17 @@ namespace TON
         void SetDirection()
         {
             if (playerTransform == null) return; // 플레이어가 없으면 방향 설정 불가
-
-            // MonsterSkill과 Player의 위치 차이 계산
-            Vector2 toPlayer = playerTransform.position - transform.position;
+            
+            Vector2 toPlayer = playerTransform.position - transform.position;   // MonsterSkill과 Player의 위치 차이 계산
 
             // 플레이어의 왼쪽/오른쪽 판별
             if (toPlayer.x < 0)
             {
-                // 플레이어가 왼쪽에 있으면 왼쪽 방향으로 발사
-                direction = new Vector2(-1, 0);
+                direction = new Vector2(-1, 0); // 플레이어가 왼쪽에 있으면 왼쪽 방향으로 발사
             }
             else
             {
-                // 플레이어가 오른쪽에 있으면 오른쪽 방향으로 발사
-                direction = new Vector2(1, 0);
+                direction = new Vector2(1, 0);  // 플레이어가 오른쪽에 있으면 오른쪽 방향으로 발사
                 _spriteRenderer.flipX = true; // 왼쪽 방향일 때 좌우 반전
             }
         }

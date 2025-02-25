@@ -19,9 +19,10 @@ namespace TON
         // 상점 : 골드/생선
         private void OnEnable()
         {
-            Scene activeScene = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();
+            // Scene activeScene = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();
+            SceneType activeScene = Main.Singleton.currentSceneType;
 
-            if (activeScene.name.Equals("Lobby"))
+            if (activeScene == SceneType.Lobby)
             {
                 goldObject.SetActive(true);
                 fishObject.SetActive(true);
@@ -29,7 +30,7 @@ namespace TON
                 settingObject.SetActive(true);
                 parseObject.SetActive(false);
             }
-            else if (activeScene.name.StartsWith("Stage"))
+            else if (activeScene == SceneType.Stage)
             {
                 goldObject.SetActive(false);
                 fishObject.SetActive(false);
@@ -37,7 +38,7 @@ namespace TON
                 settingObject.SetActive(false);
                 parseObject.SetActive(true);
             }
-            else if (activeScene.name.Equals("Shop"))
+            else if (activeScene == SceneType.Shop)
             {
                 goldObject.SetActive(true);
                 fishObject.SetActive(true);

@@ -13,6 +13,7 @@ namespace TON
         Title,
         Lobby,
         Stage,
+        Shop,
     }
 
     public class Main : SingletonBase<Main>
@@ -49,7 +50,7 @@ namespace TON
 
         bool isSceneChangeProgress = false;
         SceneBase currentSceneController = null;
-        SceneType currentSceneType = SceneType.None;
+        public SceneType currentSceneType = SceneType.None;
         public void ChangeScene(SceneType sceneType, System.Action onSceneChangeCompletedCallback = null)
         {
             if (isSceneChangeProgress)

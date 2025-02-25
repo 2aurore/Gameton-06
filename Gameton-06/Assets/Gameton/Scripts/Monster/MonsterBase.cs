@@ -36,8 +36,9 @@ namespace TON
         {   
             _animator = GetComponent<Animator>(); // 애니메이터 컴포넌트 초기화
 
-            _stateMachine = new StateMachine(new IdleState(), this, _textState);
-            // _stateMachine = new StateMachine(new IdleState(), this);
+            // TODO : 추후 제거 예정
+            // _stateMachine = new StateMachine(new IdleState(), this, _textState);
+            _stateMachine = new StateMachine(new IdleState(), this);
             
             InitializeMonsterData();    // 몬스터 데이터 로드 및 적용
 

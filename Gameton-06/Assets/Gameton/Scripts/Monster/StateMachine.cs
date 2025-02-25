@@ -10,8 +10,9 @@ namespace TON
         private MonsterBase _monsterBase;
         private TextMeshProUGUI _textState;
 
-        public StateMachine(IState state, MonsterBase monsterBase, TextMeshProUGUI textState)
-        // public StateMachine(IState state, MonsterBase monsterBase)
+        // TODO : 추후 제거 예정
+        // public StateMachine(IState state, MonsterBase monsterBase, TextMeshProUGUI textState)
+        public StateMachine(IState state, MonsterBase monsterBase)
         {
             // 초기 상태 객체 생성
             _monsterBase = monsterBase;;
@@ -19,8 +20,9 @@ namespace TON
             _state = state;
             _state.Enter(_monsterBase);
             
-            _textState = textState;
-            _textState.text = _state.ToString();
+            // TODO : 추후 제거 예정
+            // _textState = textState;
+            // _textState.text = _state.ToString();
         }
 
         public void Update()

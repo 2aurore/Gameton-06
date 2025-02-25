@@ -32,7 +32,7 @@ namespace TON
         private void Start()
         {
             SetCharacterData();
-            SetStageData();
+            // SetStageData();
         }
 
         private void SetCharacterData()
@@ -50,6 +50,9 @@ namespace TON
             characterCritical.text = $"{player.critical}";
         }
 
+        /// <summary>
+        /// 스테이지를 1개로 변경하여 해당 메소드 사용하지 않음
+        /// </summary>
         private void SetStageData()
         {
             if (stagePages.Count > 0)
@@ -68,14 +71,14 @@ namespace TON
                 GameObject stagePageObject = Instantiate(stagePagePrefab, stagePageGroup);
                 LobbyUI_StagePage stagePage = stagePageObject.GetComponent<LobbyUI_StagePage>();
                 stagePageObject.SetActive(true);
-                stagePage.Initalize(stageId, i);
+                // stagePage.Initalize(stageId, i);
                 stagePages.Add(stagePage);
             }
         }
 
         public void OnClickChangeStageButton()
         {
-            // TODO: 스테이지 입장 popupUI 비활성화
+            // 스테이지 입장 popupUI 비활성화
             stagePages.ForEach(page => page.GetComponent<LobbyUI_StagePage>().OnClickStageChangeButton());
         }
 
@@ -85,7 +88,8 @@ namespace TON
             GameObject currentSelectedGameObject = EventSystem.current.currentSelectedGameObject;
             LobbyUI_StagePage lobbyUI_StagePage = currentSelectedGameObject.GetComponentInParent<LobbyUI_StagePage>();
 
-            PlayerPrefs.SetString("StageId", lobbyUI_StagePage.stageId);
+            // 강제로 스테이지 4맵을 사용하도록 적용
+            PlayerPrefs.SetString("StageId", "STG004");
             lobbyUI_StagePage.OnClickStageButton();
         }
 

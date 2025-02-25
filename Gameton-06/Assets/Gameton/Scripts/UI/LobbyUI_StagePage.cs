@@ -11,7 +11,7 @@ namespace TON
     public class LobbyUI_StagePage : MonoBehaviour
     {
         public Button stageEntryButton;
-        public TextMeshProUGUI stageTitle;
+        // public TextMeshProUGUI stageTitle;
         public GameObject stageImage;
         public Transform starGroup;
         public StageStar starPrefab;
@@ -24,7 +24,7 @@ namespace TON
         public string stageId;
         private SerializableDictionary<string, StageClearData> bestStageClearDict = new SerializableDictionary<string, StageClearData>();
 
-        public void Initalize(string stageId, int index)
+        public void Initalize(string stageId)
         {
             this.stageId = stageId;
 
@@ -38,10 +38,13 @@ namespace TON
             stageClearData = bestStageClearDict.GetValueOrDefault(stageId, null);
 
             SetStageImage();
-            SetStageEntryInfo(index);
-            stageTitle.text = $"stage {index + 1}";
+            // SetStageEntryInfo(index);
+            // stageTitle.text = $"stage {index + 1}";
         }
 
+        /// <summary>
+        ///  스테이지 1개 축소 및 게임 장르 변경으로 아래 메소드 사용하지 않음음
+        /// </summary>
         private void SetStageEntryInfo(int index)
         {
             if (stageClearData != null)

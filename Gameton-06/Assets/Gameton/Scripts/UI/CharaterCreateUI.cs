@@ -9,20 +9,23 @@ namespace TON
 {
     public class CharaterCreateUI : UIBase
     {
-        [SerializeField] private Button cancelButton; // Create 버튼 참조
+        [SerializeField] private Button cancelButton; // cancel 버튼 참조
+        [SerializeField] private Button confirmButton; // cancel 버튼 참조
         [SerializeField] private Button createButton; // Create 버튼 참조
         [SerializeField] private List<PlayerData> playerDatas;
-        [SerializeField] private List<HeartData> heartDatas;
+        // [SerializeField] private List<HeartData> heartDatas;
 
 
         public GameObject characterCreateUI_Modal;
+        public GameObject blackCat_Spotlight;
+        public GameObject whiteCat_Spotlight;
 
         private string selectedCharacter; // 선택한 캐릭터의 타입 저장 (예: "MaleCat", "FemaleCat")
 
         private void Start()
         {
             playerDatas = PlayerDataManager.Singleton.playersData;
-            heartDatas = HeartDataManager.Singleton.heartDatas;
+            // heartDatas = HeartDataManager.Singleton.heartDatas;
 
             // 처음에는 버튼을 비활성화
             createButton.interactable = false;
@@ -33,6 +36,17 @@ namespace TON
             selectedCharacter = characterType;
             createButton.interactable = true; // 캐릭터가 선택되면 버튼 활성화
 
+            switch (characterType)
+            {
+                case "BlackCat":
+                    blackCat_Spotlight.SetActive(true);
+                    whiteCat_Spotlight.SetActive(false);
+                    break;
+                case "WhiteCat":
+                    blackCat_Spotlight.SetActive(false);
+                    whiteCat_Spotlight.SetActive(true);
+                    break;
+            }
         }
 
         public void OnClickCreateButton()
@@ -53,22 +67,49 @@ namespace TON
         public void OnClickConfirmButton()
         {
             TMP_InputField characterName = characterCreateUI_Modal.GetComponentInChildren<TMP_InputField>();
-            Debug.Log("characterName" + characterName.text);
-            // 생성한 캐릭터를 저장한다
-            PlayerData player = new PlayerData(playerDatas.Count, selectedCharacter, characterName.text);
-            playerDatas.Add(player);
-            Assert.IsTrue(JSONLoader.SaveUpdatedJsonToPersistentData(playerDatas, "player"));
+            string nickname = characterName.text.Trim();
 
-            PlayerDataManager.Singleton.SetCurrentUserData();
+            // 입력 값 검증
+            if (string.IsNullOrEmpty(nickname))
+            {
+                return;
+            }
 
-            // 하트 시스템을 생성한다
-            HeartDataManager.Singleton.CreateNewHeartSystem(playerDatas.Count);
-            HeartDataManager.Singleton.SetCurrentUserHeart();
+            // 캐릭터 생성 및 취소 버튼을 비활성화 처리
+            cancelButton.interactable = false;
+            confirmButton.interactable = false;
 
-            // 씬 변경
-            UIManager.Hide<CharaterCreateUI>(UIList.CharaterCreateUI);
+            // 서버에 닉네임을 추가로 업데이트 한다.
+            BackendManager.Singleton.ChangeNickname(nickname, (success, message) =>
+            {
+                // UI 업데이트 (메인 스레드에서 실행)
+                UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                {
+                    if (success)
+                    {
+                        // 생성한 캐릭터를 저장한다
+                        PlayerData player = new PlayerData(playerDatas.Count, selectedCharacter, nickname);
+                        playerDatas.Add(player);
+                        Assert.IsTrue(JSONLoader.SaveUpdatedJsonToPersistentData(playerDatas, "player"));
 
-            Main.Singleton?.ChangeScene(SceneType.Lobby);
+                        PlayerDataManager.Singleton.SetCurrentUserData();
+
+                        // 하트 시스템을 생성한다
+                        HeartDataManager.Singleton.CreateNewHeartSystem(playerDatas.Count);
+                        HeartDataManager.Singleton.SetCurrentUserHeart();
+
+                        // 씬 변경
+                        UIManager.Hide<CharaterCreateUI>(UIList.CharaterCreateUI);
+
+                        Main.Singleton?.ChangeScene(SceneType.Lobby);
+                    }
+                    else
+                    {
+                        Debug.LogError("캐릭터 닉네임 저장 실패");
+                    }
+                });
+            });
+
         }
 
         public void OnClickCancelButton()

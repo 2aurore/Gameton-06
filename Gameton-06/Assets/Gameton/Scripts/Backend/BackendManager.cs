@@ -14,6 +14,9 @@ namespace TON
     {
         private string PASSWORD = "O-xmP0-=rp&kCq^";
 
+        private int signUpRetryCount = 0;   // 로그인 재시도 횟수
+        private const int MAX_RETRY_COUNT = 1; // 최대 재시도 횟수
+
         public void Initalize()
         {
             var bro = Backend.Initialize(); // 뒤끝 초기화
@@ -48,11 +51,12 @@ namespace TON
                 {
                     Debug.Log("자동 로그인 성공!");
                     // 게임 시작 로직
-                    StartGame();
+                    // Main.cs 에서 처리하고 있기 때문에 별도 로직 처리하지 않음음
                 }
                 else
                 {
                     // 로그인 실패 시 자동 회원가입 시도
+                    signUpRetryCount = 0; // 회원가입 시도 전 카운트 초기화
                     TryAutoSignUp(customID);
                 }
             });
@@ -66,7 +70,7 @@ namespace TON
                 {
                     Debug.Log("자동 회원가입 성공!");
                     // 게임 시작 로직
-                    StartGame();
+                    // Main.cs 에서 처리하고 있기 때문에 별도 로직 처리하지 않음음
                 }
                 else
                 {
@@ -77,12 +81,12 @@ namespace TON
             });
         }
 
-        private string GetOrCreateCustomID()
+        private string GetOrCreateCustomID(bool forceNew = false)
         {
             // PlayerPrefs에서 저장된 ID 확인
             string savedID = PlayerPrefs.GetString("BackendCustomID", string.Empty);
 
-            if (string.IsNullOrEmpty(savedID))
+            if (string.IsNullOrEmpty(savedID) || forceNew)
             {
                 // 새 ID 생성 (디바이스 고유 ID 활용)
                 string deviceID = SystemInfo.deviceUniqueIdentifier;
@@ -124,16 +128,58 @@ namespace TON
             });
         }
 
-        private void StartGame()
-        {
-            // 로그인 성공 후 게임 시작 로직
-            // 예: 메인 게임 씬 로드
-        }
 
         private void HandleSignUpError()
         {
             // 회원가입 실패 처리
-            // 재시도 또는 다른 방법 사용
+            // 재시도 횟수 확인
+            if (signUpRetryCount < MAX_RETRY_COUNT)
+            {
+                signUpRetryCount++;
+                Debug.Log($"회원가입 재시도 중... ({signUpRetryCount}/{MAX_RETRY_COUNT})");
+
+                // 약간의 딜레이 후 재시도 (네트워크 상태 개선 기회 제공)
+                Invoke(nameof(RetrySignUp), 2.0f);
+            }
+            else
+            {
+                // 최대 재시도 횟수 초과 - 게임 종료
+                ShowErrorAndQuitGame("서버 연결에 실패했습니다. 네트워크 상태를 확인하고 다시 시도해주세요.");
+            }
+        }
+
+        private void RetrySignUp()
+        {
+            // 새로운 customID 생성 시도 (기존 ID에 문제가 있을 수 있음)
+            string newCustomID = GetOrCreateCustomID(true);
+            TryAutoSignUp(newCustomID);
+        }
+
+        private void ShowErrorAndQuitGame(string errorMessage)
+        {
+            // 에러 메시지 표시 (UI 구현 필요)
+            Debug.LogError("게임 종료: " + errorMessage);
+
+            // 팝업 UI 표시 후 게임 종료 로직
+            ShowErrorPopup(errorMessage, () =>
+            {
+                // 팝업 확인 후 게임 종료
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#else
+                Application.Quit();
+#endif
+            });
+        }
+
+        private void ShowErrorPopup(string message, System.Action onConfirm)
+        {
+            // TODO: 에러 팝업 UI 구현
+            // ErrorPopupManager.Instance.ShowPopup(message, onConfirm);
+
+            // 임시 구현 (실제로는 UI 구현 필요)
+            Debug.LogError("에러 팝업: " + message);
+            onConfirm?.Invoke(); // 바로 콜백 실행 (실제로는 사용자 확인 후 실행)
         }
 
     }

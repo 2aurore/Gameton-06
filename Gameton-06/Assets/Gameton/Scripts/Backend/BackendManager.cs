@@ -10,11 +10,11 @@ namespace TON
     /// <summary>
     /// 랭킹 데이터 관리를 위한 뒤끝 서버 매니저
     /// </summary>
-    public class BackendManager : MonoBehaviour
+    public class BackendManager : SingletonBase<BackendManager>
     {
         private string PASSWORD = "O-xmP0-=rp&kCq^";
 
-        void Start()
+        public void Initalize()
         {
             var bro = Backend.Initialize(); // 뒤끝 초기화
 
@@ -95,6 +95,33 @@ namespace TON
             }
 
             return savedID;
+        }
+
+        // 캐릭터 닉네임 생성 시 유저 데이터에 닉네임 변경 적용용
+        // 닉네임 변경 메소드
+        public void ChangeNickname(string newNickname, System.Action<bool, string> callback)
+        {
+            // 닉네임 형식 검증
+            if (string.IsNullOrEmpty(newNickname) || newNickname.Length < 2)
+            {
+                callback?.Invoke(false, "닉네임은 2자 이상이어야 합니다.");
+                return;
+            }
+
+            // 뒤끝 서버 닉네임 변경 요청
+            Backend.BMember.UpdateNickname(newNickname, bro =>
+            {
+                if (bro.IsSuccess())
+                {
+                    Debug.Log("닉네임 변경 성공: " + newNickname);
+                    callback?.Invoke(true, "닉네임이 변경되었습니다.");
+                }
+                else
+                {
+                    Debug.LogError("닉네임 변경 실패: " + bro.GetMessage());
+                    callback?.Invoke(false, "닉네임 변경 실패: " + bro.GetMessage());
+                }
+            });
         }
 
         private void StartGame()

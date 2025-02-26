@@ -25,6 +25,7 @@ namespace TON
             if (isIniaialized)
                 return;
             // 게임에 필요한 필수 시스템 초기화
+            BackendManager.Singleton.Initalize();
             UIManager.Singleton.Initalize();
 
             // TODO : GameDataModel.Singleton.Initalize();

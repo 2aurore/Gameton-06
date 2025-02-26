@@ -12,6 +12,9 @@ namespace TON
         public SerializableDictionary<string, StageClearData> bestStageClearDict = new SerializableDictionary<string, StageClearData>();
 
 
+        // 현재 플레이 시간을 초 단위로 반환하는 프로퍼티
+        public float PlayTime => Time.time - stageStartTime;
+
         private float stageStartTime; // 스테이지 시작 시간
         private string stageId; // 스테이지 아이디
 

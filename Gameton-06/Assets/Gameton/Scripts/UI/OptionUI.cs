@@ -34,7 +34,7 @@ namespace TON
             {
                 goldObject.SetActive(false);
                 fishObject.SetActive(false);
-                inventoryObject.SetActive(true);
+                inventoryObject.SetActive(false);
                 settingObject.SetActive(false);
                 parseObject.SetActive(true);
             }

@@ -14,10 +14,18 @@ namespace TON
         public Image hpBar;
         public Image spBar;
 
-        public TextMeshProUGUI stageText;
-        public TextMeshProUGUI monsterHp;
-        public Image monsterHpBar;
-        public Image monsterImage;
+        public TextMeshProUGUI waveText;
+        public TextMeshProUGUI playTimeText;
+        public TextMeshProUGUI scoreText;
+
+        // 플레이 시간 노출하게 하는 변수
+        private int lastMinutes = -1;
+        private int lastSeconds = -1;
+        private string cachedTimeString = "00:00";
+
+        // public TextMeshProUGUI monsterHp;
+        // public Image monsterHpBar;
+        // public Image monsterImage;
 
 
         private string playerType;
@@ -46,6 +54,29 @@ namespace TON
             {
                 character.OnHPChanged -= UpdateHPBar;
                 character.OnSPChanged -= UpdateSPBar;
+            }
+        }
+
+
+        private void Update()
+        {
+            UpdatePlayTimeDisplay();
+        }
+
+        private void UpdatePlayTimeDisplay()
+        {
+            float playTime = StageManager.Singleton.PlayTime;
+
+            int minutes = Mathf.FloorToInt(playTime / 60f);
+            int seconds = Mathf.FloorToInt(playTime % 60f);
+
+            // 시간이 변경된 경우에만 문자열 생성
+            if (minutes != lastMinutes || seconds != lastSeconds)
+            {
+                lastMinutes = minutes;
+                lastSeconds = seconds;
+                cachedTimeString = $"time {minutes:00}:{seconds:00}";
+                playTimeText.text = cachedTimeString;
             }
         }
 

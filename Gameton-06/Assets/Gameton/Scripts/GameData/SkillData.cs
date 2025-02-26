@@ -21,5 +21,7 @@ namespace TON
         public int slotNumber;
         // 스킬 사용을 위해 필요한 캐릭터 레벨
         public int requiredLevel;
+        // 스킬이 한번에 타격할 수 있는 몬스터의 수
+        public int maxHitCount;
     }
 }

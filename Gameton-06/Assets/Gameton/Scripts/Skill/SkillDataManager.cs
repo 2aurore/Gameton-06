@@ -152,9 +152,12 @@ namespace TON
             GameObject effectGameObject = ObjectPoolManager.Instance.GetEffect(skillId);
             Projectile projectile = effectGameObject.GetComponent<Projectile>();
             SkillBase targetSkillBase = GetSkillInstance(skillId);
+
+            // 현재 스킬의 쿨타임 시작 
             targetSkillBase.SetCurrentCoolDown();
 
-            projectile.Init(targetSkillBase.SkillData.damage);
+            // 스킬 투사체 초기화
+            projectile.Init(targetSkillBase.SkillData.damage, targetSkillBase.SkillData.maxHitCount);
 
             effectGameObject.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
 

@@ -132,7 +132,7 @@ namespace TON
         public static T LoadJsonFromPersistentData<T>(string fileName)
         {
             string path = GetPersistentPath(fileName);
-            Debug.Log($"LoadJsonFromPersistentData : {path}");
+            // Debug.Log($"LoadJsonFromPersistentData : {path}");
 
             if (!File.Exists(path))
             {

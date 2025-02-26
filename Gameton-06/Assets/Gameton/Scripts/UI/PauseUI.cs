@@ -10,6 +10,8 @@ namespace TON
         public static PauseUI Instance => UIManager.Singleton.GetUI<PauseUI>(UIList.PauseUI);
 
         public GameObject rechargeModal;
+        public GameObject retryModal;
+        public GameObject homeModal;
 
         void OnEnable()
         {
@@ -26,12 +28,20 @@ namespace TON
             Time.timeScale = 1f;
         }
 
+        public void OnClickHomeModal()
+        {
+            homeModal.SetActive(true);
+        }
         public void OnClickHomeButton()
         {
             Time.timeScale = 1f;
             Main.Singleton.ChangeScene(SceneType.Lobby);
         }
 
+        public void OnClickStageRetryModal()
+        {
+            retryModal.SetActive(true);
+        }
         public void OnClickStageRetryButton()
         {
             // 가지고 있는 하트가 없다면 입장 불가
@@ -50,9 +60,20 @@ namespace TON
             Main.Singleton.ChangeScene(SceneType.Stage);
         }
 
-        public void OnClickCloseButton()
+        public void OnClickCloseButton(string keyword)
         {
-            rechargeModal.SetActive(false);
+            switch (keyword)
+            {
+                case "recharge":
+                    rechargeModal.SetActive(false);
+                    break;
+                case "retry":
+                    retryModal.SetActive(false);
+                    break;
+                case "home":
+                    homeModal.SetActive(false);
+                    break;
+            }
         }
 
         public void OnClickUseCashButton(int count)

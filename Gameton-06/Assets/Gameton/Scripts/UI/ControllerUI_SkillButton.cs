@@ -31,7 +31,9 @@ namespace TON
 
             skillIcon.SetActive(true);
 
-            Assert.IsTrue(AssetManager.Singleton.LoadSkillIcon(skillBase.SkillData.id, out Sprite loadedSkillImage));
+            // out 으로 받을 변수 초기화
+            Sprite loadedSkillImage = null;
+            Assert.IsTrue(AssetManager.Singleton.LoadSkillIcon(skillBase.SkillData.id, out loadedSkillImage));
             skillIcon.GetComponent<Image>().sprite = loadedSkillImage;
             lockImage.SetActive(false);
         }

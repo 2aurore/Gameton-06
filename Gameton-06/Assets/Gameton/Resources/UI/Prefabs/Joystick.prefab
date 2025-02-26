@@ -96,6 +96,7 @@ MonoBehaviour:
   snapY: 0
   background: {fileID: 5426365777701013243}
   handle: {fileID: 5426365777628538106}
+  input: {x: 0, y: 0}
   moveThreshold: 1
   joystickType: 0
 --- !u!1 &5426365777628538107

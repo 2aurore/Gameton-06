@@ -14,10 +14,8 @@ namespace TON
         {
             rechargeModal.SetActive(false);
 
-            // 해당 UI 노출과 함께 게임 클리어 정보 저장장
+            // 해당 UI 노출과 함께 게임 클리어 정보 저장
             StageManager.Singleton.StageClear();
-
-            // TODO: 획득한 아이템 리스트 출력 로직 구현
 
             // TODO: 획득한 아이템 정보 저장 로직 구현
 

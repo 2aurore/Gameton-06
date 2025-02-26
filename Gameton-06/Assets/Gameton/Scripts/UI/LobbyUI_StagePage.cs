@@ -23,6 +23,9 @@ namespace TON
         public string stageId;
         private SerializableDictionary<string, StageClearData> bestStageClearDict = new SerializableDictionary<string, StageClearData>();
 
+        /// <summary>
+        ///  스테이지 1개 축소 및 게임 장르 변경으로 아래 메소드 사용하지 않음음
+        /// </summary>
         public void Initalize(string stageId)
         {
             this.stageId = stageId;

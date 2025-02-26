@@ -39,7 +39,7 @@ namespace TON
         {
             if (HeartDataManager.Singleton.GetCurrentHearts() >= HeartDataManager.Singleton.maxHearts)
             {
-                timerText.text = "0:00";
+                timerText.text = "6:00";
                 return;
             }
 
@@ -52,7 +52,7 @@ namespace TON
                 return;
             }
 
-            timerText.text = $"{timeLeft / 60:D2}:{timeLeft % 60:D2}"; // mm:ss 포맷
+            timerText.text = $"{timeLeft / 60}:{timeLeft % 60:D2}"; // m:ss 포맷
         }
     }
 }

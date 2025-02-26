@@ -13,7 +13,7 @@ namespace TON
         private int characterId;
 
         public int maxHearts = 3;
-        public int heartRechargeTime = 600;
+        public int heartRechargeTime = 360;     // 하트 충전 시간 6분
 
         public int GetCurrentHearts() => currentHeartData.currentHearts;
         public DateTime GetLastHeartTime() => DateTime.Parse(currentHeartData.lastHeartTime);

@@ -13,33 +13,34 @@ namespace TON
         [SerializeField] private TextMeshProUGUI _textState;
         [SerializeField] public int id; // 몬스터의 ID
         public float defencePower;
-        
+        public float defenceIntention = 30;     // 몬스터 방어력 변수
+
         public GameObject _hpBarImage; // HP 바 이미지
         private float _maxHP;
         private float currentHP;
         private float hpMaxWidth;
-        
+
         private MonsterData _monsterData;
         private Animator _animator; // 몬스터 애니메이터
         private string currentAnimationState; // 현재 애니메이션 상태
-        
+
         StateMachine _stateMachine;
         private SkillPattern _skillPattern;
-        
+
         private Vector3 _direction; // 몬스터의 이동 방향
         public bool IsDetect { get; set; } // 몬스터가 대상을 인식했는지 여부
         public bool IsAttacking { get; set; } // 몬스터가 공격했는지 여부
         public bool IsFinishAttack { get; set; } // 몬스터 공격 모션이 끝났는지 여부
         public bool IsSkillAttackable => _skillPattern.IsAttackable;
-        
+
         private void Start()
-        {   
+        {
             _animator = GetComponent<Animator>(); // 애니메이터 컴포넌트 초기화
 
             // TODO : 추후 제거 예정
             // _stateMachine = new StateMachine(new IdleState(), this, _textState);
             _stateMachine = new StateMachine(new IdleState(), this);
-            
+
             InitializeMonsterData();    // 몬스터 데이터 로드 및 적용
 
             _skillPattern = new Monster1SkillPattern(_monsterData, this);
@@ -52,16 +53,16 @@ namespace TON
 
             _collider = GetComponent<Collider2D>(); // 콜라이더 컴포넌트 초기화
         }
-        
+
         private void InitializeMonsterData()
         {
             _monsterData = MonsterDataManager.Singleton.GetMonsterData(id);
-            
+
             if (_monsterData != null)
             {
                 currentHP = _monsterData.hp;
                 defencePower = _monsterData.defencePower;
-                
+
                 Debug.Log($"몬스터 {_monsterData.name} 데이터 로드 완료");
             }
             else
@@ -69,14 +70,14 @@ namespace TON
                 Debug.LogError($"몬스터 ID {id}에 대한 데이터를 찾을 수 없습니다.");
             }
         }
-        
+
         public void ChangeAnimationState(string newState)
         {
             if (currentAnimationState == newState) return;  // 현재 상태와 동일한 상태일 경우, 애니메이션을 변경하지 않음
 
             _animator.Play(newState); // 새로운 애니메이션 상태 실행
         }
-        
+
         private void Update()
         {
             _stateMachine.Update();
@@ -87,14 +88,14 @@ namespace TON
         {
             IsFinishAttack = true;
         }
-        
+
         public void ApplyDamage(float damage)
         {
             float prevHP = currentHP;   // 몬스터의 체력을 감소시키고, 죽었을 경우 파괴 처리
             currentHP -= damage;
-            
+
             UpdateHPBar();
-            
+
             if (prevHP > 0 && currentHP <= 0)
             {
                 _stateMachine.SetTransition(new DeathState());
@@ -104,7 +105,7 @@ namespace TON
                 _stateMachine.SetTransition(new HitState());
             }
         }
-        
+
         private void UpdateHPBar()
         {
             if (_hpBarImage != null)

@@ -42,9 +42,12 @@ namespace TON
                 // TODO: 장비 공격력 반영 필요
                 // float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, playerData.equipmentAttack, playerData.defensivePower);
 
-                // 몬스터 방어력
-                float monsterDefencePower = collision.GetComponent<MonsterBase>().defencePower;
-                float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower * this.damage, 0, monsterDefencePower);
+                // 몬스터 방어력 의도값 계산
+                MonsterBase monsterBase = collision.GetComponent<MonsterBase>();
+                float calcMonsterDefence = monsterBase.defencePower / (monsterBase.defencePower + monsterBase.defenceIntention);
+                float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, 0, calcMonsterDefence);
+
+                Debug.Log("Projectile" + damage);
 
                 // 치명타 적용
                 damage = damageCalculator.ApplyCriticalDamage(damage);

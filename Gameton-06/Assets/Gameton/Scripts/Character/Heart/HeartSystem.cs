@@ -15,15 +15,26 @@ namespace TON
         public TextMeshProUGUI timerText;           // 하트 충전 타이머 UI
         public GameObject overHeartText;           // 하트 충전 타이머 UI
 
+        private float lastUpdateTime;
 
         private void OnEnable()
         {
+            lastUpdateTime = Time.realtimeSinceStartup;
             UpdateHeartUI();  // 시작 시 UI 갱신
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            UpdateTimer();
+            // 실제 시간 기반으로 일정 간격마다 업데이트 (Time.Scale = 0 에 영향받지 않도록)
+            float currentTime = Time.realtimeSinceStartup;
+            float deltaTime = currentTime - lastUpdateTime;
+
+            // 1초마다 타이머 업데이트 (더 짧은 간격으로 설정 가능)
+            if (deltaTime >= 1.0f)
+            {
+                UpdateTimer();
+                lastUpdateTime = currentTime;
+            }
         }
 
         public void UpdateHeartUI()

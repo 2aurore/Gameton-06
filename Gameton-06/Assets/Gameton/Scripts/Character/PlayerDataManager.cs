@@ -16,8 +16,8 @@ namespace TON
         private int expVariable = 50; // 경험치 변수 (조정 가능)
         [SerializeField]
         private int attackGrowthFactor = 50; // 공격력 성장 변수 (조정 가능)
-        [SerializeField]
-        private int defensiveGrowthFactor = 200; // 방어력 성장 변수 (조정 가능)
+
+        public int defensiveIntention { get; private set; } = 200; // 방어력 변수 (조정 가능)
 
 
         public void Initalize()
@@ -45,7 +45,7 @@ namespace TON
         private void UpdateStats(int currentLevel)
         {
             player.attackPower *= 1 + (currentLevel - 1) / attackGrowthFactor;
-            player.defensivePower *= 1 + (currentLevel - 1) / defensiveGrowthFactor;
+            player.defensivePower *= 1 + (currentLevel - 1) / defensiveIntention;
         }
 
         // 현재 레벨에서 다음 레벨까지 필요한 경험치 계산

@@ -2594,7 +2594,7 @@ Tilemap:
     e33: 1
 --- !u!1 &265027070
 GameObject:
-  m_ObjectHideFlags: 3
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -2611,7 +2611,7 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &265027071
 Transform:
-  m_ObjectHideFlags: 3
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -2626,7 +2626,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &265027072
 MonoBehaviour:
-  m_ObjectHideFlags: 3
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4841,7 +4841,7 @@ Transform:
   m_GameObject: {fileID: 480895541}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 106.59, y: -121.560005, z: -0.19755833}
+  m_LocalPosition: {x: 118.52, y: -121.86, z: -0.19755833}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15052,8 +15052,8 @@ MonoBehaviour:
   m_YDamping: 1
   m_ZDamping: 1
   m_TargetMovementOnly: 1
-  m_ScreenX: 0.3365364
-  m_ScreenY: 0.4822644
+  m_ScreenX: 0.4833686
+  m_ScreenY: 0.4520444
   m_CameraDistance: 10
   m_DeadZoneWidth: 0.2074782
   m_DeadZoneHeight: 0.435
@@ -19771,22 +19771,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 481676f31fc794c4b93848b442416f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints:
-  - {fileID: 1877559506}
-  - {fileID: 897622737}
-  waveDataArray:
-  - monsterPrefabA: {fileID: 9096056522544909490, guid: 53f5c583c440aa546bde473536a2ead1, type: 3}
-    monsterPrefabB: {fileID: 5532926939721588456, guid: b4cf92d97c6e476458cfc19779d644d0, type: 3}
-    bossPrefab: {fileID: 552750714948243596, guid: b5a25c8b3779cf64fb2ce4137b923934, type: 3}
-  - monsterPrefabA: {fileID: 1572774641510885509, guid: 9e33f09b69def354b97c2dab989ff5a0, type: 3}
-    monsterPrefabB: {fileID: 3763998402670485858, guid: 2151274950f0a5848b4a51f328ef6a76, type: 3}
-    bossPrefab: {fileID: 8816565783318691943, guid: 6aa4e890ef61e8340a0913d21ef8b769, type: 3}
-  - monsterPrefabA: {fileID: 5723786479962814242, guid: 32e162a1c8f5e97418bfde9de9a34472, type: 3}
-    monsterPrefabB: {fileID: 7872183108645210487, guid: a1014c89b622fee45b5d0bf0db78b302, type: 3}
-    bossPrefab: {fileID: 4336427122757065448, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
-  - monsterPrefabA: {fileID: 0}
-    monsterPrefabB: {fileID: 0}
-    bossPrefab: {fileID: 3667660097767351871, guid: ef14281ca23119941b755a7bff7ff6c8, type: 3}
+  _monsterLocations: []
+  _monsterId: 
+  _spawnDistance: 10
 --- !u!4 &1103604663
 Transform:
   m_ObjectHideFlags: 0
@@ -19882,7 +19869,7 @@ Transform:
   m_GameObject: {fileID: 1185367601}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: -1}
+  m_LocalPosition: {x: -0.7236786, y: -1.5159683, z: -10.076585}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19898,36 +19885,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1185367601}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ExcludedPropertiesInInspector:
-  - m_Script
-  m_LockStageInInspector: 
-  m_StreamingVersion: 20170927
-  m_Priority: 10
-  m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
-  m_Lens:
-    FieldOfView: 40
-    OrthographicSize: 10
-    NearClipPlane: 0.1
-    FarClipPlane: 5000
-    Dutch: 0
-    ModeOverride: 0
-    LensShift: {x: 0, y: 0}
-    GateFit: 2
-    FocusDistance: 10
-    m_SensorSize: {x: 1, y: 1}
-  m_Transitions:
-    m_BlendHint: 0
-    m_InheritPosition: 0
-    m_OnCameraLive:
-      m_PersistentCalls:
-        m_Calls: []
-  m_LegacyBlendHint: 0
-  m_ComponentOwner: {fileID: 265027071}
+  m_ShowDebugText: 0
+  m_ShowCameraFrustum: 1
+  m_IgnoreTimeScale: 0
+  m_WorldUpOverride: {fileID: 0}
+  m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
+  m_DefaultBlend:
+    m_Style: 1
+    m_Time: 2
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  m_CustomBlends: {fileID: 0}
+  m_CameraCutEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CameraActivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1271586651
 GameObject:
   m_ObjectHideFlags: 0
@@ -19956,7 +19938,7 @@ Transform:
   m_GameObject: {fileID: 1271586651}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.48, y: -4.68, z: -10.076585}
+  m_LocalPosition: {x: -0.72, y: -2.36, z: -10.076585}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -33852,8 +33834,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1185367604}
-  - {fileID: 2055061000}
   - {fileID: 1271586652}
+  - {fileID: 2055061000}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2055060999
@@ -33933,12 +33915,13 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -18.002113, y: 9.921868}
-      - {x: -17.844536, y: -9.985446}
-      - {x: 0.67922527, y: -10.047637}
-      - {x: 6.259497, y: -10.063744}
-      - {x: 14.751854, y: -9.932543}
-      - {x: 14.27755, y: -9.985667}
-      - {x: 17.9036, y: -9.889262}
+      - {x: -18.103333, y: -7.526866}
+      - {x: -18.067352, y: -7.6377487}
+      - {x: 17.801594, y: -7.4817877}
+      - {x: 17.973837, y: -7.489311}
+      - {x: 17.972984, y: -7.4778996}
+      - {x: 17.985374, y: -7.490527}
+      - {x: 18.004263, y: -7.5425673}
       - {x: 17.844536, y: 9.9699745}
   m_UseDelaunayMesh: 0
 --- !u!1 &2067632266

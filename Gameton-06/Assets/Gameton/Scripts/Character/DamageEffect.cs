@@ -19,7 +19,6 @@ namespace TON
             Canvas canvas = gameObject.GetComponentInChildren<Canvas>();
             if (canvas.renderMode == RenderMode.WorldSpace && canvas.worldCamera == null)
             {
-                Debug.Log("test camera");
                 canvas.worldCamera = Camera.main; // Main Camera 할당
             }
 

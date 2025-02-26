@@ -11,7 +11,7 @@ namespace TON
             if (collision.CompareTag("Player"))
             {
                 // 캐릭터가 StageDeadZone에 들어옴과 동시에 게임오버 정보를 저장하도록 함
-                StageManager.Singleton.StageGameOver();
+                // StageManager.Singleton.StageGameOver();
 
                 // 캐릭터 Dead 로직 실행
                 CharacterBase character = collision.gameObject.GetComponentInChildren<CharacterBase>();

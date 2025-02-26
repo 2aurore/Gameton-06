@@ -14,9 +14,14 @@ namespace TON
 
         // 현재 플레이 시간을 초 단위로 반환하는 프로퍼티
         public float PlayTime => Time.time - stageStartTime;
+        public int goldReward { get; private set; } = 0;  // 골드 획득 보상
+        public int expReward { get; private set; } = 0;  // 경험치 획득 보상
+        public int waveCount { get; private set; }   // 클리어한 웨이브 넘버
+        public int gameScore { get; private set; } = 0;  // 몬스터 처치로 얻은 점수 보상
 
         private float stageStartTime; // 스테이지 시작 시간
-        private string stageId; // 스테이지 아이디
+        // private string stageId; // 스테이지 아이디
+
 
         public void Initialize()
         {
@@ -78,43 +83,53 @@ namespace TON
         public void StartStage(string stageId)
         {
             stageStartTime = Time.time;
-            this.stageId = stageId;
+            // this.stageId = stageId;
         }
 
-        public int GetStarCount(float elapsedTime)
+        // public int GetStarCount(float elapsedTime)
+        // {
+        //     if (elapsedTime <= 180f)
+        //         return 3;
+        //     else if (elapsedTime <= 300f)
+        //         return 2;
+        //     else
+        //         return 1;
+        // }
+
+        /// <summary>
+        /// 게임 웨이브 진행 시 획득한 골드와 경험치 정보를 저장하게 함
+        /// </summary>
+        public void SetWaveData(int wave, int gold, int exp, int score)
         {
-            if (elapsedTime <= 180f)
-                return 3;
-            else if (elapsedTime <= 300f)
-                return 2;
-            else
-                return 1;
+            waveCount = wave;
+            goldReward += gold;
+            expReward += exp;
+            gameScore += score;
         }
 
         public void StageClear()
         {
-            string characterId = PlayerDataManager.Singleton.player.id;
+            string characterId = PlayerPrefs.GetString("BackendCustomID", string.Empty);
             float clearTime = Time.time - stageStartTime;
-            int starCount = GetStarCount(clearTime);
-            Debug.Log($"스테이지 클리어! 별 개수: {starCount}");
+            // int starCount = GetStarCount(clearTime);
 
-            // UI 업데이트, 데이터 저장 로직 추가
-            StageClearData stageClearData = new StageClearData(characterId, stageId, clearTime, starCount);
-            stageClearDatas.Add(stageClearData);
+            // TODO: UI 업데이트, 데이터 저장 로직 추가
+            // StageClearData stageClearData = new StageClearData(characterId, stageId, clearTime, starCount);
+            // stageClearDatas.Add(stageClearData);
             SaveStageClearData();
         }
 
-        public void StageGameOver()
-        {
-            string characterId = PlayerDataManager.Singleton.player.id;
-            float clearTime = Time.time - stageStartTime;
-            int starCount = -1;
+        // public void StageGameOver()
+        // {
+        //     string characterId = PlayerDataManager.Singleton.player.id;
+        //     float clearTime = Time.time - stageStartTime;
+        //     int starCount = -1;
 
-            // UI 업데이트, 데이터 저장 로직 추가
-            StageClearData stageClearData = new StageClearData(characterId, stageId, clearTime, starCount);
-            stageClearDatas.Add(stageClearData);
-            SaveStageClearData();
-        }
+        //     // UI 업데이트, 데이터 저장 로직 추가
+        //     StageClearData stageClearData = new StageClearData(characterId, stageId, clearTime, starCount);
+        //     stageClearDatas.Add(stageClearData);
+        //     SaveStageClearData();
+        // }
 
     }
 }

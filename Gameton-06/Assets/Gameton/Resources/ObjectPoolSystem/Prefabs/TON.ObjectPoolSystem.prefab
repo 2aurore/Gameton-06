@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolContainer:
+  - objectId: DamageEffect
+    objectPrefab: {fileID: 2694340896413399810, guid: 3c12a401b2ee7ee419cf8fecdaa97964, type: 3}
+    count: 20
   - objectId: K0001
     objectPrefab: {fileID: 6328494989662859589, guid: 25bb8f03ea9cfc941b64e04b75d3a1d9, type: 3}
     count: 3

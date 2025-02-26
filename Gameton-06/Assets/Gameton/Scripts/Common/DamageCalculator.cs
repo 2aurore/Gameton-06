@@ -33,15 +33,28 @@ namespace TON
         /// <summary>
         /// 치명타 적용 (치명타 확률이 0보다 클 경우에만 적용)
         /// </summary>
-        public float ApplyCriticalDamage(float damage)
+        public float ApplyCriticalDamage(float damage, Vector3 position)
         {
+            bool critical = false;
             if (Random.value < criticalChance) // Random.value는 0.0 ~ 1.0 사이의 랜덤 값
             {
                 damage *= criticalMultiplier;
+                critical = true;
                 Debug.Log("💥 치명타 발생! 💥" + damage);
             }
 
-            return Mathf.Round(damage); // 소수점 제거
+            float value = Mathf.Round(damage);
+
+            // 데미지 이펙트 출력
+            ShowDamage((int)value, critical, position);
+            return value;
+        }
+
+        public void ShowDamage(int damage, bool isCritical, Vector3 position)
+        {
+            GameObject damageText = ObjectPoolManager.Instance.GetEffect("DamageEffect");
+            damageText.transform.position = new Vector3(position.x, position.y + 1f, position.z);
+            damageText.GetComponent<DamageEffect>().SetDamage(damage, isCritical);
         }
     }
 }

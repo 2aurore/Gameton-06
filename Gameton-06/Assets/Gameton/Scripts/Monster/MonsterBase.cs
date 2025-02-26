@@ -17,7 +17,7 @@ namespace TON
 
         public GameObject _hpBarImage; // HP 바 이미지
         private float _maxHP;
-        private float currentHP;
+        public float currentHP { get; private set; }    // 몬스터 현재 체력
         private float hpMaxWidth;
 
         private MonsterData _monsterData;

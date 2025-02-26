@@ -29,13 +29,17 @@ namespace TON
                 // TODO: 장비 공격력 반영 필요
                 // float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, playerData.equipmentAttack, playerData.defensivePower);
 
-                // 몬스터 방어력 의도값 계산
                 MonsterBase monsterBase = collision.GetComponent<MonsterBase>();
+                // 몬스터가 이전 피격으로 이미 죽은 경우우
+                if (monsterBase.currentHP <= 0)
+                    return;
+
+                // 몬스터 방어력 의도값 계산
                 float calcMonsterDefence = monsterBase.defencePower / (monsterBase.defencePower + monsterBase.defenceIntention);
                 float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower, 0, calcMonsterDefence);
 
                 // 치명타 적용 (캐릭터는 적용)
-                damage = damageCalculator.ApplyCriticalDamage(damage);
+                damage = damageCalculator.ApplyCriticalDamage(damage, collision.transform.position);
 
                 collision.GetComponent<IDamage>().ApplyDamage(damage);
             }

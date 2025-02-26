@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TON
 {
@@ -29,6 +31,9 @@ namespace TON
         public WaveData[] waveDataArray; // 크기 4로 설정 (1-3웨이브, 4-6웨이브, 7-9웨이브, 10웨이브)
         
         private List<GameObject> activeMonsters; // 현재 활성화된 몬스터 리스트
+        
+        [SerializeField]
+        public TextMeshProUGUI waveCounter;
         
         // Start is called before the first frame update
         void Start()
@@ -159,7 +164,18 @@ namespace TON
         
         private IEnumerator StartNextWaveWithDelay()
         {
-            yield return new WaitForSeconds(nextWaveDelay);
+            float timer = nextWaveDelay;
+            
+            while (timer > 0)
+            {
+                waveCounter.text = Mathf.CeilToInt(timer).ToString(); // 남은 시간 표시
+                timer -= Time.deltaTime;
+                yield return null;
+            }
+
+            // waveCounter.text = "0";
+            waveCounter.text = null;
+            
             isWaitingForNextWave = false;
             StartNextWave();
         }

@@ -13,6 +13,7 @@ namespace TON
         public Sprite fullHeartSprite;   // 채워진 하트
         public Sprite emptyHeartSprite;  // 빈 하트
         public TextMeshProUGUI timerText;           // 하트 충전 타이머 UI
+        public GameObject overHeartText;           // 하트 충전 타이머 UI
 
 
         private void OnEnable()
@@ -32,6 +33,16 @@ namespace TON
             for (int i = 0; i < heartImages.Count; i++)
             {
                 heartImages[i].sprite = (i < currentHearts) ? fullHeartSprite : emptyHeartSprite;
+            }
+
+            if (currentHearts > HeartDataManager.Singleton.maxHearts)
+            {
+                overHeartText.SetActive(true);
+                overHeartText.GetComponent<TextMeshProUGUI>().text = $"+ {currentHearts - HeartDataManager.Singleton.maxHearts}";
+            }
+            else
+            {
+                overHeartText.SetActive(false);
             }
         }
 

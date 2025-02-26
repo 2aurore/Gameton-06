@@ -12,6 +12,8 @@ namespace TON
         [SerializeField]
         private TextMeshProUGUI characterName;
         [SerializeField]
+        private TextMeshProUGUI characterLevel;
+        [SerializeField]
         private TextMeshProUGUI characterHp;
         [SerializeField]
         private TextMeshProUGUI characterMp;
@@ -27,6 +29,8 @@ namespace TON
         public List<LobbyUI_StagePage> stagePages = new List<LobbyUI_StagePage>();
         public GameObject stagePagePrefab;
         public Transform stagePageGroup;
+
+        public GameObject emptyHeartAlert;
 
         private void Start()
         {
@@ -44,6 +48,7 @@ namespace TON
             characterName.text = player.name;
             characterHp.text = $"{player.hp}";
             characterMp.text = $"{player.mp}";
+            characterLevel.text = $"Lv {player.level}";
             characterAttck.text = $"{player.attackPower}";
             characterDefence.text = $"{player.defensivePower}";
             characterCritical.text = $"{player.critical}";
@@ -94,20 +99,26 @@ namespace TON
 
         public void OnClickStagePlayButton()
         {
-            // FIXME: 개발 편의를 위해 스테이지 입장시 하트 소모 로직 주석처리 
-            // // 가지고 있는 하트가 없다면 입장 불가
-            // if (HeartDataManager.Singleton.GetCurrentHearts() < 1)
-            // {
-            //     // TODO: 입장 불가 modal 출력
-            //     Debug.Log("보유한 하트 없음");
-            //     return;
-            // }
+            // 가지고 있는 하트가 없다면 입장 불가
+            if (HeartDataManager.Singleton.GetCurrentHearts() < 1)
+            {
+                // 입장 불가 modal 출력
+                emptyHeartAlert.SetActive(true);
+                // 입장 불가 modal 1초 후 숨김
+                Invoke(nameof(EnactiveAlert), 1f);
+                return;
+            }
 
-            // // 입장 시 하트 소모
-            // HeartDataManager.Singleton.UseHeart();
+            // 입장 시 하트 소모
+            HeartDataManager.Singleton.UseHeart();
 
             OnClickChangeStageButton();
             Main.Singleton.ChangeScene(SceneType.Stage);
+        }
+
+        private void EnactiveAlert()
+        {
+            emptyHeartAlert.SetActive(true);
         }
 
         public void OnClickSkillSettingButton()

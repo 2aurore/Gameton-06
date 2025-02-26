@@ -12,7 +12,7 @@ namespace TON
         public HeartData currentHeartData { get; private set; }
         private int characterId;
 
-        public int maxHearts = 3;
+        public int maxHearts = 5;
         public int heartRechargeTime = 360;     // 하트 충전 시간 6분
 
         public int GetCurrentHearts() => currentHeartData.currentHearts;

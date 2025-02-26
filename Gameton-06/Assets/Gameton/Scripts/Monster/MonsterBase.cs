@@ -99,6 +99,7 @@ namespace TON
             if (prevHP > 0 && currentHP <= 0)
             {
                 _stateMachine.SetTransition(new DeathState());
+                //TODO : 현재 웨이브 값, 경험치, 골드 MonsterSpawner.WaveData;
             }
             else if (prevHP > 0 && currentHP > 0)
             {

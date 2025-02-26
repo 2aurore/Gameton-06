@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,148 +6,162 @@ namespace TON
 {
     public class MonsterSpawner : MonoBehaviour
     {
-        [SerializeField]
-        private List<Transform> _monsterLocations = new List<Transform>();
-        [SerializeField]
-        private List<int> _monsterId = new List<int>();
-        [SerializeField] 
-        private float _spawnDistance = 10f;
-
-        private CharacterBase _player;
-        private List<MonsterBase> _spawnedMonsters = new List<MonsterBase>();
-        private Dictionary<Transform, bool> _spawnPoints = new Dictionary<Transform, bool>();
+        public Transform[] spawnPoints; // 스폰 위치 배열
         
-        private void Start()
+        private List<GameObject> monsterPool; // 몬스터 오브젝트 풀
+        private List<int> availableSpawnPoints; // 스폰 가능한 위치 인덱스 리스트
+        
+        public int currentWave = 0;
+        private const int TOTAL_WAVES = 10;
+        private const int NORMAL_MONSTER_COUNT = 6;
+    
+        private float nextWaveDelay = 5f; // 다음 웨이브 시작 전 대기 시간
+        private bool isWaitingForNextWave = false;
+        
+        [System.Serializable]
+        public class WaveData
         {
-            InitializeSpawner();
+            public GameObject monsterPrefabA; // 첫 번째 일반 몬스터 프리팹
+            public GameObject monsterPrefabB; // 두 번째 일반 몬스터 프리팹
+            public GameObject bossPrefab;     // 보스 몬스터 프리팹
         }
-
-        private void InitializeSpawner()
+    
+        public WaveData[] waveDataArray; // 크기 4로 설정 (1-3웨이브, 4-6웨이브, 7-9웨이브, 10웨이브)
+        
+        private List<GameObject> activeMonsters; // 현재 활성화된 몬스터 리스트
+        
+        // Start is called before the first frame update
+        void Start()
         {
-            // 플레이어 찾기
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-            if (playerObj != null)
-            {
-                _player = playerObj.GetComponent<CharacterBase>();
-                Debug.Log("플레이어 찾음: " + playerObj.name);
-            }
-            
-            // 스폰 포인트 초기화
-            foreach (var location in _monsterLocations)
-            {
-                if (location != null)
-                {
-                    _spawnPoints[location] = false;
-                    Debug.Log($"스폰 포인트 초기화: {location.name}");
-                }
-            }
+            monsterPool = new List<GameObject>();
+            availableSpawnPoints = new List<int>();
+            activeMonsters = new List<GameObject>();
+        
+            StartNextWave();
         }
-
-        private void Update()
+        
+        // Update is called once per frame
+        void Update()
         {
-            if (_player == null) return;
-
-            CheckSpawnConditions();
-        }
-
-        private void CheckSpawnConditions()
-        {
-            for (int i = 0; i < _monsterLocations.Count; i++)
+            // 활성화된 몬스터 리스트에서 파괴된 몬스터 제거
+            activeMonsters.RemoveAll(monster => monster == null);
+        
+            // 모든 몬스터가 죽었는지 확인하고 다음 웨이브 준비
+            if (activeMonsters.Count == 0 && currentWave > 0 && !isWaitingForNextWave)
             {
-                Transform spawnPoint = _monsterLocations[i];
-                if (spawnPoint == null || _spawnPoints[spawnPoint]) continue;
-
-                float distance = Vector2.Distance(_player.transform.position, spawnPoint.position);
-                if (distance <= _spawnDistance)
-                {
-                    SpawnMonster(i);
-                    _spawnPoints[spawnPoint] = true;
-                }
+                isWaitingForNextWave = true;
+                StartCoroutine(StartNextWaveWithDelay());
             }
         }
-
-        private void SpawnMonster(int index)
+        
+        private void SpawnBossMonster()
         {
-            if (index >= _monsterId.Count)
+            // 랜덤한 스폰 포인트 선택
+            int spawnPointIndex = Random.Range(0, spawnPoints.Length);
+            GameObject bossPrefab = GetBossPrefabForWave(currentWave);
+        
+            GameObject boss = Instantiate(bossPrefab, spawnPoints[spawnPointIndex].position, Quaternion.identity);
+            monsterPool.Add(boss);
+            activeMonsters.Add(boss);
+        
+            // 보스 웨이브에서는 자동으로 다음 웨이브로 넘어가지 않음
+            // 보스가 죽으면 Update에서 체크하여 다음 웨이브로 넘어감
+        }
+        
+        private void StartNextWave()
+        {
+            currentWave++;
+            if (currentWave > TOTAL_WAVES)
             {
-                Debug.LogError($"유효하지 않은 인덱스: {index}");
+                // Debug.Log("모든 웨이브 완료!");
                 return;
             }
 
-            try
+            // 스폰 포인트 초기화
+            availableSpawnPoints.Clear();
+            for (int i = 0; i < spawnPoints.Length; i++)
             {
-                int monsterId = _monsterId[index];
-                
-                // MonsterDataManager에서 데이터 가져오기
-                MonsterData monsterData = MonsterDataManager.Singleton.GetMonsterData(monsterId);
-                if (monsterData == null)
-                {
-                    Debug.LogError($"몬스터 ID {monsterId}에 대한 데이터를 찾을 수 없습니다.");
-                    return;
-                }
-
-                // 몬스터 프리팹 경로 결정
-                string prefabPath = GetMonsterPrefabPath(monsterData);
-                
-                // 프리팹 로드
-                MonsterBase monsterPrefab = Resources.Load<MonsterBase>(prefabPath);
-                if (monsterPrefab == null)
-                {
-                    Debug.LogError($"몬스터 프리팹을 찾을 수 없습니다: {prefabPath}");
-                    return;
-                }
-
-                // 몬스터 생성
-                Vector3 spawnPosition = _monsterLocations[index].position;
-                MonsterBase newMonster = Instantiate(monsterPrefab, spawnPosition, Quaternion.identity);
-                
-                // 몬스터 초기화
-                newMonster.id = monsterId;
-                _spawnedMonsters.Add(newMonster);
-                
-                Debug.Log($"몬스터 생성 완료: ID {monsterId}, 위치 {spawnPosition}");
+                availableSpawnPoints.Add(i);
             }
-            catch (System.Exception e)
+
+            // 현재 웨이브에 따른 몬스터 스폰
+            if (IsBossWave(currentWave))
             {
-                Debug.LogError($"몬스터 생성 중 오류 발생: {e.Message}");
+                SpawnBossMonster();
+            }
+            else
+            {
+                SpawnNormalMonsters();
             }
         }
-
-        private string GetMonsterPrefabPath(MonsterData monsterData)
+        
+        private bool IsBossWave(int wave)
         {
-            // 몬스터 데이터에 따른 프리팹 경로 결정
-            string basePath = "MonsterPrefabs/";
-            
-            // 일반 몬스터인 경우
-            if (monsterData.id == 6)
+            return wave == 3 || wave == 6 || wave == 9 || wave == 10;
+        }
+        
+        private GameObject GetBossPrefabForWave(int wave)
+        {
+            switch (wave)
             {
-                return basePath + "Nomal/BlackTroll";
+                case 3: return waveDataArray[0].bossPrefab;  // 첫 번째 보스
+                case 6: return waveDataArray[1].bossPrefab;  // 두 번째 보스
+                case 9: return waveDataArray[2].bossPrefab;  // 세 번째 보스
+                case 10: return waveDataArray[3].bossPrefab; // 최종 보스
+                default: return null;
+            }
+        }
+        
+        private void SpawnNormalMonsters()
+        {
+            if (currentWave == 7 || currentWave == 8)
+            {
+                for (int i = 0; i < NORMAL_MONSTER_COUNT + 2; i++)
+                {
+                    foreach (Transform spawnPoint in spawnPoints)
+                    {
+                        GameObject normalMonster = Instantiate(GetNormalMonsterPrefab(), spawnPoint.position, Quaternion.identity);
+                        monsterPool.Add(normalMonster);
+                        activeMonsters.Add(normalMonster);
+                    }
+                }
+            }
+            else
+            {
+                // 각 스폰 포인트에 일반 몬스터 6마리씩 한 번만 스폰
+                for (int i = 0; i < NORMAL_MONSTER_COUNT; i++)
+                {
+                    foreach (Transform spawnPoint in spawnPoints)
+                    {
+                        GameObject normalMonster = Instantiate(GetNormalMonsterPrefab(), spawnPoint.position, Quaternion.identity);
+                        monsterPool.Add(normalMonster);
+                        activeMonsters.Add(normalMonster);
+                    }
+                }  
             }
             
-            // 기타 몬스터들
-            Dictionary<int, string> monsterNames = new Dictionary<int, string>
-            {
-                { 1, "BlueDragon" },
-                { 2, "BrownWerewolf" },
-                { 3, "GreenDragon" },
-                { 4, "PurpleOgre" },
-                { 5, "RedWerewolf" }
-            };
-
-            if (monsterNames.TryGetValue(monsterData.id, out string monsterName))
-            {
-                return basePath + monsterName;
-            }
-
-            throw new System.Exception($"알 수 없는 몬스터 ID: {monsterData.id}");
+            // 일반 웨이브에서는 자동으로 다음 웨이브로 넘어가지 않음
+            // 몬스터가 모두 죽으면 Update에서 체크하여 다음 웨이브로 넘어감
         }
 
-        public void OnMonsterDestroyed(MonsterBase monster)
+        private GameObject GetNormalMonsterPrefab()
         {
-            if (_spawnedMonsters.Contains(monster))
-            {
-                _spawnedMonsters.Remove(monster);
-            }
+            // 현재 웨이브에 해당하는 일반 몬스터 프리팹 반환
+            int waveSetIndex = (currentWave - 1) / 3; // 웨이브 세트 인덱스 (0-2)
+            
+            // 각 세트의 두 번째 웨이브인 경우 monsterPrefabB 반환
+            bool isSecondWave = (currentWave % 3) == 2;
+            
+            return isSecondWave ? 
+                waveDataArray[waveSetIndex].monsterPrefabB : 
+                waveDataArray[waveSetIndex].monsterPrefabA;
+        }
+        
+        private IEnumerator StartNextWaveWithDelay()
+        {
+            yield return new WaitForSeconds(nextWaveDelay);
+            isWaitingForNextWave = false;
+            StartNextWave();
         }
     }
 }

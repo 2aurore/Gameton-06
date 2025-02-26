@@ -18,7 +18,7 @@ namespace TON
         public HeartData(int characterId)
         {
             this.characterId = characterId;
-            currentHearts = 3;
+            currentHearts = 5;
             lastHeartTime = null;
         }
 

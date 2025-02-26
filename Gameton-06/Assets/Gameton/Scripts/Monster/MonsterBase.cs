@@ -124,8 +124,9 @@ namespace TON
 
             float baseAttack = _monsterData.attackPower; // 기본 공격력
             float equipmentAttack = 0; // 장비 공격력
-            float defense = _monsterData.defencePower; // 방어력 비율
-
+            // float defense = _monsterData.defencePower; // 방어력 비율
+            float defense = PlayerDataManager.Singleton.defensiveIntention; // 캐릭터 방어력
+            
             // 기본 데미지 계산 (치명타 없음)
             float damage = damageCalculator.CalculateBaseDamage(baseAttack, equipmentAttack, defense);
 

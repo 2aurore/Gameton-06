@@ -44,7 +44,7 @@ namespace TON
             _state = state;
             _state.Enter(_monsterBase);
 
-            _textState.text = _state.ToString();
+            // _textState.text = _state.ToString();
         }
     }
 

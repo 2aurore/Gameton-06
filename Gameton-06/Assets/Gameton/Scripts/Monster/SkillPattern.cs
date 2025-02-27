@@ -24,42 +24,43 @@ namespace TON
     public class Monster1SkillPattern : SkillPattern 
     {
         private float _skill1CoolTime;
-        private float _skill2CoolTime;
+        // private float _skill2CoolTime;
         
         private MonsterSkillData _monsterSkillData;
-        private MonsterSkillData _monsterSkillDataTwo;
+        // private MonsterSkillData _monsterSkillDataTwo;
 
         private MonsterSkill _skill1;
-        private MonsterSkill _skill2;
+        // private MonsterSkill _skill2;
         
         private Vector3 _skillOffset = new Vector3(0, -0.5f, 0); // 스킬 생성 위치 조정값
         
         public Monster1SkillPattern(MonsterData monsterData, MonsterBase monsterBase) : base(monsterData, monsterBase)
         {
             _monsterSkillData = MonsterSkillDataManager.Singleton.GetMonsterSkillData(_monsterData.monsterSkillID);
-            if (_monsterData.monsterSkillIDTwo > -1)
-            {
-                _monsterSkillDataTwo = MonsterSkillDataManager.Singleton.GetMonsterSkillData(_monsterData.monsterSkillIDTwo);
-            }
+            // if (_monsterData.monsterSkillIDTwo > -1)
+            // {
+            //     _monsterSkillDataTwo = MonsterSkillDataManager.Singleton.GetMonsterSkillData(_monsterData.monsterSkillIDTwo);
+            // }
 
-            if (_monsterSkillData != null && _monsterSkillDataTwo != null)
+            // if (_monsterSkillData != null && _monsterSkillDataTwo != null)
+            if (_monsterSkillData != null)
             {
             
                 Debug.Log($"몬스터 {_monsterSkillData.skillName} 데이터 로드 완료");
-                Debug.Log($"몬스터 {_monsterSkillDataTwo.skillName} 데이터 로드 완료");
+                // Debug.Log($"몬스터 {_monsterSkillDataTwo.skillName} 데이터 로드 완료");
                 
                 // 프리팹을 연결한 코드
                 _skill1 = Resources.Load<MonsterSkill>($"MonsterSkillPrefabs/{_monsterSkillData.skillName}");
-                _skill2 = Resources.Load<MonsterSkill>($"MonsterSkillPrefabs/{_monsterSkillDataTwo.skillName}");
+                // _skill2 = Resources.Load<MonsterSkill>($"MonsterSkillPrefabs/{_monsterSkillDataTwo.skillName}");
             }
             else
             {
                 Debug.LogError($"몬스터 스킬 ID {_monsterSkillData.skillId}에 대한 데이터를 찾을 수 없습니다.");
-                Debug.LogError($"몬스터 스킬 ID {_monsterSkillDataTwo.skillId}에 대한 데이터를 찾을 수 없습니다.");
+                // Debug.LogError($"몬스터 스킬 ID {_monsterSkillDataTwo.skillId}에 대한 데이터를 찾을 수 없습니다.");
             }
 
             _skill1CoolTime = Time.realtimeSinceStartup;
-            _skill2CoolTime = Time.realtimeSinceStartup;
+            // _skill2CoolTime = Time.realtimeSinceStartup;
             
         }
 
@@ -84,11 +85,11 @@ namespace TON
                 IsAttackable = true;
             }
             
-            if (Time.realtimeSinceStartup - _skill2CoolTime >= _monsterSkillDataTwo.cooldown)
-            {
-                // TODO : 범위 체크
-                IsAttackable = true;
-            }
+            // if (Time.realtimeSinceStartup - _skill2CoolTime >= _monsterSkillDataTwo.cooldown)
+            // {
+            //     // TODO : 범위 체크
+            //     IsAttackable = true;
+            // }
         }
     }
     

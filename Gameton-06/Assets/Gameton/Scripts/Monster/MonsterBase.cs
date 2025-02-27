@@ -38,6 +38,8 @@ namespace TON
         public int Gold = 0;
         public int Exp = 0;
         public int Score = 0;
+        
+        private CharacterBase _characterBase;
 
         private void Start()
         {
@@ -56,6 +58,21 @@ namespace TON
             _spriteRenderer.flipX = !(_direction.x > 0); // 이동 방향에 따라 스프라이트 플립
 
             _collider = GetComponent<Collider2D>(); // 콜라이더 컴포넌트 초기화
+            
+            // CharacterBase 참조 설정
+            _characterBase = GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>();
+            
+            // HP 바 초기화
+            // HP 바 초기화
+            if (_hpBarImage != null)
+            {
+                RectTransform rectTransform = _hpBarImage.GetComponent<RectTransform>();
+                hpMaxWidth = rectTransform.sizeDelta.x;  // 초기 최대 너비 저장
+                _maxHP = _monsterData.hp;
+                currentHP = _maxHP;
+        
+                Debug.Log($"Initial HP Bar Width: {hpMaxWidth}, Max HP: {_maxHP}");
+            }
         }
 
         private void InitializeMonsterData()
@@ -64,7 +81,8 @@ namespace TON
 
             if (_monsterData != null)
             {
-                currentHP = _monsterData.hp;
+                _maxHP = _monsterData.hp;
+                currentHP = _maxHP;
                 defencePower = _monsterData.defencePower;
                 Gold = _monsterData.Gold;
                 Exp = _monsterData.Exp;
@@ -93,7 +111,11 @@ namespace TON
         private void Update()
         {
             _stateMachine.Update();
-            _skillPattern.Update();
+            
+            if (_monsterData.monsterSkillID != 0)
+            {
+                _skillPattern.Update();
+            }
         }
 
         public void FinishAttack()
@@ -123,10 +145,29 @@ namespace TON
         {
             if (_hpBarImage != null)
             {
-                float minHPBarWidth = 5f; // 최소 HP 바 길이 (원하는 값으로 설정)
-                float hpBarWidth = Mathf.Max(currentHP / _maxHP * hpMaxWidth, minHPBarWidth); // 최소 길이 적용
-
-                _hpBarImage.GetComponent<RectTransform>().sizeDelta = new Vector2(hpBarWidth, _hpBarImage.GetComponent<RectTransform>().sizeDelta.y);
+                // 현재 HP가 0 이하로 내려가지 않도록 보정
+                currentHP = Mathf.Max(0, currentHP);
+        
+                // HP 비율 계산 (0~1 사이 값)
+                float hpRatio = currentHP / _maxHP;
+        
+                // RectTransform 컴포넌트 가져오기
+                RectTransform rectTransform = _hpBarImage.GetComponent<RectTransform>();
+        
+                // 현재 크기 가져오기
+                Vector2 sizeDelta = rectTransform.sizeDelta;
+        
+                // x 크기를 HP 비율에 따라 조정
+                sizeDelta.x = hpMaxWidth * hpRatio;
+        
+                // 변경된 크기 적용
+                rectTransform.sizeDelta = sizeDelta;
+        
+                Debug.Log($"Current HP: {currentHP}, Max HP: {_maxHP}, Ratio: {hpRatio}, Bar Width: {sizeDelta.x}");
+            }
+            else
+            {
+                Debug.LogWarning("HP Bar Image is not assigned!");
             }
         }
 
@@ -142,6 +183,8 @@ namespace TON
             // 기본 데미지 계산 (치명타 없음)
             float damage = damageCalculator.CalculateBaseDamage(baseAttack, equipmentAttack, defense);
 
+            _characterBase.ApplyDamage(damage);
+            
             Debug.Log($" 몬스터 공격! 최종 데미지: {damage}"); // 데미지 출력
         }
 

@@ -52,7 +52,8 @@ namespace TON
             }
 
             SkillDataManager.Singleton.Initalize();
-            StageManager.Singleton.StartStage(stageId);
+            // StageManager.Singleton.StartStage(stageId);
+            StageManager.Singleton.StartStage();
             UIManager.Show<IngameUI>(UIList.IngameUI);
             UIManager.Show<OptionUI>(UIList.OptionUI);
             UIManager.Show<ControllerUI>(UIList.ControllerUI);

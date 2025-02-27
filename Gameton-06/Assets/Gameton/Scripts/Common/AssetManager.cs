@@ -34,9 +34,9 @@ namespace TON
             return LoadAsset<Sprite>($"Player/Character Face/{playerColor}_{status}", out result);
         }
 
-        public bool LoadStageIcon(string stageId, out Sprite result)
+        public bool LoadMonsterWaveIcon(int wave, out Sprite result)
         {
-            return LoadAsset<Sprite>($"UI/Stage/stage_{stageId}", out result);
+            return LoadAsset<Sprite>($"UI/Monster Portrait/wave{wave}_monster", out result);
         }
     }
 }

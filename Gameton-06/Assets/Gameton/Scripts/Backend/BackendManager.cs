@@ -64,6 +64,7 @@ namespace TON
                 Debug.Log("로그인 성공!");
 
                 PlayerDataManager.Singleton.Initalize();
+                StageManager.Singleton.Initialize();
             }
             else
             {

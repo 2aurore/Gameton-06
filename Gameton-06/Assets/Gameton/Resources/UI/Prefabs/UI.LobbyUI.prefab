@@ -2375,6 +2375,7 @@ MonoBehaviour:
   characterAttck: {fileID: 7024621486223063594}
   characterDefence: {fileID: 759935029723638107}
   characterCritical: {fileID: 6053148670662040763}
+  monsterIcon: {fileID: 7850172756058034615}
   wave: {fileID: 4021099301320444836}
   playTime: {fileID: 708268260796241340}
   score: {fileID: 8600056355742485418}

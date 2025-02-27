@@ -18,6 +18,7 @@ namespace TON
         [SerializeField] private TextMeshProUGUI characterCritical;
 
         // 스테이지 클리어 기록 텍스트
+        [SerializeField] private Image monsterIcon;
         [SerializeField] private TextMeshProUGUI wave;
         [SerializeField] private TextMeshProUGUI playTime;
         [SerializeField] private TextMeshProUGUI score;
@@ -27,6 +28,33 @@ namespace TON
         private void Start()
         {
             SetCharacterData();
+            SetUserRankData();
+        }
+
+        private void SetUserRankData()
+        {
+            ClearData TOP_RECORD = StageManager.Singleton.TOP_RECORD;
+
+            if (TOP_RECORD.wave > 0)
+            {
+                if (AssetManager.Singleton.LoadMonsterWaveIcon(TOP_RECORD.wave, out Sprite result))
+                {
+                    monsterIcon.sprite = result;
+                }
+                wave.text = $"{TOP_RECORD.wave}";
+            }
+
+            if (TOP_RECORD.score > 0)
+            {
+                score.text = $"{TOP_RECORD.score}";
+            }
+
+            if (TOP_RECORD.playTime > 0)
+            {
+                int minutes = Mathf.FloorToInt(TOP_RECORD.playTime / 60f);
+                int seconds = Mathf.FloorToInt(TOP_RECORD.playTime % 60f);
+                playTime.text = $"{minutes:00}m {seconds:00}s";
+            }
         }
 
         private void SetCharacterData()

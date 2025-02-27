@@ -20,8 +20,6 @@ namespace TON
             }
 
             PlayerDataManager.Singleton.SetCurrentUserData();
-
-            StageManager.Singleton.Initialize();
             SkillDataManager.Singleton.Initalize();
 
 

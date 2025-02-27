@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,6 +52,7 @@ namespace TON
                 yield break;
             }
 
+
             SkillDataManager.Singleton.Initalize();
             // StageManager.Singleton.StartStage(stageId);
             StageManager.Singleton.StartStage();
@@ -67,7 +69,7 @@ namespace TON
             UIManager.Hide<OptionUI>(UIList.OptionUI);
             UIManager.Hide<ControllerUI>(UIList.ControllerUI);
 
-            UIManager.Hide<GameoverUI>(UIList.GameOverUI);
+            // UIManager.Hide<GameoverUI>(UIList.GameOverUI);
             UIManager.Hide<GameWinUI>(UIList.GameWinUI);
             UIManager.Hide<PauseUI>(UIList.PauseUI);
 

@@ -17,8 +17,8 @@ namespace TON
 
         private float stageStartTime; // 스테이지 시작 시간
 
-        public ClearData TOP_RECORD { get; private set; }    // lobby 화면에 기록 세팅할때 사용할 변수
-        public List<ClearData> RankList { get; private set; }    // 전체 랭킹 적용할 리스트
+        public ClearData TOP_RECORD { get; private set; } = new ClearData();   // lobby 화면에 기록 세팅할때 사용할 변수
+        public List<ClearData> RankList { get; private set; } = new List<ClearData>();   // 전체 랭킹 적용할 리스트
 
         private BackendClearDataManager clearDataManager;
         private BackendRankDataManager rankDataManager;

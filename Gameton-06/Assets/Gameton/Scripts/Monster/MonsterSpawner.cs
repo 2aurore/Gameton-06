@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.PixelFantasy.PixelMonsters.Common.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ namespace TON
 {
     public class MonsterSpawner : MonoBehaviour
     {
+        private MonsterBase _monsterBase;
         public Transform[] spawnPoints; // 스폰 위치 배열
         
         private List<GameObject> monsterPool; // 몬스터 오브젝트 풀
@@ -76,6 +78,9 @@ namespace TON
         private void StartNextWave()
         {
             currentWave++;
+            
+            StageManager.Singleton.SetWaveData(currentWave);    // 웨이브 정보 전달.
+            
             if (currentWave > TOTAL_WAVES)
             {
                 // Debug.Log("모든 웨이브 완료!");

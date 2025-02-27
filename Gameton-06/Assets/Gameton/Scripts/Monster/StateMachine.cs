@@ -153,7 +153,6 @@ namespace TON
             
             _monsterBase = monsterBase;
             _monsterBase.ChangeAnimationState(AniWalk);
-            
         }
 
         public void Update()
@@ -182,7 +181,6 @@ namespace TON
             
             // 추적 상태
             return this;
-
         }
     }
     
@@ -226,7 +224,7 @@ namespace TON
         private void Attack()
         {
             _monsterBase.ChangeAnimationState(AniAttack);
-            _monsterBase.PlayerAttack();
+            _monsterBase.Attack();
         }
 
         public void Exit()

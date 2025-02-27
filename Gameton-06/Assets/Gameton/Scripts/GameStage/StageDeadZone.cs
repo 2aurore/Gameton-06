@@ -17,7 +17,7 @@ namespace TON
                 CharacterBase character = collision.gameObject.GetComponentInChildren<CharacterBase>();
                 character.Dead();
 
-                character.OnDeathCompleted += ShowGameOverUI; // 이벤트 구독
+                // character.OnDeathCompleted += ShowGameOverUI; // 이벤트 구독
 
             }
         }

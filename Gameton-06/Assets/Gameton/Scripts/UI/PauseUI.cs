@@ -15,9 +15,18 @@ namespace TON
 
         void OnEnable()
         {
+            InitModalActive();
             // 일시정지 시 게임 일시정지
             Time.timeScale = 0f;
         }
+
+        public void InitModalActive()
+        {
+            rechargeModal.SetActive(false);
+            retryModal.SetActive(false);
+            homeModal.SetActive(false);
+        }
+
 
         // 컨티뉴 버튼 선택 시
         public void OnPressContinueButton()

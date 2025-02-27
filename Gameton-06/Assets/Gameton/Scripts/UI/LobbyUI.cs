@@ -9,33 +9,24 @@ namespace TON
 {
     public class LobbyUI : UIBase
     {
-        [SerializeField]
-        private TextMeshProUGUI characterName;
-        [SerializeField]
-        private TextMeshProUGUI characterLevel;
-        [SerializeField]
-        private TextMeshProUGUI characterHp;
-        [SerializeField]
-        private TextMeshProUGUI characterMp;
-        [SerializeField]
-        private TextMeshProUGUI characterAttck;
-        [SerializeField]
-        private TextMeshProUGUI characterDefence;
-        [SerializeField]
-        private TextMeshProUGUI characterCritical;
+        [SerializeField] private TextMeshProUGUI characterName;
+        [SerializeField] private TextMeshProUGUI characterLevel;
+        [SerializeField] private TextMeshProUGUI characterHp;
+        [SerializeField] private TextMeshProUGUI characterMp;
+        [SerializeField] private TextMeshProUGUI characterAttck;
+        [SerializeField] private TextMeshProUGUI characterDefence;
+        [SerializeField] private TextMeshProUGUI characterCritical;
 
-        public List<string> stageList = new List<string> { "STG001", "STG002", "STG003", "STG004" };
-
-        public List<LobbyUI_StagePage> stagePages = new List<LobbyUI_StagePage>();
-        public GameObject stagePagePrefab;
-        public Transform stagePageGroup;
+        // 스테이지 클리어 기록 텍스트
+        [SerializeField] private TextMeshProUGUI wave;
+        [SerializeField] private TextMeshProUGUI playTime;
+        [SerializeField] private TextMeshProUGUI score;
 
         public GameObject emptyHeartAlert;
 
         private void Start()
         {
             SetCharacterData();
-            // SetStageData();
         }
 
         private void SetCharacterData()
@@ -52,38 +43,6 @@ namespace TON
             characterAttck.text = $"{player.attackPower}";
             characterDefence.text = $"{player.defensivePower}";
             characterCritical.text = $"{player.critical}";
-        }
-
-        /// <summary>
-        /// 스테이지를 1개로 변경하여 해당 메소드 사용하지 않음
-        /// </summary>
-        private void SetStageData()
-        {
-            if (stagePages.Count > 0)
-            {
-                foreach (var stagePage in stagePages)
-                {
-                    Destroy(stagePage.gameObject);
-                }
-                stagePages.Clear();
-            }
-
-
-            for (int i = 0; i < stageList.Count; i++)
-            {
-                string stageId = stageList[i];
-                GameObject stagePageObject = Instantiate(stagePagePrefab, stagePageGroup);
-                LobbyUI_StagePage stagePage = stagePageObject.GetComponent<LobbyUI_StagePage>();
-                stagePageObject.SetActive(true);
-                // stagePage.Initalize(stageId, i);
-                stagePages.Add(stagePage);
-            }
-        }
-
-        public void OnClickChangeStageButton()
-        {
-            // 스테이지 입장 popupUI 비활성화
-            stagePages.ForEach(page => page.GetComponent<LobbyUI_StagePage>().OnClickStageChangeButton());
         }
 
         public void OnClickStageButton()
@@ -112,7 +71,6 @@ namespace TON
             // 입장 시 하트 소모
             HeartDataManager.Singleton.UseHeart();
 
-            OnClickChangeStageButton();
             Main.Singleton.ChangeScene(SceneType.Stage);
         }
 

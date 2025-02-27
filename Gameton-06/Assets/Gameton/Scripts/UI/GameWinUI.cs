@@ -17,13 +17,13 @@ namespace TON
         public GameObject retryModal;
         public GameObject homeModal;
 
-        public TextMeshProUGUI title;
-        public TextMeshProUGUI goldReward;
-        public TextMeshProUGUI expReward;
-        public TextMeshProUGUI wave;
-        public TextMeshProUGUI playTime;
-        public TextMeshProUGUI score;
-        public GameObject levelUpText;
+        [SerializeField] private TextMeshProUGUI title;
+        [SerializeField] private TextMeshProUGUI goldReward;
+        [SerializeField] private TextMeshProUGUI expReward;
+        [SerializeField] private TextMeshProUGUI wave;
+        [SerializeField] private TextMeshProUGUI playTime;
+        [SerializeField] private TextMeshProUGUI score;
+        [SerializeField] private GameObject levelUpText;
 
         private void OnEnable()
         {

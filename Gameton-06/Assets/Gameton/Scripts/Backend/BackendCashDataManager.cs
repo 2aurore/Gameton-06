@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using BackEnd;
-using LitJson;
 
 namespace TON
 {
     /// <summary>
-    /// 뒤끝 서버 데이터 관리 담당 클래스
+    /// 뒤끝 서버 재화 데이터 관리 담당 클래스
     /// </summary>
     public class BackendCashDataManager
     {

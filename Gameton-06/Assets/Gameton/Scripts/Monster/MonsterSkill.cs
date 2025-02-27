@@ -5,12 +5,13 @@ namespace TON
     public class MonsterSkill : MonoBehaviour
     {
         public float speed = 5f;
-        public float damage = 1;
-
+        public float damage = 0f;
+        
         Vector2 direction;
         Transform playerTransform; // 플레이어의 Transform을 저장할 변수
         [SerializeField] private SpriteRenderer _spriteRenderer; // 스킬의 스프라이트 렌더러
-        
+        private MonsterBase _monsterBase;
+        private CharacterBase _characterBase;
         public Vector2 Direction
         {
             set { direction = value.normalized; }
@@ -20,11 +21,11 @@ namespace TON
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            
-            if (player != null)
+            _characterBase = GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>();
+                
+            if (_characterBase != null)
             {
-                playerTransform = player.transform;
+                playerTransform = _characterBase.transform;
             }
             else
             {
@@ -42,10 +43,22 @@ namespace TON
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player") || collision.CompareTag("Ground"))
+            if (collision.CompareTag("Player"))
             {
+                // 플레이어에게 직접 데미지 적용
+                _characterBase?.ApplyDamage(damage);
                 Destroy(gameObject);
             }
+            else if (collision.CompareTag("Ground"))
+            {
+                // 지형에 부딪히면 스킬 오브젝트만 파괴
+                Destroy(gameObject);
+            }
+        }
+
+        public void SetSkillDamage(float skillDamage)
+        {
+            damage += skillDamage;
         }
         
         void SetDirection()

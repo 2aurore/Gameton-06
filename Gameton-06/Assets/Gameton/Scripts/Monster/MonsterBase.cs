@@ -33,7 +33,7 @@ namespace TON
         public bool IsDetect { get; set; } // 몬스터가 대상을 인식했는지 여부
         public bool IsAttacking { get; set; } // 몬스터가 공격했는지 여부
         public bool IsFinishAttack { get; set; } // 몬스터 공격 모션이 끝났는지 여부
-        public bool IsSkillAttackable => _skillPattern.IsAttackable;
+        public bool IsSkillAttackable;
 
         public int Gold = 0;
         public int Exp = 0;
@@ -51,7 +51,11 @@ namespace TON
 
             InitializeMonsterData();    // 몬스터 데이터 로드 및 적용
 
-            _skillPattern = new Monster1SkillPattern(_monsterData, this);
+            if (_monsterData.monsterSkillID != 0)
+            {
+                _skillPattern = new MonsterSkillPattern(_monsterData, this);
+                IsSkillAttackable = _skillPattern.IsAttackable;
+            }
 
             _direction = new Vector3(1, 0, 0); // 초기 이동 방향 (x 축 양의 방향)
 
@@ -63,15 +67,12 @@ namespace TON
             _characterBase = GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>();
             
             // HP 바 초기화
-            // HP 바 초기화
             if (_hpBarImage != null)
             {
                 RectTransform rectTransform = _hpBarImage.GetComponent<RectTransform>();
                 hpMaxWidth = rectTransform.sizeDelta.x;  // 초기 최대 너비 저장
                 _maxHP = _monsterData.hp;
                 currentHP = _maxHP;
-        
-                Debug.Log($"Initial HP Bar Width: {hpMaxWidth}, Max HP: {_maxHP}");
             }
         }
 
@@ -162,12 +163,6 @@ namespace TON
         
                 // 변경된 크기 적용
                 rectTransform.sizeDelta = sizeDelta;
-        
-                Debug.Log($"Current HP: {currentHP}, Max HP: {_maxHP}, Ratio: {hpRatio}, Bar Width: {sizeDelta.x}");
-            }
-            else
-            {
-                Debug.LogWarning("HP Bar Image is not assigned!");
             }
         }
 
@@ -185,7 +180,7 @@ namespace TON
 
             _characterBase.ApplyDamage(damage);
             
-            Debug.Log($" 몬스터 공격! 최종 데미지: {damage}"); // 데미지 출력
+            // Debug.Log($" 몬스터 공격! 최종 데미지: {damage}"); // 데미지 출력
         }
 
         public void SetOppositionDirection()
@@ -201,8 +196,8 @@ namespace TON
 
         public void Chasing()
         {
-            var target = GameObject.FindGameObjectWithTag("Player");
-            UnityEngine.Vector2 direction = target.transform.position - transform.position; // 타겟과의 방향 계산
+            var target = GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>();
+            Vector2 direction = target.transform.position - transform.position; // 타겟과의 방향 계산
             _spriteRenderer.flipX = target.transform.position.x < transform.position.x; // 타겟이 왼쪽에 있으면 스프라이트를 왼쪽으로, 오른쪽에 있으면 오른쪽으로 바라보도록 설정
 
             transform.Translate(direction.normalized * moveSpeed * Time.deltaTime); // 타겟 방향으로 이동
@@ -221,6 +216,11 @@ namespace TON
         {
             RewardData();
             Destroy(gameObject); // 몬스터 파괴
+        }
+
+        public SkillPattern GetSkillPattern()
+        {
+            return _skillPattern;
         }
     }
 }

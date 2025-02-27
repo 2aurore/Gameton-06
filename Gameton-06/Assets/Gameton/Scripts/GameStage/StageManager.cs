@@ -99,12 +99,15 @@ namespace TON
         /// <summary>
         /// 게임 웨이브 진행 시 획득한 골드와 경험치 정보를 저장하게 함
         /// </summary>
-        public void SetWaveData(int wave, int gold, int exp, int score)
+        public void SetRewardData(int gold, int exp, int score)
         {
-            waveCount = wave;
             goldReward += gold;
             expReward += exp;
             gameScore += score;
+        }
+        public void SetWaveData(int wave)
+        {
+            waveCount = wave;
         }
 
         public void StageClear()

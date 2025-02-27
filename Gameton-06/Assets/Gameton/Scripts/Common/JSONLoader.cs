@@ -84,7 +84,6 @@ namespace TON
             }
 
             File.WriteAllText(path, json);
-            Debug.Log($"파일 저장 성공 ::: {fileName}.json");
         }
 
         /// <summary> Application.persistentDataPath 내의 파일 경로 생성성 </summary>
@@ -179,8 +178,6 @@ namespace TON
                 {
                     json = JsonUtility.ToJson(updatedData, true);
                 }
-
-                Debug.Log($"SaveUpdatedJsonToPersistentData : {json}");
 
                 // 파일 저장
                 File.WriteAllText(path, json);

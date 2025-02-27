@@ -73,8 +73,6 @@ namespace TON
                 float calcMonsterDefence = monsterBase.defencePower / (monsterBase.defencePower + monsterBase.defenceIntention);
                 float damage = damageCalculator.CalculateBaseDamage(playerData.attackPower * this.damage, 0, calcMonsterDefence);
 
-                Debug.Log("Projectile" + damage);
-
                 // 치명타 적용
                 damage = damageCalculator.ApplyCriticalDamage(damage, collision.transform.position);
                 collision.GetComponent<IDamage>().ApplyDamage(damage);

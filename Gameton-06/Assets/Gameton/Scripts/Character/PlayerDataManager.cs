@@ -9,21 +9,23 @@ namespace TON
     {
         // 사용자가 생성해둔 플레이어 데이터를 싱글톤으로 전역 사용하기 위함
         public List<PlayerData> playersData { get; private set; }
-
         public PlayerData player { get; private set; }
-
-        [SerializeField]
-        private int expVariable = 50; // 경험치 변수 (조정 가능)
-        [SerializeField]
-        private int attackGrowthFactor = 50; // 공격력 성장 변수 (조정 가능)
+        public int goldAmount { get; private set; }
+        public int fishAmount { get; private set; }
 
         public int defensiveIntention { get; private set; } = 200; // 방어력 변수 (조정 가능)
 
+        [SerializeField] private int expVariable = 50; // 경험치 변수 (조정 가능)
+        [SerializeField] private int attackGrowthFactor = 50; // 공격력 성장 변수 (조정 가능)
+
+        private BackendCashDataManager cashDataManager;
 
         public void Initalize()
         {
+            cashDataManager = new BackendCashDataManager();
+
             LoadPlayerData();
-            // PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
+            LoadPlayerCashData();
         }
 
         private void LoadPlayerData()
@@ -41,6 +43,35 @@ namespace TON
             }
         }
 
+        private void LoadPlayerCashData()
+        {
+            cashDataManager.LoadMyCashData(cashData =>
+            {
+                // 데이터 로드 완료 후 실행될 코드
+                goldAmount = cashData.gold;
+                fishAmount = cashData.fish;
+                Debug.Log($"로드된 골드: {cashData.gold}, 물고기: {cashData.fish}");
+            });
+        }
+
+        public void AddGold(int amount)
+        {
+            goldAmount += amount;
+            cashDataManager.UpdateGoldData(goldAmount, updatedData =>
+            {
+                // TODO: UI 업데이트 로직 적용
+                // UpdateUI();
+            });
+        }
+        public void AddFish(int amount)
+        {
+            fishAmount += amount;
+            cashDataManager.UpdateFishData(fishAmount, updatedData =>
+            {
+                // TODO: UI 업데이트 로직 적용
+                // UpdateUI();
+            });
+        }
         // 공격력과 방어력 업데이트
         private void UpdateStats(int currentLevel)
         {

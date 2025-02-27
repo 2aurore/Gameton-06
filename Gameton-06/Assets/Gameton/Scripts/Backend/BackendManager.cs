@@ -62,7 +62,8 @@ namespace TON
             if (isSuccess)
             {
                 Debug.Log("로그인 성공!");
-                // 게임 시작 로직은 Main.cs에서 처리
+
+                PlayerDataManager.Singleton.Initalize();
             }
             else
             {

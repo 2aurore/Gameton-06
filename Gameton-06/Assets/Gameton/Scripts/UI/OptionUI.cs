@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace TON
 {
@@ -18,7 +18,18 @@ namespace TON
         // 상점 : 골드/생선
         private void OnEnable()
         {
-            // Scene activeScene = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();
+            SetCashAmount();
+            SetObjectActive();
+        }
+
+        private void SetCashAmount()
+        {
+            goldObject.GetComponentInChildren<TextMeshProUGUI>().text = $"{PlayerDataManager.Singleton.goldAmount}";
+            fishObject.GetComponentInChildren<TextMeshProUGUI>().text = $"{PlayerDataManager.Singleton.fishAmount}";
+        }
+
+        private void SetObjectActive()
+        {
             SceneType activeScene = Main.Singleton.currentSceneType;
 
             if (activeScene == SceneType.Lobby)
@@ -42,7 +53,6 @@ namespace TON
                 settingObject.SetActive(false);
                 parseObject.SetActive(false);
             }
-
         }
 
         public void OnClickSettingButton()

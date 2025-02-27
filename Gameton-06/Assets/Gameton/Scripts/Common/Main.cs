@@ -28,9 +28,6 @@ namespace TON
             BackendManager.Singleton.Initalize();
             UIManager.Singleton.Initalize();
 
-            // TODO : GameDataModel.Singleton.Initalize();
-            PlayerDataManager.Singleton.Initalize();
-
             isIniaialized = true;
         }
 

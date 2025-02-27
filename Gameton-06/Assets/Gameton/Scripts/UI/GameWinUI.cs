@@ -54,7 +54,7 @@ namespace TON
             wave.text = $"{StageManager.Singleton.waveCount} wave";
             goldReward.text = $"{StageManager.Singleton.goldReward} G";
             expReward.text = $"EXP {StageManager.Singleton.expReward}";
-            playTime.text = $"{StageManager.Singleton.PlayTime / 60}m {StageManager.Singleton.PlayTime % 60:D2}s";
+            playTime.text = $"{StageManager.Singleton.PlayTime / 60}m {StageManager.Singleton.PlayTime % 60:F2}s";
         }
 
         // 경험치 추가 및 레벨업 처리

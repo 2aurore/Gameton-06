@@ -18,23 +18,57 @@ namespace TON
         public GameObject homeModal;
 
         public TextMeshProUGUI title;
+        public TextMeshProUGUI goldReward;
+        public TextMeshProUGUI expReward;
+        public TextMeshProUGUI wave;
+        public TextMeshProUGUI playTime;
+        public TextMeshProUGUI score;
+        public GameObject levelUpText;
 
         private void OnEnable()
         {
-            rechargeModal.SetActive(false);
+            InitModalActive();
 
-            SetUITitle();
+            SetUITextMesh();
             // 해당 UI 노출과 함께 게임 클리어 정보 저장
             StageManager.Singleton.StageClear();
 
+            // 현재 획득한 경험치로 인한 레벨업 처리
+            SetLevelUpText(StageManager.Singleton.expReward);
             // TODO: 획득한 아이템 정보 저장 로직 구현
 
 
         }
 
-        public void SetUITitle()
+        public void InitModalActive()
+        {
+            levelUpText.SetActive(false);
+            rechargeModal.SetActive(false);
+            retryModal.SetActive(false);
+            homeModal.SetActive(false);
+        }
+
+        public void SetUITextMesh()
         {
             title.text = (StageManager.Singleton.waveCount == 10) ? YOU_WIN : GAME_OVER;
+            wave.text = $"{StageManager.Singleton.waveCount} wave";
+            goldReward.text = $"{StageManager.Singleton.goldReward} G";
+            expReward.text = $"EXP {StageManager.Singleton.expReward}";
+            playTime.text = $"{StageManager.Singleton.PlayTime / 60}m {StageManager.Singleton.PlayTime % 60:D2}s";
+        }
+
+        // 경험치 추가 및 레벨업 처리
+        public void SetLevelUpText(int amount)
+        {
+            bool leveledUp = PlayerDataManager.Singleton.UpdateExpericence(amount);
+
+            if (leveledUp)
+            {
+                levelUpText.SetActive(true);
+            }
+
+            // 경험치와 변경된 데이터를 파일에 업데이트 한다.
+            PlayerDataManager.Singleton.UpdatePlayerData();
         }
 
         public void OnClickHomeModal()

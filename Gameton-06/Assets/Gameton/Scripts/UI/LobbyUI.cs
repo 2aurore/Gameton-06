@@ -45,19 +45,10 @@ namespace TON
             characterCritical.text = $"{player.critical}";
         }
 
-        public void OnClickStageButton()
-        {
-            // 스테이지 입장 UI 활성화
-            GameObject currentSelectedGameObject = EventSystem.current.currentSelectedGameObject;
-            LobbyUI_StagePage lobbyUI_StagePage = currentSelectedGameObject.GetComponentInParent<LobbyUI_StagePage>();
-
-            // 강제로 스테이지 4맵을 사용하도록 적용
-            PlayerPrefs.SetString("StageId", "STG004");
-            lobbyUI_StagePage.OnClickStageButton();
-        }
-
         public void OnClickStagePlayButton()
         {
+            PlayerPrefs.SetString("StageId", "STG004");
+
             // 가지고 있는 하트가 없다면 입장 불가
             if (HeartDataManager.Singleton.GetCurrentHearts() < 1)
             {

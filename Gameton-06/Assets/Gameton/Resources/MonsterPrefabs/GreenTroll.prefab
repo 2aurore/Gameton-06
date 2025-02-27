@@ -562,7 +562,7 @@ MonoBehaviour:
   _collider: {fileID: 0}
   _spriteRenderer: {fileID: 6858484445723671200}
   _textState: {fileID: 0}
-  id: 0
+  id: 7
   defencePower: 10
   defenceIntention: 30
   _hpBarImage: {fileID: 0}

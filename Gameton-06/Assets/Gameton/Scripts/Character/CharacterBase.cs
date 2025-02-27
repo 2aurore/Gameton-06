@@ -24,6 +24,7 @@ namespace TON
 
 
         private bool isGrounded = true; // 플레이어가 바닥에 있는지 여부를 판단
+        private bool isAttack = false; // 플레이어가 기본 공격중인지 판단단
         private float lastDirection = 1f; // 기본적으로 오른쪽(1) 바라보는 상태
         private VariableJoystick joystick;
         private Animator animator;
@@ -35,7 +36,6 @@ namespace TON
         // ingame UI의 캐릭터 stat 적용을 위한 이벤트
         public event System.Action<float, float> OnHPChanged;
         public event System.Action<float, float> OnSPChanged;
-        public event System.Action OnDeathCompleted; // 사망 애니메이션 종료 이벤트
 
         [SerializeField] private float mpRecoveryRate = 1f;  // MP 회복량
         [SerializeField] private float mpRecoveryInterval = 3f;  // 회복 간격(초)
@@ -64,22 +64,6 @@ namespace TON
 
             OnHPChanged?.Invoke(currentHP, maxHP);
             OnSPChanged?.Invoke(currentSP, maxSP);
-        }
-
-
-        // 경험치 추가 및 레벨업 처리
-        public void AddExp(int amount)
-        {
-            bool leveledUp = PlayerDataManager.Singleton.UpdateExpericence(amount);
-
-            if (leveledUp)
-            {
-                // TODO: 레벨업 시 처리할 내용 추가
-                Debug.Log($"레벨업! ");
-            }
-
-            // 경험치와 변경된 데이터를 파일에 업데이트 한다.
-            PlayerDataManager.Singleton.UpdatePlayerData();
         }
 
         // 게임이 실행 중이지 않을 때도 항상 기즈모를 보여줍니다
@@ -181,6 +165,11 @@ namespace TON
 
         public void Attack()
         {
+            // 이미 기본 공격중인 경우 공격 제한
+            if (isAttack)
+                return;
+
+            isAttack = true;
             // 공격 애니메이션 적용
             animator.Play("Default Attack");
 
@@ -193,6 +182,7 @@ namespace TON
 
         private void DisableAttackCollider()
         {
+            isAttack = false;
             attackCollider.EnableCollider(false);
         }
 
@@ -275,10 +265,12 @@ namespace TON
             animator.SetTrigger("Dead Trigger");
         }
 
+        // 플레이어 사망 애니메이션 종료 후 호출
         public void DestroyDead()
         {
+            PlayerDataManager.Singleton.PlayerDeadEvent();
+
             gameObject.SetActive(false);
-            OnDeathCompleted?.Invoke(); // 사망 애니메이션 종료 시점에 이벤트 호출
         }
     }
 }

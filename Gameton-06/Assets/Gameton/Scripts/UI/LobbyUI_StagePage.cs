@@ -36,8 +36,8 @@ namespace TON
                 stageEntryButton.interactable = true;
             }
 
-            bestStageClearDict = StageManager.Singleton.bestStageClearDict;
-            stageClearData = bestStageClearDict.GetValueOrDefault(stageId, null);
+            // bestStageClearDict = StageManager.Singleton.bestStageClearDict;
+            // stageClearData = bestStageClearDict.GetValueOrDefault(stageId, null);
 
             SetStageImage();
             // SetStageEntryInfo(index);

@@ -9,7 +9,6 @@ namespace TON
     {
         public GameObject goldObject;   // 골드
         public GameObject fishObject;   // 생선
-        public GameObject inventoryObject;  // 인벤토리 버튼
         public GameObject settingObject;    // 더보기(옵션) 버튼
         public GameObject parseObject;  // 일시정지
 
@@ -26,7 +25,6 @@ namespace TON
             {
                 goldObject.SetActive(true);
                 fishObject.SetActive(true);
-                inventoryObject.SetActive(true);
                 settingObject.SetActive(true);
                 parseObject.SetActive(false);
             }
@@ -34,7 +32,6 @@ namespace TON
             {
                 goldObject.SetActive(false);
                 fishObject.SetActive(false);
-                inventoryObject.SetActive(false);
                 settingObject.SetActive(false);
                 parseObject.SetActive(true);
             }
@@ -42,7 +39,6 @@ namespace TON
             {
                 goldObject.SetActive(true);
                 fishObject.SetActive(true);
-                inventoryObject.SetActive(false);
                 settingObject.SetActive(false);
                 parseObject.SetActive(false);
             }

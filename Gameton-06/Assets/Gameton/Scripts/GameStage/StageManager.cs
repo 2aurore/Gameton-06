@@ -7,10 +7,6 @@ namespace TON
 {
     public class StageManager : SingletonBase<StageManager>
     {
-        public List<StageClearData> stageClearDatas { get; private set; }
-        [SerializeField]
-        public SerializableDictionary<string, StageClearData> bestStageClearDict = new SerializableDictionary<string, StageClearData>();
-
 
         // 현재 플레이 시간을 초 단위로 반환하는 프로퍼티
         public float PlayTime => Time.time - stageStartTime;
@@ -21,12 +17,28 @@ namespace TON
 
         private float stageStartTime; // 스테이지 시작 시간
 
+        public ClearData TOP_RECORD { get; private set; }    // lobby 화면에 기록 세팅할때 사용할 변수
+        public List<ClearData> RankList { get; private set; }    // 전체 랭킹 적용할 리스트
+
+        private BackendClearDataManager clearDataManager;
+        private BackendRankDataManager rankDataManager;
 
         public void Initialize()
         {
+            clearDataManager = new BackendClearDataManager();
+            rankDataManager = new BackendRankDataManager();
 
+            GetRankData();
         }
 
+        public void GetRankData()
+        {
+            // 서버에서 내 클리어 데이터를 가져오고 가장 기록이 높은 정보를 세팅
+            rankDataManager.LoadMyRankData(rankData =>
+            {
+                TOP_RECORD.UpdateClearData(rankData.nickname, rankData.wave, rankData.playTime, rankData.score);
+            });
+        }
 
         // 스테이지 시작 시 시작 정보 저장
         public void StartStage()
@@ -48,15 +60,23 @@ namespace TON
             waveCount = wave;
         }
 
+        /// <summary>
+        /// 게임 플레이 종료 시 클리어 정보 저장 로직 수행
+        /// </summary>
         public void StageClear()
         {
-            string characterId = PlayerPrefs.GetString("BackendCustomID", string.Empty);
-            float clearTime = Time.time - stageStartTime;
+            float clearTime = PlayTime;
 
-            // TODO: UI 업데이트, 데이터 저장 로직 추가
-            // StageClearData stageClearData = new StageClearData(characterId, stageId, clearTime, starCount);
-            // stageClearDatas.Add(stageClearData);
-            // SaveStageClearData();
+            ClearData clearData = new ClearData();
+            clearData.UpdateClearData(PlayerDataManager.Singleton.player.name, waveCount, clearTime, gameScore);
+            // clearData 저장
+            clearDataManager.InsertInitData(clearData);
+
+            // rankData 조회 후 비교 하여 저장
+            rankDataManager.CheckUpdateRankData(clearData, () =>
+            {
+                TOP_RECORD.UpdateClearData(clearData.nickname, clearData.wave, clearData.playTime, clearData.score);
+            });
         }
 
 

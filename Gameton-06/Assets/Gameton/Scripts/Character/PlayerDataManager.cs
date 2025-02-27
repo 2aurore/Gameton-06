@@ -72,6 +72,19 @@ namespace TON
                 // UpdateUI();
             });
         }
+
+        // 플레이어가 사망했을때 호출
+        public void PlayerDeadEvent()
+        {
+            Invoke(nameof(ShowGameEndUI), 3f);
+
+        }
+        private void ShowGameEndUI()
+        {
+            UIManager.Show<GameWinUI>(UIList.GameWinUI);
+        }
+
+
         // 공격력과 방어력 업데이트
         private void UpdateStats(int currentLevel)
         {

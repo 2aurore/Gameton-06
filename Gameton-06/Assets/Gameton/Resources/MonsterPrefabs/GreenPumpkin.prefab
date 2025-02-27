@@ -221,11 +221,13 @@ MonoBehaviour:
   _target: {fileID: 0}
   _collider: {fileID: 0}
   _spriteRenderer: {fileID: 453936598381272866}
-  _textState: {fileID: 0}
   id: 3
   defencePower: 10
   defenceIntention: 30
-  _hpBarImage: {fileID: 0}
+  _hpBarImage: {fileID: 6410629102132267825}
+  Gold: 0
+  Exp: 0
+  Score: 0
 --- !u!1 &3020795925047894191
 GameObject:
   m_ObjectHideFlags: 0

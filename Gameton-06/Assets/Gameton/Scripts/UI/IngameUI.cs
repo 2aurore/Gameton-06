@@ -23,11 +23,6 @@ namespace TON
         private int lastSeconds = -1;
         private string cachedTimeString = "00:00";
 
-        // public TextMeshProUGUI monsterHp;
-        // public Image monsterHpBar;
-        // public Image monsterImage;
-
-
         private string playerType;
 
         [SerializeField] private CharacterBase character;
@@ -35,7 +30,7 @@ namespace TON
 
         private void OnEnable()
         {
-            character = GameObject.FindWithTag("Player").GetComponent<CharacterBase>();
+            character = GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>();
             playerType = PlayerDataManager.Singleton.player.type;
 
             if (character != null)

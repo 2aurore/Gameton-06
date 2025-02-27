@@ -40,10 +40,6 @@ namespace TON
 
         public void OnClickStageRetryModal()
         {
-            retryModal.SetActive(true);
-        }
-        public void OnClickStageRetryButton()
-        {
             // 가지고 있는 하트가 없다면 입장 불가
             if (HeartDataManager.Singleton.GetCurrentHearts() < 1)
             {
@@ -53,6 +49,10 @@ namespace TON
                 return;
             }
 
+            retryModal.SetActive(true);
+        }
+        public void OnClickStageRetryButton()
+        {
             Time.timeScale = 1f;
             // 입장 시 하트 소모
             HeartDataManager.Singleton.UseHeart();

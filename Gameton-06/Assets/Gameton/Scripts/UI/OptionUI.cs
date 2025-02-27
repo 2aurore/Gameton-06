@@ -12,7 +12,6 @@ namespace TON
         public GameObject settingObject;    // 더보기(옵션) 버튼
         public GameObject parseObject;  // 일시정지
 
-
         // 로비 : 골드/생선/인벤토리/더보기 버튼
         // 스테이지 : 인벤토리/일시정지 버튼
         // 상점 : 골드/생선
@@ -22,7 +21,7 @@ namespace TON
             SetObjectActive();
         }
 
-        private void SetCashAmount()
+        public void SetCashAmount()
         {
             goldObject.GetComponentInChildren<TextMeshProUGUI>().text = $"{PlayerDataManager.Singleton.goldAmount}";
             fishObject.GetComponentInChildren<TextMeshProUGUI>().text = $"{PlayerDataManager.Singleton.fishAmount}";

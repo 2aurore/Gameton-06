@@ -1,18 +1,16 @@
 [
   {
     "skillId": 0,
-    "skillName": "IceBlast",
-    "damage": 50,
-    "cooldown": 5,
-    "range": 5,
-    "prefabName": "IceBlast"
+    "skillName": null,
+    "damage": 0,
+    "cooldown": 0,
+    "range": 0
   },
   {
     "skillId": 1,
-    "skillName": "SmallFire",
-    "damage": 50,
-    "cooldown": 5,
-    "range": 5,
-    "prefabName": "smallFire"
+    "skillName": "DragonBreath",
+    "damage": 1.5,
+    "cooldown": 10,
+    "range": 5
   }
 ]

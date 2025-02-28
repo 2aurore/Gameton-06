@@ -95,7 +95,7 @@ namespace TON
 
         private void EnactiveAlert()
         {
-            emptyHeartAlert.SetActive(true);
+            emptyHeartAlert.SetActive(false);
         }
 
         public void OnClickSkillSettingButton()

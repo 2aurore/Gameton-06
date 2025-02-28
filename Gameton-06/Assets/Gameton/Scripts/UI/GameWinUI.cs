@@ -72,7 +72,7 @@ namespace TON
 
         public void UpdateFishCount()
         {
-            fishAmount.text = string.Format("{0:#,###}", PlayerDataManager.Singleton.fishAmount);
+            fishAmount.text = $"{PlayerDataManager.Singleton.fishAmount:N0}";
         }
 
 

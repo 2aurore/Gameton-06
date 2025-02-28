@@ -197,10 +197,13 @@ namespace TON
         public void Chasing()
         {
             var target = GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>();
-            Vector2 direction = target.transform.position - transform.position; // 타겟과의 방향 계산
-            _spriteRenderer.flipX = target.transform.position.x < transform.position.x; // 타겟이 왼쪽에 있으면 스프라이트를 왼쪽으로, 오른쪽에 있으면 오른쪽으로 바라보도록 설정
+            if (target != null)
+            {
+                Vector2 direction = target.transform.position - transform.position; // 타겟과의 방향 계산
+                _spriteRenderer.flipX = target.transform.position.x < transform.position.x; // 타겟이 왼쪽에 있으면 스프라이트를 왼쪽으로, 오른쪽에 있으면 오른쪽으로 바라보도록 설정
 
-            transform.Translate(direction.normalized * moveSpeed * Time.deltaTime); // 타겟 방향으로 이동
+                transform.Translate(direction.normalized * moveSpeed * Time.deltaTime); // 타겟 방향으로 이동
+            }
         }
 
         public void MonsterSkillLaunch()

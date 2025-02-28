@@ -60,12 +60,6 @@ namespace TON
             // UIManager.Show<SettingUI>(UIList.SettingUI);
         }
 
-        public void OnClickInventoryButton()
-        {
-            Debug.Log("Inventory Button Clicked");
-            // UIManager.Show<InventoryUI>(UIList.InventoryUI);
-        }
-
         public void OnClickPauseButton()
         {
             Debug.Log("Pause Button Clicked");

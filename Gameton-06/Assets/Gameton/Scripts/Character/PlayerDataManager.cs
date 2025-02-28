@@ -65,7 +65,7 @@ namespace TON
         }
         public void UseGold(int amount)
         {
-            if (goldAmount - amount < amount)
+            if (goldAmount - amount < 0)
             {
                 // 골드 재화 사용 불가 팝업
                 UIManager.Show<GoldPopup>(UIList.GoldPopup);
@@ -89,20 +89,18 @@ namespace TON
                 // UpdateUI();
             });
         }
-        public void UseFish(int amount)
+        public void UseFish(int amount, System.Action<bool> callback)
         {
-            if (fishAmount - amount < amount)
+            if (fishAmount - amount < 0)
             {
-                // 생선 재화 사용 불가 팝업
-                UIManager.Show<FishPopup>(UIList.FishPopup);
+                callback?.Invoke(false);
                 return;
             }
 
             fishAmount -= amount;
             cashDataManager.UpdateFishData(fishAmount, updatedData =>
             {
-                // TODO: UI 업데이트 로직 적용
-                // UpdateUI();
+                callback?.Invoke(true);
             });
         }
 

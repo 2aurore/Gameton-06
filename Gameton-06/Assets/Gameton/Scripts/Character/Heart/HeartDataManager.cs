@@ -116,38 +116,52 @@ namespace TON
             if (currentHeartData.currentHearts > 0)
             {
                 currentHeartData.currentHearts--;
-                // lastHeartTime이 비어있거나 잘못된 경우를 대비하여 기본값 설정
-                DateTime lastTime;
-                bool hasValidTime = DateTime.TryParse(currentHeartData.lastHeartTime, out lastTime);
-
-                if (!hasValidTime)
+                // 하트를 사용한 후 하트가 최대 개수보다 적을 때만 타이머 시작/업데이트
+                if (currentHeartData.currentHearts < 5)
                 {
-                    lastTime = DateTime.Now; // 기본값을 현재 시간으로 설정
-                    currentHeartData.lastHeartTime = lastTime.ToString();
+                    // lastHeartTime이 비어있거나 잘못된 경우를 대비하여 기본값 설정
+                    DateTime lastTime;
+                    bool hasValidTime = DateTime.TryParse(currentHeartData.lastHeartTime, out lastTime);
+
+                    TimeSpan timePassed = DateTime.Now - lastTime;
+
+                    // 재충전 시간이 지났거나, 비어있거나, 하트가 최대치였다가 감소했을 때 lastHeartTime 갱신
+                    if (!hasValidTime || timePassed.TotalSeconds >= heartRechargeTime || string.IsNullOrEmpty(currentHeartData.lastHeartTime))
+                    {
+                        currentHeartData.lastHeartTime = DateTime.Now.ToString();
+                    }
                 }
 
-                TimeSpan timePassed = DateTime.Now - lastTime;
-
-                // 재충전 시간이 지났거나, 처음 소모하여 재충전이 시작될 때만 lastHeartTime 갱신
-                if (timePassed.TotalSeconds >= heartRechargeTime || currentHeartData.currentHearts == maxHearts - 1)
-                {
-                    currentHeartData.lastHeartTime = DateTime.Now.ToString();
-                }
                 SaveHeartData();
+                UpdateHeartSystem();
+            }
+        }
 
-                HeartSystem heartSystem = FindObjectOfType<HeartSystem>();
-                if (heartSystem != null)
-                {
-                    heartSystem.UpdateHeartUI(); // UI 업데이트
+        public static void UpdateHeartSystem()
+        {
+            HeartSystem heartSystem = FindObjectOfType<HeartSystem>();
+            if (heartSystem != null)
+            {
+                heartSystem.UpdateHeartUI(); // UI 업데이트
 
-                }
             }
         }
 
         // 사용자의 광고 시청, 생선 소모 등으로 하트 충전하는 경우 호출출
         public void AddHeart(int amount)
         {
+            int previousHearts = currentHeartData.currentHearts;
+            currentHeartData.currentHearts += amount;
 
+            // 하트가 5개 미만에서 5개 이상으로 변경되었을 때 타이머 초기화
+            if (previousHearts < 5 && currentHeartData.currentHearts >= 5)
+            {
+                // 하트가 가득 찼으므로 lastHeartTime을 빈 문자열이나 특정 값으로 설정하여 타이머 중지
+                currentHeartData.lastHeartTime = "";
+            }
+
+            SaveHeartData();
+            UpdateHeartSystem();
         }
 
         // 데이터 파일에 저장된 마지막 하트 사용시간과 동기화

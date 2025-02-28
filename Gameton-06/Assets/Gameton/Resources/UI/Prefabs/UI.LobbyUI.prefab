@@ -3366,7 +3366,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1707601040220393083}
         m_TargetAssemblyTypeName: TON.LobbyUI, Assembly-CSharp
-        m_MethodName: OnClickStagePlayButton
+        m_MethodName: OnClickRankingButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

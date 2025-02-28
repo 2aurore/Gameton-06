@@ -129,18 +129,37 @@ namespace TON
 
         public void OnClickUseCashButton(int count)
         {
-            // TODO: 보유한 생선 갯수를 소모하고 하트를 충전
+            // 보유한 생선 갯수를 소모하고 하트를 충전
             Debug.Log("OnClickUseCashButton::: fish :: " + count);
+            PlayerDataManager.Singleton.UseFish(count, (isSuccess) =>
+            {
+                if (isSuccess)
+                {
+                    UpdateFishCount();
+                    // 충전을 완료하고 modal 닫기
+                    rechargeModal.SetActive(false);
 
+                    AddHeart(count);
+                }
+                else
+                {
+                    // 생선 재화 사용 불가 팝업
+                    Debug.Log("생선 재화 사용 불가 팝업");
+                }
+            });
+        }
+
+        private static void AddHeart(int count)
+        {
             switch (count)
             {
                 case 5:
                     // 하트 1개 충전
-
+                    HeartDataManager.Singleton.AddHeart(1);
                     break;
                 case 45:
                     // 하트 10개 충전
-
+                    HeartDataManager.Singleton.AddHeart(10);
                     break;
             }
         }

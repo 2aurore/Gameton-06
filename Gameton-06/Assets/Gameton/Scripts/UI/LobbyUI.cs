@@ -103,10 +103,16 @@ namespace TON
             UIManager.Show<SkillSettingUI>(UIList.SkillSettingUI);
         }
 
+        public void OnClickRankingButton()
+        {
+            // TODO: 랭킹 UI 추가
+            // UIManager.Show<RankingUI>(UIList.RankingUI);
+        }
+
         public void OnClickShopButton()
         {
             // TODO: 상점 UI 추가
-            // UIManager.Show<ShopUI>(UIList.ShopUI);
+            // 상점은 Scene으로 전환하자.
         }
     }
 }

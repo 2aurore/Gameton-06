@@ -325,7 +325,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.3
 --- !u!114 &2632654723781966565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,7 +338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0913d8f50c531ce4585705c1366b8351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monsterBase: {fileID: 3877897766620331718}
 --- !u!1 &6576415752715582820
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,6 +639,7 @@ MonoBehaviour:
   defencePower: 10
   defenceIntention: 30
   _hpBarImage: {fileID: 4582095749182668327}
+  IsSkillAttackable: 0
   Gold: 0
   Exp: 0
   Score: 0

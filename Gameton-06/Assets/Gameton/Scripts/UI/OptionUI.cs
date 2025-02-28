@@ -23,8 +23,8 @@ namespace TON
 
         public void SetCashAmount()
         {
-            goldObject.GetComponentInChildren<TextMeshProUGUI>().text = $"{PlayerDataManager.Singleton.goldAmount}";
-            fishObject.GetComponentInChildren<TextMeshProUGUI>().text = $"{PlayerDataManager.Singleton.fishAmount}";
+            goldObject.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0:#,###}", PlayerDataManager.Singleton.goldAmount);
+            fishObject.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0:#,###}", PlayerDataManager.Singleton.fishAmount);
         }
 
         private void SetObjectActive()

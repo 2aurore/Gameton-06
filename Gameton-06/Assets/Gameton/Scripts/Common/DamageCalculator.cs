@@ -26,7 +26,7 @@ namespace TON
             // 4. 기본 데미지 계산
             float baseDamage = (totalAttackPower * damageMultiplier) * defenseEffect;
 
-            Debug.Log("기본 데미지 계산" + baseDamage);
+            // Debug.Log("기본 데미지 계산" + baseDamage);
             return Mathf.Round(baseDamage); // 소수점 제거 (선택 사항)
         }
 
@@ -40,7 +40,7 @@ namespace TON
             {
                 damage *= criticalMultiplier;
                 critical = true;
-                Debug.Log("💥 치명타 발생! 💥" + damage);
+                // Debug.Log("💥 치명타 발생! 💥" + damage);
             }
 
             float value = Mathf.Round(damage);

@@ -180,8 +180,9 @@ namespace TON
             Debug.Log("OnClickAdButton::: ");
 
             PlayerDataManager.Singleton.AddGold(goldAmount);
-            OnClickHomeButton();
+            goldAmount = 0;
 
+            OnClickHomeButton();
         }
 
     }

@@ -12,7 +12,7 @@ namespace TON
         public float PlayTime => Time.time - stageStartTime;
         public int goldReward { get; private set; } = 0;  // 골드 획득 보상
         public int expReward { get; private set; } = 0;  // 경험치 획득 보상
-        public int waveCount { get; private set; }   // 클리어한 웨이브 넘버
+        public int waveCount { get; private set; } = 0;   // 클리어한 웨이브 넘버
         public int gameScore { get; private set; } = 0;  // 몬스터 처치로 얻은 점수 보상
 
         private float stageStartTime; // 스테이지 시작 시간
@@ -79,6 +79,12 @@ namespace TON
             });
         }
 
-
+        public void ResetPlayData()
+        {
+            waveCount = 0;
+            goldReward = 0;
+            expReward = 0;
+            gameScore = 0;
+        }
     }
 }

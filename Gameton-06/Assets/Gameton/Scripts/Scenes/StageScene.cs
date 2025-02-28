@@ -72,6 +72,8 @@ namespace TON
             // UIManager.Hide<GameoverUI>(UIList.GameOverUI);
             UIManager.Hide<PauseUI>(UIList.PauseUI);
 
+            // 스테이지 종료 후 플레이한 데이터 초기화
+            StageManager.Singleton.ResetPlayData();
         }
 
     }

@@ -623,7 +623,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 127
+    m_Bits: 63
 --- !u!222 &7717542720819395202
 CanvasRenderer:
   m_ObjectHideFlags: 0

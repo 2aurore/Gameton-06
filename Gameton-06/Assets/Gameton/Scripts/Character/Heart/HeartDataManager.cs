@@ -144,6 +144,12 @@ namespace TON
             }
         }
 
+        // 사용자의 광고 시청, 생선 소모 등으로 하트 충전하는 경우 호출출
+        public void AddHeart(int amount)
+        {
+
+        }
+
         // 데이터 파일에 저장된 마지막 하트 사용시간과 동기화
         public int GetRemainingRechargeTime()
         {

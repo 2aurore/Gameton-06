@@ -24,18 +24,21 @@ namespace TON
         [SerializeField] private TextMeshProUGUI playTime;
         [SerializeField] private TextMeshProUGUI score;
         [SerializeField] private GameObject levelUpText;
+        [SerializeField] private TextMeshProUGUI fishAmount;
 
         private void OnEnable()
         {
             InitModalActive();
 
             SetUITextMesh();
+            UpdateFishCount();
+
             // 해당 UI 노출과 함께 게임 클리어 정보 저장
             StageManager.Singleton.StageClear();
 
             // 현재 획득한 경험치로 인한 레벨업 처리
             SetLevelUpText(StageManager.Singleton.expReward);
-            // TODO: 획득한 아이템 정보 저장 로직 구현
+            // TODO: 획득한 골드 정보 저장 로직 구현
 
 
         }
@@ -57,6 +60,13 @@ namespace TON
             playTime.text = $"{StageManager.Singleton.PlayTime / 60}m {StageManager.Singleton.PlayTime % 60:F2}s";
         }
 
+        public void UpdateFishCount()
+        {
+            fishAmount.text = string.Format("{0:#,###}", PlayerDataManager.Singleton.fishAmount);
+
+        }
+
+
         // 경험치 추가 및 레벨업 처리
         public void SetLevelUpText(int amount)
         {
@@ -77,6 +87,8 @@ namespace TON
         }
         public void OnClickHomeButton()
         {
+            UIManager.Hide<GameWinUI>(UIList.GameWinUI);
+
             Main.Singleton.ChangeScene(SceneType.Lobby);
         }
 
@@ -99,6 +111,7 @@ namespace TON
             // 입장 시 하트 소모
             HeartDataManager.Singleton.UseHeart();
 
+            UIManager.Hide<GameWinUI>(UIList.GameWinUI);
             Main.Singleton.ChangeScene(SceneType.Stage);
         }
 
@@ -122,12 +135,28 @@ namespace TON
         {
             // TODO: 보유한 생선 갯수를 소모하고 하트를 충전
             Debug.Log("OnClickUseCashButton::: fish :: " + count);
+
+            switch (count)
+            {
+                case 5:
+                    // 하트 1개 충전
+
+                    break;
+                case 45:
+                    // 하트 10개 충전
+
+                    break;
+            }
         }
 
         public void OnClickAdButton()
         {
             // TODO: 광고 시청 로직 추가, 하트를 충전
             Debug.Log("OnClickAdButton::: ");
+
+
+            // 광고 시청 종료 후 콜백
+            rechargeModal.SetActive(false);
         }
 
         public void OnClickAdForGoldButton()

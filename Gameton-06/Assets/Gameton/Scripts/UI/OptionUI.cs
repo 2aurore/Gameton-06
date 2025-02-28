@@ -19,6 +19,9 @@ namespace TON
         {
             SetCashAmount();
             SetObjectActive();
+
+            // TODO: 사운드 설정 기능 반영 후에 해당 버튼 비활성화 코드 삭제
+            settingObject.SetActive(false);
         }
 
         public void SetCashAmount()

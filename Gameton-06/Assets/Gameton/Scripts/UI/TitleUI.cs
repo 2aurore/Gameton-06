@@ -7,9 +7,24 @@ namespace TON
     public class TitleUI : UIBase
     {
         public CharaterSelectUI charaterSelectUI;
-
+            
+        AudioSource _buttonAudio;
+        
+        private void Start()
+        {
+            _buttonAudio = gameObject.AddComponent<AudioSource>();
+            DontDestroyOnLoad(this.transform.parent.gameObject);
+        }
+        
         public void OnClickStartButton()
         {
+            StartCoroutine(StartButtonDelay());
+        }
+        
+        IEnumerator StartButtonDelay()
+        {
+            yield return new WaitForSeconds(1f); // 1초 대기
+
             // Main.Singleton?.ChangeScene(SceneType.Ingame);
             UIManager.Hide<TitleUI>(UIList.TitleUI);
 
@@ -33,7 +48,6 @@ namespace TON
                 Main.Singleton?.ChangeScene(SceneType.Lobby);
             }
         }
-
 
         public void OnClickExitButton()
         {

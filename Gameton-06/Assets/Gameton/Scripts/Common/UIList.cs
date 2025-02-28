@@ -32,7 +32,6 @@ namespace TON
         PauseUI,    // 일시중지 버튼 선택 시 노출되는 UI
 
         GoldPopup,
-        FishPopup,
 
         POPUP_END,
     }

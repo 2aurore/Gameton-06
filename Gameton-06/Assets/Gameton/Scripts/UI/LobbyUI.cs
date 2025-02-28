@@ -53,7 +53,7 @@ namespace TON
             {
                 int minutes = Mathf.FloorToInt(TOP_RECORD.playTime / 60f);
                 int seconds = Mathf.FloorToInt(TOP_RECORD.playTime % 60f);
-                playTime.text = $"{minutes:00}m {seconds:00}s";
+                playTime.text = $"{minutes:0}m {seconds:0}s";
             }
         }
 

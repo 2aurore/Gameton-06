@@ -10,19 +10,22 @@ namespace TON
     {
         public static PauseUI Instance => UIManager.Singleton.GetUI<PauseUI>(UIList.PauseUI);
 
-        public GameObject rechargeModal;
-        public GameObject retryModal;
-        public GameObject homeModal;
-
+        [SerializeField] private GameObject rechargeModal;
+        [SerializeField] private GameObject retryModal;
+        [SerializeField] private GameObject homeModal;
+        [SerializeField] private GameObject fishPopup;
         [SerializeField] private TextMeshProUGUI fishAmount;
+
+        private Coroutine autoCloseCoroutine;   // 팝업 닫기 코루틴 저장
 
 
         void OnEnable()
         {
-            InitModalActive();
-            UpdateFishCount();
             // 일시정지 시 게임 일시정지
             Time.timeScale = 0f;
+
+            InitModalActive();
+            UpdateFishCount();
         }
 
         public void InitModalActive()
@@ -30,6 +33,7 @@ namespace TON
             rechargeModal.SetActive(false);
             retryModal.SetActive(false);
             homeModal.SetActive(false);
+            fishPopup.SetActive(false);
         }
 
         public void UpdateFishCount()
@@ -111,9 +115,37 @@ namespace TON
                 {
                     // 생선 재화 사용 불가 팝업
                     Debug.Log("생선 재화 사용 불가 팝업");
+
+                    ShowTimedPopup();
                 }
             });
         }
+        // UI 버튼에 연결할 메서드
+        public void ShowTimedPopup()
+        {
+            // 이미 실행 중인 코루틴이 있다면 중지
+            if (autoCloseCoroutine != null)
+            {
+                StopCoroutine(autoCloseCoroutine);
+            }
+
+            // UI 표시
+            fishPopup.SetActive(true);
+
+            // 자동 닫기 코루틴 시작
+            autoCloseCoroutine = StartCoroutine(AutoClosePopup());
+        }
+
+        private IEnumerator AutoClosePopup()
+        {
+            // Time.timeScale의 영향을 받지 않는 대기
+            yield return new WaitForSecondsRealtime(3f);
+
+            // 시간이 지나면 UI 닫기
+            fishPopup.SetActive(false);
+            autoCloseCoroutine = null;
+        }
+
 
         private static void AddHeart(int count)
         {

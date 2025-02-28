@@ -13,7 +13,7 @@ namespace TON
         [SerializeField] private Button confirmButton; // cancel 버튼 참조
         [SerializeField] private Button createButton; // Create 버튼 참조
         [SerializeField] private List<PlayerData> playerDatas;
-        // [SerializeField] private List<HeartData> heartDatas;
+        [SerializeField] private TextMeshProUGUI nicknameCondition;
 
 
         public GameObject characterCreateUI_Modal;
@@ -25,7 +25,6 @@ namespace TON
         private void Start()
         {
             playerDatas = PlayerDataManager.Singleton.playersData;
-            // heartDatas = HeartDataManager.Singleton.heartDatas;
 
             // 처음에는 버튼을 비활성화
             createButton.interactable = false;
@@ -70,8 +69,9 @@ namespace TON
             string nickname = characterName.text.Trim();
 
             // 입력 값 검증
-            if (string.IsNullOrEmpty(nickname))
+            if (string.IsNullOrEmpty(nickname) || nickname.Length > 12)
             {
+                // 닉네임은 비어있을 수 없고, 12자 이내로만 생성 가능
                 return;
             }
 
@@ -105,11 +105,24 @@ namespace TON
                     }
                     else
                     {
-                        Debug.LogError("캐릭터 닉네임 저장 실패");
+                        // 닉네임 중복체크
+                        if (message.Equals("409"))
+                        {
+                            DuplicateNickname();
+                        }
+                        else
+                        {
+                            Debug.LogError("서버 오류 :: 캐릭터 닉네임 저장 실패");
+                        }
                     }
                 });
             });
+        }
 
+        private void DuplicateNickname()
+        {
+            nicknameCondition.text = "이미 사용중인 이름입니다.";
+            nicknameCondition.color = Color.red;
         }
 
         public void OnClickCancelButton()

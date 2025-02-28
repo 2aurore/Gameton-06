@@ -94,23 +94,18 @@ namespace TON
         /// </summary>
         public void ChangeNickname(string newNickname, Action<bool, string> callback)
         {
-            if (string.IsNullOrEmpty(newNickname) || newNickname.Length < 2)
-            {
-                callback?.Invoke(false, "닉네임은 2자 이상이어야 합니다.");
-                return;
-            }
 
             Backend.BMember.UpdateNickname(newNickname, bro =>
             {
                 if (bro.IsSuccess())
                 {
                     Debug.Log("닉네임 변경 성공: " + newNickname);
-                    callback?.Invoke(true, "닉네임이 변경되었습니다.");
+                    callback?.Invoke(true, bro.GetCode());
                 }
                 else
                 {
                     Debug.LogError("닉네임 변경 실패: " + bro.GetMessage());
-                    callback?.Invoke(false, "닉네임 변경 실패: " + bro.GetMessage());
+                    callback?.Invoke(false, bro.GetCode());
                 }
             });
         }

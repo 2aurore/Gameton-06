@@ -407,6 +407,7 @@ MonoBehaviour:
   confirmButton: {fileID: 3290386423334957786}
   createButton: {fileID: 1887714318721360375}
   playerDatas: []
+  nicknameCondition: {fileID: 6220890634190874460}
   characterCreateUI_Modal: {fileID: 7298901665149865196}
   blackCat_Spotlight: {fileID: 6897867871924581457}
   whiteCat_Spotlight: {fileID: 6223168446447065192}
@@ -2140,7 +2141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &898800120090628923
 RectTransform:
   m_ObjectHideFlags: 0

@@ -107,7 +107,7 @@ namespace TON
         // 플레이어가 사망했을때 호출
         public void PlayerDeadEvent()
         {
-            Invoke(nameof(ShowGameEndUI), 3f);
+            Invoke(nameof(ShowGameEndUI), 0.5f);
 
         }
         private void ShowGameEndUI()

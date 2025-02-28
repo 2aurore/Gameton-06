@@ -69,6 +69,8 @@ namespace TON
 
             if (timeLeft <= 0)
             {
+                timerText.text = "0:00";
+
                 HeartDataManager.Singleton.RechargeHearts();
                 UpdateHeartUI();
                 return;

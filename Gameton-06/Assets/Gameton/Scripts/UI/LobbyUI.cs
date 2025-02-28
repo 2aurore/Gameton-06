@@ -25,7 +25,7 @@ namespace TON
 
         public GameObject emptyHeartAlert;
 
-        private void Start()
+        private void OnEnable()
         {
             SetCharacterData();
             SetUserRankData();

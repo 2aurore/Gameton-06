@@ -56,6 +56,12 @@ namespace TON
         private void Update()
         {
             UpdatePlayTimeDisplay();
+            UpdateGameScore();
+        }
+
+        private void UpdateGameScore()
+        {
+            scoreText.text = $"{StageManager.Singleton.gameScore}";
         }
 
         private void UpdatePlayTimeDisplay()

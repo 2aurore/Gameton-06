@@ -15,7 +15,6 @@ namespace TON
 
         public GameObject rechargeModal;
         public GameObject retryModal;
-        public GameObject homeModal;
 
         [SerializeField] private TextMeshProUGUI title;
         [SerializeField] private TextMeshProUGUI goldReward;
@@ -26,21 +25,26 @@ namespace TON
         [SerializeField] private GameObject levelUpText;
         [SerializeField] private TextMeshProUGUI fishAmount;
 
+        private int goldAmount = 0;     // 광고 보상 수령 후 초기화
+
         private void OnEnable()
         {
+            Time.timeScale = 0f;
+            goldAmount = StageManager.Singleton.goldReward;
+
             InitModalActive();
 
             SetUITextMesh();
             UpdateFishCount();
+
 
             // 해당 UI 노출과 함께 게임 클리어 정보 저장
             StageManager.Singleton.StageClear();
 
             // 현재 획득한 경험치로 인한 레벨업 처리
             SetLevelUpText(StageManager.Singleton.expReward);
-            // TODO: 획득한 골드 정보 저장 로직 구현
-
-
+            // 획득한 골드 정보 저장
+            PlayerDataManager.Singleton.AddGold(goldAmount);
         }
 
         public void InitModalActive()
@@ -48,22 +52,23 @@ namespace TON
             levelUpText.SetActive(false);
             rechargeModal.SetActive(false);
             retryModal.SetActive(false);
-            homeModal.SetActive(false);
         }
 
         public void SetUITextMesh()
         {
             title.text = (StageManager.Singleton.waveCount == 10) ? YOU_WIN : GAME_OVER;
             wave.text = $"{StageManager.Singleton.waveCount} wave";
-            goldReward.text = $"{StageManager.Singleton.goldReward} G";
+            goldReward.text = $"{goldAmount} G";
             expReward.text = $"EXP {StageManager.Singleton.expReward}";
-            playTime.text = $"{StageManager.Singleton.PlayTime / 60}m {StageManager.Singleton.PlayTime % 60:F2}s";
+            score.text = $"{StageManager.Singleton.gameScore}";
+
+            float clearTime = StageManager.Singleton.PlayTime;
+            playTime.text = $"{(int)(clearTime / 60)}m {(int)(clearTime % 60)}s";
         }
 
         public void UpdateFishCount()
         {
             fishAmount.text = string.Format("{0:#,###}", PlayerDataManager.Singleton.fishAmount);
-
         }
 
 
@@ -81,14 +86,10 @@ namespace TON
             PlayerDataManager.Singleton.UpdatePlayerData();
         }
 
-        public void OnClickHomeModal()
-        {
-            homeModal.SetActive(true);
-        }
         public void OnClickHomeButton()
         {
+            Time.timeScale = 1f;
             UIManager.Hide<GameWinUI>(UIList.GameWinUI);
-
             Main.Singleton.ChangeScene(SceneType.Lobby);
         }
 
@@ -97,13 +98,11 @@ namespace TON
             // 가지고 있는 하트가 없다면 입장 불가
             if (HeartDataManager.Singleton.GetCurrentHearts() < 1)
             {
-                Time.timeScale = 0f;
                 // 하트 충전 modal 출력
                 rechargeModal.SetActive(true);
                 return;
             }
-
-            retryModal.SetActive(true);
+            OnClickStageRetryButton();
         }
         public void OnClickStageRetryButton()
         {
@@ -124,9 +123,6 @@ namespace TON
                     break;
                 case "retry":
                     retryModal.SetActive(false);
-                    break;
-                case "home":
-                    homeModal.SetActive(false);
                     break;
             }
         }
@@ -163,6 +159,10 @@ namespace TON
         {
             // TODO: 광고 시청 로직 추가, 골드 보상 2배 적용 후 Lobby로 이동
             Debug.Log("OnClickAdButton::: ");
+
+            PlayerDataManager.Singleton.AddGold(goldAmount);
+            OnClickHomeButton();
+
         }
 
     }

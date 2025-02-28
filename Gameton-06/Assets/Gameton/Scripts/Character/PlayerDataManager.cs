@@ -63,9 +63,42 @@ namespace TON
                 // UpdateUI();
             });
         }
+        public void UseGold(int amount)
+        {
+            if (goldAmount - amount < amount)
+            {
+                // 골드 재화 사용 불가 팝업
+                UIManager.Show<GoldPopup>(UIList.GoldPopup);
+                return;
+            }
+
+            goldAmount -= amount;
+            cashDataManager.UpdateGoldData(goldAmount, updatedData =>
+            {
+                // TODO: UI 업데이트 로직 적용
+                // UpdateUI();
+            });
+        }
+
         public void AddFish(int amount)
         {
             fishAmount += amount;
+            cashDataManager.UpdateFishData(fishAmount, updatedData =>
+            {
+                // TODO: UI 업데이트 로직 적용
+                // UpdateUI();
+            });
+        }
+        public void UseFish(int amount)
+        {
+            if (fishAmount - amount < amount)
+            {
+                // 생선 재화 사용 불가 팝업
+                UIManager.Show<FishPopup>(UIList.FishPopup);
+                return;
+            }
+
+            fishAmount -= amount;
             cashDataManager.UpdateFishData(fishAmount, updatedData =>
             {
                 // TODO: UI 업데이트 로직 적용

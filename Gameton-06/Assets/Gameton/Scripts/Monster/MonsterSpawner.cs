@@ -233,20 +233,32 @@ namespace TON
         
         private IEnumerator StartNextWaveWithDelay()
         {
-            float timer = nextWaveDelay;
-            
-            while (timer > 0)
+            if (currentWave != 11 && GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>() != null)
             {
-                waveCounter.text = Mathf.CeilToInt(timer).ToString(); // 남은 시간 표시
-                timer -= Time.deltaTime;
-                yield return null;
-            }
+                float timer = nextWaveDelay;
 
-            // waveCounter.text = "0";
-            waveCounter.text = null;
-            
-            isWaitingForNextWave = false;
-            StartNextWave();
+                while (timer > 0)
+                {
+                    waveCounter.text = Mathf.CeilToInt(timer).ToString(); // 남은 시간 표시
+                    timer -= Time.deltaTime;
+                    yield return null;
+                }
+
+                // waveCounter.text = "0";
+                waveCounter.text = null;
+
+                isWaitingForNextWave = false;
+                StartNextWave();
+            }
+            else
+            {
+                Invoke(nameof(ShowGameEndUI), 0.5f);
+            }
+        }
+        
+        private void ShowGameEndUI()
+        {
+            UIManager.Show<GameWinUI>(UIList.GameWinUI);
         }
     }
 }

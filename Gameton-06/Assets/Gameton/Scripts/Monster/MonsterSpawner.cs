@@ -19,6 +19,9 @@ namespace TON
         private const int TOTAL_WAVES = 10;
         private const int NORMAL_MONSTER_COUNT = 6;
     
+        private float initialDelay = 5f; // 게임 시작 후 첫 웨이브 시작까지의 대기 시간
+        private bool gameStarted = false;
+        
         private float nextWaveDelay = 5f; // 다음 웨이브 시작 전 대기 시간
         private bool isWaitingForNextWave = false;
         
@@ -44,12 +47,39 @@ namespace TON
             availableSpawnPoints = new List<int>();
             activeMonsters = new List<GameObject>();
         
+            // 5초 후에 첫 웨이브 시작
+            StartCoroutine(StartGameWithDelay());
+        }
+        
+        private IEnumerator StartGameWithDelay()
+        {
+            // 초기 카운트다운 표시
+            float timer = initialDelay;
+            while (timer > 0)
+            {
+                if (waveCounter != null)
+                {
+                    waveCounter.text = Mathf.CeilToInt(timer).ToString();
+                }
+                timer -= Time.deltaTime;
+                yield return null;
+            }
+        
+            if (waveCounter != null)
+            {
+                waveCounter.text = null;
+            }
+        
+            gameStarted = true;
             StartNextWave();
         }
         
         // Update is called once per frame
         void Update()
         {
+            // 게임이 시작되지 않았다면 업데이트 건너뛰기
+            if (!gameStarted) return;
+             
             // 활성화된 몬스터 리스트에서 파괴된 몬스터 제거
             activeMonsters.RemoveAll(monster => monster == null);
         
@@ -77,9 +107,9 @@ namespace TON
         
         private void StartNextWave()
         {
-            currentWave++;
-            
             StageManager.Singleton.SetWaveData(currentWave);    // 웨이브 정보 전달.
+            
+            currentWave++;
             
             if (currentWave > TOTAL_WAVES)
             {
@@ -130,9 +160,26 @@ namespace TON
                 {
                     foreach (Transform spawnPoint in spawnPoints)
                     {
-                        GameObject normalMonster = Instantiate(GetNormalMonsterPrefab(), spawnPoint.position, Quaternion.identity);
-                        monsterPool.Add(normalMonster);
-                        activeMonsters.Add(normalMonster);
+                        GameObject monsterPrefab = GetNormalMonsterPrefab();
+                        Vector3 spawnPosition = spawnPoint.position;
+            
+                        GameObject monster = Instantiate(monsterPrefab, spawnPosition, Quaternion.identity);
+                        monster.transform.parent = transform;
+            
+                        // MonsterBase 컴포넌트 가져오기
+                        MonsterBase monsterBase = monster.GetComponent<MonsterBase>();
+            
+                        // Attack과 Eyesight 컴포넌트 찾아서 MonsterBase 참조 설정
+                        Attack attackComponent = monster.GetComponentInChildren<Attack>();
+                        Eyesight eyesightComponent = monster.GetComponentInChildren<Eyesight>();
+            
+                        if (attackComponent != null)
+                            attackComponent.SetMonsterBase(monsterBase);
+                        if (eyesightComponent != null)
+                            eyesightComponent.SetMonsterBase(monsterBase);
+            
+                        monsterPool.Add(monster);
+                        activeMonsters.Add(monster);
                     }
                 }
             }
@@ -143,9 +190,26 @@ namespace TON
                 {
                     foreach (Transform spawnPoint in spawnPoints)
                     {
-                        GameObject normalMonster = Instantiate(GetNormalMonsterPrefab(), spawnPoint.position, Quaternion.identity);
-                        monsterPool.Add(normalMonster);
-                        activeMonsters.Add(normalMonster);
+                        GameObject monsterPrefab = GetNormalMonsterPrefab();
+                        Vector3 spawnPosition = spawnPoint.position;
+            
+                        GameObject monster = Instantiate(monsterPrefab, spawnPosition, Quaternion.identity);
+                        monster.transform.parent = transform;
+            
+                        // MonsterBase 컴포넌트 가져오기
+                        MonsterBase monsterBase = monster.GetComponent<MonsterBase>();
+            
+                        // Attack과 Eyesight 컴포넌트 찾아서 MonsterBase 참조 설정
+                        Attack attackComponent = monster.GetComponentInChildren<Attack>();
+                        Eyesight eyesightComponent = monster.GetComponentInChildren<Eyesight>();
+            
+                        if (attackComponent != null)
+                            attackComponent.SetMonsterBase(monsterBase);
+                        if (eyesightComponent != null)
+                            eyesightComponent.SetMonsterBase(monsterBase);
+            
+                        monsterPool.Add(monster);
+                        activeMonsters.Add(monster);
                     }
                 }  
             }

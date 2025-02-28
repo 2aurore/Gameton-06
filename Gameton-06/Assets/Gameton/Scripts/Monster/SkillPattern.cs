@@ -14,118 +14,81 @@ namespace TON
         }
 
         public bool IsAttackable { get; set; }
+        
+        public abstract bool IsSkillInCooldown();
 
         public abstract void Attack(GameObject target);
         
-
         public abstract void Update();
     }
 
-    public class Monster1SkillPattern : SkillPattern 
+    public class MonsterSkillPattern : SkillPattern 
     {
-        private float _skill1CoolTime;
-        // private float _skill2CoolTime;
-        
+        private float _lastSkillTime;
         private MonsterSkillData _monsterSkillData;
-        // private MonsterSkillData _monsterSkillDataTwo;
-
-        private MonsterSkill _skill1;
-        // private MonsterSkill _skill2;
+        private MonsterSkill _skill;
+        private Vector3 _skillOffset = new Vector3(0, -0.5f, 0);
         
-        private Vector3 _skillOffset = new Vector3(0, -0.5f, 0); // 스킬 생성 위치 조정값
-        
-        public Monster1SkillPattern(MonsterData monsterData, MonsterBase monsterBase) : base(monsterData, monsterBase)
+        public MonsterSkillPattern(MonsterData monsterData, MonsterBase monsterBase) : base(monsterData, monsterBase)
         {
             _monsterSkillData = MonsterSkillDataManager.Singleton.GetMonsterSkillData(_monsterData.monsterSkillID);
-            // if (_monsterData.monsterSkillIDTwo > -1)
-            // {
-            //     _monsterSkillDataTwo = MonsterSkillDataManager.Singleton.GetMonsterSkillData(_monsterData.monsterSkillIDTwo);
-            // }
-
-            // if (_monsterSkillData != null && _monsterSkillDataTwo != null)
+            _lastSkillTime = -_monsterSkillData.cooldown; // 시작시 스킬 사용 가능하도록
+            IsAttackable = true;
+            
             if (_monsterSkillData != null)
             {
-            
-                Debug.Log($"몬스터 {_monsterSkillData.skillName} 데이터 로드 완료");
-                // Debug.Log($"몬스터 {_monsterSkillDataTwo.skillName} 데이터 로드 완료");
-                
-                // 프리팹을 연결한 코드
-                _skill1 = Resources.Load<MonsterSkill>($"MonsterSkillPrefabs/{_monsterSkillData.skillName}");
-                // _skill2 = Resources.Load<MonsterSkill>($"MonsterSkillPrefabs/{_monsterSkillDataTwo.skillName}");
+                // Debug.Log($"몬스터 {_monsterSkillData.skillName} 데이터 로드 완료");
+                _skill = Resources.Load<MonsterSkill>($"MonsterSkillPrefabs/{_monsterSkillData.skillName}");
             }
-            else
-            {
-                Debug.LogError($"몬스터 스킬 ID {_monsterSkillData.skillId}에 대한 데이터를 찾을 수 없습니다.");
-                // Debug.LogError($"몬스터 스킬 ID {_monsterSkillDataTwo.skillId}에 대한 데이터를 찾을 수 없습니다.");
-            }
-
-            _skill1CoolTime = Time.realtimeSinceStartup;
-            // _skill2CoolTime = Time.realtimeSinceStartup;
-            
         }
 
         public override void Attack(GameObject target)
         {
             if (target == null) return;
             
-            // 스킬 스프라이트 방향 플레이어 바라보게
             _monsterBase.GetComponent<SpriteRenderer>().flipX = target.transform.position.x < _monsterBase.transform.position.x;
-            // 몬스터의 현재 위치에서 offset만큼 아래에 스킬 생성
             Vector3 spawnPosition = _monsterBase.transform.position - _skillOffset;
-    
-            // 프리팹을 지정된 위치에 생성
-            Object.Instantiate(_skill1, spawnPosition, Quaternion.identity);
+            
+            Object.Instantiate(_skill, spawnPosition, Quaternion.identity);
+            SkillAttack(_monsterSkillData.damage);
+            
+            // 스킬 사용 후 쿨다운 시작
+            _lastSkillTime = Time.time;
+            IsAttackable = false;
+            
+            // Debug.Log($"스킬 사용, 쿨다운 시작: {_monsterSkillData.cooldown}초");
+        }
+
+        public void SkillAttack(float skillDamage)
+        {
+            // 데미지 계산 (현재 임시 값)
+            DamageCalculator damageCalculator = new DamageCalculator();
+
+            float baseAttack = _monsterData.attackPower * skillDamage; // 기본 공격력 * 스킬 데미지
+            float equipmentAttack = 0; // 장비 공격력
+            float defense = PlayerDataManager.Singleton.player.defensivePower / (PlayerDataManager.Singleton.player.defensivePower + PlayerDataManager.Singleton.defensiveIntention); // 캐릭터 방어력
+            
+            // 기본 데미지 계산 (치명타 없음)
+            float damage = damageCalculator.CalculateBaseDamage(baseAttack, equipmentAttack, defense);
+            
+            _skill.SetSkillDamage(damage);
+            
+            // Debug.Log($" 몬스터 스킬 공격! 최종 데미지: {damage}"); // 데미지 출력
         }
 
         public override void Update()
         {
-            if (Time.realtimeSinceStartup - _skill1CoolTime >= _monsterSkillData.cooldown)
+            // 스킬 쿨다운 체크
+            if (!IsAttackable && Time.time - _lastSkillTime >= _monsterSkillData.cooldown)
             {
-                // TODO : 범위 체크
                 IsAttackable = true;
+                // Debug.Log("스킬 쿨다운 완료");
             }
-            
-            // if (Time.realtimeSinceStartup - _skill2CoolTime >= _monsterSkillDataTwo.cooldown)
-            // {
-            //     // TODO : 범위 체크
-            //     IsAttackable = true;
-            // }
+        }
+
+        public override bool IsSkillInCooldown()
+        {
+            return !IsAttackable;
         }
     }
-    
-    // public class Monster2AttackPattern : AttackPattern
-    // {
-    //     
-    //
-    //     public Monster2AttackPattern(MonsterBase monsterBase) : base(monsterBase)
-    //     {
-    //         
-    //     }
-    //
-    //     public override void Attack()
-    //     {
-    //
-    //         Skill1();
-    //         
-    //         Skill2();
-    //         
-    //         MeleeAttack();
-    //
-    //     }
-    //
-    //     private void Skill1()
-    //     {
-    //         
-    //     }
-    //
-    //     private void Skill2()
-    //     {
-    //         
-    //     }
-    //
-    //     private void MeleeAttack()
-    //     {
-    //         _monsterBase.PlayerAttack();
-    //     }
-    // }
 }

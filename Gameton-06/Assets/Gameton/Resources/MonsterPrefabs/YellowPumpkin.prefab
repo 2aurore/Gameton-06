@@ -142,7 +142,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
 --- !u!114 &126644723770121961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,11 +377,13 @@ MonoBehaviour:
   _target: {fileID: 0}
   _collider: {fileID: 7092071574192076242}
   _spriteRenderer: {fileID: 7956262371853790530}
-  _textState: {fileID: 0}
   id: 1
   defencePower: 10
   defenceIntention: 30
-  _hpBarImage: {fileID: 0}
+  _hpBarImage: {fileID: 4532534059460578519}
+  Gold: 0
+  Exp: 0
+  Score: 0
 --- !u!1 &6732329482384499360
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +629,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 6
 --- !u!114 &4894791795414822076
 MonoBehaviour:
   m_ObjectHideFlags: 0

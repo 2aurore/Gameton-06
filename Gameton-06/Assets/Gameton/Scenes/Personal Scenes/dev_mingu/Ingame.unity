@@ -6074,13 +6074,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b05a0586cd17f47a3c35acaac06e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  defencePower: 10
-  _spriteRenderer: {fileID: 135546803}
-  _textState: {fileID: 0}
   _target: {fileID: 0}
   _collider: {fileID: 0}
+  _spriteRenderer: {fileID: 135546803}
+  id: 0
+  defencePower: 10
+  defenceIntention: 30
   _hpBarImage: {fileID: 0}
+  Gold: 0
+  Exp: 0
+  Score: 0
 --- !u!4 &141676838 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 866829735663616565, guid: 1e126f96ebcf4245a3328353992d46f6, type: 3}
@@ -17067,6 +17070,71 @@ Sprite:
   m_PhysicsShape: []
   m_Bones: []
   m_SpriteID: 
+--- !u!1001 &426139349
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4336427122757065448, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_Name
+      value: RedRex
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811142484219723541, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_Radius
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 15.364559
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.3512335
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.060982164
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864163214463241537, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070746266591933491, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
+      propertyPath: m_Radius
+      value: 0.4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69c66b62d5d42aa48b34c97c6131188f, type: 3}
 --- !u!213 &428450219
 Sprite:
   m_ObjectHideFlags: 0
@@ -48251,13 +48319,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b05a0586cd17f47a3c35acaac06e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  defencePower: 10
-  _spriteRenderer: {fileID: 1254298208}
-  _textState: {fileID: 0}
   _target: {fileID: 1333310376}
   _collider: {fileID: 199081697}
+  _spriteRenderer: {fileID: 1254298208}
+  id: 0
+  defencePower: 10
+  defenceIntention: 30
   _hpBarImage: {fileID: 0}
+  Gold: 0
+  Exp: 0
+  Score: 0
 --- !u!95 &1254298203
 Animator:
   serializedVersion: 5
@@ -72636,7 +72707,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3656570700648378249, guid: f92c93d0d7d455d40b84e993e40acfca, type: 3}
       propertyPath: m_Name
-      value: TON.Player_W
+      value: TON.Player
       objectReference: {fileID: 0}
     - target: {fileID: 3656570700648378249, guid: f92c93d0d7d455d40b84e993e40acfca, type: 3}
       propertyPath: m_IsActive
@@ -72648,11 +72719,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8528093570479225059, guid: f92c93d0d7d455d40b84e993e40acfca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.06
+      value: -13.83
       objectReference: {fileID: 0}
     - target: {fileID: 8528093570479225059, guid: f92c93d0d7d455d40b84e993e40acfca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.82
+      value: -7.52
       objectReference: {fileID: 0}
     - target: {fileID: 8528093570479225059, guid: f92c93d0d7d455d40b84e993e40acfca, type: 3}
       propertyPath: m_LocalPosition.z
@@ -73004,13 +73075,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b05a0586cd17f47a3c35acaac06e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  defencePower: 10
-  _spriteRenderer: {fileID: 2041544010}
-  _textState: {fileID: 0}
   _target: {fileID: 1333310376}
   _collider: {fileID: 483107484}
+  _spriteRenderer: {fileID: 2041544010}
+  id: 0
+  defencePower: 10
+  defenceIntention: 30
   _hpBarImage: {fileID: 0}
+  Gold: 0
+  Exp: 0
+  Score: 0
 --- !u!95 &2041544005
 Animator:
   serializedVersion: 5
@@ -76341,6 +76415,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MonsterBase
       objectReference: {fileID: 0}
+    - target: {fileID: 8877229262118324966, guid: 95a2a767cd0699c4aa3198f36305ac04, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -76864,3 +76942,4 @@ SceneRoots:
   - {fileID: 6994367162197659328}
   - {fileID: 9115962474533691980}
   - {fileID: 1043803241}
+  - {fileID: 426139349}

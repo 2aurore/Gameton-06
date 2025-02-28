@@ -245,7 +245,7 @@ namespace TON
         private const string AniAttack = "Attack"; // 공격 애니메이션
         private MonsterBase _monsterBase;
         private float _skillAttackAnimationDuration = 0.5f; // 공격 애니메이션 지속 시간
-        private float _skillAttackDelayTime = 2f;  // 공격 딜레이 시간
+        private float _skillAttackDelayTime = 10f;  // 공격 딜레이 시간
         private float _lastSkillAttackTime;  // 마지막 공격 시간
         
         private bool _isSkillAttacking;

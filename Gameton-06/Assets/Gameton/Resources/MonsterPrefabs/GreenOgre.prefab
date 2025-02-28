@@ -333,7 +333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0913d8f50c531ce4585705c1366b8351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monsterBase: {fileID: 4682527902446353803}
 --- !u!1 &5723786479962814242
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,7 +366,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.15, y: -8.27, z: 0.060982164}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5851345463764664477}
@@ -559,6 +558,7 @@ MonoBehaviour:
   defencePower: 10
   defenceIntention: 30
   _hpBarImage: {fileID: 671635317572395929}
+  IsSkillAttackable: 0
   Gold: 0
   Exp: 0
   Score: 0

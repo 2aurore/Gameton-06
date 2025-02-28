@@ -301,6 +301,7 @@ MonoBehaviour:
   defencePower: 10
   defenceIntention: 30
   _hpBarImage: {fileID: 6911953821671608018}
+  IsSkillAttackable: 0
   Gold: 0
   Exp: 0
   Score: 0
@@ -540,7 +541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0913d8f50c531ce4585705c1366b8351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monsterBase: {fileID: 172749484477612116}
 --- !u!1 &8298484779810340319
 GameObject:
   m_ObjectHideFlags: 0

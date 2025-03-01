@@ -40,7 +40,10 @@ namespace TON
         [SerializeField] private float mpRecoveryRate = 1f;  // MP 회복량
         [SerializeField] private float mpRecoveryInterval = 3f;  // 회복 간격(초)
         [SerializeField] private bool isRecovering = false;
-
+    
+        public AudioClip _attackSound;
+        public AudioClip _deathSound;
+        public AudioClip _hitSound;
 
         public void Start()
         {
@@ -172,6 +175,8 @@ namespace TON
             isAttack = true;
             // 공격 애니메이션 적용
             animator.Play("Default Attack");
+            
+            SoundManager.instance.SFXPlay("Attack", _attackSound);
 
             // 공격 범위 Collider 활성화
             attackCollider.EnableCollider(true);
@@ -248,6 +253,7 @@ namespace TON
             if (currentHP <= 0f && prevHP > 0)
             {
                 Dead();
+                SoundManager.instance.SFXPlay("Death", _deathSound);
             }
 
             // 체력이 0 보다 클때만 피격 모션 실행
@@ -256,6 +262,7 @@ namespace TON
                 if (damage < 10)
                 {
                     animator.SetTrigger("Hit Trigger");
+                    SoundManager.instance.SFXPlay("Hit", _hitSound);
                 }
             }
         }

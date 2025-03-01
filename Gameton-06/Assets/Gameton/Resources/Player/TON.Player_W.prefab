@@ -349,6 +349,12 @@ MonoBehaviour:
   firePoint: {fileID: 3204799031628172313}
   attackCollider: {fileID: 5093782900058509363}
   rb: {fileID: 4986202531950816680}
+  mpRecoveryRate: 1
+  mpRecoveryInterval: 3
+  isRecovering: 0
+  _attackSound: {fileID: 8300000, guid: 3aa1c6aa8a0b2c24487dde9a48e1d6da, type: 3}
+  _deathSound: {fileID: 8300000, guid: d5e7610e90cfd054b9c1fc1fef110d91, type: 3}
+  _hitSound: {fileID: 8300000, guid: 365990a793283564aa391eddb2dc2c76, type: 3}
 --- !u!1 &4475587780921916628
 GameObject:
   m_ObjectHideFlags: 0

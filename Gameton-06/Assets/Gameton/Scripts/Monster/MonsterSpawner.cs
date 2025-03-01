@@ -40,6 +40,11 @@ namespace TON
         [SerializeField]
         public TextMeshProUGUI waveCounter;
         
+        public AudioClip _13StageSound;
+        public AudioClip _46StageSound;
+        public AudioClip _79StageSound;
+        public AudioClip _10StageSound;
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -84,10 +89,19 @@ namespace TON
             activeMonsters.RemoveAll(monster => monster == null);
         
             // 모든 몬스터가 죽었는지 확인하고 다음 웨이브 준비
-            if (activeMonsters.Count == 0 && currentWave > 0 && !isWaitingForNextWave)
+            if (activeMonsters.Count == 0 && currentWave > 0 && currentWave < 11 && !isWaitingForNextWave)
             {
                 isWaitingForNextWave = true;
                 StartCoroutine(StartNextWaveWithDelay());
+            }
+            
+            // 플레이어 존재 여부 확인
+            var player = GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>();
+            if (player == null && gameStarted)
+            {
+                // 플레이어가 죽었을 때
+                SoundManager.instance.BgSoundPlay(null);
+                // 필요하다면 gameStarted = false; 등을 설정하여 한 번만 실행되게 함
             }
         }
         
@@ -110,6 +124,23 @@ namespace TON
             StageManager.Singleton.SetWaveData(currentWave);    // 웨이브 정보 전달.
             
             currentWave++;
+
+            if (0 < currentWave && currentWave <= 3)
+            {
+                SoundManager.instance.BgSoundPlay(_13StageSound);   // 1~3스테이지 배경음
+            }
+            else if (3 < currentWave && currentWave <= 6)
+            {
+                SoundManager.instance.BgSoundPlay(_46StageSound);   // 4~6스테이지 배경음
+            }
+            else if (6 < currentWave && currentWave <= 9)
+            {
+                SoundManager.instance.BgSoundPlay(_79StageSound);   // 7~9스테이지 배경음
+            }
+            else if(currentWave == 10)
+            {
+                SoundManager.instance.BgSoundPlay(_10StageSound);   // 10스테이지 배경음
+            }
             
             if (currentWave > TOTAL_WAVES)
             {
@@ -235,6 +266,8 @@ namespace TON
         {
             if (currentWave != 11 && GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>() != null)
             {
+                SoundManager.instance.BgSoundPlay(null);
+                
                 float timer = nextWaveDelay;
 
                 while (timer > 0)

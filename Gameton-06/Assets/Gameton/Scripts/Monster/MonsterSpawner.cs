@@ -89,7 +89,7 @@ namespace TON
             activeMonsters.RemoveAll(monster => monster == null);
         
             // 모든 몬스터가 죽었는지 확인하고 다음 웨이브 준비
-            if (activeMonsters.Count == 0 && currentWave > 0 && currentWave < 11 && !isWaitingForNextWave)
+            if (activeMonsters.Count == 0 && currentWave > 0 && !isWaitingForNextWave)
             {
                 isWaitingForNextWave = true;
                 StartCoroutine(StartNextWaveWithDelay());
@@ -264,10 +264,15 @@ namespace TON
         
         private IEnumerator StartNextWaveWithDelay()
         {
-            if (currentWave != 11 && GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>() != null)
+            // 웨이브가 10이면 (즉, 10스테이지가 끝났으면) 또는 웨이브가 11이면 게임 종료 UI를 바로 보여줌
+            if (currentWave == 10 || currentWave == 11 || GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>() == null)
+            {
+                Invoke(nameof(ShowGameEndUI), 0.5f);
+            }
+            else
             {
                 SoundManager.instance.BgSoundPlay(null);
-                
+        
                 float timer = nextWaveDelay;
 
                 while (timer > 0)
@@ -277,15 +282,10 @@ namespace TON
                     yield return null;
                 }
 
-                // waveCounter.text = "0";
                 waveCounter.text = null;
 
                 isWaitingForNextWave = false;
                 StartNextWave();
-            }
-            else
-            {
-                Invoke(nameof(ShowGameEndUI), 0.5f);
             }
         }
         

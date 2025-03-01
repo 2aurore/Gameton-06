@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -20,10 +21,22 @@ namespace TON
         public ControllerUI_SkillButton skillButtonPrefab;
         private List<ControllerUI_SkillButton> createdSkillButtons = new List<ControllerUI_SkillButton>();
 
+        public UserItemData userItem { get; private set; } = new UserItemData();
+        // 보유 포션 수량 
+        [SerializeField] private TextMeshProUGUI hpPotionCount;
+        [SerializeField] private TextMeshProUGUI mpPotionCount;
+
+        public List<ControllerUI_ItemButton> itemButtons = new List<ControllerUI_ItemButton>();
+
         private void OnEnable()
         {
             skillButtonPrefab.gameObject.SetActive(false);
             Initalize();
+        }
+
+        private void FixedUpdate()
+        {
+            InitalizeItemData();
         }
 
         public void Initalize()
@@ -57,6 +70,36 @@ namespace TON
 
                 createdSkillButtons.Add(newSkillButton);
             }
+        }
+
+        private void InitalizeItemData()
+        {
+            userItem = PlayerDataManager.Singleton.userItem;
+
+            hpPotionCount.text = $"{userItem.hpPotion}";
+            mpPotionCount.text = $"{userItem.mpPotion}";
+        }
+
+        public void OnClickHpPotionButton()
+        {
+            if (userItem.hpPotion <= 0)
+                return;
+
+            PlayerDataManager.Singleton.UsePotion("HP");
+
+            itemButtons[0].SetCurrentCoolDown();
+            linkedCharactor.UsePotion("HP");
+        }
+
+        public void OnClickMpPotionButton()
+        {
+            if (userItem.mpPotion <= 0)
+                return;
+
+            PlayerDataManager.Singleton.UsePotion("MP");
+
+            itemButtons[1].SetCurrentCoolDown();
+            linkedCharactor.UsePotion("MP");
         }
 
         public void OnClickJumpButton()

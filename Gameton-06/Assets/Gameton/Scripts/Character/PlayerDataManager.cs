@@ -68,6 +68,21 @@ namespace TON
             });
         }
 
+        public void UsePotion(string type)
+        {
+            switch (type)
+            {
+                case "HP":
+                    userItem.hpPotion -= 1;
+                    itemDataManager.UpdateHpData(userItem.hpPotion);
+                    break;
+                case "MP":
+                    userItem.mpPotion -= 1;
+                    itemDataManager.UpdateMpData(userItem.mpPotion);
+                    break;
+            }
+        }
+
         public void AddGold(int amount)
         {
             goldAmount += amount;

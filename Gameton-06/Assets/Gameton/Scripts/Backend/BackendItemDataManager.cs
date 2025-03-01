@@ -89,5 +89,27 @@ namespace TON
             });
         }
 
+        public void UpdateHpData(int count)
+        {
+            Param param = new Param();
+            param.Add("hp_potion", count);
+
+            Backend.PlayerData.UpdateMyLatestData(USER_ITEM_TABLE, param, callback =>
+            {
+                UserItemData updatedData = new UserItemData { hpPotion = count };
+            });
+        }
+
+        public void UpdateMpData(int count)
+        {
+            Param param = new Param();
+            param.Add("mp_potion", count);
+
+            Backend.PlayerData.UpdateMyLatestData(USER_ITEM_TABLE, param, callback =>
+            {
+                UserItemData updatedData = new UserItemData { mpPotion = count };
+            });
+        }
+
     }
 }

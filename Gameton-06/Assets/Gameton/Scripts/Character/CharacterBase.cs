@@ -206,6 +206,27 @@ namespace TON
             isRecovering = false;
         }
 
+        public void UsePotion(string type)
+        {
+            switch (type)
+            {
+                case "HP":
+                    if (currentHP < maxHP)  // currentHP가 maxHP보다 작을 때만 실행
+                    {
+                        currentHP = Mathf.Min(currentHP + (maxHP * 0.2f), maxHP); // maxHP를 초과하지 않도록 보정
+                        OnHPChanged?.Invoke(currentHP, maxHP);
+                    }
+                    break;
+                case "MP":
+                    if (currentSP < maxSP)  // currentSP가 maxSP보다 작을 때만 실행
+                    {
+                        currentSP = Mathf.Min(currentSP + (maxSP * 0.2f), maxSP); // maxSP를를 초과하지 않도록 보정
+                        OnSPChanged?.Invoke(currentSP, maxSP);
+                    }
+                    break;
+            }
+        }
+
         public void SkillAttack(string skillId)
         {
             SkillBase skillBase = SkillDataManager.Singleton.GetSkillInstance(skillId);

@@ -10,10 +10,12 @@ namespace TON
     {
         public static SkillSettingUI Instance => UIManager.Singleton.GetUI<SkillSettingUI>(UIList.SkillSettingUI);
 
+        // 사용할 스킬 슬롯 3개 매핑을 위한 변수
         public Transform skillSlotGroup;
         public SkillSettingUI_SkillSlot skillSlotPrefab;
         public List<SkillSettingUI_SkillSlot> createSkillSlots = new List<SkillSettingUI_SkillSlot>();
 
+        // 전체 스킬 리스트를 스크롤 형식으로 구현하기 위함
         public ScrollRect scrollRect;
         public SkillInformationItem skillInfoPrefab;
         public List<RectTransform> uiPrefabList = new List<RectTransform>();

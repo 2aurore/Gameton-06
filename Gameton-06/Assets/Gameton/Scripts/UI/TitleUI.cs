@@ -7,14 +7,6 @@ namespace TON
     public class TitleUI : UIBase
     {
         public CharaterSelectUI charaterSelectUI;
-            
-        AudioSource _buttonAudio;
-        
-        private void Start()
-        {
-            _buttonAudio = gameObject.AddComponent<AudioSource>();
-            DontDestroyOnLoad(this.transform.parent.gameObject);
-        }
         
         public void OnClickStartButton()
         {
@@ -23,7 +15,7 @@ namespace TON
         
         IEnumerator StartButtonDelay()
         {
-            yield return new WaitForSeconds(1f); // 1초 대기
+            yield return new WaitForSeconds(0.2f); // 0.2초 대기
 
             // Main.Singleton?.ChangeScene(SceneType.Ingame);
             UIManager.Hide<TitleUI>(UIList.TitleUI);

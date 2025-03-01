@@ -195,6 +195,13 @@ namespace TON
 
         public void OnClickCloseButton()
         {
+            StartCoroutine(CloseButtonDelay());
+        }
+
+        IEnumerator CloseButtonDelay()
+        {
+            yield return new WaitForSeconds(0.2f); // 0.2초 대기
+            
             UIManager.Hide<SkillSettingUI>(UIList.SkillSettingUI);
         }
     }

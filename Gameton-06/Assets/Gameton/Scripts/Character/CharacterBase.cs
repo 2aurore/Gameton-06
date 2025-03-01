@@ -248,6 +248,8 @@ namespace TON
             currentHP = Mathf.Clamp(currentHP, 0, maxHP);
 
             OnHPChanged?.Invoke(currentHP, maxHP);
+            
+            SoundManager.instance.SFXPlay("Hit", _hitSound);
 
             // 체력이 0 아래로 떨어지고 현 상태가 IsAlive 일때만 동작하도록 함
             if (currentHP <= 0f && prevHP > 0)
@@ -255,14 +257,13 @@ namespace TON
                 Dead();
                 SoundManager.instance.SFXPlay("Death", _deathSound);
             }
-
+            
             // 체력이 0 보다 클때만 피격 모션 실행
             if (currentHP > 0)
             {
                 if (damage < 10)
                 {
                     animator.SetTrigger("Hit Trigger");
-                    SoundManager.instance.SFXPlay("Hit", _hitSound);
                 }
             }
         }

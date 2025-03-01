@@ -41,6 +41,10 @@ namespace TON
         
         private CharacterBase _characterBase;
 
+        public AudioClip _attackSound;
+        public AudioClip _deathSound;
+        public AudioClip _hitSound;
+        
         private void Start()
         {
             _animator = GetComponent<Animator>(); // 애니메이터 컴포넌트 초기화
@@ -128,7 +132,9 @@ namespace TON
         {
             float prevHP = currentHP;   // 몬스터의 체력을 감소시키고, 죽었을 경우 파괴 처리
             currentHP -= damage;
-
+            
+            SoundManager.instance.SFXPlay("Hit", _hitSound);
+            
             UpdateHPBar(currentHP);
 
             if (prevHP > 0 && currentHP <= 0)
@@ -180,6 +186,7 @@ namespace TON
 
             _characterBase.ApplyDamage(damage);
             
+            SoundManager.instance.SFXPlay("Attack", _attackSound);
             // Debug.Log($" 몬스터 공격! 최종 데미지: {damage}"); // 데미지 출력
         }
 
@@ -218,6 +225,7 @@ namespace TON
         public void DestroyMonster()
         {
             RewardData();
+            SoundManager.instance.SFXPlay("Death", _deathSound);
             Destroy(gameObject); // 몬스터 파괴
         }
 

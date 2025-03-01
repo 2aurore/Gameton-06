@@ -7,10 +7,11 @@ namespace TON
 {
     public class OptionUI : UIBase
     {
-        public GameObject goldObject;   // 골드
-        public GameObject fishObject;   // 생선
-        public GameObject settingObject;    // 더보기(옵션) 버튼
-        public GameObject parseObject;  // 일시정지
+        [SerializeField] private GameObject goldObject;   // 골드
+        [SerializeField] private GameObject fishObject;   // 생선
+        [SerializeField] private GameObject settingObject;    // 더보기(옵션) 버튼
+        [SerializeField] private GameObject parseObject;  // 일시정지
+        [SerializeField] private GameObject warningObject;  // 최대보유수량 경고 팝업업
 
         // 로비 : 골드/생선/인벤토리/더보기 버튼
         // 스테이지 : 인벤토리/일시정지 버튼
@@ -55,6 +56,20 @@ namespace TON
                 settingObject.SetActive(false);
                 parseObject.SetActive(false);
             }
+
+            warningObject.SetActive(false);
+        }
+
+        public void OnClickCashButton()
+        {
+            warningObject.SetActive(true);
+
+            Invoke(nameof(AutoClosePopup), 3f);
+        }
+
+        private void AutoClosePopup()
+        {
+            warningObject.SetActive(false);
         }
 
         public void OnClickSettingButton()

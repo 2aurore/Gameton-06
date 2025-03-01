@@ -43,8 +43,7 @@ namespace TON
     
         public AudioClip _attackSound;
         public AudioClip _deathSound;
-        public AudioClip _hitSound;
-
+        
         public void Start()
         {
             animator = GetComponent<Animator>();
@@ -262,7 +261,6 @@ namespace TON
                 if (damage < 10)
                 {
                     animator.SetTrigger("Hit Trigger");
-                    SoundManager.instance.SFXPlay("Hit", _hitSound);
                 }
             }
         }

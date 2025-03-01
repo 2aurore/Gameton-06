@@ -229,6 +229,9 @@ MonoBehaviour:
   Gold: 0
   Exp: 0
   Score: 0
+  _attackSound: {fileID: 8300000, guid: 0276d1771dc6b084da5731cd611b452a, type: 3}
+  _deathSound: {fileID: 8300000, guid: b28bcc4f81c0b4241be9fd9d2f59604e, type: 3}
+  _hitSound: {fileID: 8300000, guid: f48df33f7dda4a94aae097863d2e875d, type: 3}
 --- !u!1 &3020795925047894191
 GameObject:
   m_ObjectHideFlags: 0

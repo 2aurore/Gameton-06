@@ -6,6 +6,8 @@ namespace TON
 {
     public class SoundManager : MonoBehaviour
     {
+        public AudioSource bgSound;
+        
         public static SoundManager instance;
 
         private void Awake()
@@ -30,6 +32,14 @@ namespace TON
             audiosource.Play();
             
             Destroy(go, clip.length);
+        }
+
+        public void BgSoundPlay(AudioClip clip)
+        {
+            bgSound.clip = clip;
+            bgSound.loop = true;
+            bgSound.volume = 1f;
+            bgSound.Play();
         }
     }
 }

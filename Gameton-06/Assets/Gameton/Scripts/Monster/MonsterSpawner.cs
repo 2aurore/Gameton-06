@@ -292,6 +292,7 @@ namespace TON
         private void ShowGameEndUI()
         {
             SoundManager.instance.BgSoundPlay(null);
+            StageManager.Singleton.SetWaveData(currentWave);    // 웨이브 정보 전달.
             UIManager.Show<GameWinUI>(UIList.GameWinUI);
         }
     }

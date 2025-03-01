@@ -88,7 +88,7 @@ namespace TON
             gameScore = 0;
         }
 
-
+        // 전체 랭킹 리스트 조회 
         public void GetRankList()
         {
             rankDataManager.GetRankData(rankData =>
@@ -114,6 +114,7 @@ namespace TON
             });
         }
 
+        // 내 랭킹 순위 반환
         public int GetMyRankNumber()
         {
             int rankNumber = RankList.FindIndex(data => data.nickname.Equals(TOP_RECORD.nickname));

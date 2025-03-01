@@ -26,6 +26,7 @@ namespace TON
 
         private void OnEnable()
         {
+            // TODO: 랭킹 리스트 서버 오류 수정 후 주석 해제
             // SetRankList();
             SetMyRankData();
         }
@@ -33,6 +34,7 @@ namespace TON
         private void SetMyRankData()
         {
             ClearData TOP_RECORD = StageManager.Singleton.TOP_RECORD;
+            // TODO: 랭킹 리스트 서버 오류 수정 후 주석 해제
             // int myRankNumber = StageManager.Singleton.GetMyRankNumber();
             int myRankNumber = -1;
 

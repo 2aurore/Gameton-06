@@ -89,7 +89,7 @@ namespace TON
             activeMonsters.RemoveAll(monster => monster == null);
         
             // 모든 몬스터가 죽었는지 확인하고 다음 웨이브 준비
-            if (activeMonsters.Count == 0 && currentWave > 0 && !isWaitingForNextWave)
+            if (activeMonsters.Count == 0 && currentWave > 0 && currentWave < 11 && !isWaitingForNextWave)
             {
                 isWaitingForNextWave = true;
                 StartCoroutine(StartNextWaveWithDelay());

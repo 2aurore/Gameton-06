@@ -266,6 +266,8 @@ namespace TON
         {
             if (currentWave != 11 && GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>() != null)
             {
+                SoundManager.instance.BgSoundPlay(null);
+                
                 float timer = nextWaveDelay;
 
                 while (timer > 0)

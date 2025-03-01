@@ -183,5 +183,65 @@ namespace TON
         }
 
 
+        /// <summary>
+        /// 플레이어 랭킹 리스트 불러오기기
+        /// </summary>
+        public void GetRankData(System.Action<List<ClearData>> onComplete = null)
+        {
+            // 가져올 필드 지정 (모든 필드를 가져오려면 null 사용)
+            string[] select = new string[] { "nickname", "wave", "score", "play_time" };
+
+            // 결과 제한 수 (100개)
+            int limit = 100;
+
+            // 첫 번째 정렬 기준 (wave 내림차순)
+            string firstKey = "wave";
+
+            // 데이터 비동기 요청
+            Backend.GameData.Get(RANK_TABLE, new Where(), select, limit, firstKey, TableSortOrder.DESC, bro =>
+            {
+                // 요청 성공 확인
+                if (bro.IsSuccess())
+                {
+                    // 데이터 처리
+                    LitJson.JsonData rankData = bro.GetReturnValuetoJSON()["rows"];
+                    Debug.Log("가져온 데이터 수: " + rankData.Count);
+
+                    // ClearData 리스트 생성 및 변환
+                    List<ClearData> clearDataList = new List<ClearData>();
+
+                    for (int i = 0; i < rankData.Count; i++)
+                    {
+                        LitJson.JsonData row = rankData[i];
+                        clearDataList.Add(new ClearData
+                        {
+                            nickname = row["nickname"].ToString(),
+                            wave = int.Parse(row["wave"].ToString()),
+                            score = int.Parse(row["score"].ToString()),
+                            playTime = float.Parse(row["play_time"].ToString()),
+                        });
+                    }
+
+                    // 정렬 (score 내림차순, playTime 오름차순)
+                    clearDataList.Sort((a, b) =>
+                    {
+                        if (a.score != b.score) return b.score.CompareTo(a.score);
+                        return a.playTime.CompareTo(b.playTime);
+                    });
+
+                    onComplete?.Invoke(clearDataList);
+
+                }
+                else
+                {
+                    // 오류 처리
+                    Debug.LogError($"랭크 데이터 가져오기 실패: {bro.GetMessage()}");
+                    Debug.LogError($"랭크 데이터 가져오기 실패: {bro.GetErrorCode()}");
+                    Debug.LogError($"랭크 데이터 가져오기 실패: {bro.GetStatusCode()}");
+                }
+            });
+
+        }
+
     }
 }

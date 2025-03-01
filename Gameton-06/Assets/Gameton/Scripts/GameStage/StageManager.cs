@@ -28,10 +28,10 @@ namespace TON
             clearDataManager = new BackendClearDataManager();
             rankDataManager = new BackendRankDataManager();
 
-            GetRankData();
+            GetMyRankData();
         }
 
-        public void GetRankData()
+        public void GetMyRankData()
         {
             // 서버에서 내 클리어 데이터를 가져오고 가장 기록이 높은 정보를 세팅
             rankDataManager.LoadMyRankData(rankData =>
@@ -86,5 +86,19 @@ namespace TON
             expReward = 0;
             gameScore = 0;
         }
+
+
+        public void GetRankList()
+        {
+            rankDataManager.GetRankData(rankList =>
+            {
+                int i = 1;
+                rankList.ForEach((data) =>
+                Debug.Log($"Rank {i++}: {data.nickname}, Wave {data.wave}, Score {data.score}, PlayTime {data.playTime}"));
+            });
+        }
+
+
+
     }
 }

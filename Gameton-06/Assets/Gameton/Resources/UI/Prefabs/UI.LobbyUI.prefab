@@ -2602,6 +2602,8 @@ MonoBehaviour:
   wave: {fileID: 4021099301320444836}
   playTime: {fileID: 708268260796241340}
   score: {fileID: 8600056355742485418}
+  hpPotionCount: {fileID: 3161548932776254936}
+  mpPotionCount: {fileID: 1423836256582408442}
   emptyHeartAlert: {fileID: 5022332146818450050}
 --- !u!1 &3818176463653432039
 GameObject:
@@ -5376,13 +5378,13 @@ MonoBehaviour:
   m_text: "\uD558\uD2B8\uAC00 \uBD80\uC871\uD569\uB2C8\uB2E4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3116464c7616674448f2fb05b50bf91b, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -5364670637895760327, guid: 3116464c7616674448f2fb05b50bf91b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3

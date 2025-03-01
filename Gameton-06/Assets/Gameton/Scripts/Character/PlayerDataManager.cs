@@ -12,6 +12,7 @@ namespace TON
         public PlayerData player { get; private set; }
         public int goldAmount { get; private set; }
         public int fishAmount { get; private set; }
+        public UserItemData userItem { get; private set; } = new UserItemData();
 
         public int defensiveIntention { get; private set; } = 200; // 방어력 변수 (조정 가능)
 
@@ -19,13 +20,16 @@ namespace TON
         [SerializeField] private int attackGrowthFactor = 50; // 공격력 성장 변수 (조정 가능)
 
         private BackendCashDataManager cashDataManager;
+        private BackendItemDataManager itemDataManager;
 
         public void Initalize()
         {
             cashDataManager = new BackendCashDataManager();
+            itemDataManager = new BackendItemDataManager();
 
             LoadPlayerData();
             LoadPlayerCashData();
+            LoadPlayerItemData();
         }
 
         private void LoadPlayerData()
@@ -51,6 +55,16 @@ namespace TON
                 goldAmount = cashData.gold;
                 fishAmount = cashData.fish;
                 Debug.Log($"로드된 골드: {cashData.gold}, 물고기: {cashData.fish}");
+            });
+        }
+
+        private void LoadPlayerItemData()
+        {
+            itemDataManager.LoadMyItemData(userItemData =>
+            {
+                userItem.hpPotion = userItemData.hpPotion;
+                userItem.mpPotion = userItemData.mpPotion;
+                Debug.Log($"로드된 hp포션: {userItemData.hpPotion}, mp포션: {userItemData.mpPotion}");
             });
         }
 
@@ -103,18 +117,6 @@ namespace TON
                 callback?.Invoke(true);
             });
         }
-
-        // 플레이어가 사망했을때 호출
-        public void PlayerDeadEvent()
-        {
-            Invoke(nameof(ShowGameEndUI), 0.5f);
-
-        }
-        private void ShowGameEndUI()
-        {
-            UIManager.Show<GameWinUI>(UIList.GameWinUI);
-        }
-
 
         // 공격력과 방어력 업데이트
         private void UpdateStats(int currentLevel)
@@ -174,6 +176,17 @@ namespace TON
             {
                 Debug.LogError("유효하지 않은 캐릭터 정보 입니다.");
             }
+        }
+
+        // 플레이어가 사망했을때 호출
+        public void PlayerDeadEvent()
+        {
+            Invoke(nameof(ShowGameEndUI), 0.5f);
+
+        }
+        private void ShowGameEndUI()
+        {
+            UIManager.Show<GameWinUI>(UIList.GameWinUI);
         }
 
     }

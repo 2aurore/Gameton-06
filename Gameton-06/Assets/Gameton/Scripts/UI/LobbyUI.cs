@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -23,14 +24,20 @@ namespace TON
         [SerializeField] private TextMeshProUGUI playTime;
         [SerializeField] private TextMeshProUGUI score;
 
+        // 보유 포션 수량 
+        [SerializeField] private TextMeshProUGUI hpPotionCount;
+        [SerializeField] private TextMeshProUGUI mpPotionCount;
+
         public GameObject emptyHeartAlert;
 
         private void OnEnable()
         {
             SetCharacterData();
+            SetUserItemData();
             SetUserRankData();
         }
 
+        // 사용자 최고 기록 데이터 세팅
         private void SetUserRankData()
         {
             ClearData TOP_RECORD = StageManager.Singleton.TOP_RECORD;
@@ -57,6 +64,7 @@ namespace TON
             }
         }
 
+        // 캐릭터 기본 스탯 표시 
         private void SetCharacterData()
         {
             PlayerData player = PlayerDataManager.Singleton.player;
@@ -71,6 +79,15 @@ namespace TON
             characterAttck.text = $"{player.attackPower}";
             characterDefence.text = $"{player.defensivePower}";
             characterCritical.text = $"{player.critical}";
+        }
+
+        // 사용자 보유 포션 수량 세팅
+        private void SetUserItemData()
+        {
+            UserItemData userItem = PlayerDataManager.Singleton.userItem;
+
+            hpPotionCount.text = $"{userItem.hpPotion}";
+            mpPotionCount.text = $"{userItem.mpPotion}";
         }
 
         public void OnClickStagePlayButton()

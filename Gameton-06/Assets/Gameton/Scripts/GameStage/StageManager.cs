@@ -29,6 +29,7 @@ namespace TON
             rankDataManager = new BackendRankDataManager();
 
             GetMyRankData();
+            GetRankList();
         }
 
         public void GetMyRankData()
@@ -90,15 +91,34 @@ namespace TON
 
         public void GetRankList()
         {
-            rankDataManager.GetRankData(rankList =>
+            rankDataManager.GetRankData(rankData =>
             {
-                int i = 1;
-                rankList.ForEach((data) =>
-                Debug.Log($"Rank {i++}: {data.nickname}, Wave {data.wave}, Score {data.score}, PlayTime {data.playTime}"));
+                for (int i = 0; i < rankData.Count; i++)
+                {
+                    LitJson.JsonData row = rankData[i];
+                    RankList.Add(new ClearData
+                    {
+                        nickname = row["nickname"].ToString(),
+                        wave = int.Parse(row["wave"].ToString()),
+                        score = int.Parse(row["score"].ToString()),
+                        playTime = float.Parse(row["play_time"].ToString()),
+                    });
+                }
+
+                // 정렬 (score 내림차순, playTime 오름차순)
+                RankList.Sort((a, b) =>
+                {
+                    if (a.score != b.score) return b.score.CompareTo(a.score);
+                    return a.playTime.CompareTo(b.playTime);
+                });
             });
         }
 
-
+        public int GetMyRankNumber()
+        {
+            int rankNumber = RankList.FindIndex(data => data.nickname.Equals(TOP_RECORD.nickname));
+            return rankNumber;
+        }
 
     }
 }

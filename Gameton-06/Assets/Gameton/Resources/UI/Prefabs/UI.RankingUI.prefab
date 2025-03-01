@@ -167,13 +167,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 72
+  m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 32
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2996482217434952235}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.81078446
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -790,7 +790,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 89.48933}
+  m_AnchoredPosition: {x: 0, y: 0.000049850816}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &3043442581440476734
@@ -1073,6 +1073,7 @@ GameObject:
   - component: {fileID: 9118730511966541160}
   - component: {fileID: 2113469555973075398}
   - component: {fileID: 1160619946675334543}
+  - component: {fileID: 1392314752875031212}
   m_Layer: 5
   m_Name: UI.RankingUI
   m_TagString: Untagged
@@ -1165,7 +1166,29 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 575
+--- !u!114 &1392314752875031212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3554716968759600474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a019ce503091b94d814688735c831ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollRect: {fileID: 6409563792739250610}
+  rankBoxPrefab: {fileID: 1836485528427718722, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
+  uiPrefabList: []
+  createRankList: []
+  pawImage: {fileID: 3737414318957097033}
+  playerName: {fileID: 3819162921920848464}
+  rankNumber: {fileID: 6166724200374471149}
+  waveText: {fileID: 5214693156015332225}
+  scoreText: {fileID: 6316769929460910027}
+  playTimeText: {fileID: 3719967942584180839}
 --- !u!1 &3676414504436749960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1900,7 +1923,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6021362233292978298}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1392314752875031212}
+        m_TargetAssemblyTypeName: TON.RankingUI, Assembly-CSharp
+        m_MethodName: OnClickCloseButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6292012439216301528
 GameObject:
   m_ObjectHideFlags: 0
@@ -2866,55 +2901,59 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3398201985880822359, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3398201985880822359, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3398201985880822359, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 465.33334
       objectReference: {fileID: 0}
     - target: {fileID: 3398201985880822359, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 6905585838350402351, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6905585838350402351, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6905585838350402351, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 6905585838350402351, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 8201404655171497624, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
       propertyPath: m_Name
       value: Rank Box
       objectReference: {fileID: 0}
+    - target: {fileID: 8201404655171497624, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9137538600224533238, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9137538600224533238, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9137538600224533238, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 262.6667
       objectReference: {fileID: 0}
     - target: {fileID: 9137538600224533238, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

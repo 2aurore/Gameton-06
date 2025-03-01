@@ -678,10 +678,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1167917753387700438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 350, y: 50}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 60.5, y: 0}
+  m_SizeDelta: {x: -121, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5593457180591604332
 CanvasRenderer:
@@ -744,7 +744,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
@@ -851,8 +851,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 60, y: -35}
-  m_SizeDelta: {x: -280, y: 50}
+  m_AnchoredPosition: {x: 75, y: -35}
+  m_SizeDelta: {x: -250, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &4380570898053347355
 GameObject:
@@ -1479,6 +1479,7 @@ GameObject:
   - component: {fileID: 178720843269296823}
   - component: {fileID: 2461189433906269157}
   - component: {fileID: 8806745900426442480}
+  - component: {fileID: 1836485528427718722}
   m_Layer: 5
   m_Name: Rank Box
   m_TagString: Untagged
@@ -1546,3 +1547,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1836485528427718722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8201404655171497624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f063d17b315ac49b03acf8e9dd20b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rankBoxImage: {fileID: 8201404655171497624}
+  pawImage: {fileID: 4683561962985573316}
+  playerName: {fileID: 314859685783772368}
+  rankNumber: {fileID: 3138926961904540219}
+  waveText: {fileID: 8627601446384052062}
+  scoreText: {fileID: 815654436774351460}
+  playTimeText: {fileID: 5222120854099221483}

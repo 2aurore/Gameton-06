@@ -105,9 +105,8 @@ namespace TON
 
         public void OnClickRankingButton()
         {
-            // TODO: 랭킹 UI 추가
-            StageManager.Singleton.GetRankList();
-            // UIManager.Show<RankingUI>(UIList.RankingUI);
+            // 랭킹 UI 추가
+            UIManager.Show<RankingUI>(UIList.RankingUI);
         }
 
         public void OnClickShopButton()

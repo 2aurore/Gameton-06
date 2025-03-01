@@ -184,9 +184,9 @@ namespace TON
 
 
         /// <summary>
-        /// 플레이어 랭킹 리스트 불러오기기
+        /// 플레이어 랭킹 리스트 불러오기
         /// </summary>
-        public void GetRankData(System.Action<List<ClearData>> onComplete = null)
+        public void GetRankData(System.Action<LitJson.JsonData> onComplete = null)
         {
             // 가져올 필드 지정 (모든 필드를 가져오려면 null 사용)
             string[] select = new string[] { "nickname", "wave", "score", "play_time" };
@@ -207,30 +207,7 @@ namespace TON
                     LitJson.JsonData rankData = bro.GetReturnValuetoJSON()["rows"];
                     Debug.Log("가져온 데이터 수: " + rankData.Count);
 
-                    // ClearData 리스트 생성 및 변환
-                    List<ClearData> clearDataList = new List<ClearData>();
-
-                    for (int i = 0; i < rankData.Count; i++)
-                    {
-                        LitJson.JsonData row = rankData[i];
-                        clearDataList.Add(new ClearData
-                        {
-                            nickname = row["nickname"].ToString(),
-                            wave = int.Parse(row["wave"].ToString()),
-                            score = int.Parse(row["score"].ToString()),
-                            playTime = float.Parse(row["play_time"].ToString()),
-                        });
-                    }
-
-                    // 정렬 (score 내림차순, playTime 오름차순)
-                    clearDataList.Sort((a, b) =>
-                    {
-                        if (a.score != b.score) return b.score.CompareTo(a.score);
-                        return a.playTime.CompareTo(b.playTime);
-                    });
-
-                    onComplete?.Invoke(clearDataList);
-
+                    onComplete?.Invoke(rankData);
                 }
                 else
                 {

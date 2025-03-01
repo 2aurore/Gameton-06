@@ -38,5 +38,39 @@ namespace TON
         {
             return LoadAsset<Sprite>($"UI/Monster Portrait/wave{wave}_monster", out result);
         }
+
+        public bool LoadRankPawIcon(int rank, out Sprite result)
+        {
+            if (rank < 4)
+            {
+                // Rank 1, 2, 3일 때 실행할 코드
+                return LoadAsset<Sprite>($"UI/Ranking Paw/paw_{rank}th", out result);
+            }
+            else if (rank >= 4 && rank <= 20)
+            {
+                // Rank 4~20일 때 실행할 코드
+                return LoadAsset<Sprite>($"UI/Ranking Paw/paw_4th", out result);
+            }
+            else if (rank >= 21 && rank <= 50)
+            {
+                // Rank 21~50일 때 실행할 코드
+                return LoadAsset<Sprite>($"UI/Ranking Paw/paw_5th", out result);
+            }
+            else if (rank >= 51 || rank == -1)
+            {
+                // Rank 51 이상일 때 실행할 코드
+                return LoadAsset<Sprite>($"UI/Ranking Paw/paw_6th", out result);
+            }
+            else
+            {
+                result = null;
+                return false;
+            }
+        }
+
+        public bool LoadMyRankBoxImage(out Sprite result)
+        {
+            return LoadAsset<Sprite>($"UI/Ranking Paw/my_rank_box", out result);
+        }
     }
 }

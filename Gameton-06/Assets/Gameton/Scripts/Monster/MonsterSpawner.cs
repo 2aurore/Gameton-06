@@ -291,6 +291,7 @@ namespace TON
         
         private void ShowGameEndUI()
         {
+            SoundManager.instance.BgSoundPlay(null);
             UIManager.Show<GameWinUI>(UIList.GameWinUI);
         }
     }

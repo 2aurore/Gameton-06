@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TON
 {
@@ -21,6 +22,24 @@ namespace TON
             {
                 Destroy(gameObject);
             }
+        }
+        
+        private void OnEnable()
+        {
+            // 씬 로드 이벤트에 리스너 등록
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        
+        private void OnDisable()
+        {
+            // 씬 로드 이벤트에서 리스너 제거
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+        
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            // 씬이 바뀔 때마다 배경 음악 종료
+            BgSoundPlay(null);
         }
 
         public void SFXPlay(string sfxName, AudioClip clip)

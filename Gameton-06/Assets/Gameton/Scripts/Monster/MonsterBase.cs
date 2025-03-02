@@ -7,10 +7,7 @@ namespace TON
 {
     public partial class MonsterBase : MonoBehaviour, IDamage
     {
-        [SerializeField] private GameObject _target; // 몬스터의 타겟
-        [SerializeField] private Collider2D _collider; // 몬스터의 콜라이더
         [SerializeField] private SpriteRenderer _spriteRenderer; // 몬스터의 스프라이트 렌더러
-        // [SerializeField] private TextMeshProUGUI _textState;
         [SerializeField] public int id; // 몬스터의 ID
         public float defencePower;
         public float defenceIntention = 30;     // 몬스터 방어력 변수
@@ -27,7 +24,6 @@ namespace TON
         private float moveSpeed = 2f;
         
         StateMachine _stateMachine;
-        private SkillPattern _skillPattern;
 
         private Vector3 _direction; // 몬스터의 이동 방향
         public bool IsDetect { get; set; } // 몬스터가 대상을 인식했는지 여부
@@ -48,24 +44,14 @@ namespace TON
         private void Start()
         {
             _animator = GetComponent<Animator>(); // 애니메이터 컴포넌트 초기화
-
-            // TODO : 추후 제거 예정
-            // _stateMachine = new StateMachine(new IdleState(), this, _textState);
+            
             _stateMachine = new StateMachine(new IdleState(), this);
 
             InitializeMonsterData();    // 몬스터 데이터 로드 및 적용
 
-            if (_monsterData.monsterSkillID != 0)
-            {
-                _skillPattern = new MonsterSkillPattern(_monsterData, this);
-                IsSkillAttackable = _skillPattern.IsAttackable;
-            }
-
             _direction = new Vector3(1, 0, 0); // 초기 이동 방향 (x 축 양의 방향)
 
             _spriteRenderer.flipX = !(_direction.x > 0); // 이동 방향에 따라 스프라이트 플립
-
-            _collider = GetComponent<Collider2D>(); // 콜라이더 컴포넌트 초기화
             
             // CharacterBase 참조 설정
             _characterBase = GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>();
@@ -116,11 +102,6 @@ namespace TON
         private void Update()
         {
             _stateMachine.Update();
-            
-            if (_monsterData.monsterSkillID != 0)
-            {
-                _skillPattern.Update();
-            }
         }
 
         public void FinishAttack()
@@ -207,18 +188,11 @@ namespace TON
             if (target != null)
             {
                 Vector2 direction = target.transform.position - transform.position; // 타겟과의 방향 계산
-                _spriteRenderer.flipX = target.transform.position.x < transform.position.x; // 타겟이 왼쪽에 있으면 스프라이트를 왼쪽으로, 오른쪽에 있으면 오른쪽으로 바라보도록 설정
+                _spriteRenderer.flipX =
+                    target.transform.position.x <
+                    transform.position.x; // 타겟이 왼쪽에 있으면 스프라이트를 왼쪽으로, 오른쪽에 있으면 오른쪽으로 바라보도록 설정
 
                 transform.Translate(direction.normalized * moveSpeed * Time.deltaTime); // 타겟 방향으로 이동
-            }
-        }
-
-        public void MonsterSkillLaunch()
-        {
-            if (_monsterData.monsterSkillID != 0)
-            {
-                var target = GameObject.FindGameObjectWithTag("Player");
-                _skillPattern.Attack(target);
             }
         }
 
@@ -227,11 +201,6 @@ namespace TON
             RewardData();
             SoundManager.instance.SFXPlay("Death", _deathSound);
             Destroy(gameObject); // 몬스터 파괴
-        }
-
-        public SkillPattern GetSkillPattern()
-        {
-            return _skillPattern;
         }
     }
 }

@@ -103,24 +103,23 @@ namespace TON
                 SoundManager.instance.BgSoundPlay(null);
                 // 필요하다면 gameStarted = false; 등을 설정하여 한 번만 실행되게 함
             }
+            
+            
         }
         
         private void SpawnBossMonster()
         {
             GameObject bossPrefab = GetBossPrefabForWave(currentWave);
 
-            // 스폰 포인트 배열의 처음과 마지막 위치에 보스 몬스터 생성
             if (spawnPoints.Length >= 2)
             {
                 // 왼쪽 스폰 포인트
                 GameObject leftBoss = Instantiate(bossPrefab, spawnPoints[0].position, Quaternion.identity);
-                monsterPool.Add(leftBoss);
-                activeMonsters.Add(leftBoss);
+                SetupBossComponents(leftBoss);
 
                 // 오른쪽 스폰 포인트
                 GameObject rightBoss = Instantiate(bossPrefab, spawnPoints[spawnPoints.Length - 1].position, Quaternion.identity);
-                monsterPool.Add(rightBoss);
-                activeMonsters.Add(rightBoss);
+                SetupBossComponents(rightBoss);
             }
             else
             {
@@ -137,6 +136,22 @@ namespace TON
         
             // 보스 웨이브에서는 자동으로 다음 웨이브로 넘어가지 않음
             // 보스가 죽으면 Update에서 체크하여 다음 웨이브로 넘어감
+        }
+        
+        private void SetupBossComponents(GameObject boss)
+        {
+            MonsterBase monsterBase = boss.GetComponent<MonsterBase>();
+
+            Attack attackComponent = boss.GetComponentInChildren<Attack>();
+            Eyesight eyesightComponent = boss.GetComponentInChildren<Eyesight>();
+
+            if (attackComponent != null)
+                attackComponent.SetMonsterBase(monsterBase);
+            if (eyesightComponent != null)
+                eyesightComponent.SetMonsterBase(monsterBase);
+
+            monsterPool.Add(boss);
+            activeMonsters.Add(boss);
         }
         
         private void StartNextWave()

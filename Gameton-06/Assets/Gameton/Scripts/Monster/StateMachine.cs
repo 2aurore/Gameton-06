@@ -171,9 +171,6 @@ namespace TON
             // Idle로 변경
             if(_monsterBase.IsDetect== false)
                 return new IdleState();
-
-            if (_monsterBase.IsSkillAttackable)
-                return new MonsterSkillState();
             
             // Attack으로 변경
             if (_monsterBase.IsAttacking)
@@ -235,60 +232,6 @@ namespace TON
         public IState CheckTransition()
         {
             if(_monsterBase.IsFinishAttack == true)
-                return new IdleState();
-            
-            return this;
-        }
-    }
-    public class MonsterSkillState : IState
-    {
-        private const string AniAttack = "Attack"; // 공격 애니메이션
-        private MonsterBase _monsterBase;
-        private float _skillAttackAnimationDuration = 0.5f; // 공격 애니메이션 지속 시간
-        private float _skillAttackDelayTime = 10f;  // 공격 딜레이 시간
-        private float _lastSkillAttackTime;  // 마지막 공격 시간
-        
-        private bool _isSkillAttacking;
-        
-        public void Enter(MonsterBase monsterBase)
-        {
-            _monsterBase = monsterBase;
-            _lastSkillAttackTime = -_skillAttackDelayTime; // 처음 진입시 바로 공격하도록 설정
-            SkillAttack();
-        }
-
-        public void Update()
-        {
-            // 현재 공격 중이 아니고, 쿨다운이 지났다면 공격
-            if (!_isSkillAttacking && Time.time >= _lastSkillAttackTime + _skillAttackDelayTime)
-            {
-                SkillAttack();
-            }
-    
-            // 공격 애니메이션 종료 체크
-            if (_isSkillAttacking && Time.time >= _lastSkillAttackTime + _skillAttackAnimationDuration)
-            {
-                _isSkillAttacking = false;
-            }
-        }
-        
-        private void SkillAttack()
-        {
-            _monsterBase.ChangeAnimationState(AniAttack);
-            _monsterBase.MonsterSkillLaunch();
-            _lastSkillAttackTime = Time.time;
-            _isSkillAttacking = true;
-        }
-
-        public void Exit()
-        {
-            _isSkillAttacking = false;
-        }
-
-        public IState CheckTransition()
-        {
-            
-            if(_isSkillAttacking == false)
                 return new IdleState();
             
             return this;

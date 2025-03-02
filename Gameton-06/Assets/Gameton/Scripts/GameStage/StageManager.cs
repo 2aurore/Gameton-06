@@ -117,6 +117,11 @@ namespace TON
         // 내 랭킹 순위 반환
         public int GetMyRankNumber()
         {
+            if (RankList.Count == 0)
+            {
+                return -1;
+            }
+
             int rankNumber = RankList.FindIndex(data => data.nickname.Equals(TOP_RECORD.nickname));
             return rankNumber;
         }

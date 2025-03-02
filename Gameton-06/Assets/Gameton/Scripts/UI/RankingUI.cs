@@ -17,6 +17,7 @@ namespace TON
         public List<RectTransform> uiPrefabList = new List<RectTransform>();
         public List<RankingUI_RankBox> createRankList = new List<RankingUI_RankBox>();
 
+        [SerializeField] private GameObject errorPopup;
         [SerializeField] private GameObject pawImage;
         [SerializeField] private TextMeshProUGUI playerName;
         [SerializeField] private TextMeshProUGUI rankNumber;
@@ -26,17 +27,18 @@ namespace TON
 
         private void OnEnable()
         {
+            // 랭킹 불러오기 오류 팝업 기본 상태태
+            errorPopup.SetActive(false);
+
             // TODO: 랭킹 리스트 서버 오류 수정 후 주석 해제
-            // SetRankList();
+            SetRankList();
             SetMyRankData();
         }
 
         private void SetMyRankData()
         {
             ClearData TOP_RECORD = StageManager.Singleton.TOP_RECORD;
-            // TODO: 랭킹 리스트 서버 오류 수정 후 주석 해제
-            // int myRankNumber = StageManager.Singleton.GetMyRankNumber();
-            int myRankNumber = -1;
+            int myRankNumber = StageManager.Singleton.GetMyRankNumber();
 
             playerName.text = TOP_RECORD.nickname;
             rankNumber.text = myRankNumber > -1 ? $"{myRankNumber} th" : "Not Record";
@@ -64,6 +66,12 @@ namespace TON
 
             List<ClearData> rankList = StageManager.Singleton.RankList;
 
+            if (rankList.Count == 0)
+            {
+                errorPopup.SetActive(true);
+                return;
+            }
+
             float y = 0;
             for (int i = 0; i < rankList.Count; i++)
             {
@@ -87,8 +95,8 @@ namespace TON
         private void SetPawIcon(int rank)
         {
             Sprite loadedPawImage = null;
-            Assert.IsTrue(AssetManager.Singleton.LoadRankPawIcon(rank, out loadedPawImage));
-            pawImage.GetComponent<Image>().sprite = loadedPawImage;
+            if (AssetManager.Singleton.LoadRankPawIcon(rank, out loadedPawImage))
+                pawImage.GetComponent<Image>().sprite = loadedPawImage;
         }
 
         public void OnClickCloseButton()

@@ -56,15 +56,10 @@ namespace TON
                 // Rank 21~50일 때 실행할 코드
                 return LoadAsset<Sprite>($"UI/Ranking Paw/paw_5th", out result);
             }
-            else if (rank >= 51 || rank == -1)
+            else
             {
                 // Rank 51 이상일 때 실행할 코드
                 return LoadAsset<Sprite>($"UI/Ranking Paw/paw_6th", out result);
-            }
-            else
-            {
-                result = null;
-                return false;
             }
         }
 

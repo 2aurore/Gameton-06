@@ -10,14 +10,11 @@ namespace TON
     {
         public static GameWinUI Instance => UIManager.Singleton.GetUI<GameWinUI>(UIList.GameWinUI);
 
-        public readonly string GAME_OVER = "£ GAME OVER £";
-        public readonly string YOU_WIN = "♧ YOU WIN ♧";
 
         [SerializeField] private GameObject rechargeModal;
         [SerializeField] private GameObject retryModal;
         [SerializeField] private GameObject fishPopup;
 
-        [SerializeField] private TextMeshProUGUI title;
         [SerializeField] private TextMeshProUGUI goldReward;
         [SerializeField] private TextMeshProUGUI expReward;
         [SerializeField] private TextMeshProUGUI wave;
@@ -60,7 +57,6 @@ namespace TON
 
         public void SetUITextMesh()
         {
-            title.text = (StageManager.Singleton.waveCount == 10) ? YOU_WIN : GAME_OVER;
             wave.text = $"{StageManager.Singleton.waveCount} wave";
             goldReward.text = $"{goldAmount} G";
             expReward.text = $"EXP {StageManager.Singleton.expReward}";

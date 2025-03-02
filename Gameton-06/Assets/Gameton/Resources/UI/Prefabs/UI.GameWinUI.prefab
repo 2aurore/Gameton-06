@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u2667 YOU WIN \u2667"
+  m_text: "\u2667 RESULT \u2667"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3116464c7616674448f2fb05b50bf91b, type: 2}
   m_sharedMaterial: {fileID: -5364670637895760327, guid: 3116464c7616674448f2fb05b50bf91b, type: 2}
@@ -2103,7 +2103,7 @@ MonoBehaviour:
   rechargeModal: {fileID: 3404085104768005771}
   retryModal: {fileID: 3534850040710458559}
   fishPopup: {fileID: 5528572358339008572}
-  title: {fileID: 3072291578172711816}
+  title: {fileID: 0}
   goldReward: {fileID: 2511594787156804949}
   expReward: {fileID: 3421040063749252687}
   wave: {fileID: 7985878485860955566}

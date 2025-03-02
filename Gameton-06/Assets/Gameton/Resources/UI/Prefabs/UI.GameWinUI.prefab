@@ -3383,6 +3383,10 @@ PrefabInstance:
       value: -37.5
       objectReference: {fileID: 0}
     - target: {fileID: 4257220602582184208, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257220602582184208, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2648027058164122620}
@@ -3394,6 +3398,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: TON.GameWinUI, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 4257220602582184208, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257220602582184208, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4542825537873683785, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
       propertyPath: m_Name
       value: UI.RechargeModal
@@ -3401,6 +3413,34 @@ PrefabInstance:
     - target: {fileID: 4542825537873683785, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846412724568134204, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846412724568134204, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846412724568134204, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2648027058164122620}
+    - target: {fileID: 4846412724568134204, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846412724568134204, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnClickAdButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846412724568134204, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TON.GameWinUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846412724568134204, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6005301849909924835, guid: f4a016815da869a4dad6d8dc7e8aab79, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3687,6 +3727,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1781236700806201943}
     m_Modifications:
     - target: {fileID: 61177833917032615, guid: 3f28b0f5c3b932d43a67aa4a7e70a1a6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 61177833917032615, guid: 3f28b0f5c3b932d43a67aa4a7e70a1a6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2648027058164122620}
@@ -3697,6 +3741,18 @@ PrefabInstance:
     - target: {fileID: 61177833917032615, guid: 3f28b0f5c3b932d43a67aa4a7e70a1a6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: TON.GameWinUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 61177833917032615, guid: 3f28b0f5c3b932d43a67aa4a7e70a1a6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 61177833917032615, guid: 3f28b0f5c3b932d43a67aa4a7e70a1a6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715838025410559943, guid: 3f28b0f5c3b932d43a67aa4a7e70a1a6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4523961887957663649, guid: 3f28b0f5c3b932d43a67aa4a7e70a1a6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode

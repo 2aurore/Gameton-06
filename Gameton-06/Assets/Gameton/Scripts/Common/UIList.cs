@@ -24,8 +24,7 @@ namespace TON
         POPUP_START,
         LoadingUI,
 
-        GameOverUI, // 게임 오버 시 노출되는 UI
-        GameWinUI,  // 게임 클리어 시 노출되는 UI
+        GameWinUI,  // 게임 오버 및 클리어 시 노출되는 UI
         PauseUI,    // 일시중지 버튼 선택 시 노출되는 UI
         GoldPopup,
 

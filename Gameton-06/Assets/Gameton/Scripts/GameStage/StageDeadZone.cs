@@ -24,7 +24,8 @@ namespace TON
 
         private void ShowGameOverUI()
         {
-            UIManager.Show<GameoverUI>(UIList.GameOverUI);
+            // 게임 오버 UI 조건 삭제로 해당 코드 주석처리함
+            // UIManager.Show<GameoverUI>(UIList.GameOverUI);
         }
 
     }

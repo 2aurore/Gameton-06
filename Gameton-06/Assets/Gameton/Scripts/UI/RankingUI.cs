@@ -27,10 +27,10 @@ namespace TON
 
         private void OnEnable()
         {
-            // 랭킹 불러오기 오류 팝업 기본 상태태
+            // 랭킹 불러오기 오류 팝업 기본 상태
             errorPopup.SetActive(false);
 
-            // TODO: 랭킹 리스트 서버 오류 수정 후 주석 해제
+            // 랭킹 리스트 서버 오류 수정 후 주석 해제
             SetRankList();
             SetMyRankData();
         }

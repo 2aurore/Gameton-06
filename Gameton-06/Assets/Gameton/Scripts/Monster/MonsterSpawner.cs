@@ -103,8 +103,6 @@ namespace TON
                 SoundManager.instance.BgSoundPlay(null);
                 // 필요하다면 gameStarted = false; 등을 설정하여 한 번만 실행되게 함
             }
-            
-            
         }
         
         private void SpawnBossMonster()

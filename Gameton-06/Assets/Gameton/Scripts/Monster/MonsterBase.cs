@@ -29,7 +29,6 @@ namespace TON
         public bool IsDetect { get; set; } // 몬스터가 대상을 인식했는지 여부
         public bool IsAttacking { get; set; } // 몬스터가 공격했는지 여부
         public bool IsFinishAttack { get; set; } // 몬스터 공격 모션이 끝났는지 여부
-        public bool IsSkillAttackable;
 
         public int Gold = 0;
         public int Exp = 0;

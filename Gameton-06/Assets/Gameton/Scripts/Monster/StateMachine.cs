@@ -9,9 +9,7 @@ namespace TON
         private IState _state;
         private MonsterBase _monsterBase;
         private TextMeshProUGUI _textState;
-
-        // TODO : 추후 제거 예정
-        // public StateMachine(IState state, MonsterBase monsterBase, TextMeshProUGUI textState)
+        
         public StateMachine(IState state, MonsterBase monsterBase)
         {
             // 초기 상태 객체 생성
@@ -19,10 +17,6 @@ namespace TON
             
             _state = state;
             _state.Enter(_monsterBase);
-            
-            // TODO : 추후 제거 예정
-            // _textState = textState;
-            // _textState.text = _state.ToString();
         }
 
         public void Update()
@@ -43,8 +37,6 @@ namespace TON
             // 다음음 상태로 전환
             _state = state;
             _state.Enter(_monsterBase);
-
-            // _textState.text = _state.ToString();
         }
     }
 
@@ -200,9 +192,6 @@ namespace TON
 
         public void Update()
         {
-            // TODO : 우선 순위에 따라서 공격
-            // TODO : 스킬1 > 스킬2 > 일반 공격
-            // 현재 공격 중이 아니고, 쿨다운이 지났다면 공격
             if (!_isAttacking && Time.time >= _lastAttackTime + _attackDelayTime)
             {
                 Attack();

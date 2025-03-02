@@ -89,7 +89,7 @@ namespace TON
             activeMonsters.RemoveAll(monster => monster == null);
         
             // 모든 몬스터가 죽었는지 확인하고 다음 웨이브 준비
-            if (activeMonsters.Count == 0 && currentWave > 0 && currentWave < 11 && !isWaitingForNextWave)
+            if (activeMonsters.Count == 0 && currentWave > 0 && !isWaitingForNextWave)
             {
                 isWaitingForNextWave = true;
                 StartCoroutine(StartNextWaveWithDelay());
@@ -107,13 +107,33 @@ namespace TON
         
         private void SpawnBossMonster()
         {
-            // 랜덤한 스폰 포인트 선택
-            int spawnPointIndex = Random.Range(0, spawnPoints.Length);
             GameObject bossPrefab = GetBossPrefabForWave(currentWave);
-        
-            GameObject boss = Instantiate(bossPrefab, spawnPoints[spawnPointIndex].position, Quaternion.identity);
-            monsterPool.Add(boss);
-            activeMonsters.Add(boss);
+
+            // 스폰 포인트 배열의 처음과 마지막 위치에 보스 몬스터 생성
+            if (spawnPoints.Length >= 2)
+            {
+                // 왼쪽 스폰 포인트
+                GameObject leftBoss = Instantiate(bossPrefab, spawnPoints[0].position, Quaternion.identity);
+                monsterPool.Add(leftBoss);
+                activeMonsters.Add(leftBoss);
+
+                // 오른쪽 스폰 포인트
+                GameObject rightBoss = Instantiate(bossPrefab, spawnPoints[spawnPoints.Length - 1].position, Quaternion.identity);
+                monsterPool.Add(rightBoss);
+                activeMonsters.Add(rightBoss);
+            }
+            else
+            {
+                Debug.LogError("스폰 포인트가 2개 이상 필요합니다.");
+            }
+
+            // // 랜덤한 스폰 포인트 선택
+            // int spawnPointIndex = Random.Range(0, spawnPoints.Length);
+            // GameObject bossPrefab = GetBossPrefabForWave(currentWave);
+            //
+            // GameObject boss = Instantiate(bossPrefab, spawnPoints[spawnPointIndex].position, Quaternion.identity);
+            // monsterPool.Add(boss);
+            // activeMonsters.Add(boss);
         
             // 보스 웨이브에서는 자동으로 다음 웨이브로 넘어가지 않음
             // 보스가 죽으면 Update에서 체크하여 다음 웨이브로 넘어감
@@ -264,10 +284,15 @@ namespace TON
         
         private IEnumerator StartNextWaveWithDelay()
         {
-            if (currentWave != 11 && GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>() != null)
+            // 웨이브가 10이면 (즉, 10스테이지가 끝났으면) 또는 웨이브가 11이면 게임 종료 UI를 바로 보여줌
+            if (currentWave == 10 || currentWave == 11 || GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>() == null)
+            {
+                Invoke(nameof(ShowGameEndUI), 0.5f);
+            }
+            else
             {
                 SoundManager.instance.BgSoundPlay(null);
-                
+        
                 float timer = nextWaveDelay;
 
                 while (timer > 0)
@@ -277,20 +302,17 @@ namespace TON
                     yield return null;
                 }
 
-                // waveCounter.text = "0";
                 waveCounter.text = null;
 
                 isWaitingForNextWave = false;
                 StartNextWave();
             }
-            else
-            {
-                Invoke(nameof(ShowGameEndUI), 0.5f);
-            }
         }
         
         private void ShowGameEndUI()
         {
+            SoundManager.instance.BgSoundPlay(null);
+            StageManager.Singleton.SetWaveData(currentWave);    // 웨이브 정보 전달.
             UIManager.Show<GameWinUI>(UIList.GameWinUI);
         }
     }

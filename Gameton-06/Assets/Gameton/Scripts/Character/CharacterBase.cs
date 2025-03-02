@@ -43,6 +43,7 @@ namespace TON
 
         public AudioClip _attackSound;
         public AudioClip _deathSound;
+        public AudioClip _hitSound;
 
         public void Start()
         {
@@ -282,6 +283,8 @@ namespace TON
             currentHP = Mathf.Clamp(currentHP, 0, maxHP);
 
             OnHPChanged?.Invoke(currentHP, maxHP);
+
+            SoundManager.instance.SFXPlay("Hit", _hitSound);
 
             // 체력이 0 아래로 떨어지고 현 상태가 IsAlive 일때만 동작하도록 함
             if (currentHP <= 0f && prevHP > 0)

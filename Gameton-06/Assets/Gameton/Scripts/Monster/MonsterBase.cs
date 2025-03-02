@@ -41,7 +41,7 @@ namespace TON
         
         private CharacterBase _characterBase;
 
-        public AudioClip _attackSound;
+        // public AudioClip _attackSound;
         public AudioClip _deathSound;
         public AudioClip _hitSound;
         
@@ -186,7 +186,7 @@ namespace TON
 
             _characterBase.ApplyDamage(damage);
             
-            SoundManager.instance.SFXPlay("Attack", _attackSound);
+            // SoundManager.instance.SFXPlay("Attack", _attackSound);
             // Debug.Log($" 몬스터 공격! 최종 데미지: {damage}"); // 데미지 출력
         }
 

@@ -218,7 +218,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 6
 --- !u!114 &2442399451567191931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,6 +643,5 @@ MonoBehaviour:
   Gold: 0
   Exp: 0
   Score: 0
-  _attackSound: {fileID: 8300000, guid: 410601cdf0dc2194e8c95506d0f9410c, type: 3}
   _deathSound: {fileID: 8300000, guid: 22b2ca228b3f8ee49b511d312127d757, type: 3}
   _hitSound: {fileID: 8300000, guid: f48df33f7dda4a94aae097863d2e875d, type: 3}

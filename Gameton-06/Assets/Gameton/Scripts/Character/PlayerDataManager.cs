@@ -184,8 +184,6 @@ namespace TON
                 // 현재 플레이어 1개만 사용하므로 0번째 인덱스의 플레이어 데이터를 사용
                 PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
                 player = playersData[0];
-                // FIXME: 테스트를 위해 캐릭터 레벨 강제 적용함
-                player.level = 15;
             }
             else
             {

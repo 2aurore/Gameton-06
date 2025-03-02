@@ -40,10 +40,10 @@ namespace TON
         [SerializeField] private float mpRecoveryRate = 1f;  // MP 회복량
         [SerializeField] private float mpRecoveryInterval = 3f;  // 회복 간격(초)
         [SerializeField] private bool isRecovering = false;
-    
+
         public AudioClip _attackSound;
         public AudioClip _deathSound;
-        
+
         public void Start()
         {
             animator = GetComponent<Animator>();
@@ -174,7 +174,7 @@ namespace TON
             isAttack = true;
             // 공격 애니메이션 적용
             animator.Play("Default Attack");
-            
+
             SoundManager.instance.SFXPlay("Attack", _attackSound);
 
             // 공격 범위 Collider 활성화
@@ -210,8 +210,20 @@ namespace TON
             isRecovering = false;
         }
 
-        public void UsePotion(string type)
+        public void UsePotion(string type, System.Action<bool> callback)
         {
+
+            if (type.Equals("HP") && currentHP == maxHP)
+            {
+                callback?.Invoke(false);
+                return;
+            }
+            if (type.Equals("MP") && currentSP == maxSP)
+            {
+                callback?.Invoke(false);
+                return;
+            }
+
             switch (type)
             {
                 case "HP":
@@ -229,6 +241,8 @@ namespace TON
                     }
                     break;
             }
+
+            callback?.Invoke(true);
         }
 
         public void SkillAttack(string skillId)

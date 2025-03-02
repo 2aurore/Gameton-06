@@ -26,17 +26,22 @@ namespace TON
         [SerializeField] private TextMeshProUGUI hpPotionCount;
         [SerializeField] private TextMeshProUGUI mpPotionCount;
 
+        private int potionLimit = 5; // 게임에서 사용할 수 있는 포션 수 제한
+        private int hpPotion = 0;
+        private int mpPotion = 0;
+
         public List<ControllerUI_ItemButton> itemButtons = new List<ControllerUI_ItemButton>();
 
         private void OnEnable()
         {
             skillButtonPrefab.gameObject.SetActive(false);
             Initalize();
+            InitalizeItemData();
         }
 
         private void FixedUpdate()
         {
-            InitalizeItemData();
+            SetPotionText();
         }
 
         public void Initalize()
@@ -76,30 +81,54 @@ namespace TON
         {
             userItem = PlayerDataManager.Singleton.userItem;
 
-            hpPotionCount.text = $"{userItem.hpPotion}";
-            mpPotionCount.text = $"{userItem.mpPotion}";
+            // 게임 진입 시 포션 초기 수량 세팅팅
+            hpPotion = userItem.hpPotion >= potionLimit ? potionLimit : userItem.hpPotion;
+            mpPotion = userItem.mpPotion >= potionLimit ? potionLimit : userItem.mpPotion;
+
+            SetPotionText();
         }
+
+        // 현재 인게임 내에서 사용중인 포션의 숫자 업데이트
+        private void SetPotionText()
+        {
+            hpPotionCount.text = $"{hpPotion}";
+            mpPotionCount.text = $"{mpPotion}";
+        }
+
 
         public void OnClickHpPotionButton()
         {
-            if (userItem.hpPotion <= 0)
+            if (hpPotion <= 0)
                 return;
 
-            PlayerDataManager.Singleton.UsePotion("HP");
-
-            itemButtons[0].SetCurrentCoolDown();
-            linkedCharactor.UsePotion("HP");
+            // 현재 캐릭터가 포션을 사용할 수 있는 상태일때만 포션 수 감소
+            linkedCharactor.UsePotion("HP", isSuccess =>
+            {
+                if (isSuccess)
+                {
+                    hpPotion--;
+                    PlayerDataManager.Singleton.UsePotion("HP");
+                    itemButtons[0].SetCurrentCoolDown();
+                }
+            });
         }
 
         public void OnClickMpPotionButton()
         {
-            if (userItem.mpPotion <= 0)
+            if (mpPotion <= 0)
                 return;
 
-            PlayerDataManager.Singleton.UsePotion("MP");
+            // 현재 캐릭터가 포션을 사용할 수 있는 상태일때만 포션 수 감소
+            linkedCharactor.UsePotion("MP", isSuccess =>
+            {
+                if (isSuccess)
+                {
+                    mpPotion--;
+                    PlayerDataManager.Singleton.UsePotion("MP");
+                    itemButtons[1].SetCurrentCoolDown();
+                }
+            });
 
-            itemButtons[1].SetCurrentCoolDown();
-            linkedCharactor.UsePotion("MP");
         }
 
         public void OnClickJumpButton()

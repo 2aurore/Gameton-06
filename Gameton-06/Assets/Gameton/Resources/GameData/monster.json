@@ -5,11 +5,11 @@
     "level": 1,
     "hp": 50,
     "attackPower": 20,
-    "defencePower": 10,
+    "defencePower": 50,
     "monsterSkillID": 0,
-    "Gold": 1,
+    "Gold": 10,
     "Exp": 2,
-    "Score": 10
+    "Score": 5
   },
   {
     "id": 2,
@@ -17,83 +17,83 @@
     "level": 2,
     "hp": 80,
     "attackPower": 22,
-    "defencePower": 12,
+    "defencePower": 50,
     "monsterSkillID": 0,
-    "Gold": 1,
+    "Gold": 10,
     "Exp": 3,
-    "Score": 10
+    "Score": 5
   },
   {
     "id": 3,
     "name": "GreenRex",
     "level": 3,
-    "hp": 700,
-    "attackPower": 70,
-    "defencePower": 40,
+    "hp": 600,
+    "attackPower": 50,
+    "defencePower": 50,
     "monsterSkillID": 1,
-    "Gold": 15,
-    "Exp": 50,
-    "Score": 125
+    "Gold": 80,
+    "Exp": 20,
+    "Score": 240
   },
   {
     "id": 4,
     "name": "GreenPumpkin",
     "level": 4,
-    "hp": 120,
-    "attackPower": 40,
-    "defencePower": 20,
+    "hp": 150,
+    "attackPower": 50,
+    "defencePower": 50,
     "monsterSkillID": 0,
-    "Gold": 2,
-    "Exp": 5,
+    "Gold": 11,
+    "Exp": 3,
     "Score": 20
   },
   {
     "id": 5,
     "name": "RedOgre",
     "level": 5,
-    "hp": 150,
-    "attackPower": 44,
-    "defencePower": 24,
+    "hp": 200,
+    "attackPower": 60,
+    "defencePower": 50,
     "monsterSkillID": 0,
-    "Gold": 3,
-    "Exp": 7,
+    "Gold": 11,
+    "Exp": 4,
     "Score": 20
   },
   {
     "id": 6,
     "name": "BlueRex",
     "level": 6,
-    "hp": 1500,
+    "hp": 1000,
     "attackPower": 100,
-    "defencePower": 60,
+    "defencePower": 50,
     "monsterSkillID": 1,
-    "Gold": 50,
-    "Exp": 150,
-    "Score": 225
+    "Gold": 118,
+    "Exp": 25,
+    "Score": 400
   },
   {
     "id": 7,
     "name": "GreenOgre",
     "level": 7,
     "hp": 300,
-    "attackPower": 28,
-    "defencePower": 30,
+    "attackPower": 90,
+    "defencePower": 50,
     "monsterSkillID": 0,
-    "Gold": 4,
-    "Exp": 8,
-    "Score": 40
+    "Gold": 12,
+    "Exp": 4,
+    "Score": 30
   },
   {
     "id": 8,
     "name": "GreenTroll",
     "level": 8,
     "hp": 400,
-    "attackPower": 30,
-    "defencePower": 30,
+    "attackPower": 90,
+    "defencePower": 50,
     "monsterSkillID": 0,
-    "Gold": 6,
-    "Exp": 10,
-    "Score": 50
+    "Gold": 13,
+    "Exp": 5,
+    "Score": 40
   },
   {
     "id": 9,
@@ -103,9 +103,9 @@
     "attackPower": 110,
     "defencePower": 50,
     "monsterSkillID": 1,
-    "Gold": 125,
-    "Exp": 250,
-    "Score": 500
+    "Gold": 150,
+    "Exp": 35,
+    "Score": 1500
   },
   {
     "id": 10,
@@ -113,10 +113,10 @@
     "level": 10,
     "hp": 5000,
     "attackPower": 180,
-    "defencePower": 100,
+    "defencePower": 50,
     "monsterSkillID": 1,
-    "Gold": 300,
-    "Exp": 600,
-    "Score": 1000
+    "Gold": 200,
+    "Exp": 60,
+    "Score": 2000
   }
 ]

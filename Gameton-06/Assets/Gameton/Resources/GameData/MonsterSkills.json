@@ -11,6 +11,6 @@
     "skillName": "DragonBreath",
     "damage": 1.5,
     "cooldown": 10,
-    "range": 5
+    "range": 0
   }
 ]

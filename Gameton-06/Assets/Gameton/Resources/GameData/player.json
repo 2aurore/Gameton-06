@@ -1,0 +1,16 @@
+{
+    "items": [
+        {
+            "id": "P000",
+            "type": "w",
+            "name": "TTTT",
+            "level": 5,
+            "experience": 32,
+            "hp": 390,
+            "mp": 100,
+            "attackPower": 80,
+            "defensivePower": 45,
+            "critical": 30
+        }
+    ]
+}

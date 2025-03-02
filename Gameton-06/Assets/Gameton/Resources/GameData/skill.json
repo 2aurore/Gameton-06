@@ -3,74 +3,82 @@
         {
             "id": "K0001",
             "name": "FireBall",
-            "mpConsumption": 10,
+            "mpConsumption": 5,
             "damage": 1.2000000476837159,
             "coolDown": 5,
-            "slotNumber": 0,
-            "requiredLevel": 1
+            "slotNumber": 1,
+            "requiredLevel": 1,
+            "maxHitCount": 3
         },
         {
             "id": "K0002",
             "name": "IceBall",
-            "mpConsumption": 12,
+            "mpConsumption": 5,
             "damage": 1.2999999523162842,
-            "coolDown": 6,
-            "slotNumber": 1,
-            "requiredLevel": 3
+            "coolDown": 5,
+            "slotNumber": 2,
+            "requiredLevel": 2,
+            "maxHitCount": 3
         },
         {
             "id": "K0003",
             "name": "Leaf Shuriken",
-            "mpConsumption": 7,
+            "mpConsumption": 5,
             "damage": 1.149999976158142,
             "coolDown": 3,
             "slotNumber": 0,
-            "requiredLevel": 5
+            "requiredLevel": 3,
+            "maxHitCount": 4
         },
         {
             "id": "K0004",
             "name": "Earth Smash",
-            "mpConsumption": 20,
-            "damage": 1.7999999523162842,
-            "coolDown": 15,
+            "mpConsumption": 1,
+            "damage": 1.0,
+            "coolDown": 1,
             "slotNumber": 0,
-            "requiredLevel": 7
+            "requiredLevel": 1,
+            "maxHitCount": 1
         },
         {
             "id": "K0005",
             "name": "Bubble POP",
-            "mpConsumption": 5,
-            "damage": 1.149999976158142,
-            "coolDown": 2,
+            "mpConsumption": 1,
+            "damage": 1.0,
+            "coolDown": 1,
             "slotNumber": 0,
-            "requiredLevel": 9
+            "requiredLevel": 1,
+            "maxHitCount": 1
         },
         {
             "id": "K0006",
             "name": "Leaf Cutter",
-            "mpConsumption": 14,
+            "mpConsumption": 8,
             "damage": 1.399999976158142,
             "coolDown": 5,
-            "slotNumber": 0,
-            "requiredLevel": 11
+            "slotNumber": 3,
+            "requiredLevel": 4,
+            "maxHitCount": 4
         },
         {
             "id": "K0007",
             "name": "DarknessBall",
-            "mpConsumption": 30,
-            "damage": 2.4000000953674318,
-            "coolDown": 12,
+            "mpConsumption": 12,
+            "damage": 2.0,
+            "coolDown": 10,
             "slotNumber": 0,
-            "requiredLevel": 13
+            "requiredLevel": 5,
+            "maxHitCount": 6
         },
         {
             "id": "K0008",
             "name": "Elemental burst",
-            "mpConsumption": 60,
-            "damage": 8.0,
-            "coolDown": 40,
+            "mpConsumption": 15,
+            "damage": 2.5,
+            "coolDown": 12,
             "slotNumber": 0,
-            "requiredLevel": 15
+            "requiredLevel": 6,
+            "maxHitCount": 8
         }
     ]
 }

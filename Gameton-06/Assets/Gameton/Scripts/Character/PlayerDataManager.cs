@@ -14,11 +14,11 @@ namespace TON
         public int fishAmount { get; private set; }
         public UserItemData userItem { get; private set; } = new UserItemData();
 
-        public int defensiveIntention { get; private set; } = 200; // 방어력 변수 (조정 가능)
+        public float defensiveIntention { get; private set; } = 200f; // 방어력 변수 (조정 가능)
         public int requireLevelUpExp; // 경험치 변수 (조정 가능)
 
         [SerializeField] private int expVariable = 50; // 경험치 변수 (조정 가능)
-        [SerializeField] private int attackGrowthFactor = 50; // 공격력 성장 변수 (조정 가능)
+        [SerializeField] private float attackGrowthFactor = 50f; // 공격력 성장 변수 (조정 가능)
 
         private BackendCashDataManager cashDataManager;
         private BackendItemDataManager itemDataManager;
@@ -138,10 +138,10 @@ namespace TON
         }
 
         // 공격력과 방어력 업데이트
-        private void UpdateStats(int currentLevel)
+        private void UpdateStats(int level)
         {
-            player.attackPower = player.attackPower * (1 + (currentLevel - 1) / attackGrowthFactor);
-            player.defensivePower = player.defensivePower * (1 + (currentLevel - 1) / defensiveIntention);
+            player.attackPower = player.attackPower * (1 + level / attackGrowthFactor);
+            player.defensivePower = player.defensivePower * (1 + level / defensiveIntention);
         }
 
         // 현재 레벨에서 다음 레벨까지 필요한 경험치 계산
@@ -161,10 +161,10 @@ namespace TON
             {
                 // 레벨업 후 초과된 경험치를 반영하기 위해 다시 계산
                 player.experience -= requireLevelUpExp;
-                // 레벨업으로 인한 공격력/방어력 업데이트
-                UpdateStats(player.level);
                 // 레벨 증가
                 player.level++;
+                // 레벨업으로 인한 공격력/방어력 업데이트
+                UpdateStats(player.level);
                 return true;
             }
             return false;
@@ -172,6 +172,7 @@ namespace TON
 
         public void UpdatePlayerData()
         {
+            Debug.Log($"player {player.level}: {player.attackPower}, {player.defensivePower}");
             int index = playersData.FindIndex(x => x.id == player.id);
             if (index > -1)
             {

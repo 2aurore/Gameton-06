@@ -22,9 +22,9 @@ namespace TON
         // 캐릭터 마나(스킬 포인트)
         public int mp;
         // 기본 공격력
-        public int attackPower;
+        public float attackPower;
         // 기본 방어력
-        public int defensivePower;
+        public float defensivePower;
         // 캐릭터 크리티컬 수치 
         public int critical;
 
@@ -37,8 +37,8 @@ namespace TON
             experience = 0;
             hp = 100;
             mp = 100;
-            attackPower = 50;
-            defensivePower = 30;
+            attackPower = 50f;
+            defensivePower = 30f;
             critical = 30;
         }
     }

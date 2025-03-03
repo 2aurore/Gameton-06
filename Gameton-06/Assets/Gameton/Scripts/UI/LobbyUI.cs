@@ -77,8 +77,8 @@ namespace TON
             characterHp.text = $"{player.hp}";
             characterMp.text = $"{player.mp}";
             characterLevel.text = $"Lv {player.level}";
-            characterAttck.text = $"{player.attackPower}";
-            characterDefence.text = $"{player.defensivePower}";
+            characterAttck.text = $"{Mathf.RoundToInt(player.attackPower)}";
+            characterDefence.text = $"{Mathf.RoundToInt(player.defensivePower)}";
             characterCritical.text = $"{player.critical}";
 
             characterExp.text = $"{player.experience}/{PlayerDataManager.Singleton.requireLevelUpExp}";

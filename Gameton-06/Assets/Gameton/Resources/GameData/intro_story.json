@@ -1,0 +1,32 @@
+[
+ {
+  "background": 1,
+  "speaker": "dragon",
+  "content": "이 숲을 어둠에 잠식 시키겠다!! 크하하"
+ },
+ {
+  "background": 1,
+  "speaker": "villagers",
+  "content": "용의 저주로 숲이 점점 병들고 있어.. 어떡하면 좋지?"
+ },
+ {
+  "background": 2,
+  "speaker": "me",
+  "content": "숲 분위기가 심상치 않은걸?\n분명 강력한 수호의 힘으로 보호받고 있었을텐데.. 이상하다.."
+ },
+ {
+  "background": 3,
+  "speaker": "me",
+  "content": "이건...?\n(종이에는 \"용의 저주로 병들고 있는 숲을 구원할 용사를 구합니다!!\"라는 문구가 적혀있다)"
+ },
+ {
+  "background": 3,
+  "speaker": "me",
+  "content": "숲을 구할 용사가 필요하다니...\n내가 몬스터들을 무찔러서 우리 숲을 구해야겠어~~~!!"
+ },
+ {
+  "background": 4,
+  "speaker": "me",
+  "content": "우리 숲을 위해서, 용이 내린 저주를 꼭 풀어내고야 말꺼야!!"
+ }
+]

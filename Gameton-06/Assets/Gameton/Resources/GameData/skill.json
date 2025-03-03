@@ -33,7 +33,7 @@
         {
             "id": "K0006",
             "name": "Leaf Cutter",
-            "mpConsumption": 14,
+            "mpConsumption": 12,
             "damage": 1.5,
             "coolDown": 5,
             "slotNumber": 0,
@@ -58,7 +58,7 @@
             "coolDown": 10,
             "slotNumber": 0,
             "requiredLevel": 6,
-            "maxHitCount": 6
+            "maxHitCount": 8
         }
     ]
 }

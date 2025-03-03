@@ -134,5 +134,15 @@ namespace TON
             // TODO: 상점 UI 추가
             // 상점은 Scene으로 전환하자.
         }
+
+        public void OnClickRouletteButton()
+        {
+            // TODO: 룰렛 UI 추가가
+        }
+
+        public void OnClickGuideButton()
+        {
+            UIManager.Show<GuideUI>(UIList.GuideUI);
+        }
     }
 }

@@ -23,15 +23,17 @@ namespace TON
         private BackendCashDataManager cashDataManager;
         private BackendItemDataManager itemDataManager;
 
-        public void Initalize()
+        private void OnEnable()
         {
             cashDataManager = new BackendCashDataManager();
             itemDataManager = new BackendItemDataManager();
+        }
 
+        public void Initalize()
+        {
             LoadPlayerData();
             LoadPlayerCashData();
             LoadPlayerItemData();
-
         }
 
         private void LoadPlayerData()

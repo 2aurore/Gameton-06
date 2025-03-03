@@ -15,6 +15,7 @@ namespace TON
         public UserItemData userItem { get; private set; } = new UserItemData();
 
         public int defensiveIntention { get; private set; } = 200; // 방어력 변수 (조정 가능)
+        public int requireLevelUpExp; // 경험치 변수 (조정 가능)
 
         [SerializeField] private int expVariable = 50; // 경험치 변수 (조정 가능)
         [SerializeField] private int attackGrowthFactor = 50; // 공격력 성장 변수 (조정 가능)
@@ -30,6 +31,7 @@ namespace TON
             LoadPlayerData();
             LoadPlayerCashData();
             LoadPlayerItemData();
+
         }
 
         private void LoadPlayerData()
@@ -152,7 +154,7 @@ namespace TON
             player.experience += amount;
 
             // 추가된 경험치로 인한 현재 경험치가 레벨업에 필요한 경험치보다 크거나 같다면 레벨업
-            int requireLevelUpExp = GetRequiredExp(player.level);
+            requireLevelUpExp = GetRequiredExp(player.level);
             if (player.experience >= requireLevelUpExp)
             {
                 // 레벨업 후 초과된 경험치를 반영하기 위해 다시 계산
@@ -184,6 +186,8 @@ namespace TON
                 // 현재 플레이어 1개만 사용하므로 0번째 인덱스의 플레이어 데이터를 사용
                 PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
                 player = playersData[0];
+                // 현재 플레이어의 정보를 세팅하고, 레벨업 필요 경험치 정보를 세팅
+                requireLevelUpExp = GetRequiredExp(player.level);
             }
             else
             {

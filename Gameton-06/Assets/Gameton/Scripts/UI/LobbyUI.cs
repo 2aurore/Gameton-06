@@ -17,6 +17,7 @@ namespace TON
         [SerializeField] private TextMeshProUGUI characterAttck;
         [SerializeField] private TextMeshProUGUI characterDefence;
         [SerializeField] private TextMeshProUGUI characterCritical;
+        [SerializeField] private TextMeshProUGUI characterExp;
 
         // 스테이지 클리어 기록 텍스트
         [SerializeField] private Image monsterIcon;
@@ -79,6 +80,8 @@ namespace TON
             characterAttck.text = $"{player.attackPower}";
             characterDefence.text = $"{player.defensivePower}";
             characterCritical.text = $"{player.critical}";
+
+            characterExp.text = $"{player.experience}/{PlayerDataManager.Singleton.requireLevelUpExp}";
         }
 
         // 사용자 보유 포션 수량 세팅

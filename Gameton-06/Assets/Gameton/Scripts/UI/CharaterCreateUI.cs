@@ -114,6 +114,9 @@ namespace TON
                         {
                             Debug.LogError("서버 오류 :: 캐릭터 닉네임 저장 실패");
                         }
+
+                        cancelButton.interactable = true;
+                        confirmButton.interactable = true;
                     }
                 });
             });
@@ -122,7 +125,7 @@ namespace TON
         private void DuplicateNickname()
         {
             nicknameCondition.text = "이미 사용중인 이름입니다.";
-            nicknameCondition.color = Color.red;
+            nicknameCondition.color = Color.yellow;
         }
 
         public void OnClickCancelButton()

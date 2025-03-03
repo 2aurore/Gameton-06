@@ -50,28 +50,22 @@ MonoBehaviour:
     count: 20
   - objectId: K0001
     objectPrefab: {fileID: 6328494989662859589, guid: 25bb8f03ea9cfc941b64e04b75d3a1d9, type: 3}
-    count: 3
+    count: 2
   - objectId: K0002
     objectPrefab: {fileID: 2209934716239183953, guid: d120f035432a9f849acccd97c5d88eb1, type: 3}
-    count: 3
+    count: 2
   - objectId: K0003
     objectPrefab: {fileID: 1380883064370067919, guid: b3d2c3f795b332f45b6dbdef83bc485d, type: 3}
-    count: 3
-  - objectId: K0004
-    objectPrefab: {fileID: 725522673186316604, guid: 20cf6563eda51bf4783b758a81d980bb, type: 3}
-    count: 3
-  - objectId: K0005
-    objectPrefab: {fileID: 2348644397580482668, guid: f327fc2ab9e8c22458d61a998873d804, type: 3}
-    count: 3
+    count: 2
   - objectId: K0006
     objectPrefab: {fileID: 774765665418399614, guid: b1676899554c24a4999e990d3aa27aa9, type: 3}
-    count: 3
+    count: 2
   - objectId: K0007
     objectPrefab: {fileID: 589444956133359262, guid: 530f7e18dc59af345a84638c4e80642f, type: 3}
-    count: 3
+    count: 2
   - objectId: K0008
     objectPrefab: {fileID: 5823506627603727293, guid: 1f93b8507256e2243a5597dbe6009895, type: 3}
-    count: 3
+    count: 2
   ojbectPoolDic:
     keys: []
     values: []

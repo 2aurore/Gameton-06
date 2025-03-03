@@ -701,7 +701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3924096021625724153, guid: ffb3a6e5566636947b80328e8c2b0a84, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickHomeButton
+      value: OnClickHomeModal
       objectReference: {fileID: 0}
     - target: {fileID: 3924096021625724153, guid: ffb3a6e5566636947b80328e8c2b0a84, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName

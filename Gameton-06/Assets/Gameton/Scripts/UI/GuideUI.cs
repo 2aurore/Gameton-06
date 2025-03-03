@@ -6,6 +6,8 @@ namespace TON
 {
     public class GuideUI : UIBase
     {
+        public static GuideUI Instance => UIManager.Singleton.GetUI<GuideUI>(UIList.GuideUI);
+
         [SerializeField] private List<GameObject> guideList = new List<GameObject>();
         private int index = 0;
 
@@ -33,9 +35,10 @@ namespace TON
 
         public void HandleClickScreen()
         {
-            if (index == guideList.Count)
+            if (index == guideList.Count - 1)
             {
                 UIManager.Hide<GuideUI>(UIList.GuideUI);
+
                 return;
             }
 

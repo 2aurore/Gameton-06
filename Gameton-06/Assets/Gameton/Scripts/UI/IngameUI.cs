@@ -55,6 +55,8 @@ namespace TON
 
         private void Update()
         {
+            waveText.text = $"WAVE {StageManager.Singleton.waveCount + 1}";
+
             UpdatePlayTimeDisplay();
             UpdateGameScore();
         }

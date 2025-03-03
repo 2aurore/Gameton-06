@@ -7369,14 +7369,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5497518096438283056}
     m_Modifications:
-    - target: {fileID: 162875682269977762, guid: 337e10d50a493a74f9362a255e6df564, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 162875682269977762, guid: 337e10d50a493a74f9362a255e6df564, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 379111498896210418, guid: 337e10d50a493a74f9362a255e6df564, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

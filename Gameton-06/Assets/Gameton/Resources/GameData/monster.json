@@ -8,7 +8,7 @@
     "defencePower": 50,
     "monsterSkillID": 0,
     "Gold": 10,
-    "Exp": 2,
+    "Exp": 1,
     "Score": 5
   },
   {
@@ -20,7 +20,7 @@
     "defencePower": 50,
     "monsterSkillID": 0,
     "Gold": 10,
-    "Exp": 3,
+    "Exp": 1,
     "Score": 5
   },
   {
@@ -44,7 +44,7 @@
     "defencePower": 50,
     "monsterSkillID": 0,
     "Gold": 11,
-    "Exp": 3,
+    "Exp": 2,
     "Score": 20
   },
   {
@@ -56,7 +56,7 @@
     "defencePower": 50,
     "monsterSkillID": 0,
     "Gold": 11,
-    "Exp": 4,
+    "Exp": 2,
     "Score": 20
   },
   {
@@ -80,7 +80,7 @@
     "defencePower": 50,
     "monsterSkillID": 0,
     "Gold": 12,
-    "Exp": 4,
+    "Exp": 3,
     "Score": 30
   },
   {
@@ -92,7 +92,7 @@
     "defencePower": 50,
     "monsterSkillID": 0,
     "Gold": 13,
-    "Exp": 5,
+    "Exp": 3,
     "Score": 40
   },
   {
@@ -104,7 +104,7 @@
     "defencePower": 50,
     "monsterSkillID": 1,
     "Gold": 150,
-    "Exp": 35,
+    "Exp": 30,
     "Score": 1500
   },
   {
@@ -116,7 +116,7 @@
     "defencePower": 50,
     "monsterSkillID": 1,
     "Gold": 200,
-    "Exp": 60,
+    "Exp": 40,
     "Score": 2000
   }
 ]

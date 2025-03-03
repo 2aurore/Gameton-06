@@ -17,7 +17,7 @@ namespace TON
         RankingUI,      // 랭킹 UI
         IngameUI,       // 인게임 표시 UI
         OptionUI, // 화면 우측 상단 골드, 인벤토리, 옵션 버튼 UI
-        ShopUI, // 상점
+        ShopUI, // 상점 UI
         PANEL_END,
 
 

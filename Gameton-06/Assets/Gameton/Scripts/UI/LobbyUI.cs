@@ -133,6 +133,8 @@ namespace TON
         {
             // TODO: 상점 UI 추가
             // 상점은 Scene으로 전환하자.
+            
+            Main.Singleton.ChangeScene(SceneType.Shop);
         }
 
         public void OnClickRouletteButton()

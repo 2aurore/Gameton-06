@@ -19,6 +19,7 @@ namespace TON
             }
 
             UIManager.Show<ShopUI>(UIList.ShopUI);
+            UIManager.Show<OptionUI>(UIList.OptionUI);
         }
 
         public override IEnumerator OnEnd()
@@ -26,6 +27,7 @@ namespace TON
             yield return null;
 
             UIManager.Hide<ShopUI>(UIList.ShopUI);
+            UIManager.Hide<OptionUI>(UIList.OptionUI);
         }
     }
 }

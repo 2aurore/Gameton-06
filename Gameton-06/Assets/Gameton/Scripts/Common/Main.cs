@@ -66,6 +66,9 @@ namespace TON
                 case SceneType.Lobby:
                     StartCoroutine(ChangeScene<LobbyScene>(onSceneChangeCompletedCallback));
                     break;
+                case SceneType.Shop:
+                    StartCoroutine(ChangeScene<ShopScene>(onSceneChangeCompletedCallback));
+                    break;
                 case SceneType.Stage:
                     StartCoroutine(ChangeScene<StageScene>(onSceneChangeCompletedCallback));
                     break;

@@ -105,7 +105,7 @@ namespace TON
                 else
                 {
                     Debug.LogError("닉네임 변경 실패: " + bro.GetMessage());
-                    callback?.Invoke(false, bro.GetCode());
+                    callback?.Invoke(false, bro.GetStatusCode());
                 }
             });
         }

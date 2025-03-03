@@ -140,8 +140,8 @@ namespace TON
         // 공격력과 방어력 업데이트
         private void UpdateStats(int currentLevel)
         {
-            player.attackPower *= 1 + (currentLevel - 1) / attackGrowthFactor;
-            player.defensivePower *= 1 + (currentLevel - 1) / defensiveIntention;
+            player.attackPower = player.attackPower * (1 + (currentLevel - 1) / attackGrowthFactor);
+            player.defensivePower = player.defensivePower * (1 + (currentLevel - 1) / defensiveIntention);
         }
 
         // 현재 레벨에서 다음 레벨까지 필요한 경험치 계산

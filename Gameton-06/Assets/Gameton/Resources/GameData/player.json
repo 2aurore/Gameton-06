@@ -4,12 +4,12 @@
             "id": "P000",
             "type": "w",
             "name": "TTTT",
-            "level": 5,
-            "experience": 32,
-            "hp": 390,
-            "mp": 100,
-            "attackPower": 80,
-            "defensivePower": 45,
+            "level": 7,
+            "experience": 0,
+            "hp": 420,
+            "mp": 110,
+            "attackPower": 90,
+            "defensivePower": 70,
             "critical": 30
         }
     ]

@@ -71,8 +71,9 @@ namespace TON
                 return;
             }
 
-            OnClickStageRetryButton();
+            retryModal.SetActive(true);
         }
+
         public void OnClickStageRetryButton()
         {
             Time.timeScale = 1f;

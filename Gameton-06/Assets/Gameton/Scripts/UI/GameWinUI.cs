@@ -102,7 +102,7 @@ namespace TON
                 rechargeModal.SetActive(true);
                 return;
             }
-            OnClickStageRetryButton();
+            retryModal.SetActive(true);
         }
         public void OnClickStageRetryButton()
         {

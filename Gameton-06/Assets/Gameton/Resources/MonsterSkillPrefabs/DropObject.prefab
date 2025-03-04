@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 568532890871045555}
   - component: {fileID: 1584717097320002398}
   - component: {fileID: 6838857846489357713}
-  - component: {fileID: 2603597439285502986}
   - component: {fileID: 22246383895840250}
   m_Layer: 0
   m_Name: DropObject
@@ -172,21 +171,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2603597439285502986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5413697641276301969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 190405d8d5d2c0e4683121e913af8457, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  damage: 1
-  _spriteRenderer: {fileID: 8129513977779257605}
 --- !u!111 &22246383895840250
 Animation:
   m_ObjectHideFlags: 0

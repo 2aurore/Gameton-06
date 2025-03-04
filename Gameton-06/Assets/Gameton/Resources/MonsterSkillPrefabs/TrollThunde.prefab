@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4121797601386808181}
   - component: {fileID: 5942239147517117630}
   - component: {fileID: 6031164731437075766}
-  - component: {fileID: 949720681610508418}
   - component: {fileID: 6649050052435975944}
   m_Layer: 0
   m_Name: TrollThunde
@@ -172,21 +171,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &949720681610508418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7017780489100943411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 190405d8d5d2c0e4683121e913af8457, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  damage: 1
-  _spriteRenderer: {fileID: 6996097925627925270}
 --- !u!111 &6649050052435975944
 Animation:
   m_ObjectHideFlags: 0

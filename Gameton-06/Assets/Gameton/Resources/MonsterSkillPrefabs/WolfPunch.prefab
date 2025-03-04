@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3704564354868999824}
   - component: {fileID: 488110480534327625}
   - component: {fileID: 2520265350606953410}
-  - component: {fileID: 8374477892765836817}
   - component: {fileID: 7278308207326576809}
   m_Layer: 0
   m_Name: WolfPunch
@@ -172,21 +171,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8374477892765836817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 123878659603861660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 190405d8d5d2c0e4683121e913af8457, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  damage: 1
-  _spriteRenderer: {fileID: 6727556030653340631}
 --- !u!111 &7278308207326576809
 Animation:
   m_ObjectHideFlags: 0

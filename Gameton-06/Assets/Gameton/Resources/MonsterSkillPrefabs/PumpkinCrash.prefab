@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 498327655730817293}
   - component: {fileID: 3730048596841589478}
   - component: {fileID: 8989973228021407057}
-  - component: {fileID: 3587667971006779655}
   - component: {fileID: 947869301061931195}
   m_Layer: 0
   m_Name: PumpkinCrash
@@ -172,21 +171,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3587667971006779655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6551207428356273061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 190405d8d5d2c0e4683121e913af8457, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  damage: 1
-  _spriteRenderer: {fileID: 4479695262721233184}
 --- !u!111 &947869301061931195
 Animation:
   m_ObjectHideFlags: 0

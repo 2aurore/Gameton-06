@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6005792380637720625}
   - component: {fileID: 3072966660169347942}
   - component: {fileID: 9163858131445522055}
-  - component: {fileID: 1743096503760269675}
   - component: {fileID: 8137806285949498767}
   m_Layer: 0
   m_Name: TrollCharge
@@ -172,21 +171,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1743096503760269675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5657264052368507626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 190405d8d5d2c0e4683121e913af8457, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  damage: 1
-  _spriteRenderer: {fileID: 8682394166578140873}
 --- !u!111 &8137806285949498767
 Animation:
   m_ObjectHideFlags: 0

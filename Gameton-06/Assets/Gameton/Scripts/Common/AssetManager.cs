@@ -25,7 +25,8 @@ namespace TON
 
         public bool LoadSkillIcon(string skillId, out Sprite result)
         {
-            return LoadAsset<Sprite>($"UI/Skill Icon/skill_icon_{skillId}", out result);
+            string id = skillId.ToLower();
+            return LoadAsset<Sprite>($"UI/Skill Icon/skill_icon_{id}", out result);
         }
 
         public bool LoadPlayerIcon(string playerType, FaceStatue status, out Sprite result)

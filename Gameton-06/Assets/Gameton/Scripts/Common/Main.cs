@@ -79,8 +79,6 @@ namespace TON
         {
             UIManager.Show<LoadingUI>(UIList.LoadingUI);
 
-            yield return new WaitForSeconds(2f);
-
             isSceneChangeProgress = true;
 
             // 기존에 불러두었던 씬 컨트롤러(Scene Base)가 있다면, OnEnd를 호출해주고 삭제한다.

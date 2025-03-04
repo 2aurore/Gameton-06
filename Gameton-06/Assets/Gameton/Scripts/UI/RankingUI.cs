@@ -64,7 +64,7 @@ namespace TON
                 uiPrefabList.Clear();
             }
 
-            List<ClearData> rankList = StageManager.Singleton.RankList;
+            List<ClearData> rankList = StageManager.Singleton.GetRankDataList();
 
             if (rankList.Count == 0)
             {

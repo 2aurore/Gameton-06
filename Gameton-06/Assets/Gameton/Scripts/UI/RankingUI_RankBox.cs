@@ -31,7 +31,11 @@ namespace TON
             playTimeText.text = $"{minutes:0}m {seconds:0}s";
 
             SetPawIcon(rank);
-            SetMyRankBoxImage();
+
+            if (clearData.nickname == PlayerDataManager.Singleton.player.name)
+            {
+                SetMyRankBoxImage();
+            }
         }
 
         private void SetMyRankBoxImage()

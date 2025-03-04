@@ -24,6 +24,14 @@ namespace TON
             score = 0;
         }
 
+        public ClearData(string nickname, int wave, float playTime, int score)
+        {
+            this.nickname = nickname;
+            this.wave = wave;
+            this.playTime = playTime;
+            this.score = score;
+        }
+
         public void UpdateClearData(string nickname, int wave, float playTime, int score)
         {
             this.nickname = nickname;

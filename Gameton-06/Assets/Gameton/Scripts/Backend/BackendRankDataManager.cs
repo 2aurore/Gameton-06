@@ -194,17 +194,14 @@ namespace TON
             // 결과 제한 수 (100개)
             int limit = 100;
 
-            // 첫 번째 정렬 기준 (wave 내림차순)
-            string firstKey = "wave";
-
             // 데이터 비동기 요청
-            Backend.GameData.Get(RANK_TABLE, new Where(), select, limit, firstKey, TableSortOrder.DESC, bro =>
+            Backend.GameData.Get(RANK_TABLE, new Where(), select, limit, null, TableSortOrder.DESC, bro =>
             {
                 // 요청 성공 확인
                 if (bro.IsSuccess())
                 {
                     // 데이터 처리
-                    LitJson.JsonData rankData = bro.GetReturnValuetoJSON()["rows"];
+                    LitJson.JsonData rankData = bro.Rows();
                     Debug.Log("가져온 데이터 수: " + rankData.Count);
 
                     onComplete?.Invoke(rankData);

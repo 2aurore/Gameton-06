@@ -97,13 +97,14 @@ namespace TON
                 {
                     LitJson.JsonData row = rankData[i];
                     RankList.Add(new ClearData
-                    {
-                        nickname = row["nickname"].ToString(),
-                        wave = int.Parse(row["wave"].ToString()),
-                        score = int.Parse(row["score"].ToString()),
-                        playTime = float.Parse(row["play_time"].ToString()),
-                    });
+                    (
+                        row["nickname"]["S"].ToString(),
+                        int.Parse(row["wave"]["N"].ToString()),
+                        float.Parse(row["play_time"]["N"].ToString()),
+                        int.Parse(row["score"]["N"].ToString())
+                    ));
                 }
+                ;
 
                 // 정렬 (score 내림차순, playTime 오름차순)
                 RankList.Sort((a, b) =>
@@ -112,6 +113,11 @@ namespace TON
                     return a.playTime.CompareTo(b.playTime);
                 });
             });
+        }
+
+        public List<ClearData> GetRankDataList()
+        {
+            return RankList;
         }
 
         // 내 랭킹 순위 반환

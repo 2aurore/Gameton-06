@@ -7,12 +7,12 @@ namespace TON
     public class TitleUI : UIBase
     {
         public CharaterSelectUI charaterSelectUI;
-        
+
         public void OnClickStartButton()
         {
             StartCoroutine(StartButtonDelay());
         }
-        
+
         IEnumerator StartButtonDelay()
         {
             yield return new WaitForSeconds(0.2f); // 0.2초 대기
@@ -23,7 +23,7 @@ namespace TON
             // 플레이어가 가지고 있는 캐릭터들의 데이터 불러옴
             List<PlayerData> players = PlayerDataManager.Singleton.playersData;
 
-            if (players.Count == 0)
+            if (players == null || players.Count == 0)
             {
                 // 현재 가지고 있는 캐릭터가 없다면 CharaterCreateUI 를 보여주고
                 UIManager.Show<CharaterCreateUI>(UIList.CharaterCreateUI);

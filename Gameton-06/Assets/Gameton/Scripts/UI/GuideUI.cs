@@ -38,7 +38,7 @@ namespace TON
             if (index == guideList.Count - 1)
             {
                 UIManager.Hide<GuideUI>(UIList.GuideUI);
-
+                UIManager.Show<LobbyUI>(UIList.LobbyUI);
                 return;
             }
 

@@ -145,6 +145,7 @@ namespace TON
         public void OnClickGuideButton()
         {
             UIManager.Show<GuideUI>(UIList.GuideUI);
+            UIManager.Hide<LobbyUI>(UIList.LobbyUI);
         }
     }
 }

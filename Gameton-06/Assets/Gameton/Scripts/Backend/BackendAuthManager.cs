@@ -35,7 +35,7 @@ namespace TON
             {
                 if (callback.IsSuccess())
                 {
-                    Debug.Log("자동 로그인 성공!");
+                    Debug.Log("자동 로그인 성공! " + customID);
                     IsLoggedIn = true;
                     OnLoginComplete?.Invoke(true, "로그인 성공");
                 }

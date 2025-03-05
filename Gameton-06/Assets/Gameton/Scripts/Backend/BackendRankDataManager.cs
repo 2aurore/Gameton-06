@@ -77,6 +77,11 @@ namespace TON
         /// </summary>
         private void InsertInitData(ClearData clearData, System.Action onComplete = null)
         {
+            if (PlayerDataManager.Singleton.player == null)
+            {
+                return;
+            }
+
             Param param = new Param();
             param.Add("score", clearData.score);
             param.Add("wave", clearData.wave);

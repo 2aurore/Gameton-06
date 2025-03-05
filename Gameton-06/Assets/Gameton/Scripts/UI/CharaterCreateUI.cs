@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -16,6 +17,7 @@ namespace TON
         [SerializeField] private TextMeshProUGUI nicknameCondition;
 
 
+        public TMP_InputField nicknameInputField;
         public GameObject characterCreateUI_Modal;
         public GameObject blackCat_Spotlight;
         public GameObject whiteCat_Spotlight;
@@ -28,6 +30,14 @@ namespace TON
 
             // 처음에는 버튼을 비활성화
             createButton.interactable = false;
+
+
+            // 입력 필드가 할당되지 않았다면 현재 게임 오브젝트의 InputField 컴포넌트를 가져옵니다.
+            if (nicknameInputField == null)
+                nicknameInputField = GetComponent<TMP_InputField>();
+
+            // 입력 필드의 문자 확인 이벤트에 메서드 연결
+            nicknameInputField.onValidateInput += ValidateInput;
         }
 
         public void SelectCharacter(string characterType)
@@ -62,6 +72,26 @@ namespace TON
             // 캐릭터 이름 입력 모달 활성화
             characterCreateUI_Modal.SetActive(true);
         }
+
+        private char ValidateInput(string text, int charIndex, char addedChar)
+        {
+            // 영문 대소문자만 허용 (A-Z, a-z)
+            if (Regex.IsMatch(addedChar.ToString(), @"^[a-zA-Z]+$"))
+            {
+                return addedChar;
+            }
+
+            // 영문 이외의 문자는 무시
+            return '\0';
+        }
+
+        // 추가 옵션: 기존 텍스트에 영문 이외의 문자가 있다면 제거하는 메서드
+        public void RemoveNonEnglishCharacters()
+        {
+            string englishOnly = Regex.Replace(nicknameInputField.text, @"[^a-zA-Z]", "");
+            nicknameInputField.text = englishOnly;
+        }
+
 
         public void OnClickConfirmButton()
         {

@@ -302,6 +302,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2543191857787144860, guid: 40c6b690b3df650479462a8b53f074da, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2543191857787144860, guid: 40c6b690b3df650479462a8b53f074da, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2543191857787144860, guid: 40c6b690b3df650479462a8b53f074da, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -882.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2543191857787144860, guid: 40c6b690b3df650479462a8b53f074da, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 447.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7548221306024544197, guid: 40c6b690b3df650479462a8b53f074da, type: 3}
       propertyPath: m_Name
       value: UI.ShopUI

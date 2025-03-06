@@ -89,6 +89,10 @@ namespace TON
         {
             isGrounded = CheckIsGrounded();
 
+            // 무한 기본공격 적용되지 않도록 기본공격 모션 중에 이동 제한
+            if (isAttack)
+                return;
+
             // 키보드 입력과 조이스틱 입력 통합
             float horizontalInput = Input.GetAxis("Horizontal");
             if (joystick != null && Mathf.Abs(joystick.Horizontal) > 0.01f)

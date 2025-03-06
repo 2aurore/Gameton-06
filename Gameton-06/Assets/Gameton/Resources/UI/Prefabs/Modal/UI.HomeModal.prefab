@@ -579,14 +579,6 @@ PrefabInstance:
       propertyPath: m_text
       value: "\uD648"
       objectReference: {fileID: 0}
-    - target: {fileID: 2959050394324341213, guid: ffb3a6e5566636947b80328e8c2b0a84, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    - target: {fileID: 2959050394324341213, guid: ffb3a6e5566636947b80328e8c2b0a84, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 3924096021625724153, guid: ffb3a6e5566636947b80328e8c2b0a84, type: 3}
       propertyPath: m_Transition
       value: 2

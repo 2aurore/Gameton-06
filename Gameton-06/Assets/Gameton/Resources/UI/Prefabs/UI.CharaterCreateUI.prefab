@@ -470,7 +470,7 @@ MonoBehaviour:
   createButton: {fileID: 1887714318721360375}
   playerDatas: []
   nicknameCondition: {fileID: 6220890634190874460}
-  nicknameInputField: {fileID: 0}
+  nicknameInputField: {fileID: 1580841050422369728}
   characterCreateUI_Modal: {fileID: 7298901665149865196}
   blackCat_Spotlight: {fileID: 6897867871924581457}
   whiteCat_Spotlight: {fileID: 6223168446447065192}

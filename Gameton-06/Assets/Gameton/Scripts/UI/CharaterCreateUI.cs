@@ -34,7 +34,9 @@ namespace TON
 
             // 입력 필드가 할당되지 않았다면 현재 게임 오브젝트의 InputField 컴포넌트를 가져옵니다.
             if (nicknameInputField == null)
+            {
                 nicknameInputField = GetComponent<TMP_InputField>();
+            }
 
             // 입력 필드의 문자 확인 이벤트에 메서드 연결
             nicknameInputField.onValidateInput += ValidateInput;

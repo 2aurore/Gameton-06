@@ -51,7 +51,7 @@ namespace TON
 
         public void SetCurrentUserHeart()
         {
-            characterId = PlayerPrefs.GetInt("SelectedPlayerIndex", -1);
+            characterId = 0;
             if (characterId > -1 && heartDatas.Count > 0)
             {
                 currentHeartData = heartDatas[characterId];

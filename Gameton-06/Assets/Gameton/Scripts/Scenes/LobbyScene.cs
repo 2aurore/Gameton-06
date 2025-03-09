@@ -19,7 +19,6 @@ namespace TON
                 yield return null;
             }
 
-            PlayerDataManager.Singleton.SetCurrentUserData();
             SkillDataManager.Singleton.Initalize();
 
 

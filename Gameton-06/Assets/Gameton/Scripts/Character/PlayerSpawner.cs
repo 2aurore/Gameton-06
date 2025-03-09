@@ -8,21 +8,14 @@ namespace TON
     {
         public static bool SpawnPlayerCharacter()
         {
-            List<PlayerData> playerDatas = PlayerDataManager.Singleton.playersData;
-            // 저장된 인덱스 가져오기
-            int selectedIndex = PlayerPrefs.GetInt("SelectedPlayerIndex", 0);
-            // 인덱스가 범위를 벗어나지 않는지 확인
-            if (selectedIndex < 0 || selectedIndex >= playerDatas.Count)
-            {
-                Debug.LogError($"Invalid player index: {selectedIndex}");
-                return false;
-            }
-            string prefabName = playerDatas[selectedIndex].type == "b" ? "TON.Player_B" : "TON.Player_W";
+            PlayerData playerData = PlayerDataManager.Singleton.player;
+
+            string prefabName = playerData.type == "b" ? "TON.Player_B" : "TON.Player_W";
             // Resources에서 프리팹 로드
             GameObject characterPrefab = Resources.Load<GameObject>($"Player/{prefabName}");
             if (characterPrefab == null)
             {
-                Debug.LogError($"Failed to load character prefab: {playerDatas[selectedIndex].type}");
+                Debug.LogError($"Failed to load character prefab: {playerData.type}");
                 return false;
             }
             // TON.Player 오브젝트 찾기

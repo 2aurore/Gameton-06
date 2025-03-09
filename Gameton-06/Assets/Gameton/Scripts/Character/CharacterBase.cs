@@ -58,8 +58,6 @@ namespace TON
 
         public void Initialize()
         {
-            // int playerIndex = PlayerPrefs.GetInt("SelectedPlayerIndex", 0);
-            PlayerDataManager.Singleton.SetCurrentUserData();
             playerData = PlayerDataManager.Singleton.player;
 
             currentHP = maxHP = playerData.hp;
@@ -257,7 +255,7 @@ namespace TON
             // 스킬 포인트가 부족하다면 스킬을 수행하지 못함
             if (currentSP < skillBase.SkillData.mpConsumption) return;
 
-            // 스킬 매니저에서 스킬을 쏠 수 있는지 여부를 판단 
+            // 스킬 매니저에서 스킬을 쏠 수 있는지 여부를 판단
             bool canExecute = SkillDataManager.Singleton.CanExecuteSkill(skillId);
             if (canExecute)
             {
@@ -268,7 +266,7 @@ namespace TON
                 // 스킬 애니메이터 실행
                 animator.Play("Skill Attack");
 
-                // 스킬 매니저에 스킬 발사 요청 
+                // 스킬 매니저에 스킬 발사 요청
                 SkillDataManager.Singleton.ExecuteSkill(skillId, firePoint, lastDirection);
 
                 // RecoverSP 가 이미 진행중인 경우 이중으로 코루틴을 실행하지 않도록 함함

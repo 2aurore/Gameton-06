@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,6 @@ namespace TON
     public class PlayerDataManager : SingletonBase<PlayerDataManager>
     {
         // 사용자가 생성해둔 플레이어 데이터를 싱글톤으로 전역 사용하기 위함
-        public List<PlayerData> playersData { get; private set; }
         public PlayerData player { get; private set; }
         public int goldAmount { get; private set; }
         public int fishAmount { get; private set; }
@@ -20,11 +20,13 @@ namespace TON
         [SerializeField] private int expVariable = 50; // 경험치 변수 (조정 가능)
         [SerializeField] private float attackGrowthFactor = 50f; // 공격력 성장 변수 (조정 가능)
 
+        private BackendPlayerDataManager playerDataManager;
         private BackendCashDataManager cashDataManager;
         private BackendItemDataManager itemDataManager;
 
         private void OnEnable()
         {
+            playerDataManager = new BackendPlayerDataManager();
             cashDataManager = new BackendCashDataManager();
             itemDataManager = new BackendItemDataManager();
         }
@@ -38,17 +40,11 @@ namespace TON
 
         private void LoadPlayerData()
         {
-            if (playersData != null)
+            // * 사용자 정보 서버에서 조회
+            playerDataManager.LoadMyPlayerData(player =>
             {
-                playersData.Clear();
-            }
-
-            JSONLoader.SaveJsonToPersistentData("player");
-            playersData = JSONLoader.LoadJsonFromPersistentData<List<PlayerData>>("player");
-            if (playersData == null)
-            {
-                playersData = new List<PlayerData>();
-            }
+                SetPlayerData(player);
+            });
         }
 
         private void LoadPlayerCashData()
@@ -172,29 +168,24 @@ namespace TON
 
         public void UpdatePlayerData()
         {
-            Debug.Log($"player {player.level}: {player.attackPower}, {player.defensivePower}");
-            int index = playersData.FindIndex(x => x.id == player.id);
-            if (index > -1)
+            // 캐릭터 데이터 서버 업데이트
+            playerDataManager.UpdatePlayerData(player, isSuccess =>
             {
-                playersData[index] = player;
-                Assert.IsTrue(JSONLoader.SaveUpdatedJsonToPersistentData(playersData, "player"));
-                Initalize();
-            }
+                if (isSuccess)
+                {
+                    Initalize();
+                }
+            });
         }
 
-        public void SetCurrentUserData()
+        public void SetPlayerData(PlayerData playerData)
         {
-            if (playersData.Count > 0)
+            player = playerData;
+
+            // 사용자 정보가 있을때만 레벨업 필요 초기값 세팅
+            if (playerData != null)
             {
-                // 현재 플레이어 1개만 사용하므로 0번째 인덱스의 플레이어 데이터를 사용
-                PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
-                player = playersData[0];
-                // 현재 플레이어의 정보를 세팅하고, 레벨업 필요 경험치 정보를 세팅
                 requireLevelUpExp = GetRequiredExp(player.level);
-            }
-            else
-            {
-                Debug.LogError("유효하지 않은 캐릭터 정보 입니다.");
             }
         }
 
@@ -209,5 +200,12 @@ namespace TON
             UIManager.Show<GameWinUI>(UIList.GameWinUI);
         }
 
+        public void CreateNewPlayer(PlayerData player, System.Action<bool> onComplete = null)
+        {
+            playerDataManager.CreateNewPlayer(player, isSuccess =>
+            {
+                onComplete?.Invoke(isSuccess);
+            });
+        }
     }
 }

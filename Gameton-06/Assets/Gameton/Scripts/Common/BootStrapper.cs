@@ -51,7 +51,6 @@ namespace TON
             // UIManager.Show<IngameOptionUI>(UIList.IngameOptionUI);
             // UIManager.Show<SkillSettingUI>(UIList.SkillSettingUI);
             PlayerDataManager.Singleton.Initalize();
-            PlayerDataManager.Singleton.SetCurrentUserData();
             // UIManager.Show<ControllerUI>(UIList.ControllerUI);
             // ControllerUI.Instance.Initalize();
             // UIManager.Show<IngameUI>(UIList.IngameUI);

@@ -10,7 +10,6 @@ namespace TON
 
         TitleUI,    // 게임 시작 화면 UI
         CharaterCreateUI,   // 캐릭터 생성 UI
-        CharaterSelectUI,
         ControllerUI,   // 캐릭터 컨트롤러 UI
         LobbyUI,        // 게임 로비 UI
         SkillSettingUI,     // 스킬 세팅 팝업 UI

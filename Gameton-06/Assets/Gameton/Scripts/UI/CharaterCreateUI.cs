@@ -11,9 +11,8 @@ namespace TON
     public class CharaterCreateUI : UIBase
     {
         [SerializeField] private Button cancelButton; // cancel 버튼 참조
-        [SerializeField] private Button confirmButton; // cancel 버튼 참조
+        [SerializeField] private Button confirmButton; // confirm 버튼 참조
         [SerializeField] private Button createButton; // Create 버튼 참조
-        [SerializeField] private List<PlayerData> playerDatas;
         [SerializeField] private TextMeshProUGUI nicknameCondition;
 
 
@@ -26,8 +25,6 @@ namespace TON
 
         private void Start()
         {
-            playerDatas = PlayerDataManager.Singleton.playersData;
-
             // 처음에는 버튼을 비활성화
             createButton.interactable = false;
 
@@ -67,9 +64,6 @@ namespace TON
                 // 캐릭터 선택되지 않은 상태에서 버튼 동작 되지 않도록 적용
                 return;
             }
-
-            // 선택된 캐릭터 인덱스 정보를 저장 (다음 씬에서도 사용할 수 있도록)
-            PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
 
             // 캐릭터 이름 입력 모달 활성화
             characterCreateUI_Modal.SetActive(true);
@@ -120,20 +114,24 @@ namespace TON
                     if (success)
                     {
                         // 생성한 캐릭터를 저장한다
-                        PlayerData player = new PlayerData(playerDatas.Count, selectedCharacter, nickname);
-                        playerDatas.Add(player);
-                        Assert.IsTrue(JSONLoader.SaveUpdatedJsonToPersistentData(playerDatas, "player"));
+                        PlayerData player = new PlayerData(selectedCharacter, nickname);
+                        PlayerDataManager.Singleton.SetPlayerData(player);
 
-                        PlayerDataManager.Singleton.SetCurrentUserData();
+                        // 뒤끝 서버 데이터 저장 로직 적용
+                        PlayerDataManager.Singleton.CreateNewPlayer(player, isSuccess =>
+                        {
+                            if (isSuccess)
+                            {
+                                // 하트 시스템을 생성한다
+                                HeartDataManager.Singleton.CreateNewHeartSystem(0);
+                                HeartDataManager.Singleton.SetCurrentUserHeart();
 
-                        // 하트 시스템을 생성한다
-                        HeartDataManager.Singleton.CreateNewHeartSystem(playerDatas.Count);
-                        HeartDataManager.Singleton.SetCurrentUserHeart();
+                                // 씬 변경
+                                UIManager.Hide<CharaterCreateUI>(UIList.CharaterCreateUI);
+                                Main.Singleton.ChangeScene(SceneType.Lobby);
+                            }
+                        });
 
-                        // 씬 변경
-                        UIManager.Hide<CharaterCreateUI>(UIList.CharaterCreateUI);
-
-                        Main.Singleton.ChangeScene(SceneType.Lobby);
                     }
                     else
                     {

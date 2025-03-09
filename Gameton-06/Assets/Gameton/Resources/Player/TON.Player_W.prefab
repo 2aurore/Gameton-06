@@ -153,8 +153,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 0}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3204799031628172313}
   - {fileID: 548404723012153258}
@@ -325,7 +325,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData:
-    id: 
     type: 
     name: 
     level: 0
@@ -339,7 +338,7 @@ MonoBehaviour:
   currentSP: 0
   speed: 3
   jumpForce: 8
-  airControl: 0.8
+  airControl: 0.5
   groundCheck: {fileID: 777487253851638430}
   groundCheckRadius: 0.15
   groundLayer:

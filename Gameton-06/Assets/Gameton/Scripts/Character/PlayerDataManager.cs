@@ -97,11 +97,12 @@ namespace TON
                 // UpdateUI();
             });
         }
-        public void UseGold(int amount)
+        public void UseGold(int amount, System.Action<bool> callback)
         {
             if (goldAmount - amount < 0)
             {
                 // 골드 재화 사용 불가 팝업
+                callback?.Invoke(false);
                 UIManager.Show<GoldPopup>(UIList.GoldPopup);
                 return;
             }
@@ -109,8 +110,7 @@ namespace TON
             goldAmount -= amount;
             cashDataManager.UpdateGoldData(goldAmount, updatedData =>
             {
-                // TODO: UI 업데이트 로직 적용
-                // UpdateUI();
+                callback?.Invoke(true);
             });
         }
 

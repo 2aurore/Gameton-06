@@ -23,6 +23,8 @@ namespace TON
         [SerializeField] private WallChecker wallChecker;
 
 
+        [SerializeField] private int jumpLimit = 5;
+        private int jumpCount = 0;
         private bool isGrounded = true; // 플레이어가 바닥에 있는지 여부를 판단
         private bool isAttack = false; // 플레이어가 기본 공격중인지 판단단
         private float lastDirection = 1f; // 기본적으로 오른쪽(1) 바라보는 상태
@@ -58,6 +60,7 @@ namespace TON
 
         public void Initialize()
         {
+            jumpCount = 0;
             playerData = PlayerDataManager.Singleton.player;
 
             currentHP = maxHP = playerData.hp;
@@ -86,6 +89,11 @@ namespace TON
         public void FixedUpdate()
         {
             isGrounded = CheckIsGrounded();
+
+            if (isGrounded)
+            {
+                jumpCount = 0;
+            }
 
             // 무한 기본공격 적용되지 않도록 기본공격 모션 중에 이동 제한
             if (isAttack)
@@ -161,10 +169,11 @@ namespace TON
         public void Jump()
         {
             // 바닥에 있을 때만 점프 가능
-            if (isGrounded)
+            if (jumpCount < jumpLimit)
             {
                 // 점프: 기존 X축 속도 유지, Y축 속도를 점프 힘으로 설정
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                jumpCount++;
             }
         }
 

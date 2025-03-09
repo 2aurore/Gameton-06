@@ -65,7 +65,8 @@ namespace TON
 
             UIManager.Hide<CharaterSelectUI>(UIList.CharaterSelectUI);
 
-            Main.Singleton?.ChangeScene(SceneType.Lobby);
+            // Main.Singleton.ChangeScene(SceneType.Lobby);
+            Main.Singleton.ChangeScene(SceneType.Intro);
         }
 
         public void OnClickCreateButton()

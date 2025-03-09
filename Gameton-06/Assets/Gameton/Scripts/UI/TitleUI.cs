@@ -37,13 +37,13 @@ namespace TON
                 PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
                 PlayerDataManager.Singleton.SetCurrentUserData();
                 HeartDataManager.Singleton.SetCurrentUserHeart();
-                Main.Singleton?.ChangeScene(SceneType.Lobby);
+                Main.Singleton.ChangeScene(SceneType.Lobby);
             }
         }
 
         public void OnClickExitButton()
         {
-            Main.Singleton?.SystemQuit();
+            Main.Singleton.SystemQuit();
         }
     }
 }

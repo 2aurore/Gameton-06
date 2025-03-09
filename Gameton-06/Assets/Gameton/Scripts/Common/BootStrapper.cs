@@ -44,12 +44,14 @@ namespace TON
             Main.Singleton.Initialize();
 
             // TODO : Custom Order After System Load
-            UIManager.Show<TitleUI>(UIList.TitleUI);
+            // UIManager.Show<TitleUI>(UIList.TitleUI);
+            UIManager.Show<IntroUI>(UIList.IntroUI);
             // UIManager.Show<CharaterCreateUI>(UIList.CharaterCreateUI);
             // UIManager.Show<LobbyUI>(UIList.LobbyUI);
             // UIManager.Show<IngameOptionUI>(UIList.IngameOptionUI);
             // UIManager.Show<SkillSettingUI>(UIList.SkillSettingUI);
-            // PlayerDataManager.Singleton.SetCurrentUserData();
+            PlayerDataManager.Singleton.Initalize();
+            PlayerDataManager.Singleton.SetCurrentUserData();
             // UIManager.Show<ControllerUI>(UIList.ControllerUI);
             // ControllerUI.Instance.Initalize();
             // UIManager.Show<IngameUI>(UIList.IngameUI);

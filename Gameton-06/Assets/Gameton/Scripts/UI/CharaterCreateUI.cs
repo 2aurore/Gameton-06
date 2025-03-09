@@ -69,7 +69,7 @@ namespace TON
             }
 
             // 선택된 캐릭터 인덱스 정보를 저장 (다음 씬에서도 사용할 수 있도록)
-            PlayerPrefs.SetInt("SelectedPlayerIndex", playerDatas.Count);
+            PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
 
             // 캐릭터 이름 입력 모달 활성화
             characterCreateUI_Modal.SetActive(true);
@@ -133,7 +133,7 @@ namespace TON
                         // 씬 변경
                         UIManager.Hide<CharaterCreateUI>(UIList.CharaterCreateUI);
 
-                        Main.Singleton?.ChangeScene(SceneType.Lobby);
+                        Main.Singleton.ChangeScene(SceneType.Lobby);
                     }
                     else
                     {

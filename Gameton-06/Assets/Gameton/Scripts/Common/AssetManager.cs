@@ -68,5 +68,18 @@ namespace TON
         {
             return LoadAsset<Sprite>($"UI/Ranking Paw/my_rank_box", out result);
         }
+
+        public bool LoadIntroBackgroundImage(int index, out Sprite result)
+        {
+            return LoadAsset<Sprite>($"UI/Story Background/intro_background_{index}", out result);
+        }
+
+        public bool LoadIntroVillagerImage(out Sprite result)
+        {
+            return LoadAsset<Sprite>($"UI/Story Background/villagers", out result);
+        }
+
+
+
     }
 }

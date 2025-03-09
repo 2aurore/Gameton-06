@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace TON
 {
-    public class IntroStoryDataManager : MonoBehaviour
+    public class IntroStoryDataManager
     {
         public List<IntroStoryData> introStories { get; private set; }
 
-        private void Awake()
+        public void Initialize()
         {
             LoadIntroStoryData();
         }

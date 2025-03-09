@@ -11,6 +11,7 @@ namespace TON
         None,
         Empty,
         Title,
+        Intro,
         Lobby,
         Stage,
         Shop,
@@ -62,6 +63,9 @@ namespace TON
             {
                 case SceneType.Title:
                     StartCoroutine(ChangeScene<TitleScene>(onSceneChangeCompletedCallback));
+                    break;
+                case SceneType.Intro:
+                    StartCoroutine(ChangeScene<IntroScene>(onSceneChangeCompletedCallback));
                     break;
                 case SceneType.Lobby:
                     StartCoroutine(ChangeScene<LobbyScene>(onSceneChangeCompletedCallback));

@@ -123,12 +123,14 @@ namespace TON
                             if (isSuccess)
                             {
                                 // 하트 시스템을 생성한다
-                                HeartDataManager.Singleton.CreateNewHeartSystem(0);
-                                HeartDataManager.Singleton.SetCurrentUserHeart();
+                                HeartDataManager.Singleton.CreateNewHeartSystem();
+                                HeartDataManager.Singleton.Initalize(() =>
+                                {
+                                    // 씬 변경
+                                    UIManager.Hide<CharaterCreateUI>(UIList.CharaterCreateUI);
+                                    Main.Singleton.ChangeScene(SceneType.Intro);
+                                });
 
-                                // 씬 변경
-                                UIManager.Hide<CharaterCreateUI>(UIList.CharaterCreateUI);
-                                Main.Singleton.ChangeScene(SceneType.Intro);
                             }
                         });
 

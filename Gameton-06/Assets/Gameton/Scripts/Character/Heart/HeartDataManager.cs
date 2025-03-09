@@ -8,9 +8,7 @@ namespace TON
 {
     public class HeartDataManager : SingletonBase<HeartDataManager>
     {
-        public List<HeartData> heartDatas { get; private set; }
         public HeartData currentHeartData { get; private set; }
-        private int characterId;
 
         public int maxHearts = 5;
         public int heartRechargeTime = 360;     // 하트 충전 시간 6분
@@ -18,66 +16,80 @@ namespace TON
         public int GetCurrentHearts() => currentHeartData.currentHearts;
         public DateTime GetLastHeartTime() => DateTime.Parse(currentHeartData.lastHeartTime);
 
+        private int limitRetryCount = 0;
+        private BackendHeartDataManager heartDataManager;
 
-        protected override void Awake()
+        private void OnEnable()
         {
-            base.Awake();
-            LoadHeartData();
+            heartDataManager = new BackendHeartDataManager();
         }
 
-        private void LoadHeartData()
+        public void Initalize(System.Action onComplete)
         {
-            if (heartDatas != null)
-            {
-                heartDatas.Clear();
-            }
+            LoadHeartData(onComplete);
+        }
 
-            JSONLoader.SaveJsonToPersistentData("heart");
-            heartDatas = JSONLoader.LoadJsonFromPersistentData<List<HeartData>>("Heart");
-            if (heartDatas == null)
+        private void LoadHeartData(System.Action onComplete)
+        {
+            // * 사용자 정보 서버에서 조회
+            heartDataManager.LoadMyHeartData(heartData =>
             {
-                heartDatas = new List<HeartData>();
-            }
+                SetCurrentUserHeart(heartData, onComplete);
+            });
         }
 
         // 캐릭터 생성 시 하트 초기값 생성
-        public void CreateNewHeartSystem(int characterId)
+        public void CreateNewHeartSystem(System.Action onComplete = null)
         {
-            HeartData heartData = new HeartData(characterId);
-            heartDatas.Add(heartData);
-            Assert.IsTrue(JSONLoader.SaveUpdatedJsonToPersistentData(heartDatas, "heart"));
-            LoadHeartData();
+            HeartData heartData = new HeartData();
+
+            heartDataManager.CreateNewPlayerHeart(heartData, isSuccess =>
+            {
+                if (isSuccess)
+                {
+                    Debug.Log("캐릭터 생성 시 하트 초기값 생성 성공");
+                    SetCurrentUserHeart(heartData, onComplete);
+                }
+            });
         }
 
-        public void SetCurrentUserHeart()
+        public void SetCurrentUserHeart(HeartData heartData, System.Action onComplete = null)
         {
-            characterId = 0;
-            if (characterId > -1 && heartDatas.Count > 0)
+            currentHeartData = heartData;
+            if (currentHeartData != null)
             {
-                currentHeartData = heartDatas[characterId];
-                if (currentHeartData != null)
-                {
-                    RechargeHearts();
-                }
-                else
-                {
-                    Debug.Log("하트 정보 불러오기 중 오류 발생 ::: 초기값으로 재정의 합니다.");
-                    CreateNewHeartSystem(characterId);
-                }
+                RechargeHearts();
+                onComplete?.Invoke();
             }
             else
             {
-                Debug.LogError("유효하지 않은 캐릭터 정보입니다.");
-            }
+                if (limitRetryCount > 3)
+                {
+                    Debug.LogError($"하트 정보를 정상적으로 불러올 수 없어 초기값을 강제 적용합니다.");
+                    currentHeartData = new HeartData();
+                    onComplete?.Invoke();
+                }
 
+                limitRetryCount++;
+                Debug.LogError($"하트 불러오기 중 오류 발생 ::: 재시도 {limitRetryCount}");
+                CreateNewHeartSystem(onComplete);
+            }
         }
 
         // 하트 데이터 저장
         public void SaveHeartData()
         {
-            heartDatas[characterId] = currentHeartData;
-            Assert.IsTrue(JSONLoader.SaveUpdatedJsonToPersistentData(heartDatas, "heart"));
-            LoadHeartData();
+            heartDataManager.UpdatePlayerHeartData(currentHeartData, isSuccess =>
+            {
+                if (isSuccess)
+                {
+                    Debug.Log("하트 데이터 업데이트 성공");
+                }
+                else
+                {
+                    Debug.LogError("하트 데이터 업데이트 성공");
+                }
+            });
         }
 
         // 게임이 다시 실행될때 마지막 하트 소모 시간과 현재 시간을 계산해서 하트 충전량을 반영
@@ -143,7 +155,6 @@ namespace TON
             if (heartSystem != null)
             {
                 heartSystem.UpdateHeartUI(); // UI 업데이트
-
             }
         }
 

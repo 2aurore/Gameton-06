@@ -28,8 +28,10 @@ namespace TON
             }
             else
             {
-                HeartDataManager.Singleton.SetCurrentUserHeart();
-                Main.Singleton.ChangeScene(SceneType.Lobby);
+                HeartDataManager.Singleton.Initalize(() =>
+                {
+                    Main.Singleton.ChangeScene(SceneType.Lobby);
+                });
             }
         }
 

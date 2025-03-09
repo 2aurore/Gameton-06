@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1465902235892889161}
   - component: {fileID: 7199637668151358389}
   - component: {fileID: 5037893579223492369}
-  - component: {fileID: 1286343195759334092}
+  - component: {fileID: 5474034017148599487}
   m_Layer: 5
   m_Name: Item Button
   m_TagString: Untagged
@@ -108,7 +108,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1286343195759334092
+--- !u!114 &5474034017148599487
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 122146249855187030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e890b5f706c997b4396fb3fc11938954, type: 3}
+  m_Script: {fileID: 11500000, guid: d4025d96cfa84304caf95db6a4f49d0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   coolTimeText: {fileID: 1611366555514620028}

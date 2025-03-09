@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace TON
@@ -18,11 +16,11 @@ namespace TON
 
 
         public Transform skillButtonGroup;
-        public ControllerUI_SkillButton skillButtonPrefab;
-        private List<ControllerUI_SkillButton> createdSkillButtons = new List<ControllerUI_SkillButton>();
+        public SkillButtonItem skillButtonPrefab;
+        private List<SkillButtonItem> createdSkillButtons = new List<SkillButtonItem>();
 
         public UserItemData userItem { get; private set; } = new UserItemData();
-        // 보유 포션 수량 
+        // 보유 포션 수량
         [SerializeField] private TextMeshProUGUI hpPotionCount;
         [SerializeField] private TextMeshProUGUI mpPotionCount;
 
@@ -30,7 +28,7 @@ namespace TON
         private int hpPotion = 0;
         private int mpPotion = 0;
 
-        public List<ControllerUI_ItemButton> itemButtons = new List<ControllerUI_ItemButton>();
+        public List<PotionButtonItem> itemButtons = new List<PotionButtonItem>();
 
         private void OnEnable()
         {
@@ -60,7 +58,7 @@ namespace TON
             List<SkillBase> activatedSkills = SkillDataManager.Singleton.GetEquippedSkills();
             for (int i = 0; i < 3; i++)
             {
-                ControllerUI_SkillButton newSkillButton = Instantiate(skillButtonPrefab, skillButtonGroup);
+                SkillButtonItem newSkillButton = Instantiate(skillButtonPrefab, skillButtonGroup);
                 newSkillButton.gameObject.SetActive(true);
 
                 if (i < activatedSkills.Count) // 해당 인덱스에 활성화된 스킬이 있을 경우
@@ -69,7 +67,7 @@ namespace TON
                 }
                 else
                 {
-                    // 복제 됐을때 기본 상태가 잠금 상태 
+                    // 복제 됐을때 기본 상태가 잠금 상태
                     newSkillButton.GetComponent<Button>().interactable = false;
                 }
 
@@ -141,7 +139,7 @@ namespace TON
             linkedCharactor.Attack();
         }
 
-        public void OnClickSkillButton(ControllerUI_SkillButton button)
+        public void OnClickSkillButton(SkillButtonItem button)
         {
             linkedCharactor.SkillAttack(button.skillBase.SkillData.id);
         }

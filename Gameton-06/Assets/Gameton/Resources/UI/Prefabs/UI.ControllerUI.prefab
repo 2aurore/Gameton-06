@@ -168,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystick: {fileID: 7288066023221573359}
   skillButtonGroup: {fileID: 2009939342780089657}
-  skillButtonPrefab: {fileID: 1708453278417668396}
+  skillButtonPrefab: {fileID: 169483457724555279}
   hpPotionCount: {fileID: 6063099989028787624}
   mpPotionCount: {fileID: 3723411150709511038}
   itemButtons:
@@ -1218,15 +1218,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
---- !u!114 &1708453278417668396 stripped
+--- !u!114 &169483457724555279 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5127688379423261843, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5964648352921021872, guid: f023329ca96ab444ca7c60781e310d59, type: 3}
   m_PrefabInstance: {fileID: 5808676351208836543}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35c94c75c6e511048b4a77d3682e1f85, type: 3}
+  m_Script: {fileID: 11500000, guid: f9d99c36ec531604e82c8aeebd6afa80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &7123232125577925591 stripped

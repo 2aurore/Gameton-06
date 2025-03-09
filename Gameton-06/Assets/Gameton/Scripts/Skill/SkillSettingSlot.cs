@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace TON
 {
-    public class SkillSettingUI_SkillSlot : MonoBehaviour
+    public class SkillSettingSlot : MonoBehaviour
     {
         public GameObject skillImage;
         public GameObject lockerImage;

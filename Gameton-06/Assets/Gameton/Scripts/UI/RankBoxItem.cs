@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,7 +7,7 @@ using UnityEngine.UI;
 
 namespace TON
 {
-    public class RankingUI_RankBox : MonoBehaviour
+    public class RankBoxItem : MonoBehaviour
     {
         [SerializeField] private GameObject rankBoxImage;
         [SerializeField] private GameObject pawImage;

@@ -97,7 +97,7 @@ namespace TON
                 // UpdateUI();
             });
         }
-        public void UseGold(int amount, System.Action<bool> callback)
+        public void UseGold(int amount, System.Action<bool> callback = null)
         {
             if (goldAmount - amount < 0)
             {

@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace TON
 {
-    public class ControllerUI_ItemButton : MonoBehaviour
+    public class PotionButtonItem : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI coolTimeText;
         [SerializeField] private Image coolTimeDimd;

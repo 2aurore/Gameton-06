@@ -12,8 +12,8 @@ namespace TON
 
         // 사용할 스킬 슬롯 3개 매핑을 위한 변수
         public Transform skillSlotGroup;
-        public SkillSettingUI_SkillSlot skillSlotPrefab;
-        public List<SkillSettingUI_SkillSlot> createSkillSlots = new List<SkillSettingUI_SkillSlot>();
+        public SkillSettingSlot skillSlotPrefab;
+        public List<SkillSettingSlot> createSkillSlots = new List<SkillSettingSlot>();
 
         // 전체 스킬 리스트를 스크롤 형식으로 구현하기 위함
         public ScrollRect scrollRect;
@@ -73,7 +73,7 @@ namespace TON
 
             for (int i = 0; i < 3; i++)
             {
-                SkillSettingUI_SkillSlot newSkillSlot = Instantiate(skillSlotPrefab, skillSlotGroup);
+                SkillSettingSlot newSkillSlot = Instantiate(skillSlotPrefab, skillSlotGroup);
                 newSkillSlot.gameObject.SetActive(true);
 
                 if (skillMap.TryGetValue(i, out SkillBase skill))
@@ -144,7 +144,7 @@ namespace TON
         public void OnClickSkillSlot()
         {
             GameObject selectedSlotGameObject = EventSystem.current.currentSelectedGameObject;
-            SkillSettingUI_SkillSlot selectedSlot = selectedSlotGameObject.GetComponent<SkillSettingUI_SkillSlot>();
+            SkillSettingSlot selectedSlot = selectedSlotGameObject.GetComponent<SkillSettingSlot>();
 
             selectedSlotIndex = selectedSlot.SelectedSlot();
             for (int i = 0; i < 3; i++)
@@ -201,7 +201,7 @@ namespace TON
         IEnumerator CloseButtonDelay()
         {
             yield return new WaitForSeconds(0.2f); // 0.2초 대기
-            
+
             UIManager.Hide<SkillSettingUI>(UIList.SkillSettingUI);
         }
     }

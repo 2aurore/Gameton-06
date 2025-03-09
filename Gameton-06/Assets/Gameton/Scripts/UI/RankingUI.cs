@@ -13,9 +13,9 @@ namespace TON
 
         // 전체 랭킹 리스트를 스크롤 형식으로 구현하기 위함
         public ScrollRect scrollRect;
-        public RankingUI_RankBox rankBoxPrefab;
+        public RankBoxItem rankBoxPrefab;
         public List<RectTransform> uiPrefabList = new List<RectTransform>();
-        public List<RankingUI_RankBox> createRankList = new List<RankingUI_RankBox>();
+        public List<RankBoxItem> createRankList = new List<RankBoxItem>();
 
         [SerializeField] private GameObject errorPopup;
         [SerializeField] private GameObject pawImage;
@@ -76,7 +76,7 @@ namespace TON
             for (int i = 0; i < rankList.Count; i++)
             {
                 ClearData clearData = rankList[i];
-                RankingUI_RankBox rankBox = Instantiate(rankBoxPrefab, scrollRect.content);
+                RankBoxItem rankBox = Instantiate(rankBoxPrefab, scrollRect.content);
 
                 rankBox.gameObject.SetActive(true);
                 rankBox.Initalize(i + 1, clearData);

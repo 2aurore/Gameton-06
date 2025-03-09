@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace TON
 {
-    public class ControllerUI_SkillButton : MonoBehaviour
+    public class SkillButtonItem : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI coolTimeText;
         [SerializeField] private Image coolTimeDimd;
@@ -63,6 +63,5 @@ namespace TON
         {
             UpdateCooldownUI(); // UI 업데이트
         }
-
     }
 }

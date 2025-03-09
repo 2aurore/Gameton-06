@@ -1269,7 +1269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollRect: {fileID: 6409563792739250610}
-  rankBoxPrefab: {fileID: 1836485528427718722, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
+  rankBoxPrefab: {fileID: 1955426377295528965}
   uiPrefabList: []
   createRankList: []
   errorPopup: {fileID: 1150546113968813456}
@@ -3186,6 +3186,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
+--- !u!114 &1955426377295528965 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8169316462191543975, guid: 64f6711fc3dfade4f8926564be683890, type: 3}
+  m_PrefabInstance: {fileID: 7673060521725952674}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d47caa84e9a090419eb82f5e455a86d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7495923051705061397 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 178720843269296823, guid: 64f6711fc3dfade4f8926564be683890, type: 3}

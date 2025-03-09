@@ -72,38 +72,75 @@ namespace TON
             PositionPopUp.SetActive(false);
         }
         
-        // HP 포션 구매 버튼 클릭 시 호출
         public void OnClickBuyHpPotion1Button()
         {
-            if ((playerDataManager.goldAmount) >= hpPotionPrice1)
+            if (playerDataManager.goldAmount >= hpPotionPrice1)
             {
-                // 골드 차감 및 HP 포션 증가
-                playerDataManager.UseGold(hpPotionPrice1);
-                playerDataManager.userItem.hpPotion += 1;
-
-                // Debug.Log($"HP 포션 구매 성공! 남은 골드: {playerDataManager.goldAmount}, HP 포션 수량: {playerDataManager.userItem.hpPotion}");
+                playerDataManager.UseGold(hpPotionPrice1, (isSuccess) =>
+                {
+                    if (isSuccess)
+                    {
+                        playerDataManager.userItem.hpPotion += 1;
+                        Debug.Log($"HP 포션 구매 성공! 남은 골드: {playerDataManager.goldAmount}, HP 포션 수량: {playerDataManager.userItem.hpPotion}");
+                        UIManager.Singleton.UpdateCashData();
+                    }
+                    else
+                    {
+                        Debug.Log("골드가 부족하여 HP 포션 구매 실패!");
+                    }
+                });
             }
-        }        // HP 포션 구매 버튼 클릭 시 호출
+            else
+            {
+                Debug.Log("골드가 부족합니다!");
+            }
+        }
+
         public void OnClickBuyHpPotion5Button()
         {
-            if ((playerDataManager.goldAmount) >= hpPotionPrice5)
+            if (playerDataManager.goldAmount >= hpPotionPrice5)
             {
-                // 골드 차감 및 HP 포션 증가
-                playerDataManager.UseGold(hpPotionPrice5);
-                playerDataManager.userItem.hpPotion += 5;
-
-                // Debug.Log($"HP 포션 구매 성공! 남은 골드: {playerDataManager.goldAmount}, HP 포션 수량: {playerDataManager.userItem.hpPotion}");
+                playerDataManager.UseGold(hpPotionPrice5, (isSuccess) =>
+                {
+                    if (isSuccess)
+                    {
+                        playerDataManager.userItem.hpPotion += 5;
+                        Debug.Log($"HP 포션 구매 성공! 남은 골드: {playerDataManager.goldAmount}, HP 포션 수량: {playerDataManager.userItem.hpPotion}");
+                        UIManager.Singleton.UpdateCashData();
+                    }
+                    else
+                    {
+                        Debug.Log("골드가 부족하여 HP 포션 구매 실패!");
+                    }
+                });
             }
-        }        // HP 포션 구매 버튼 클릭 시 호출
+            else
+            {
+                Debug.Log("골드가 부족합니다!");
+            }
+        }
+
         public void OnClickBuyHpPotion20Button()
         {
-            if ((playerDataManager.goldAmount) >= hpPotionPrice20)
+            if (playerDataManager.goldAmount >= hpPotionPrice20)
             {
-                // 골드 차감 및 HP 포션 증가
-                playerDataManager.UseGold(hpPotionPrice20);
-                playerDataManager.userItem.hpPotion += 20;
-
-                // Debug.Log($"HP 포션 구매 성공! 남은 골드: {playerDataManager.goldAmount}, HP 포션 수량: {playerDataManager.userItem.hpPotion}");
+                playerDataManager.UseGold(hpPotionPrice20, (isSuccess) =>
+                {
+                    if (isSuccess)
+                    {
+                        playerDataManager.userItem.hpPotion += 20;
+                        Debug.Log($"HP 포션 구매 성공! 남은 골드: {playerDataManager.goldAmount}, HP 포션 수량: {playerDataManager.userItem.hpPotion}");
+                        UIManager.Singleton.UpdateCashData();
+                    }
+                    else
+                    {
+                        Debug.Log("골드가 부족하여 HP 포션 구매 실패!");
+                    }
+                });
+            }
+            else
+            {
+                Debug.Log("골드가 부족합니다!");
             }
         }
 
@@ -112,33 +149,73 @@ namespace TON
         {
             if (playerDataManager.goldAmount >= mpPotionPrice1)
             {
-                // 골드 차감 및 MP 포션 증가
-                playerDataManager.UseGold(mpPotionPrice1);
-                playerDataManager.userItem.mpPotion += 1;
-
-                // Debug.Log($"MP 포션 구매 성공! 남은 골드: {playerDataManager.goldAmount}, MP 포션 수량: {playerDataManager.userItem.mpPotion}");
+                playerDataManager.UseGold(mpPotionPrice1, (isSuccess) =>
+                {
+                    if (isSuccess)
+                    {
+                        playerDataManager.userItem.mpPotion += 1;
+                        Debug.Log($"MP 포션 구매 성공! 남은 골드: {playerDataManager.goldAmount}, MP 포션 수량: {playerDataManager.userItem.mpPotion}");
+                        UIManager.Singleton.UpdateCashData();
+                    }
+                    else
+                    {
+                        Debug.Log("골드가 부족하여 MP 포션 구매 실패!");
+                    }
+                });
             }
-        }        // MP 포션 구매 버튼 클릭 시 호출
+            else
+            {
+                Debug.Log("골드가 부족합니다!");
+            }
+        }
+
+        // MP 포션 구매 버튼 클릭 시 호출
         public void OnClickBuyMpPotion5Button()
         {
             if (playerDataManager.goldAmount >= mpPotionPrice5)
             {
-                // 골드 차감 및 MP 포션 증가
-                playerDataManager.UseGold(mpPotionPrice5);
-                playerDataManager.userItem.mpPotion += 1;
-
-                // Debug.Log($"MP 포션 구매 성공! 남은 골드: {playerDataManager.goldAmount}, MP 포션 수량: {playerDataManager.userItem.mpPotion}");
+                playerDataManager.UseGold(mpPotionPrice5, (isSuccess) =>
+                {
+                    if (isSuccess)
+                    {
+                        playerDataManager.userItem.mpPotion += 5;
+                        Debug.Log($"MP 포션 구매 성공! 남은 골드: {playerDataManager.goldAmount}, MP 포션 수량: {playerDataManager.userItem.mpPotion}");
+                        UIManager.Singleton.UpdateCashData();
+                    }
+                    else
+                    {
+                        Debug.Log("골드가 부족하여 MP 포션 구매 실패!");
+                    }
+                });
             }
-        }        // MP 포션 구매 버튼 클릭 시 호출
+            else
+            {
+                Debug.Log("골드가 부족합니다!");
+            }
+        }
+
+        // MP 포션 구매 버튼 클릭 시 호출
         public void OnClickBuyMpPotion20Button()
         {
             if (playerDataManager.goldAmount >= mpPotionPrice20)
             {
-                // 골드 차감 및 MP 포션 증가
-                playerDataManager.UseGold(mpPotionPrice20);
-                playerDataManager.userItem.mpPotion += 1;
-
-                // Debug.Log($"MP 포션 구매 성공! 남은 골드: {playerDataManager.goldAmount}, MP 포션 수량: {playerDataManager.userItem.mpPotion}");
+                playerDataManager.UseGold(mpPotionPrice20, (isSuccess) =>
+                {
+                    if (isSuccess)
+                    {
+                        playerDataManager.userItem.mpPotion += 20;
+                        Debug.Log($"MP 포션 구매 성공! 남은 골드: {playerDataManager.goldAmount}, MP 포션 수량: {playerDataManager.userItem.mpPotion}");
+                        UIManager.Singleton.UpdateCashData();
+                    }
+                    else
+                    {
+                        Debug.Log("골드가 부족하여 MP 포션 구매 실패!");
+                    }
+                });
+            }
+            else
+            {
+                Debug.Log("골드가 부족합니다!");
             }
         }
     }

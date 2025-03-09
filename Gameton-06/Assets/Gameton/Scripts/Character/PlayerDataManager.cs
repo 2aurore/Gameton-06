@@ -31,6 +31,11 @@ namespace TON
             itemDataManager = new BackendItemDataManager();
         }
 
+        public void bootstrapper()
+        {
+            player = new PlayerData();
+        }
+
         public void Initalize()
         {
             LoadPlayerData();

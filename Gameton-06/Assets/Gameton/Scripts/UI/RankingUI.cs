@@ -86,7 +86,7 @@ namespace TON
 
                 uiPrefabList.Add(rectTransform);
                 uiPrefabList[i].anchoredPosition = new Vector2(0f, -y);
-                y += uiPrefabList[i].sizeDelta.y;
+                y += uiPrefabList[i].sizeDelta.y + 10f;
             }
 
             scrollRect.content.sizeDelta = new Vector2(scrollRect.content.sizeDelta.x, y);

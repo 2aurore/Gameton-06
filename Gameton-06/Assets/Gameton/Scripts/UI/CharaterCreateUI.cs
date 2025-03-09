@@ -128,7 +128,7 @@ namespace TON
 
                                 // 씬 변경
                                 UIManager.Hide<CharaterCreateUI>(UIList.CharaterCreateUI);
-                                Main.Singleton.ChangeScene(SceneType.Lobby);
+                                Main.Singleton.ChangeScene(SceneType.Intro);
                             }
                         });
 

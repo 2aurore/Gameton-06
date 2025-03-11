@@ -121,7 +121,6 @@ namespace TON
             // duration 동안에는 항상 idle = 공격 쿨타운
             if (_currentDuration < _duration)
                 return this;
-            // TODO : 데미지 받을 때
             
             //  추적 범위에 들어왔을 때
             if (_monsterBase.IsDetect)
@@ -186,7 +185,6 @@ namespace TON
         {
             _monsterBase = monsterBase;
             _monsterBase.IsFinishAttack = false;
-            
             _lastAttackTime = -_attackDelayTime; // 처음 진입시 바로 공격하도록 설정
         }
 

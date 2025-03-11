@@ -101,57 +101,9 @@ namespace TON
             {
                 // 플레이어가 죽었을 때
                 SoundManager.instance.BgSoundPlay(null);
-                // 필요하다면 gameStarted = false; 등을 설정하여 한 번만 실행되게 함
             }
         }
-        
-        private void SpawnBossMonster()
-        {
-            GameObject bossPrefab = GetBossPrefabForWave(currentWave);
-
-            if (spawnPoints.Length >= 2)
-            {
-                // 왼쪽 스폰 포인트
-                GameObject leftBoss = Instantiate(bossPrefab, spawnPoints[0].position, Quaternion.identity);
-                SetupBossComponents(leftBoss);
-
-                // 오른쪽 스폰 포인트
-                GameObject rightBoss = Instantiate(bossPrefab, spawnPoints[spawnPoints.Length - 1].position, Quaternion.identity);
-                SetupBossComponents(rightBoss);
-            }
-            else
-            {
-                Debug.LogError("스폰 포인트가 2개 이상 필요합니다.");
-            }
-
-            // // 랜덤한 스폰 포인트 선택
-            // int spawnPointIndex = Random.Range(0, spawnPoints.Length);
-            // GameObject bossPrefab = GetBossPrefabForWave(currentWave);
-            //
-            // GameObject boss = Instantiate(bossPrefab, spawnPoints[spawnPointIndex].position, Quaternion.identity);
-            // monsterPool.Add(boss);
-            // activeMonsters.Add(boss);
-        
-            // 보스 웨이브에서는 자동으로 다음 웨이브로 넘어가지 않음
-            // 보스가 죽으면 Update에서 체크하여 다음 웨이브로 넘어감
-        }
-        
-        private void SetupBossComponents(GameObject boss)
-        {
-            MonsterBase monsterBase = boss.GetComponent<MonsterBase>();
-
-            Attack attackComponent = boss.GetComponentInChildren<Attack>();
-            Eyesight eyesightComponent = boss.GetComponentInChildren<Eyesight>();
-
-            if (attackComponent != null)
-                attackComponent.SetMonsterBase(monsterBase);
-            if (eyesightComponent != null)
-                eyesightComponent.SetMonsterBase(monsterBase);
-
-            monsterPool.Add(boss);
-            activeMonsters.Add(boss);
-        }
-        
+ 
         private void StartNextWave()
         {
             StageManager.Singleton.SetWaveData(currentWave);    // 웨이브 정보 전달.
@@ -177,7 +129,6 @@ namespace TON
             
             if (currentWave > TOTAL_WAVES)
             {
-                // Debug.Log("모든 웨이브 완료!");
                 return;
             }
 
@@ -198,6 +149,43 @@ namespace TON
                 SpawnNormalMonsters();
             }
         }
+        
+        private void SpawnBossMonster()
+        {
+            GameObject bossPrefab = GetBossPrefabForWave(currentWave);
+
+            if (spawnPoints.Length >= 2)
+            {
+                // 왼쪽 스폰 포인트
+                GameObject leftBoss = Instantiate(bossPrefab, spawnPoints[0].position, Quaternion.identity);
+                SetupBossComponents(leftBoss);
+
+                // 오른쪽 스폰 포인트
+                GameObject rightBoss = Instantiate(bossPrefab, spawnPoints[spawnPoints.Length - 1].position, Quaternion.identity);
+                SetupBossComponents(rightBoss);
+            }
+            else
+            {
+                Debug.LogError("스폰 포인트가 2개 이상 필요합니다.");
+            }
+        }
+        
+        private void SetupBossComponents(GameObject boss)
+        {
+            MonsterBase monsterBase = boss.GetComponent<MonsterBase>();
+
+            Attack attackComponent = boss.GetComponentInChildren<Attack>();
+            Eyesight eyesightComponent = boss.GetComponentInChildren<Eyesight>();
+
+            if (attackComponent != null)
+                attackComponent.SetMonsterBase(monsterBase);
+            if (eyesightComponent != null)
+                eyesightComponent.SetMonsterBase(monsterBase);
+
+            monsterPool.Add(boss);
+            activeMonsters.Add(boss);
+        }
+
         
         private bool IsBossWave(int wave)
         {
@@ -277,7 +265,6 @@ namespace TON
                     }
                 }  
             }
-            
             // 일반 웨이브에서는 자동으로 다음 웨이브로 넘어가지 않음
             // 몬스터가 모두 죽으면 Update에서 체크하여 다음 웨이브로 넘어감
         }

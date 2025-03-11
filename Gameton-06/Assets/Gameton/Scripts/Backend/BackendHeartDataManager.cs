@@ -38,7 +38,6 @@ namespace TON
                 {
                     heartData.currentHearts = int.Parse(callback.FlattenRows()[0]["currentHearts"].ToString());
 
-                    Debug.Log("test::: " + callback.FlattenRows()[0]["lastHeartTime"]);
                     heartData.lastHeartTime = callback.FlattenRows()[0]["lastHeartTime"].ToString();
                     onComplete?.Invoke(heartData); // 성공 시 데이터 반환
                 }

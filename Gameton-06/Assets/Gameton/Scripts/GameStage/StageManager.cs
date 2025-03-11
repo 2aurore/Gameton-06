@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -88,9 +89,14 @@ namespace TON
             gameScore = 0;
         }
 
-        // 전체 랭킹 리스트 조회 
-        public void GetRankList()
+        // 전체 랭킹 리스트 조회
+        public void GetRankList(System.Action onComplete = null)
         {
+            if (RankList.Count > 0)
+            {
+                RankList.Clear();
+            }
+
             rankDataManager.GetRankData(rankData =>
             {
                 for (int i = 0; i < rankData.Count; i++)
@@ -112,11 +118,22 @@ namespace TON
                     if (a.score != b.score) return b.score.CompareTo(a.score);
                     return a.playTime.CompareTo(b.playTime);
                 });
+
+                // top 50 까지만 RankList에 세팅
+                if (RankList.Count > 50)
+                {
+                    RankList = RankList.GetRange(0, 50);
+                }
+
+                onComplete?.Invoke();
             });
         }
 
-        public List<ClearData> GetRankDataList()
+        public async Task<List<ClearData>> GetRankDataListAsync()
         {
+            var tcs = new TaskCompletionSource<bool>();
+            GetRankList(() => tcs.SetResult(true));
+            await tcs.Task;
             return RankList;
         }
 

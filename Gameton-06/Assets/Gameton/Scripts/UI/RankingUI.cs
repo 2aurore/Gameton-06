@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace TON
@@ -25,12 +25,13 @@ namespace TON
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI playTimeText;
 
+        private List<ClearData> rankList = new List<ClearData>();
+
         private void OnEnable()
         {
             // 랭킹 불러오기 오류 팝업 기본 상태
             errorPopup.SetActive(false);
 
-            // 랭킹 리스트 서버 오류 수정 후 주석 해제
             SetRankList();
             SetMyRankData();
         }
@@ -41,7 +42,7 @@ namespace TON
             int myRankNumber = StageManager.Singleton.GetMyRankNumber();
 
             playerName.text = TOP_RECORD.nickname;
-            rankNumber.text = myRankNumber > -1 ? $"{myRankNumber} th" : "Not Record";
+            rankNumber.text = myRankNumber > -1 ? $"{myRankNumber + 1} th" : "Not Record";
             waveText.text = $"{TOP_RECORD.wave}";
             scoreText.text = $"{TOP_RECORD.score}";
 
@@ -64,7 +65,7 @@ namespace TON
                 uiPrefabList.Clear();
             }
 
-            List<ClearData> rankList = StageManager.Singleton.GetRankDataList();
+            rankList = StageManager.Singleton.RankList;
 
             if (rankList.Count == 0)
             {

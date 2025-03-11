@@ -123,17 +123,19 @@ namespace TON
             UIManager.Show<SkillSettingUI>(UIList.SkillSettingUI);
         }
 
-        public void OnClickRankingButton()
+        public async void OnClickRankingButton()
         {
-            // 랭킹 UI 추가
+            // 랭킹 정보를 다시 불러오기 위해 await 사용
+            UIManager.Show<LoadingUI>(UIList.LoadingUI);
+            await StageManager.Singleton.GetRankDataListAsync();
+
+            UIManager.Hide<LoadingUI>(UIList.LoadingUI);
+
             UIManager.Show<RankingUI>(UIList.RankingUI);
         }
 
         public void OnClickShopButton()
         {
-            // TODO: 상점 UI 추가
-            // 상점은 Scene으로 전환하자.
-            
             Main.Singleton.ChangeScene(SceneType.Shop);
         }
 

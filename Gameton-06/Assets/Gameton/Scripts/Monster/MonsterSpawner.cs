@@ -25,6 +25,8 @@ namespace TON
         private float nextWaveDelay = 5f; // 다음 웨이브 시작 전 대기 시간
         private bool isWaitingForNextWave = false;
         
+        public bool isTimerRunning = false; // 타이머 실행 여부
+        
         [System.Serializable]
         public class WaveData
         {
@@ -58,6 +60,7 @@ namespace TON
         
         private IEnumerator StartGameWithDelay()
         {
+            isTimerRunning = true; // 타이머 시작
             // 초기 카운트다운 표시
             float timer = initialDelay;
             while (timer > 0)
@@ -74,7 +77,8 @@ namespace TON
             {
                 waveCounter.text = null;
             }
-        
+            
+            isTimerRunning = false; // 타이머 종료
             gameStarted = true;
             StartNextWave();
         }
@@ -284,6 +288,8 @@ namespace TON
         
         private IEnumerator StartNextWaveWithDelay()
         {
+            isTimerRunning = true; // 타이머 시작
+            
             // 웨이브가 10이면 (즉, 10스테이지가 끝났으면) 또는 웨이브가 11이면 게임 종료 UI를 바로 보여줌
             if (currentWave == 10 || currentWave == 11 || GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>() == null)
             {
@@ -301,7 +307,8 @@ namespace TON
                     timer -= Time.deltaTime;
                     yield return null;
                 }
-
+                
+                isTimerRunning = false; // 타이머 종료
                 waveCounter.text = null;
 
                 isWaitingForNextWave = false;

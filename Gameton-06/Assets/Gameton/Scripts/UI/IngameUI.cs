@@ -17,11 +17,12 @@ namespace TON
         public TextMeshProUGUI waveText;
         public TextMeshProUGUI playTimeText;
         public TextMeshProUGUI scoreText;
-
+        
         // 플레이 시간 노출하게 하는 변수
         private int lastMinutes = -1;
         private int lastSeconds = -1;
         private string cachedTimeString = "00:00";
+        private MonsterSpawner  _monsterSpawner;
 
         private string playerType;
 
@@ -39,6 +40,7 @@ namespace TON
                 character.OnSPChanged += UpdateSPBar;
             }
 
+            _monsterSpawner = GameObject.FindObjectOfType<MonsterSpawner>();
             // UI가 활성화될 때 저장된 값들로 업데이트
             RefreshUI();
         }
@@ -56,8 +58,9 @@ namespace TON
         private void Update()
         {
             waveText.text = $"WAVE {StageManager.Singleton.waveCount + 1}";
-
+            
             UpdatePlayTimeDisplay();
+
             UpdateGameScore();
         }
 
@@ -68,18 +71,21 @@ namespace TON
 
         private void UpdatePlayTimeDisplay()
         {
-            float playTime = StageManager.Singleton.PlayTime;
-
-            int minutes = Mathf.FloorToInt(playTime / 60f);
-            int seconds = Mathf.FloorToInt(playTime % 60f);
-
-            // 시간이 변경된 경우에만 문자열 생성
-            if (minutes != lastMinutes || seconds != lastSeconds)
+            if (_monsterSpawner != null && !_monsterSpawner.isTimerRunning)
             {
-                lastMinutes = minutes;
-                lastSeconds = seconds;
-                cachedTimeString = $"time {minutes:00}:{seconds:00}";
-                playTimeText.text = cachedTimeString;
+                float playTime = StageManager.Singleton.PlayTime - ((StageManager.Singleton.waveCount + 1) * 5);
+
+                int minutes = Mathf.FloorToInt(playTime / 60f);
+                int seconds = Mathf.FloorToInt(playTime % 60f);
+
+                // 시간이 변경된 경우에만 문자열 생성
+                if (minutes != lastMinutes || seconds != lastSeconds)
+                {
+                    lastMinutes = minutes;
+                    lastSeconds = seconds;
+                    cachedTimeString = $"time {minutes:00}:{seconds:00}";
+                    playTimeText.text = cachedTimeString;
+                }
             }
         }
 

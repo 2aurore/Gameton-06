@@ -28,7 +28,6 @@ namespace TON
 
         [SerializeField] private CharacterBase character;
 
-
         private void OnEnable()
         {
             character = GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>();
@@ -71,21 +70,18 @@ namespace TON
 
         private void UpdatePlayTimeDisplay()
         {
-            if (_monsterSpawner != null && !_monsterSpawner.isTimerRunning)
+            float playTime = StageManager.Singleton.PlayTime;
+
+            int minutes = Mathf.FloorToInt(playTime / 60f);
+            int seconds = Mathf.FloorToInt(playTime % 60f);
+
+            // 시간이 변경된 경우에만 문자열 생성
+            if (minutes != lastMinutes || seconds != lastSeconds)
             {
-                float playTime = StageManager.Singleton.PlayTime - ((StageManager.Singleton.waveCount + 1) * 5);
-
-                int minutes = Mathf.FloorToInt(playTime / 60f);
-                int seconds = Mathf.FloorToInt(playTime % 60f);
-
-                // 시간이 변경된 경우에만 문자열 생성
-                if (minutes != lastMinutes || seconds != lastSeconds)
-                {
-                    lastMinutes = minutes;
-                    lastSeconds = seconds;
-                    cachedTimeString = $"time {minutes:00}:{seconds:00}";
-                    playTimeText.text = cachedTimeString;
-                }
+                lastMinutes = minutes;
+                lastSeconds = seconds;
+                cachedTimeString = $"time {minutes:00}:{seconds:00}";
+                playTimeText.text = cachedTimeString;
             }
         }
 

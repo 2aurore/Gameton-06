@@ -129,9 +129,9 @@ namespace TON
             UIManager.Show<LoadingUI>(UIList.LoadingUI);
             await StageManager.Singleton.GetRankDataListAsync();
 
+            UIManager.Show<RankingUI>(UIList.RankingUI);
             UIManager.Hide<LoadingUI>(UIList.LoadingUI);
 
-            UIManager.Show<RankingUI>(UIList.RankingUI);
         }
 
         public void OnClickShopButton()

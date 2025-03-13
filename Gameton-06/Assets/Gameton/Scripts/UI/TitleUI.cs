@@ -16,8 +16,6 @@ namespace TON
         {
             yield return new WaitForSeconds(0.2f); // 0.2초 대기
 
-            UIManager.Hide<TitleUI>(UIList.TitleUI);
-
             // 플레이어가 가지고 있는 캐릭터들의 데이터 불러옴
             PlayerData player = PlayerDataManager.Singleton.player;
 
@@ -33,6 +31,8 @@ namespace TON
                     Main.Singleton.ChangeScene(SceneType.Lobby);
                 });
             }
+
+            UIManager.Hide<TitleUI>(UIList.TitleUI);
         }
 
         public void OnClickExitButton()

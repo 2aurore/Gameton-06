@@ -12,8 +12,8 @@ namespace TON
 
         public UserItemData()
         {
-            hpPotion = 0;
-            mpPotion = 0;
+            hpPotion = 5;
+            mpPotion = 5;
         }
     }
 }

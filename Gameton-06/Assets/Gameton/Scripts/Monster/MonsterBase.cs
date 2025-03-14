@@ -10,7 +10,7 @@ namespace TON
         [SerializeField] private SpriteRenderer _spriteRenderer; // 몬스터의 스프라이트 렌더러
         [SerializeField] public int id; // 몬스터의 ID
         public float defencePower;
-        public float defenceIntention = 30;     // 몬스터 방어력 변수
+        public float defenceIntention = 100;     // 몬스터 방어력 변수
 
         public GameObject _hpBarImage; // HP 바 이미지
         private float _maxHP;
@@ -22,7 +22,7 @@ namespace TON
         private Animator _animator; // 몬스터 애니메이터
         private string currentAnimationState; // 현재 애니메이션 상태
         private float moveSpeed = 2f;
-        
+
         StateMachine _stateMachine;
 
         private Vector3 _direction; // 몬스터의 이동 방향
@@ -33,17 +33,17 @@ namespace TON
         public int Gold = 0;
         public int Exp = 0;
         public int Score = 0;
-        
+
         private CharacterBase _characterBase;
 
         // public AudioClip _attackSound;
         public AudioClip _deathSound;
         public AudioClip _hitSound;
-        
+
         private void Start()
         {
             _animator = GetComponent<Animator>(); // 애니메이터 컴포넌트 초기화
-            
+
             _stateMachine = new StateMachine(new IdleState(), this);
 
             InitializeMonsterData();    // 몬스터 데이터 로드 및 적용
@@ -51,10 +51,10 @@ namespace TON
             _direction = new Vector3(1, 0, 0); // 초기 이동 방향 (x 축 양의 방향)
 
             _spriteRenderer.flipX = !(_direction.x > 0); // 이동 방향에 따라 스프라이트 플립
-            
+
             // CharacterBase 참조 설정
             _characterBase = GameObject.Find("TON.Player").GetComponentInChildren<CharacterBase>();
-            
+
             // HP 바 초기화
             if (_hpBarImage != null)
             {
@@ -112,9 +112,9 @@ namespace TON
         {
             float prevHP = currentHP;   // 몬스터의 체력을 감소시키고, 죽었을 경우 파괴 처리
             currentHP -= damage;
-            
+
             SoundManager.instance.SFXPlay("Hit", _hitSound);
-            
+
             UpdateHPBar(currentHP);
 
             if (prevHP > 0 && currentHP <= 0)
@@ -134,19 +134,19 @@ namespace TON
             {
                 // 현재 HP가 0 이하로 내려가지 않도록 보정
                 currentHP = Mathf.Max(0, currentHP);
-        
+
                 // HP 비율 계산 (0~1 사이 값)
                 float hpRatio = currentHP / _maxHP;
-        
+
                 // RectTransform 컴포넌트 가져오기
                 RectTransform rectTransform = _hpBarImage.GetComponent<RectTransform>();
-        
+
                 // 현재 크기 가져오기
                 Vector2 sizeDelta = rectTransform.sizeDelta;
-        
+
                 // x 크기를 HP 비율에 따라 조정
                 sizeDelta.x = hpMaxWidth * hpRatio;
-        
+
                 // 변경된 크기 적용
                 rectTransform.sizeDelta = sizeDelta;
             }
@@ -160,12 +160,12 @@ namespace TON
             float baseAttack = _monsterData.attackPower; // 기본 공격력
             float equipmentAttack = 0; // 장비 공격력
             float defense = PlayerDataManager.Singleton.player.defensivePower / (PlayerDataManager.Singleton.player.defensivePower + PlayerDataManager.Singleton.defensiveIntention); // 캐릭터 방어력
-            
+
             // 기본 데미지 계산 (치명타 없음)
             float damage = damageCalculator.CalculateBaseDamage(baseAttack, equipmentAttack, defense);
 
             _characterBase.ApplyDamage(damage);
-            
+
             // SoundManager.instance.SFXPlay("Attack", _attackSound);
             // Debug.Log($" 몬스터 공격! 최종 데미지: {damage}"); // 데미지 출력
         }

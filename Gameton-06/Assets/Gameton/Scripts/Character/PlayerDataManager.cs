@@ -14,7 +14,7 @@ namespace TON
         public int fishAmount { get; private set; }
         public UserItemData userItem { get; private set; } = new UserItemData();
 
-        public float defensiveIntention { get; private set; } = 200f; // 방어력 변수 (조정 가능)
+        public float defensiveIntention { get; private set; } = 50f; // 방어력 변수 (조정 가능)
         public int requireLevelUpExp; // 경험치 변수 (조정 가능)
 
         [SerializeField] private int expVariable = 50; // 경험치 변수 (조정 가능)

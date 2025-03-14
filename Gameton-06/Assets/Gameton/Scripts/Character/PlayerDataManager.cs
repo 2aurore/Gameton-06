@@ -88,6 +88,21 @@ namespace TON
             }
         }
 
+        public void AddPotion(string type, int amount)
+        {
+            switch (type)
+            {
+                case "HP":
+                    userItem.hpPotion += amount;
+                    itemDataManager.UpdateHpData(userItem.hpPotion);
+                    break;
+                case "MP":
+                    userItem.mpPotion += amount;
+                    itemDataManager.UpdateMpData(userItem.mpPotion);
+                    break;
+            }
+        }
+
         public void AddGold(int amount)
         {
             goldAmount += amount;

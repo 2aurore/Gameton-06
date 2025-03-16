@@ -26,7 +26,7 @@ namespace TON
         public bool LoadSkillIcon(string skillId, out Sprite result)
         {
             string id = skillId.ToLower();
-            return LoadAsset<Sprite>($"UI/Skill Icon/skill_icon_{id}", out result);
+            return LoadAsset<Sprite>($"UI/SkillIcon/skill_icon_{id}", out result);
         }
 
         public bool LoadPlayerIcon(string playerType, FaceStatue status, out Sprite result)
@@ -42,31 +42,31 @@ namespace TON
 
         public bool LoadRankPawIcon(int rank, out Sprite result)
         {
-            if (rank < 4)
+            if (rank < 4 && rank > 0)
             {
                 // Rank 1, 2, 3일 때 실행할 코드
-                return LoadAsset<Sprite>($"UI/Ranking Paw/paw_{rank}th", out result);
+                return LoadAsset<Sprite>($"UI/RankingPaw/paw_{rank}th", out result);
             }
             else if (rank >= 4 && rank <= 20)
             {
                 // Rank 4~20일 때 실행할 코드
-                return LoadAsset<Sprite>($"UI/Ranking Paw/paw_4th", out result);
+                return LoadAsset<Sprite>($"UI/RankingPaw/paw_4th", out result);
             }
             else if (rank >= 21 && rank <= 50)
             {
                 // Rank 21~50일 때 실행할 코드
-                return LoadAsset<Sprite>($"UI/Ranking Paw/paw_5th", out result);
+                return LoadAsset<Sprite>($"UI/RankingPaw/paw_5th", out result);
             }
             else
             {
                 // Rank 51 이상일 때 실행할 코드
-                return LoadAsset<Sprite>($"UI/Ranking Paw/paw_6th", out result);
+                return LoadAsset<Sprite>($"UI/RankingPaw/paw_6th", out result);
             }
         }
 
         public bool LoadMyRankBoxImage(out Sprite result)
         {
-            return LoadAsset<Sprite>($"UI/Ranking Paw/my_rank_box", out result);
+            return LoadAsset<Sprite>($"UI/RankingPaw/my_rank_box", out result);
         }
 
         public bool LoadIntroBackgroundImage(int index, out Sprite result)

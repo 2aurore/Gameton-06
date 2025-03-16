@@ -530,7 +530,7 @@ GameObject:
   - component: {fileID: 1125363230496170488}
   - component: {fileID: 6600581202386279414}
   - component: {fileID: 2919704506127201870}
-  - component: {fileID: 7246605180128853771}
+  - component: {fileID: 6017222887125092124}
   m_Layer: 0
   m_Name: CoolDown
   m_TagString: Untagged
@@ -595,7 +595,7 @@ MonoBehaviour:
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7246605180128853771
+--- !u!114 &6017222887125092124
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 75
+  radius: 50
   image: {fileID: 2919704506127201870}
 --- !u!1 &7327516494835756358
 GameObject:

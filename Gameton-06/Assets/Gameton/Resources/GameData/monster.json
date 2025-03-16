@@ -7,9 +7,9 @@
     "attackPower": 30,
     "defencePower": 4,
     "monsterSkillID": 0,
-    "Gold": 1,
-    "Exp": 2,
-    "Score": 10
+    "Gold": 10,
+    "Exp": 1,
+    "Score": 5
   },
   {
     "id": 2,
@@ -19,9 +19,9 @@
     "attackPower": 35,
     "defencePower": 10,
     "monsterSkillID": 0,
-    "Gold": 1,
-    "Exp": 3,
-    "Score": 10
+    "Gold": 10,
+    "Exp": 1,
+    "Score": 5
   },
   {
     "id": 3,
@@ -31,9 +31,9 @@
     "attackPower": 70,
     "defencePower": 20,
     "monsterSkillID": 1,
-    "Gold": 15,
-    "Exp": 50,
-    "Score": 100
+    "Gold": 80,
+    "Exp": 20,
+    "Score": 240
   },
   {
     "id": 4,
@@ -43,8 +43,8 @@
     "attackPower": 43,
     "defencePower": 15,
     "monsterSkillID": 0,
-    "Gold": 2,
-    "Exp": 5,
+    "Gold": 11,
+    "Exp": 2,
     "Score": 20
   },
   {
@@ -55,8 +55,8 @@
     "attackPower": 46,
     "defencePower": 15,
     "monsterSkillID": 0,
-    "Gold": 3,
-    "Exp": 7,
+    "Gold": 11,
+    "Exp": 2,
     "Score": 20
   },
   {
@@ -67,9 +67,9 @@
     "attackPower": 112,
     "defencePower": 30,
     "monsterSkillID": 1,
-    "Gold": 50,
-    "Exp": 150,
-    "Score": 200
+    "Gold": 120,
+    "Exp": 25,
+    "Score": 400
   },
   {
     "id": 7,
@@ -79,9 +79,9 @@
     "attackPower": 55,
     "defencePower": 25,
     "monsterSkillID": 0,
-    "Gold": 4,
-    "Exp": 8,
-    "Score": 40
+    "Gold": 12,
+    "Exp": 3,
+    "Score": 30
   },
   {
     "id": 8,
@@ -91,9 +91,9 @@
     "attackPower": 57,
     "defencePower": 25,
     "monsterSkillID": 0,
-    "Gold": 6,
-    "Exp": 10,
-    "Score": 50
+    "Gold": 13,
+    "Exp": 3,
+    "Score": 40
   },
   {
     "id": 9,
@@ -103,9 +103,9 @@
     "attackPower": 65,
     "defencePower": 25,
     "monsterSkillID": 1,
-    "Gold": 125,
-    "Exp": 250,
-    "Score": 400
+    "Gold": 150,
+    "Exp": 30,
+    "Score": 1500
   },
   {
     "id": 10,
@@ -115,8 +115,8 @@
     "attackPower": 180,
     "defencePower": 40,
     "monsterSkillID": 1,
-    "Gold": 300,
-    "Exp": 600,
-    "Score": 1000
+    "Gold": 200,
+    "Exp": 40,
+    "Score": 2000
   }
 ]

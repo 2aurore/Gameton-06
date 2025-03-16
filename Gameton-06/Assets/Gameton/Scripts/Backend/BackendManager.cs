@@ -79,7 +79,8 @@ namespace TON
             if (isSuccess)
             {
                 Debug.Log("회원가입 성공!");
-                // 게임 시작 로직은 Main.cs에서 처리
+
+                authManager.TryAutoLogin();
             }
             else if (message == "최대 재시도 횟수 초과")
             {

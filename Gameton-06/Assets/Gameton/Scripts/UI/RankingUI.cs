@@ -76,6 +76,7 @@ namespace TON
             float y = 0;
             for (int i = 0; i < rankList.Count; i++)
             {
+                Debug.Log($"RankList[{i}]: {rankList[i].nickname}");
                 ClearData clearData = rankList[i];
                 RankBoxItem rankBox = Instantiate(rankBoxPrefab, scrollRect.content);
 

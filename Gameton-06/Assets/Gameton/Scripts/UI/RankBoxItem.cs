@@ -39,16 +39,14 @@ namespace TON
 
         private void SetMyRankBoxImage()
         {
-            Sprite loadedMyBoxImage = null;
-            Assert.IsTrue(AssetManager.Singleton.LoadMyRankBoxImage(out loadedMyBoxImage));
-            rankBoxImage.GetComponent<Image>().sprite = loadedMyBoxImage;
+            if (AssetManager.Singleton.LoadMyRankBoxImage(out Sprite loadedMyBoxImage))
+                rankBoxImage.GetComponent<Image>().sprite = loadedMyBoxImage;
         }
 
         private void SetPawIcon(int rank)
         {
-            Sprite loadedPawImage = null;
-            Assert.IsTrue(AssetManager.Singleton.LoadRankPawIcon(rank, out loadedPawImage));
-            pawImage.GetComponent<Image>().sprite = loadedPawImage;
+            if (AssetManager.Singleton.LoadRankPawIcon(rank, out Sprite loadedPawImage))
+                pawImage.GetComponent<Image>().sprite = loadedPawImage;
         }
     }
 }

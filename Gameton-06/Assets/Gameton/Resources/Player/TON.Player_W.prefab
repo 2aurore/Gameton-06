@@ -345,6 +345,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   wallChecker: {fileID: 6530647677844077835}
+  jumpLimit: 5
   firePoint: {fileID: 3204799031628172313}
   attackCollider: {fileID: 5093782900058509363}
   rb: {fileID: 4986202531950816680}
@@ -421,7 +422,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.2
 --- !u!114 &5093782900058509363
 MonoBehaviour:
   m_ObjectHideFlags: 0

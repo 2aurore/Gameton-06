@@ -174,17 +174,19 @@ namespace TON
         public void OnClickSettingButton()
         {
             // 스킬 데이터 업데이트 할때 selectedSlotIndex +1 해서 넘겨줘야함
-            SkillDataManager.Singleton.UpdateSkillData(selectedSkillId, selectedSlotIndex + 1);
+            SkillDataManager.Singleton.UpdateSkillData(selectedSkillId, selectedSlotIndex + 1, () =>
+            {
+                // 스킬 업데이트 후 UI 갱신
+                var unselectedSkill = createSkillInfo.Find(skill => skill.skillId == selectedSkillId);
+                unselectedSkill?.UnselectedSkillInfo();
+                createSkillSlots[selectedSlotIndex].UnselectedSlot();
 
-            // 스킬 업데이트 후 UI 갱신
-            var unselectedSkill = createSkillInfo.Find(skill => skill.skillId == selectedSkillId);
-            unselectedSkill?.UnselectedSkillInfo();
-            createSkillSlots[selectedSlotIndex].UnselectedSlot();
+                selectedSkillId = null;
+                selectedSlotIndex = -1;
 
-            selectedSkillId = null;
-            selectedSlotIndex = -1;
+                RefreshUI();
+            });
 
-            RefreshUI();
         }
 
         private void RefreshUI()

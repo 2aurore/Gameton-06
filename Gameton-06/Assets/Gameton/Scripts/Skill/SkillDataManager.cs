@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -7,21 +8,48 @@ namespace TON
 {
     public class SkillDataManager : SingletonBase<SkillDataManager>
     {
+
         public List<SkillData> skillDatas { get; private set; }
         public SerializableDictionary<string, SkillBase> skillInstances { get; private set; }
 
         private List<SkillBase> equippedSkills = new List<SkillBase>();
+        private BackendSkillDataManager skillDataManager;
 
-        public void Initalize()
+        // 각 단계별 이벤트 정의
+        private event System.Action OnDataLoadComplete;
+        private event System.Action OnSetupComplete;
+
+
+        public void Initalize(System.Action onComplete = null)
+
         {
+            skillDataManager = new BackendSkillDataManager();
+
+            // 각 단계별 이벤트 등록
+            OnDataLoadComplete = () =>
+            {
+                SetSkillInstances();
+                OnSetupComplete?.Invoke();
+            };
+
+            OnSetupComplete = () =>
+            {
+                GetActiveSkillInstance();
+                // 장착된 스킬이 변경된 경우, UI 업데이트 실행할 수 있도록 onComplete 이벤트 등록
+                onComplete?.Invoke();
+            };
+
+            // 첫 단계 시작
             LoadSkillData();
-            SetSkillInstances();
-            GetActiveSkillInstance();
         }
 
         private void Update()
         {
-            // 씬이 인게임일때만 돌게 조건 추가 (stage 이름을 가지고 잇을대?)
+            SceneType activeScene = Main.Singleton.currentSceneType;
+            // 씬이 인게임일 때만 스킬 쿨타임 업데이트 되도록 적용
+            if (activeScene != SceneType.Stage)
+                return;
+
             foreach (var skill in equippedSkills)
             {
                 UpdateSkillCoolDown(skill.SkillData.id);
@@ -35,8 +63,9 @@ namespace TON
                 skillDatas.Clear();
             }
 
-            JSONLoader.SaveJsonToPersistentData("skill");
-            skillDatas = JSONLoader.LoadJsonFromPersistentData<List<SkillData>>("skill");
+            // gamedata 폴더에 있는 skill.json 파일을 불러옴
+            skillDatas = JSONLoader.LoadFromResources<List<SkillData>>("skill");
+            GetSkillDataList();
 
             if (skillDatas == null)
             {
@@ -44,8 +73,33 @@ namespace TON
             }
         }
 
-        public void UpdateSkillData(string skillId, int slotNumber)
+        private void GetSkillDataList()
         {
+
+            // 서버에 저장된 사용자의 스킬 슬롯 데이터를 가져옴
+            skillDataManager.LoadMySkillData(userSkillData =>
+            {
+                // 스킬 슬롯 데이터가 없는 경우
+                if (userSkillData == null)
+                {
+                    Debug.LogError("스킬 슬롯 데이터가 없습니다");
+                    return;
+                }
+
+                // 스킬 슬롯 데이터가 있는 경우
+                UpdateSkillData(userSkillData.slot_1, 1);
+                UpdateSkillData(userSkillData.slot_2, 2);
+                UpdateSkillData(userSkillData.slot_3, 3);
+
+                // 다음 단계로 진행
+                OnDataLoadComplete?.Invoke();
+            });
+
+        }
+
+        public void UpdateSkillData(string skillId, int slotNumber, System.Action onComplete = null)
+        {
+            // 현재 슬롯에 스킬이 있는지 확인
             foreach (var skill in skillDatas)
             {
                 if (skill.id == skillId)
@@ -58,8 +112,29 @@ namespace TON
                 }
             }
 
-            Assert.IsTrue(JSONLoader.SaveUpdatedJsonToPersistentData(skillDatas, "skill"));
-            Initalize();
+            // 스킬 슬롯 데이터를 서버에 저장
+            if (onComplete != null)
+            {
+                UpdateSkillSlotDataToServer(onComplete);
+            }
+
+        }
+
+        private void UpdateSkillSlotDataToServer(System.Action onComplete)
+        {
+            UserSkillData userSkillData = new()
+            {
+                slot_1 = skillDatas.Find(skill => skill.slotNumber == 1)?.id,
+                slot_2 = skillDatas.Find(skill => skill.slotNumber == 2)?.id,
+                slot_3 = skillDatas.Find(skill => skill.slotNumber == 3)?.id
+            };
+
+            Debug.Log($"UpdateSkillSlotDataToServer() : {userSkillData.slot_1}, {userSkillData.slot_2}, {userSkillData.slot_3}");
+
+            skillDataManager.UpdateSkillData(userSkillData, () =>
+            {
+                Initalize(onComplete);
+            });
         }
 
         public void SetSkillInstances()
@@ -72,7 +147,7 @@ namespace TON
             }
         }
 
-        // 스킬 슬롯에 배치할 수 있는 스킬 수 리턴하는 메소드 
+        // 스킬 슬롯에 배치할 수 있는 스킬 수 리턴하는 메소드
         public int GetActiveSkillCount()
         {
             int characterLevel = PlayerDataManager.Singleton.player.level;

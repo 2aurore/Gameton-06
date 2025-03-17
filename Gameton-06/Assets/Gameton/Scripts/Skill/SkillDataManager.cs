@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace TON
 {
@@ -52,7 +50,12 @@ namespace TON
 
             foreach (var skill in equippedSkills)
             {
-                UpdateSkillCoolDown(skill.SkillData.id);
+                if (skill != null)
+                {
+                    UpdateSkillCoolDown(skill.SkillData.id);
+                    Debug.Log($"Updating cooldown for skill {skill.SkillData.id}: {skill.CurrentCoolDown}");
+                }
+
             }
         }
 
@@ -169,39 +172,55 @@ namespace TON
             return equippedSkills;
         }
 
+        public SkillBase GetEquippedSkillFromId(string skillId)
+        {
+            SkillBase targetSkillBase = null;
+            foreach (SkillBase skill in equippedSkills)
+            {
+                if (skill != null && skill.SkillData.id == skillId)
+                {
+                    targetSkillBase = skill;
+                    break;
+                }
+            }
+
+            return targetSkillBase;
+        }
+
         // 스킬 슬롯에 적용될 스킬 리스트 초기화 및 업데이트에 사용
         public List<SkillBase> GetActiveSkillInstance()
         {
-            if (equippedSkills != null)
+            if (equippedSkills == null)
+            {
+                equippedSkills = new List<SkillBase>();
+            }
+            else
             {
                 equippedSkills.Clear();
             }
 
-            foreach (SkillData skill in skillDatas)
+            for (int slot = 1; slot <= 3; slot++)
             {
-                if (skill.slotNumber == 1 || skill.slotNumber == 2 || skill.slotNumber == 3)
+                SkillData skill = skillDatas.Find(s => s.slotNumber == slot);
+                if (skill != null && skillInstances.ContainsKey(skill.id))
                 {
-                    // Debug.Log("GetActiveSkillInstance() : " + skill.id);
-                    equippedSkills.Add(skillInstances.GetValueOrDefault(skill.id));
+                    // 바로 skillInstances에서 가져옴
+                    equippedSkills.Add(skillInstances[skill.id]);
+                }
+                else
+                {
+                    equippedSkills.Add(null); // 빈 슬롯을 위해 null 추가
                 }
             }
-            equippedSkills.Sort((a, b) => a.SkillData.slotNumber.CompareTo(b.SkillData.slotNumber));
-            return equippedSkills;
-        }
 
-        // 스킬 쿨타임 설정하는 메소드 
-        public void SetCoolTime(string skillId)
-        {
-            if (skillInstances.TryGetValue(skillId, out SkillBase skillBase))
-            {
-                skillBase.SetCurrentCoolDown();
-            }
+            return equippedSkills;
         }
 
         // 스킬 쿨타임 업데이트 메소드 
         public void UpdateSkillCoolDown(string skillId)
         {
-            if (skillInstances.TryGetValue(skillId, out SkillBase skillBase))
+            SkillBase skillBase = equippedSkills.Find(skill => skill != null && skill.SkillData.id == skillId);
+            if (skillBase != null)
             {
                 skillBase.UpdateSkill(Time.deltaTime);
             }
@@ -226,10 +245,13 @@ namespace TON
             // 스킬 생성
             GameObject effectGameObject = ObjectPoolManager.Instance.GetEffect(skillId);
             Projectile projectile = effectGameObject.GetComponent<Projectile>();
-            SkillBase targetSkillBase = GetSkillInstance(skillId);
 
-            // 현재 스킬의 쿨타임 시작 
+            // equippedSkills에서 해당 스킬 찾기
+            SkillBase targetSkillBase = GetEquippedSkillFromId(skillId);
+
+            // 현재 스킬의 쿨타임 시작
             targetSkillBase.SetCurrentCoolDown();
+            // Debug.Log($"스킬 쿨타임 설정: {skillId}, 쿨타임: {targetSkillBase.CurrentCoolDown}");
 
             // 스킬 투사체 초기화
             projectile.Init(targetSkillBase.SkillData.damage, targetSkillBase.SkillData.maxHitCount);
@@ -245,16 +267,10 @@ namespace TON
             Rigidbody2D skillRb = effectGameObject.GetComponent<Rigidbody2D>();
             skillRb.velocity = new Vector2(lastDirection * 5f, 0f);
 
+            // 이벤트 발생
             targetSkillBase.OnSkillExecuted?.Invoke();
         }
 
-        public SkillBase GetSkillInstance(string skillId)
-        {
-            // 스킬 베이스가 null일때 방어로직 추가
-            SkillBase result = skillInstances.GetValueOrDefault(skillId);
-            Assert.IsNotNull(result, "SkillDataManager.ExecuteSkill() : targetSkillBase is null");
-            return result;
-        }
 
 
     }

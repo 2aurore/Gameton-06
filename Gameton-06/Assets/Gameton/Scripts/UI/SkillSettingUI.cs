@@ -68,7 +68,10 @@ namespace TON
             Dictionary<int, SkillBase> skillMap = new Dictionary<int, SkillBase>();
             foreach (var skill in activatedSkills)
             {
-                skillMap[skill.SkillData.slotNumber - 1] = skill;
+                if (skill != null)
+                {
+                    skillMap[skill.SkillData.slotNumber - 1] = skill;
+                }
             }
 
             for (int i = 0; i < 3; i++)

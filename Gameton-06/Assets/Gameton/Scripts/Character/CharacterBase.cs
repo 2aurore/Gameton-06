@@ -257,11 +257,13 @@ namespace TON
             callback?.Invoke(true);
         }
 
-        public void SkillAttack(string skillId)
+        public void SkillAttack(SkillBase skillBase)
         {
-            SkillBase skillBase = SkillDataManager.Singleton.GetSkillInstance(skillId);
+            if (skillBase == null) return;
+
+            string skillId = skillBase.SkillData.id;
+
             // 스킬을 사용할 수 있는 스킬포인트가 있는지 판단
-            // 스킬 포인트가 부족하다면 스킬을 수행하지 못함
             if (currentSP < skillBase.SkillData.mpConsumption) return;
 
             // 스킬 매니저에서 스킬을 쏠 수 있는지 여부를 판단
@@ -278,7 +280,7 @@ namespace TON
                 // 스킬 매니저에 스킬 발사 요청
                 SkillDataManager.Singleton.ExecuteSkill(skillId, firePoint, lastDirection);
 
-                // RecoverSP 가 이미 진행중인 경우 이중으로 코루틴을 실행하지 않도록 함함
+                // RecoverSP 가 이미 진행중인 경우 이중으로 코루틴을 실행하지 않도록 함
                 if (!isRecovering)
                 {
                     StartCoroutine(RecoverSP());

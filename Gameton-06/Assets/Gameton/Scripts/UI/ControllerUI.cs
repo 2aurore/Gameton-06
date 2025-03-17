@@ -61,9 +61,11 @@ namespace TON
                 SkillButtonItem newSkillButton = Instantiate(skillButtonPrefab, skillButtonGroup);
                 newSkillButton.gameObject.SetActive(true);
 
-                if (i < activatedSkills.Count) // 해당 인덱스에 활성화된 스킬이 있을 경우
+                if (i < activatedSkills.Count && activatedSkills[i] != null) // 해당 인덱스에 활성화된 스킬이 있을 경우
                 {
+                    // 직접 equippedSkills의 인스턴스를 전달
                     newSkillButton.Initalize(activatedSkills[i]);
+                    newSkillButton.GetComponent<Button>().interactable = true;
                 }
                 else
                 {
@@ -79,7 +81,7 @@ namespace TON
         {
             userItem = PlayerDataManager.Singleton.userItem;
 
-            // 게임 진입 시 포션 초기 수량 세팅팅
+            // 게임 진입 시 포션 초기 수량 세팅
             hpPotion = userItem.hpPotion >= potionLimit ? potionLimit : userItem.hpPotion;
             mpPotion = userItem.mpPotion >= potionLimit ? potionLimit : userItem.mpPotion;
 
@@ -141,7 +143,10 @@ namespace TON
 
         public void OnClickSkillButton(SkillButtonItem button)
         {
-            linkedCharactor.SkillAttack(button.skillBase.SkillData.id);
+            if (button.skillBase != null)
+            {
+                linkedCharactor.SkillAttack(button.skillBase);
+            }
         }
 
     }

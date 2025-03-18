@@ -53,7 +53,6 @@ namespace TON
                 if (skill != null)
                 {
                     UpdateSkillCoolDown(skill.SkillData.id);
-                    Debug.Log($"Updating cooldown for skill {skill.SkillData.id}: {skill.CurrentCoolDown}");
                 }
 
             }
@@ -131,8 +130,6 @@ namespace TON
                 slot_2 = skillDatas.Find(skill => skill.slotNumber == 2)?.id,
                 slot_3 = skillDatas.Find(skill => skill.slotNumber == 3)?.id
             };
-
-            Debug.Log($"UpdateSkillSlotDataToServer() : {userSkillData.slot_1}, {userSkillData.slot_2}, {userSkillData.slot_3}");
 
             skillDataManager.UpdateSkillData(userSkillData, () =>
             {

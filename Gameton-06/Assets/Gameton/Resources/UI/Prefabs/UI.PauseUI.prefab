@@ -1705,7 +1705,7 @@ PrefabInstance:
       objectReference: {fileID: 5289490854944505444}
     - target: {fileID: 61177833917032615, guid: 3f28b0f5c3b932d43a67aa4a7e70a1a6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickStageRetryModal
+      value: OnClickStageRetryButton
       objectReference: {fileID: 0}
     - target: {fileID: 61177833917032615, guid: 3f28b0f5c3b932d43a67aa4a7e70a1a6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

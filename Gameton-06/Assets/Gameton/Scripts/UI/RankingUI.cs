@@ -50,7 +50,7 @@ namespace TON
             int seconds = Mathf.FloorToInt(TOP_RECORD.playTime % 60f);
             playTimeText.text = $"{minutes:0}m {seconds:0}s";
 
-            SetPawIcon(myRankNumber);
+            SetPawIcon(myRankNumber + 1);
         }
 
         private void SetRankList()
@@ -95,9 +95,10 @@ namespace TON
 
         private void SetPawIcon(int rank)
         {
-            Sprite loadedPawImage = null;
-            if (AssetManager.Singleton.LoadRankPawIcon(rank, out loadedPawImage))
+            if (AssetManager.Singleton.LoadRankPawIcon(rank, out Sprite loadedPawImage))
+            {
                 pawImage.GetComponent<Image>().sprite = loadedPawImage;
+            }
         }
 
         public void OnClickCloseButton()

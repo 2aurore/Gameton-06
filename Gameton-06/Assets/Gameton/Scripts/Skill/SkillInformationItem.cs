@@ -33,9 +33,13 @@ namespace TON
             skillReqMp.text = $"{skillData.mpConsumption}";
             skillReqLv.text = $"{skillData.requiredLevel}";
 
-            Assert.IsTrue(AssetManager.Singleton.LoadSkillIcon(skillData.id, out Sprite loadedSkillImage));
-            skillImage.SetActive(true);
-            skillImage.GetComponent<Image>().sprite = loadedSkillImage;
+            // out 으로 받을 변수 초기화
+            Sprite loadedSkillImage = null;
+            if(AssetManager.Singleton.LoadSkillIcon(skillData.id, out loadedSkillImage))
+            {
+                skillImage.SetActive(true);
+                skillImage.GetComponent<Image>().sprite = loadedSkillImage;
+            }
 
             if (playerLevel >= skillData.requiredLevel)
             {

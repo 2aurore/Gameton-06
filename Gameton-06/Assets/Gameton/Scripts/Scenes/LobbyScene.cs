@@ -7,8 +7,6 @@ namespace TON
 {
     public class LobbyScene : SceneBase
     {
-        public SerializableDictionary<string, Sprite> CharacterSpriteDict = new SerializableDictionary<string, Sprite>();
-
 
         public override IEnumerator OnStart()
         {
@@ -21,27 +19,20 @@ namespace TON
                 yield return null;
             }
 
-            UIManager.Show<LobbyUI>(UIList.LobbyUI);
-            UIManager.Show<IngameOptionUI>(UIList.IngameOptionUI);
-            // UIManager.Show<ControllerUI>(UIList.ControllerUI);
-            // PlayerSpawner.SpawnPlayerCharacter();
-        }
+            SkillDataManager.Singleton.Initalize();
 
+
+            UIManager.Show<LobbyUI>(UIList.LobbyUI);
+            UIManager.Show<OptionUI>(UIList.OptionUI);
+        }
 
 
         public override IEnumerator OnEnd()
         {
-            // TON.Player 내부의 캐릭터 삭제
-            GameObject playerObj = GameObject.Find("TON.Player");
-            if (playerObj != null)
-            {
-                foreach (Transform child in playerObj.transform)
-                {
-                    GameObject.Destroy(child.gameObject);
-                }
-            }
-
             yield return null;
+
+            UIManager.Hide<LobbyUI>(UIList.LobbyUI);
+            UIManager.Hide<OptionUI>(UIList.OptionUI);
         }
 
     }

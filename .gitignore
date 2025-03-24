@@ -79,3 +79,7 @@ crashlytics-build.properties
 /Gameton-06/[Ll]ogs/
 /Gameton-06/[Uu]ser[Ss]ettings
 
+Gameton-06/Assets/Plugins/Sirenix/Demos/Custom Attribute Processors.unitypackage.meta
+Gameton-06/Assets/Plugins/Sirenix/Demos/Custom Drawers.unitypackage.meta
+Gameton-06/Assets/Plugins/Sirenix/Demos/Editor Windows.unitypackage.meta
+Gameton-06/Assets/Plugins/Sirenix/Demos/Sample - RPG Editor.unitypackage.meta

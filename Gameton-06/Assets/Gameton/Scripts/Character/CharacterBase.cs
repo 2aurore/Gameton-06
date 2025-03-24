@@ -7,34 +7,51 @@ namespace TON
     public class CharacterBase : MonoBehaviour, IDamage
     {
 
-        [SerializeField]  //
-        private PlayerData playerData;
-        public float currentHP;
-        public float maxHP;
-        public float currentSP;
-        public float maxSP;
+        [SerializeField] private PlayerData playerData;
+        [SerializeField] private float currentHP;
+        [SerializeField] private float currentSP;
+        private float maxHP;
+        private float maxSP;
 
-        public float speed;
-        public float jumpForce = 5f;  // 점프 힘
+        [SerializeField] private float speed;
+        [SerializeField] private float jumpForce = 5f;  // 점프 힘
+        [SerializeField] private float airControl;  // 점프 힘
+
+        [SerializeField] private Transform groundCheck;  // GroundCheck 위치 설정
+        [SerializeField] private float groundCheckRadius = 0.2f;
+        [SerializeField] private LayerMask groundLayer;
+        [SerializeField] private WallChecker wallChecker;
+
+
+        [SerializeField] private int jumpLimit = 5;
+        private int jumpCount = 0;
         private bool isGrounded = true; // 플레이어가 바닥에 있는지 여부를 판단
+        private bool isAttack = false; // 플레이어가 기본 공격중인지 판단단
         private float lastDirection = 1f; // 기본적으로 오른쪽(1) 바라보는 상태
-
+        private VariableJoystick joystick;
+        private Animator animator;
 
         public Transform firePoint; // 스킬 발사 위치
         public CollisionDetector attackCollider; // 기본 공격 감지를 위한 자식 오브젝트
-
-        public Animator animator;
-
-        private VariableJoystick joystick;
         public Rigidbody2D rb;
 
+        // ingame UI의 캐릭터 stat 적용을 위한 이벤트
+        public event System.Action<float, float> OnHPChanged;
+        public event System.Action<float, float> OnSPChanged;
+
+        [SerializeField] private float mpRecoveryRate = 1f;  // MP 회복량
+        [SerializeField] private float mpRecoveryInterval = 3f;  // 회복 간격(초)
+        [SerializeField] private bool isRecovering = false;
+
+        public AudioClip _attackSound;
+        public AudioClip _deathSound;
+        public AudioClip _hitSound;
 
         public void Start()
         {
             animator = GetComponent<Animator>();
             joystick = ControllerUI.Instance.joystick;
             ControllerUI.Instance.linkedCharactor = this;
-
 
             attackCollider.EnableCollider(false); // 기본 공격 Enable 비활성화
 
@@ -43,35 +60,47 @@ namespace TON
 
         public void Initialize()
         {
-            // int playerIndex = PlayerPrefs.GetInt("SelectedPlayerIndex", 0);
-            PlayerDataManager.Singleton.SetCurrentUserData();
+            jumpCount = 0;
             playerData = PlayerDataManager.Singleton.player;
 
             currentHP = maxHP = playerData.hp;
             currentSP = maxSP = playerData.mp;
+
+            OnHPChanged?.Invoke(currentHP, maxHP);
+            OnSPChanged?.Invoke(currentSP, maxSP);
         }
 
-
-        // 경험치 추가 및 레벨업 처리
-        public void AddExp(int amount)
+        // 게임이 실행 중이지 않을 때도 항상 기즈모를 보여줍니다
+        private void OnDrawGizmos()
         {
-            bool leveledUp = PlayerDataManager.Singleton.UpdateExpericence(amount);
+            if (groundCheck == null) return;
 
-            if (leveledUp)
-            {
-                // TODO: 레벨업 시 처리할 내용 추가
-                Debug.Log($"레벨업! ");
-            }
+            // 기본 색상을 흰색으로 설정
+            Gizmos.color = Color.red;
+            // OverlapCircle의 범위를 와이어프레임 원으로 표시
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        }
 
-            // 경험치와 변경된 데이터를 파일에 업데이트 한다.
-            PlayerDataManager.Singleton.UpdatePlayerData();
+        private bool CheckIsGrounded()
+        {
+            return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         }
 
         public void FixedUpdate()
         {
+            isGrounded = CheckIsGrounded();
+
+            if (isGrounded)
+            {
+                jumpCount = 0;
+            }
+
+            // 무한 기본공격 적용되지 않도록 기본공격 모션 중에 이동 제한
+            if (isAttack)
+                return;
 
             // 키보드 입력과 조이스틱 입력 통합
-            float horizontalInput = Input.GetAxis("Horizontal"); // 키보드 좌우 입력
+            float horizontalInput = Input.GetAxis("Horizontal");
             if (joystick != null && Mathf.Abs(joystick.Horizontal) > 0.01f)
             {
                 horizontalInput = joystick.Horizontal; // 조이스틱 입력 우선
@@ -80,13 +109,42 @@ namespace TON
             // 걷는 애니메이션 적용
             animator.SetBool("IsMoving", Mathf.Abs(horizontalInput) > 0f);
 
-            // 좌우 이동 처리 (X축 속도 설정)
-            float newVelocityX = horizontalInput * speed;
+            // 측면 충돌 체크
+            if (!isGrounded && wallChecker.IsWallTouching)
+            {
+                // 벽을 밀고 있을 때는 수평 이동 제한
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+            else
+            {
+                // 기본 이동 속도 계산
+                float newVelocityX = horizontalInput * speed;
 
-            // Rigidbody2D의 속도 업데이트 (X축은 입력값 기반, Y축은 중력/점프 유지)
-            rb.velocity = new Vector2(newVelocityX, rb.velocity.y);
+                // 경사로 감지
+                bool isOnSlope = false;
+                Vector2 rayOrigin = rb.position;
+                RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, 1.1f);
 
-            // 방향을 변경하는 로직 (0이 아닐 때만 방향 업데이트)
+
+                float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
+                if (slopeAngle > 0 && slopeAngle <= 45f)
+                {
+                    isOnSlope = true;
+                    // 경사면 방향 벡터 계산
+                    Vector2 slopeDirection = new Vector2(hit.normal.y, -hit.normal.x);
+                    rb.velocity = slopeDirection * (newVelocityX / Mathf.Cos(slopeAngle * Mathf.Deg2Rad));
+                }
+
+                // 경사가 아닐 경우 일반 이동 적용
+                if (!isOnSlope)
+                {
+                    rb.velocity = new Vector2(newVelocityX, rb.velocity.y);
+                }
+
+            }
+
+
+            // 방향 전환
             if (horizontalInput != 0)
             {
                 Turn(horizontalInput);
@@ -111,30 +169,25 @@ namespace TON
         public void Jump()
         {
             // 바닥에 있을 때만 점프 가능
-            if (isGrounded)
+            if (jumpCount < jumpLimit)
             {
                 // 점프: 기존 X축 속도 유지, Y축 속도를 점프 힘으로 설정
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-
-                // 점프 상태로 설정
-                isGrounded = false;
-            }
-        }
-
-        // 바닥 충돌 감지 (2D Physics)
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            // Ground 태그가 붙은 오브젝트와 충돌 시 바닥 상태로 전환
-            if (collision.gameObject.CompareTag("Ground"))
-            {
-                isGrounded = true;
+                jumpCount++;
             }
         }
 
         public void Attack()
         {
+            // 이미 기본 공격중인 경우 공격 제한
+            if (isAttack)
+                return;
+
+            isAttack = true;
             // 공격 애니메이션 적용
             animator.Play("Default Attack");
+
+            SoundManager.instance.SFXPlay("Attack", _attackSound);
 
             // 공격 범위 Collider 활성화
             attackCollider.EnableCollider(true);
@@ -145,20 +198,93 @@ namespace TON
 
         private void DisableAttackCollider()
         {
+            isAttack = false;
             attackCollider.EnableCollider(false);
         }
 
-        public void SkillAttack(string skillId)
+
+        // MP 회복 코루틴
+        private IEnumerator RecoverSP()
         {
-            // 스킬 매니저에서 스킬을 쏠 수 있는지 여부를 판단 
+            isRecovering = true;
+
+            while (currentSP < maxSP)
+            {
+                yield return new WaitForSeconds(mpRecoveryInterval);
+
+                if (currentSP < maxSP)
+                {
+                    currentSP = Mathf.Min(maxSP, currentSP + mpRecoveryRate);
+                    OnSPChanged?.Invoke(currentSP, maxSP);
+                }
+            }
+
+            isRecovering = false;
+        }
+
+        public void UsePotion(string type, System.Action<bool> callback)
+        {
+
+            if (type.Equals("HP") && currentHP == maxHP)
+            {
+                callback?.Invoke(false);
+                return;
+            }
+            if (type.Equals("MP") && currentSP == maxSP)
+            {
+                callback?.Invoke(false);
+                return;
+            }
+
+            switch (type)
+            {
+                case "HP":
+                    if (currentHP < maxHP)  // currentHP가 maxHP보다 작을 때만 실행
+                    {
+                        currentHP = Mathf.Min(currentHP + (maxHP * 0.2f), maxHP); // maxHP를 초과하지 않도록 보정
+                        OnHPChanged?.Invoke(currentHP, maxHP);
+                    }
+                    break;
+                case "MP":
+                    if (currentSP < maxSP)  // currentSP가 maxSP보다 작을 때만 실행
+                    {
+                        currentSP = Mathf.Min(currentSP + (maxSP * 0.2f), maxSP); // maxSP를를 초과하지 않도록 보정
+                        OnSPChanged?.Invoke(currentSP, maxSP);
+                    }
+                    break;
+            }
+
+            callback?.Invoke(true);
+        }
+
+        public void SkillAttack(SkillBase skillBase)
+        {
+            if (skillBase == null) return;
+
+            string skillId = skillBase.SkillData.id;
+
+            // 스킬을 사용할 수 있는 스킬포인트가 있는지 판단
+            if (currentSP < skillBase.SkillData.mpConsumption) return;
+
+            // 스킬 매니저에서 스킬을 쏠 수 있는지 여부를 판단
             bool canExecute = SkillDataManager.Singleton.CanExecuteSkill(skillId);
             if (canExecute)
             {
+                // 스킬을 쓸 수 있는 상태 - 쿨타임이 돌지 않을때만 마나 소모
+                currentSP -= skillBase.SkillData.mpConsumption;
+                OnSPChanged?.Invoke(currentSP, maxSP);
+
                 // 스킬 애니메이터 실행
                 animator.Play("Skill Attack");
 
-                // 스킬 매니저에 스킬 발사 요청 
+                // 스킬 매니저에 스킬 발사 요청
                 SkillDataManager.Singleton.ExecuteSkill(skillId, firePoint, lastDirection);
+
+                // RecoverSP 가 이미 진행중인 경우 이중으로 코루틴을 실행하지 않도록 함
+                if (!isRecovering)
+                {
+                    StartCoroutine(RecoverSP());
+                }
             }
         }
 
@@ -169,10 +295,15 @@ namespace TON
             currentHP -= damage;
             currentHP = Mathf.Clamp(currentHP, 0, maxHP);
 
+            OnHPChanged?.Invoke(currentHP, maxHP);
+
+            SoundManager.instance.SFXPlay("Hit", _hitSound);
+
             // 체력이 0 아래로 떨어지고 현 상태가 IsAlive 일때만 동작하도록 함
             if (currentHP <= 0f && prevHP > 0)
             {
-                animator.SetTrigger("Dead Trigger");
+                Dead();
+                SoundManager.instance.SFXPlay("Death", _deathSound);
             }
 
             // 체력이 0 보다 클때만 피격 모션 실행
@@ -187,8 +318,15 @@ namespace TON
 
         public void Dead()
         {
-            gameObject.SetActive(false);
+            animator.SetTrigger("Dead Trigger");
+        }
 
+        // 플레이어 사망 애니메이션 종료 후 호출
+        public void DestroyDead()
+        {
+            PlayerDataManager.Singleton.PlayerDeadEvent();
+
+            gameObject.SetActive(false);
         }
     }
 }

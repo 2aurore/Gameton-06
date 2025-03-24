@@ -6,38 +6,38 @@ namespace TON
 {
     public class TitleUI : UIBase
     {
-        public CharaterSelectUI charaterSelectUI;
 
         public void OnClickStartButton()
         {
-            // Main.Singleton?.ChangeScene(SceneType.Ingame);
-            UIManager.Hide<TitleUI>(UIList.TitleUI);
+            StartCoroutine(StartButtonDelay());
+        }
+
+        IEnumerator StartButtonDelay()
+        {
+            yield return new WaitForSeconds(0.2f); // 0.2초 대기
 
             // 플레이어가 가지고 있는 캐릭터들의 데이터 불러옴
-            List<PlayerData> players = PlayerDataManager.Singleton.playersData;
+            PlayerData player = PlayerDataManager.Singleton.player;
 
-            if (players.Count == 0)
+            if (player == null)
             {
-                // 현재 가지고 있는 캐릭터가 없다면 CharaterCreateUI 를 보여주고
+                // 현재 가지고 있는 캐릭터가 없다면 캐릭터 생성 화면으로 이동
                 UIManager.Show<CharaterCreateUI>(UIList.CharaterCreateUI);
             }
             else
             {
-                // 캐릭터가 있다면 내 캐릭터 목록에서 선택할 수 있도록 함
-                // UIManager.Show<CharaterSelectUI>(UIList.CharaterSelectUI);
-
-                // select 요소는 나중에 인게임 화면으로 바로 전환
-                PlayerPrefs.SetInt("SelectedPlayerIndex", 0);
-                PlayerDataManager.Singleton.SetCurrentUserData();
-                HeartDataManager.Singleton.SetCurrentUserHeart();
-                Main.Singleton?.ChangeScene(SceneType.Lobby);
+                HeartDataManager.Singleton.Initalize(() =>
+                {
+                    Main.Singleton.ChangeScene(SceneType.Lobby);
+                });
             }
-        }
 
+            UIManager.Hide<TitleUI>(UIList.TitleUI);
+        }
 
         public void OnClickExitButton()
         {
-            Main.Singleton?.SystemQuit();
+            Main.Singleton.SystemQuit();
         }
     }
 }

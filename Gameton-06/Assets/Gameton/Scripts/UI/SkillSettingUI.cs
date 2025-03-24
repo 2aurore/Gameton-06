@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -12,10 +10,12 @@ namespace TON
     {
         public static SkillSettingUI Instance => UIManager.Singleton.GetUI<SkillSettingUI>(UIList.SkillSettingUI);
 
+        // 사용할 스킬 슬롯 3개 매핑을 위한 변수
         public Transform skillSlotGroup;
-        public SkillSettingUI_SkillSlot skillSlotPrefab;
-        public List<SkillSettingUI_SkillSlot> createSkillSlots = new List<SkillSettingUI_SkillSlot>();
+        public SkillSettingSlot skillSlotPrefab;
+        public List<SkillSettingSlot> createSkillSlots = new List<SkillSettingSlot>();
 
+        // 전체 스킬 리스트를 스크롤 형식으로 구현하기 위함
         public ScrollRect scrollRect;
         public SkillInformationItem skillInfoPrefab;
         public List<RectTransform> uiPrefabList = new List<RectTransform>();
@@ -50,7 +50,7 @@ namespace TON
 
         private void SetSkillSlots()
         {
-            // 이미 기존에 UI가 생성되어 있다면 삭제
+            // 기존 UI 삭제
             if (createSkillSlots.Count > 0)
             {
                 foreach (var button in createSkillSlots)
@@ -60,23 +60,35 @@ namespace TON
                 createSkillSlots.Clear();
             }
 
-            // 스킬 버튼을 생성
+            // 스킬 버튼 생성
             List<SkillBase> activatedSkills = SkillDataManager.Singleton.GetEquippedSkills();
             int maxEquipSkillCount = SkillDataManager.Singleton.GetActiveSkillCount();
+
+            // 슬롯 번호에 맞게 스킬을 매핑
+            Dictionary<int, SkillBase> skillMap = new Dictionary<int, SkillBase>();
+            foreach (var skill in activatedSkills)
+            {
+                if (skill != null)
+                {
+                    skillMap[skill.SkillData.slotNumber - 1] = skill;
+                }
+            }
+
             for (int i = 0; i < 3; i++)
             {
-                SkillSettingUI_SkillSlot newSkillSlot = Instantiate(skillSlotPrefab, skillSlotGroup);
+                SkillSettingSlot newSkillSlot = Instantiate(skillSlotPrefab, skillSlotGroup);
                 newSkillSlot.gameObject.SetActive(true);
 
-                if (i < activatedSkills.Count) // 해당 인덱스에 활성화된 스킬이 있을 경우
+                if (skillMap.TryGetValue(i, out SkillBase skill))
                 {
-                    newSkillSlot.Initalize(activatedSkills[i].SkillData.id, i);
+                    // 해당 슬롯에 스킬이 있으면 초기화
+                    newSkillSlot.Initalize(skill.SkillData.id, i);
                 }
                 else
                 {
-                    if (i == maxEquipSkillCount - 1)
+                    if (i < maxEquipSkillCount)
                     {
-                        // 만약 스킬을 배치할 수 있는 슬롯이지만 지정된 스킬이 없다면
+                        // 스킬을 배치할 수 있는 슬롯이지만 스킬이 없으면 비활성 슬롯으로 표시
                         newSkillSlot.Initalize(null, i);
                     }
                     else
@@ -84,6 +96,7 @@ namespace TON
                         newSkillSlot.GetComponent<Button>().interactable = false;
                     }
                 }
+
                 createSkillSlots.Add(newSkillSlot);
             }
         }
@@ -134,7 +147,7 @@ namespace TON
         public void OnClickSkillSlot()
         {
             GameObject selectedSlotGameObject = EventSystem.current.currentSelectedGameObject;
-            SkillSettingUI_SkillSlot selectedSlot = selectedSlotGameObject.GetComponent<SkillSettingUI_SkillSlot>();
+            SkillSettingSlot selectedSlot = selectedSlotGameObject.GetComponent<SkillSettingSlot>();
 
             selectedSlotIndex = selectedSlot.SelectedSlot();
             for (int i = 0; i < 3; i++)
@@ -164,17 +177,19 @@ namespace TON
         public void OnClickSettingButton()
         {
             // 스킬 데이터 업데이트 할때 selectedSlotIndex +1 해서 넘겨줘야함
-            SkillDataManager.Singleton.UpdateSkillData(selectedSkillId, selectedSlotIndex + 1);
+            SkillDataManager.Singleton.UpdateSkillData(selectedSkillId, selectedSlotIndex + 1, () =>
+            {
+                // 스킬 업데이트 후 UI 갱신
+                var unselectedSkill = createSkillInfo.Find(skill => skill.skillId == selectedSkillId);
+                unselectedSkill?.UnselectedSkillInfo();
+                createSkillSlots[selectedSlotIndex].UnselectedSlot();
 
-            // 스킬 업데이트 후 UI 갱신
-            var unselectedSkill = createSkillInfo.Find(skill => skill.skillId == selectedSkillId);
-            unselectedSkill?.UnselectedSkillInfo();
-            createSkillSlots[selectedSlotIndex].UnselectedSlot();
+                selectedSkillId = null;
+                selectedSlotIndex = -1;
 
-            selectedSkillId = null;
-            selectedSlotIndex = -1;
+                RefreshUI();
+            });
 
-            RefreshUI();
         }
 
         private void RefreshUI()
@@ -185,6 +200,13 @@ namespace TON
 
         public void OnClickCloseButton()
         {
+            StartCoroutine(CloseButtonDelay());
+        }
+
+        IEnumerator CloseButtonDelay()
+        {
+            yield return new WaitForSeconds(0.2f); // 0.2초 대기
+
             UIManager.Hide<SkillSettingUI>(UIList.SkillSettingUI);
         }
     }

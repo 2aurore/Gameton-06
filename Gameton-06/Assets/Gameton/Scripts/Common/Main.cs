@@ -11,8 +11,10 @@ namespace TON
         None,
         Empty,
         Title,
-        Ingame,
+        Intro,
         Lobby,
+        Stage,
+        Shop,
     }
 
     public class Main : SingletonBase<Main>
@@ -24,8 +26,8 @@ namespace TON
             if (isIniaialized)
                 return;
             // 게임에 필요한 필수 시스템 초기화
+            BackendManager.Singleton.Initalize();
             UIManager.Singleton.Initalize();
-            // TODO : GameDataModel.Singleton.Initalize();
 
             isIniaialized = true;
         }
@@ -47,13 +49,13 @@ namespace TON
 
         bool isSceneChangeProgress = false;
         SceneBase currentSceneController = null;
-        SceneType currentSceneType = SceneType.None;
+        public SceneType currentSceneType = SceneType.None;
         public void ChangeScene(SceneType sceneType, System.Action onSceneChangeCompletedCallback = null)
         {
             if (isSceneChangeProgress)
                 return;
 
-            if (currentSceneType == sceneType)
+            if (currentSceneType == sceneType && currentSceneType != SceneType.Stage)
                 return;
 
             currentSceneType = sceneType;
@@ -62,11 +64,17 @@ namespace TON
                 case SceneType.Title:
                     StartCoroutine(ChangeScene<TitleScene>(onSceneChangeCompletedCallback));
                     break;
-                case SceneType.Ingame:
-                    StartCoroutine(ChangeScene<IngameScene>(onSceneChangeCompletedCallback));
+                case SceneType.Intro:
+                    StartCoroutine(ChangeScene<IntroScene>(onSceneChangeCompletedCallback));
                     break;
                 case SceneType.Lobby:
                     StartCoroutine(ChangeScene<LobbyScene>(onSceneChangeCompletedCallback));
+                    break;
+                case SceneType.Shop:
+                    StartCoroutine(ChangeScene<ShopScene>(onSceneChangeCompletedCallback));
+                    break;
+                case SceneType.Stage:
+                    StartCoroutine(ChangeScene<StageScene>(onSceneChangeCompletedCallback));
                     break;
             }
         }
@@ -74,7 +82,6 @@ namespace TON
         private IEnumerator ChangeScene<T>(System.Action onSceneChangeCompletedCallback = null) where T : SceneBase
         {
             UIManager.Show<LoadingUI>(UIList.LoadingUI);
-            yield return new WaitForSeconds(3f);
 
             isSceneChangeProgress = true;
 

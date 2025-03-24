@@ -64,29 +64,6 @@ namespace TON
             }
         }
 
-        /// <summary> 특정 데이터를 JSON 형식으로 저장하는 함수 </summary>
-        public static void SaveToFile<T>(T data, string fileName)
-        {
-            string path = $"Assets/Gameton/Resources/{DATA_PATH}{fileName}.json";
-            string json;
-
-            // [리스트] 형식인지 확인
-            if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(List<>))
-            {
-                // 리스트 데이터를 감싸는 래퍼 클래스를 사용하여 JSON 변환
-                Wrapper<T> wrapper = new Wrapper<T> { items = data };
-                json = JsonUtility.ToJson(wrapper, true);
-            }
-            else
-            {
-                // 일반 객체는 그대로 JSON 변환
-                json = JsonUtility.ToJson(data, true);
-            }
-
-            File.WriteAllText(path, json);
-            Debug.Log($"파일 저장 성공 ::: {fileName}.json");
-        }
-
         /// <summary> Application.persistentDataPath 내의 파일 경로 생성성 </summary>
         private static string GetPersistentPath(string fileName)
         {
@@ -121,7 +98,8 @@ namespace TON
             }
             else
             {
-                Debug.LogError($"❌ Resources에서 JSON 파일을 찾을 s수 없음: {path}");
+                Debug.LogError($"❌ Resources에서 JSON 파일을 찾을 수 없음: {path}");
+                File.WriteAllText(persistentPath, "[]");
             }
         }
 
@@ -131,7 +109,7 @@ namespace TON
         public static T LoadJsonFromPersistentData<T>(string fileName)
         {
             string path = GetPersistentPath(fileName);
-            Debug.Log($"LoadJsonFromPersistentData : {path}");
+            // Debug.Log($"LoadJsonFromPersistentData : {path}");
 
             if (!File.Exists(path))
             {
@@ -178,8 +156,6 @@ namespace TON
                 {
                     json = JsonUtility.ToJson(updatedData, true);
                 }
-
-                Debug.Log($"SaveUpdatedJsonToPersistentData : {json}");
 
                 // 파일 저장
                 File.WriteAllText(path, json);

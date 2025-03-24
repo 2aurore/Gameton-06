@@ -33,6 +33,13 @@ namespace TON
             return targetUI;
         }
 
+        // 상점 및 기타 화면에서 재화 데이터 업데이트 시 매니저를 통해 호출
+        public void UpdateCashData()
+        {
+            var targetUI = Singleton.GetUI<OptionUI>(UIList.OptionUI);
+            targetUI.SetCashAmount();
+        }
+
         private Dictionary<UIList, UIBase> panels = new Dictionary<UIList, UIBase>();
         private Dictionary<UIList, UIBase> popups = new Dictionary<UIList, UIBase>();
 

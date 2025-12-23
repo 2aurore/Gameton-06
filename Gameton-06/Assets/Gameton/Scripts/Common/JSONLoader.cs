@@ -40,7 +40,7 @@ namespace TON
             {
                 string jsonText = jsonFile.text;
 
-                // 🎯 [배열] JSON인지 확인 (배열이면 직접 변환)
+                // JSON인지 확인 (배열이면 직접 변환)
                 if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(List<>))
                 {
                     if (jsonText.StartsWith("["))
@@ -80,25 +80,25 @@ namespace TON
 
             string persistentPath = GetPersistentPath(fileName);
 
-            // 📌 Step 1: persistentDataPath에 파일이 있는지 체크
+            // persistentDataPath에 파일이 있는지 체크
             // Android에서는 파일이 이미 존재하면 덮어쓰지 않도록 함
             if (File.Exists(persistentPath))
             {
                 Debug.Log($"⚠ {fileName}.json 파일이 이미 존재합니다. 덮어쓰지 않습니다. ({persistentPath})");
                 return;
             }
-            // 📌 Step 2: Resources에서 JSON 불러오기
+            // Resources에서 JSON 불러오기
             string path = DATA_PATH + fileName; // Resources 폴더 내 경로
             TextAsset jsonFile = Resources.Load<TextAsset>(path);
 
             if (jsonFile != null)
             {
                 File.WriteAllText(persistentPath, jsonFile.text);
-                Debug.Log($"✅ JSON 저장 완료: {persistentPath}");
+                Debug.Log($"JSON 저장 완료: {persistentPath}");
             }
             else
             {
-                Debug.LogError($"❌ Resources에서 JSON 파일을 찾을 수 없음: {path}");
+                Debug.LogError($"Resources에서 JSON 파일을 찾을 수 없음: {path}");
                 File.WriteAllText(persistentPath, "[]");
             }
         }
@@ -113,12 +113,12 @@ namespace TON
 
             if (!File.Exists(path))
             {
-                Debug.LogError($"⚠ 파일을 찾을 수 없습니다: {path}");
+                Debug.LogError($"파일을 찾을 수 없습니다: {path}");
                 return default;
             }
 
             string jsonText = File.ReadAllText(path);
-            Debug.Log($"📂 JSON 로드: {jsonText}");
+            Debug.Log($"JSON 로드: {jsonText}");
 
             // 리스트(JSON 배열)인지 확인
             if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(List<>))
@@ -159,13 +159,13 @@ namespace TON
 
                 // 파일 저장
                 File.WriteAllText(path, json);
-                Debug.Log($"✅ JSON 데이터 업데이트 완료: {path}");
+                Debug.Log($"JSON 데이터 업데이트 완료: {path}");
 
                 return true; // 저장 성공
             }
             catch (Exception ex)
             {
-                Debug.LogError($"❌ JSON 저장 실패: {ex.Message}");
+                Debug.LogError($"JSON 저장 실패: {ex.Message}");
                 return false; // 저장 실패
             }
         }
